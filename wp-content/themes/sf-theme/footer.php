@@ -66,14 +66,14 @@
                     <!-- Start Footer Widget Item -->
                     <div class="col-sm-3 col-lg-3">
                         <div class="footer-widget-item-wrap">
-                            <h3 class="widget-title">Напишите мне</h3>
+                            <!-- <h3 class="widget-title">Напишите мне</h3>
                             <div class="widget-body">
                                 <div class="contact-text">
                                     <a href="#">(+1) 234 56 78</a>
                                     <a href="#">me@misha.blog</a>
                                     <p>Санкт-Петербург, Невский пр.</p>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                     <!-- End Footer Widget Item -->
