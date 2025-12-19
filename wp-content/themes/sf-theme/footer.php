@@ -86,25 +86,7 @@
     <!-- Start Footer Bottom Area -->
     <div class="footer-bottom-wrapper">
         <div class="container">
-            <div class="row">
-                <div class="col-sm-3 col-lg-3 m-auto order-1">
-                    <div class="footer-social-icons nav justify-content-center justify-content-sm-start mb-xs-10">
-                        <a href="#" target="_blank"><i class="fa fa-facebook"></i></a>
-                        <a href="#" target="_blank"><i class="fa fa-twitter"></i></a>
-                        <a href="#" target="_blank"><i class="fa fa-pinterest-p"></i></a>
-                    </div>
-                </div>
 
-                <div class="col-sm-5 col-lg-6 m-auto order-3 order-sm-2 text-center text-sm-left text-lg-center">
-                    <div class="copyright-text mt-xs-10 ">
-                        <p>&copy; 2020 Курс WooCommerce от Миши Рудрастых.</p>
-                    </div>
-                </div>
-
-                <div class="col-sm-4 col-lg-3 m-auto order-2 text-center text-md-right">
-                    <img src="<?php echo get_stylesheet_directory_uri() ?>/assets/img/payments.png" alt="Payment Method" />
-                </div>
-            </div>
         </div>
     </div>
     <!-- End Footer Bottom Area -->
