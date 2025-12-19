@@ -205,4 +205,19 @@
                     <?php endif; ?>
                 </div>
             </div>
+
+            <div class="mobile-nav">
+                <div class="container">
+                    <nav id="site-navigation" class="main-navigation">
+                        <?php wp_nav_menu([
+                            'container' => false,
+                            'theme_location'  => 'main_menu',
+                            //'walker' => new My_Custom_Walker_Nav_Menu,
+                            //'depth'           => 2,
+                        ]); ?>
+
+                    </nav><!-- #site-navigation -->
+                </div>
+
+            </div>
         </header><!-- #masthead -->

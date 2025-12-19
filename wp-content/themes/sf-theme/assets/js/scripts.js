@@ -376,4 +376,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
 	// });
 
+	// === Мобильное меню ===
+	const body = document.body;
+	const menu = document.querySelector(".mobile-nav");
+	const burger = document.querySelector(".menu-toggle");
+	document.addEventListener("click", function (e) {
+		if (burger && e.target.closest(".menu-toggle")) {
+			e.stopPropagation();
+			burger.classList.toggle("active");
+			if (menu) menu.classList.toggle("active");
+			body.classList.toggle("_fixed");
+			return;
+		}
+		if (menu && e.target.closest(".mobile-menu .main-navigation a")) {
+			if (burger) burger.classList.remove("active");
+			menu.classList.remove("active");
+			body.classList.remove("_fixed");
+			return;
+		}
+		if (menu && !e.target.closest(".mobile-menu") && burger) {
+			burger.classList.remove("active");
+			menu.classList.remove("active");
+			body.classList.remove("_fixed");
+		}
+	});
+
 });
