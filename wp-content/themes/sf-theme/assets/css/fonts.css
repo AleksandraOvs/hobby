@@ -1,0 +1,80 @@
+@font-face {
+    font-family: "Raleway";
+    font-weight: 300;
+    src: local("Raleway"),
+        url(../fonts/Raleway-Light.woff2) format("woff2"),
+        url(../fonts/Raleway-Light.woff) format("woff"),
+        url(../fonts/Raleway-Light.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 400;
+    src: local("Raleway"),
+        url(../fonts/Raleway-Regular.woff2) format("woff2"),
+        url(../fonts/Raleway-Regular.woff) format("woff"),
+        url(../fonts/Raleway-Regular.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 500;
+    src: local("Raleway"),
+        url(../fonts/Raleway-Medium.woff2) format("woff2"),
+        url(../fonts/Raleway-Medium.woff) format("woff"),
+        url(../fonts/Raleway-Medium.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Raleway";
+    font-weight: 700;
+    src: local("Raleway"),
+        url(../fonts/Raleway-Bold.woff2) format("woff2"),
+        url(../fonts/Raleway-Bold.woff) format("woff"),
+        url(../fonts/Raleway-Bold.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-weight: 300;
+    src: local("Avenir"),
+        url(../fonts/avenir-light.woff2) format("woff2"),
+        url(../fonts/avenir-light.woff) format("woff"),
+        url(../fonts/avenir-light.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-weight: 400;
+    src: local("Avenir"),
+        url(../fonts/avenir-regular.woff2) format("woff2"),
+        url(../fonts/avenir-regular.woff) format("woff"),
+        url(../fonts/avenir-regular.ttf) format("truetype");
+    font-display: swap;
+}
+
+
+@font-face {
+    font-family: "Avenir";
+    font-weight: 500;
+    src: local("Avenir"),
+        url(../fonts/avenir-medium.woff2) format("woff2"),
+        url(../fonts/avenir-medium.woff) format("woff"),
+        url(../fonts/avenir-medium.ttf) format("truetype");
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Avenir";
+    font-weight: 600;
+    src: local("Avenir"),
+        url(../fonts/avenir-demi.woff2) format("woff2"),
+        url(../fonts/avenir-demi.woff) format("woff"),
+        url(../fonts/avenir-demi.ttf) format("truetype");
+    font-display: swap;
+}

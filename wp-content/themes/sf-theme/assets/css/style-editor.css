@@ -1,0 +1,336 @@
+.container {
+    max-width: 1400px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   ГЛОБАЛЬНЫЕ CSS-ПЕРЕМЕННЫЕ ДЛЯ РЕДАКТОРА
+   (Загружаются из customizer.php через admin_head)
+   ========================================================================== */
+
+
+
+
+/* ==========================================================================
+   БАЗОВЫЕ СТИЛИ ДЛЯ GUTENBERG
+   ========================================================================== */
+
+body.block-editor-page,
+.editor-styles-wrapper {
+    background: #fff;
+    color: var(--theme-color-primary) !important;
+    font-family: var(--wp--preset--font-family--system, sans-serif);
+}
+
+/* Абзацы */
+.editor-styles-wrapper p {
+    margin-bottom: 1.3em;
+    line-height: 1.6;
+}
+
+/* Заголовки */
+.editor-styles-wrapper h1,
+.editor-styles-wrapper h2,
+.editor-styles-wrapper h3,
+.editor-styles-wrapper h4,
+.editor-styles-wrapper h5,
+.editor-styles-wrapper h6 {
+    color: var(--theme-color-accent);
+    font-weight: 700;
+    margin-top: 1.4em;
+    margin-bottom: 0.7em;
+    line-height: 1.25;
+}
+
+.editor-styles-wrapper h2 {
+    font-size: 2em;
+}
+
+/* Ссылки */
+.editor-styles-wrapper a {
+    color: var(--theme-color-accent);
+    text-decoration: underline;
+}
+
+.editor-styles-wrapper a:hover {
+    text-decoration: none;
+}
+
+/* ==========================================================================
+   КНОПКИ
+   ========================================================================== */
+
+.wp-block-button__link {
+    background-color: var(--theme-color-accent);
+    color: #fff;
+    padding: 0.6em 1.2em;
+    border-radius: 4px;
+}
+
+.wp-block-button__link:hover {
+    background-color: var(--wp--preset--color-secondary);
+}
+
+/* Вариант "outline" */
+.wp-block-button.is-style-outline .wp-block-button__link {
+    background: transparent;
+    border: 2px solid var(--wp--preset---color-primary);
+    color: var(--wp--preset---color-primary);
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link:hover {
+    border-color: var(--wp--preset--color-secondary);
+    color: var(--wp--preset--color-secondary);
+}
+
+.wp-block-button__link {
+    background: var(--theme-color-accent);
+    color: var(--theme-color-primary);
+}
+
+/* ==========================================================================
+   ЦИТАТЫ
+   ========================================================================== */
+
+.wp-block-quote {
+    border-left: 4px solid var(--wp--preset--color-primary);
+    padding-left: 1em;
+    color: var(--wp--preset--color-secondary);
+}
+
+.wp-block-quote cite {
+    color: var(--wp--preset--color-accent);
+    font-style: normal;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   ЛИСТЫ
+   ========================================================================== */
+
+.editor-styles-wrapper ul li::marker {
+    color: var(--wp--preset--color-accent);
+}
+
+.editor-styles-wrapper ol li::marker {
+    color: var(--wp--preset--color-primary);
+}
+
+/* ==========================================================================
+   ТАБЛИЦЫ
+   ========================================================================== */
+
+.wp-block-table td,
+.wp-block-table th {
+    border-color: var(--wp--preset--color-secondary);
+}
+
+.wp-block-table.is-style-stripes tbody tr:nth-child(odd) {
+    background: rgba(0, 0, 0, 0.04);
+}
+
+/* ==========================================================================
+   ПОЛЯ, ФОРМЫ
+   ========================================================================== */
+
+.editor-styles-wrapper input,
+.editor-styles-wrapper textarea {
+    border: 1px solid var(--wp--preset--color-secondary);
+    padding: 6px 8px;
+    border-radius: 4px;
+}
+
+.editor-styles-wrapper input:focus,
+.editor-styles-wrapper textarea:focus {
+    border-color: var(--wp--preset--color-primary);
+    box-shadow: 0 0 0 1px var(--wp--preset--color-primary);
+}
+
+/* ==========================================================================
+   СПЕЦИАЛЬНО ДЛЯ БЛОКА Cover
+   ========================================================================== */
+
+.wp-block-cover__inner-container {
+    color: var(--wp--preset--color-background);
+}
+
+/* ==========================================================================
+   СПЕЦИАЛЬНО ДЛЯ БЛОКА Separator
+   ========================================================================== */
+
+.wp-block-separator {
+    border-color: var(--wp--preset--color-secondary);
+    opacity: 1;
+}
+
+/* ==========================================================================
+   КОД / PRE
+   ========================================================================== */
+
+.wp-block-code,
+.wp-block-preformatted {
+    background: #f0f0f0;
+    padding: 1em;
+    border-radius: 4px;
+}
+
+
+.block-editor-iframe__body.editor-styles-wrapper {
+    padding: 0 20px;
+}
+
+.block-editor-block-list__block.wp-block.wp-block-columns {
+    border: 5px solid rgba(202, 202, 202, .4);
+}
+
+.block-editor-block-list__layout .block-editor-block-list__block {
+    border: 2px dotted rgba(0, 0, 0, .4);
+}
+
+.block-editor-block-list__layout.block-editor-block-list__block.is-selected {
+    border: 2px solid var(--wp--preset--color-accent);
+}
+
+.wp-block-cover.container {
+    border-radius: 16px;
+}
+
+button {
+    position: relative;
+    overflow: hidden;
+    color: var(--wp--preset--color-primary);
+    background: var(--wp--preset--color--accent);
+    display: block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    min-width: max-content;
+    transition: all .5s linear;
+}
+
+.bradius16 {
+    border-radius: 16px;
+    overflow: hidden;
+}
+
+.bradius8 {
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.wp-block.three-pics__column figure {
+    min-height: 100%;
+}
+
+.wp-block.three-pics__column figure div {
+    min-height: 100%;
+    width: 100%;
+}
+
+.wp-block.three-pics__column figure div img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.three-pics__column.vertical figure {
+    min-height: calc(100% / 2);
+}
+
+.three-pics__column {
+    position: relative;
+}
+
+.three-pics__column .wp-block-heading {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 20px 10px;
+    font-size: 30px;
+    font-weight: 400;
+}
+
+.wp-block-column.three-pics__column .wp-block-cover {
+    height: 100%;
+    width: 100%;
+}
+
+.three-pics__column.vertical .wp-block-cover {
+    max-height: 50%;
+}
+
+/*SLIDERS*/
+
+.wp-block.slider-four.swiper .swiper-wrapper {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.swiper.wp-block-columns {
+    display: flex;
+    flex-direction: column;
+}
+
+/* .wp-block-columns.slider-four .swiper-wrapper {
+    min-height: 380px;
+} */
+
+.simple-slider__slide {
+    position: relative;
+}
+
+.simple-slider__slide figure {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.simple-slider__slide figure img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.simple-slider__slide__content {}
+
+.swiper-slide.wp-block {
+    padding: 10px;
+    background: rgba(0, 0, 0, .1);
+}
+
+.wp-block-group.simple-slider__slide__content {
+    position: absolute;
+    z-index: 3;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    -moz-backdrop-filter: blur(20px);
+    -o-backdrop-filter: blur(20px);
+}
+
+/*DESCRIPTIONS SLIDER*/
+.wp-block-column.description-content {
+    border-radius: 8px;
+    background: rgba(255, 255, 255, .5);
+    padding: 1em;
+    background: rgba(255, 255, 255, .55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    -moz-backdrop-filter: blur(20px);
+    -o-backdrop-filter: blur(20px);
+}
+
+.wp-block-table.custom-table table tbody tr td {
+    border: none;
+    border-bottom: 1px solid #d4d4d4;
+    padding: 20px;
+}
