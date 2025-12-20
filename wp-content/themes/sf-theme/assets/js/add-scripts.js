@@ -201,10 +201,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const container = document.querySelector('.mobile-menu__container');
     if (!container) return;
 
-    const menu = container.querySelector('.mobile-menu');
+    const mobMenu = container.querySelector('.mobile-menu');
     const inner = container.querySelector('.mobile-menu__inner');
 
-    const anchorLinks = menu.querySelectorAll('a[href^="#"]');
+    const anchorLinks = mobMenu.querySelectorAll('a[href^="#"]');
     const items = inner.querySelectorAll('.mm-item');
     const closeBtn = inner.querySelector('.mobile-menu__close');
 
@@ -256,4 +256,30 @@ document.addEventListener('DOMContentLoaded', () => {
             closeAll();
         }
     });
+
+    // === Мобильное меню ===
+    const body = document.body;
+    const menu = document.querySelector(".mobile-nav");
+    const burger = document.querySelector(".menu-toggle");
+    document.addEventListener("click", function (e) {
+        if (burger && e.target.closest(".menu-toggle")) {
+            e.stopPropagation();
+            burger.classList.toggle("active");
+            if (menu) menu.classList.toggle("active");
+            body.classList.toggle("_fixed");
+            return;
+        }
+        if (menu && e.target.closest(".mobile-menu .main-navigation a")) {
+            if (burger) burger.classList.remove("active");
+            menu.classList.remove("active");
+            body.classList.remove("_fixed");
+            return;
+        }
+        if (menu && !e.target.closest(".mobile-menu") && burger) {
+            burger.classList.remove("active");
+            menu.classList.remove("active");
+            body.classList.remove("_fixed");
+        }
+    });
+
 });
