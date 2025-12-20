@@ -21,6 +21,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_script('bootstrap', get_stylesheet_directory_uri() . '/assets/js/bootstrap.min.js', 'jquery', null, true);
 	wp_enqueue_script('plugins', get_stylesheet_directory_uri() . '/assets/js/plugins.js', 'jquery', null, true);
 	wp_enqueue_script('scripts', get_stylesheet_directory_uri() . '/assets/js/scripts.js', array(), time(), true);
+	wp_enqueue_script('add_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts.js', array(), time(), true);
 
 	// Стили
 	wp_enqueue_style(
@@ -291,6 +292,64 @@ register_sidebar(array(
 	'before_title'  => '',
 	'after_title'   => '',
 ));
+
+
+function render_product_categories_menu($parent_id = 0, $level = 0)
+{
+
+	$terms = get_terms([
+		'taxonomy'   => 'product_cat',
+		'hide_empty' => false,
+		'parent'     => $parent_id,
+	]);
+
+	if (empty($terms) || is_wp_error($terms)) {
+		return;
+	}
+
+	// Класс для вложенных списков
+	$ul_class = $level === 0
+		? 'menu'
+		: 'dropdown-menu level-' . $level;
+
+	// id только для корневого ul
+	$ul_id = $level === 0 ? ' id="menu-catalog"' : '';
+
+	echo '<ul' . $ul_id . ' class="' . esc_attr($ul_class) . '">';
+
+	foreach ($terms as $term) {
+
+		// Проверяем, есть ли дети
+		$children = get_terms([
+			'taxonomy'   => 'product_cat',
+			'hide_empty' => false,
+			'parent'     => $term->term_id,
+			'number'     => 1,
+		]);
+
+		$has_children = !empty($children);
+
+		$li_classes = ['menu-item'];
+		if ($has_children) {
+			$li_classes[] = 'menu-item-has-children';
+		}
+
+		echo '<li class="' . esc_attr(implode(' ', $li_classes)) . '">';
+
+		echo '<a href="' . esc_url(get_term_link($term)) . '">';
+		echo esc_html($term->name);
+		echo '</a>';
+
+		// Дочерние категории — на том же уровне, сразу после <a>
+		if ($has_children) {
+			render_product_categories_menu($term->term_id, $level + 1);
+		}
+
+		echo '</li>';
+	}
+
+	echo '</ul>';
+}
 
 
 /*CUSTOM LOGO */

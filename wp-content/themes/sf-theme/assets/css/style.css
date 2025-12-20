@@ -137,6 +137,7 @@ img {
   padding: 13px 20px;
   border: 1px solid var(--theme-color-beige);
   border-radius: 5px;
+  line-height: 1;
 }
 
 button {
@@ -1012,11 +1013,11 @@ Start Header Area
   display: block;
 }
 
-#menu-catalog__container #menu-catalog li a #menu-catalog__container #menu-catalog li.menu-item-has-children a {
+#menu-catalog li a #menu-catalog__container #menu-catalog li.menu-item-has-children a {
   position: relative;
 }
 
-#menu-catalog__container #menu-catalog li.menu-item-has-children>a:after {
+#menu-catalog li.menu-item-has-children>a:after {
   content: '';
   width: 8px;
   height: 8px;
@@ -1032,6 +1033,10 @@ Start Header Area
 
 #menu-catalog>li:hover>a::after {
   transform: rotate(-90deg);
+}
+
+.mobile-menu__container {
+  display: none;
 }
 
 ul.dropdown-menu li:hover>a::after {
@@ -1102,10 +1107,6 @@ ul.dropdown-menu li:hover>a::after {
   object-position: center;
 }
 
-.mobile-menu {
-  display: none;
-}
-
 .mobile-nav {
   background: var(--theme-color-beige);
   padding: 20px;
@@ -1147,6 +1148,18 @@ ul.dropdown-menu li:hover>a::after {
 .mobile-nav .container nav ul li {
   position: relative;
   padding-bottom: 10px;
+}
+
+#catalog #menu-catalog {
+  background: transparent;
+}
+
+#catalog #menu-catalog li a {
+  color: var(--theme-color-primary);
+}
+
+#catalog #menu-catalog>li:hover {
+  background: transparent;
 }
 
 /* hover только для 2+ уровней */
@@ -1286,6 +1299,7 @@ button.menu-toggle.active .bar:nth-child(3) {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  line-height: 1.35;
   transition: all .5s linear;
 }
 
@@ -9109,6 +9123,160 @@ Start Start 404 Error Page Wrapper
   .wp-block-table.custom-table table tbody tr td {
     padding: 20px;
   }
+
+  /*MOBILE CATALOG*/
+
+  /* #catalog {
+    max-height: 100%;
+    overflow: hidden;
+    position: fixed;
+    height: 100%;
+  } */
+
+
+  .mobile-menu__inner {
+    background: var(--theme-color-beige);
+    transform: scaleY(0);
+    z-index: 2;
+    padding: 40px 20px;
+    width: 100%;
+    overflow-y: scroll;
+    box-sizing: border-box;
+    position: absolute;
+    max-height: calc(100% - 65px);
+  }
+
+  .mobile-menu__inner.is-open {
+    transform: scaleY(1);
+    opacity: 1;
+    display: block;
+  }
+
+  .mm-item {
+    /* padding: 20px; */
+    position: relative;
+    z-index: 5;
+    display: none;
+    width: 100%;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    transition: transform .45s cubic-bezier(.4, 0, .2, 1), opacity .25s ease;
+  }
+
+  .mm-item.is-open {
+    display: block;
+    opacity: 1;
+    z-index: 10;
+    position: relative;
+    /* height: 100%;
+    max-height: 100%; */
+    transform: scaleY(1);
+  }
+
+  /* 
+.mobile-menu__inner {
+  z-index: 50;
+  position: relative;
+}
+
+*/
+
+  .mobile-menu__close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 10;
+    width: 25px;
+    height: 25px;
+  }
+
+  .mobile-menu__close svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+
+  #menu-mobile-catalog {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    height: 100%;
+    justify-content: flex-start;
+  }
+
+  #menu-mobile-catalog .menu-item a {
+    display: block;
+    position: relative;
+    padding-bottom: 5px;
+    border-bottom: 1px dotted var(--theme-color-primary);
+    color: var(--theme-color-primary);
+  }
+
+  #menu-mobile-catalog li .dropdown-menu {
+    height: 0;
+  }
+
+  #menu-mobile-catalog li .dropdown-menu.is-open {
+    display: block;
+    height: 100%;
+    width: 100%;
+    background: none;
+    border: none;
+    float: none;
+    position: relative;
+    top: unset;
+  }
+
+  #menu-mobile-catalog li .dropdown-menu li a {
+    display: block;
+    position: relative;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-bottom: none;
+    color: var(--theme-color-primary);
+    position: relative;
+  }
+
+  #menu-mobile-catalog li .dropdown-menu li a:before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: var(--theme-color-primary);
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 10px;
+  }
+
+  #menu-mobile-catalog li .dropdown-menu.level-2 li {
+    margin-left: 10px;
+  }
+
+  #menu-mobile-catalog li .dropdown-menu.level-2 li a::before {
+    content: none;
+  }
+
+
+  #menu-mobile-catalog li.menu-item-has-children>a::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    display: block;
+    background: url(../img/svg/arrow-dark.svg) no-repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 4px);
+    transition: all .5s linear;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -9166,8 +9334,20 @@ Start Start 404 Error Page Wrapper
     font-size: 30px;
   }
 
-  .mobile-menu {
+  .mobile-menu__container {
     display: block;
+    height: 100%;
+    overflow: hidden;
+    z-index: 10;
+    width: 100%;
+    top: 0;
+  }
+
+  .mobile-menu__container.is-open {
+    position: fixed;
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(10px);
+    overflow: hidden;
   }
 
   .header-left,
@@ -9186,6 +9366,39 @@ Start Start 404 Error Page Wrapper
 
   .main-hero__inner__content .container {
     max-width: 100%
+  }
+
+  #menu-catalog li.menu-item-has-children>a::after {
+    content: '';
+    width: 8px;
+    height: 8px;
+    display: block;
+    background: url(../img/svg/arrow-dark.svg) no-repeat;
+    background-position-x: 0%;
+    background-position-y: 0%;
+    background-size: auto;
+    background-size: contain;
+    background-position: center;
+    position: absolute;
+    right: 20px;
+    top: calc(50% - 4px);
+    transition: all .5s linear;
+  }
+
+  #menu-catalog .menu-item-has-children>.dropdown-menu {
+    position: relative;
+    top: unset;
+    left: unset;
+    width: 100%;
+    min-height: unset;
+    background: transparent;
+    color: var(--theme-color-primary);
+    display: none;
+    z-index: 10;
+    padding: 0;
+    margin: 0;
+    margin-left: 0px;
+    margin-left: 15px;
   }
 
   .product-categories .product-category {
