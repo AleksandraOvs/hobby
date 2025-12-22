@@ -83,40 +83,41 @@ jQuery(function ($) {
 	===================================*/
 	$('.product-thumb-large-view .product-thumb-item').zoom();
 
-	/*==================================
-			Single Product Thumbnail JS
-	===================================*/
-	$('.product-thumb-carousel').slick({
-		slidesToShow: 1,
-		slidesToScroll: 1,
-		arrows: false,
-		fade: true,
-		asNavFor: '.product-thumbnail-nav, .vertical-tab-nav'
-	});
+	// /*==================================
+	// 		Single Product Thumbnail JS
+	// ===================================*/
+	// $('.product-thumb-carousel').slick({
+	// 	slidesToShow: 1,
+	// 	slidesToScroll: 1,
+	// 	arrows: false,
+	// 	fade: true,
+	// 	asNavFor: '.product-thumbnail-nav, .vertical-tab-nav'
+	// });
 
-	// Horizontal Nav Style
-	$('.product-thumbnail-nav').slick({
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		asNavFor: '.product-thumb-carousel',
-		dots: false,
-		arrows: false,
-		centerMode: true,
-		centerPadding: 0,
-		variableWidth: false,
-		focusOnSelect: true
-	});
+	// // Horizontal Nav Style
+	// $('.product-thumbnail-nav').slick({
+	// 	slidesToShow: 3,
+	// 	slidesToScroll: 1,
+	// 	asNavFor: '.product-thumb-carousel',
+	// 	dots: false,
+	// 	arrows: false,
+	// 	//centerMode: true,
+	// 	//centerPadding: 0,
+	// 	variableWidth: false,
+	// 	infinite: false,
+	// 	focusOnSelect: true
+	// });
 
-	// Vertical Nav Style
-	$('.vertical-tab-nav').slick({
-		slidesToShow: 3,
-		slidesToScroll: 1,
-		asNavFor: '.product-thumb-carousel',
-		dots: false,
-		arrows: false,
-		focusOnSelect: true,
-		vertical: true
-	});
+	// // Vertical Nav Style
+	// $('.vertical-tab-nav').slick({
+	// 	slidesToShow: 3,
+	// 	slidesToScroll: 1,
+	// 	asNavFor: '.product-thumb-carousel',
+	// 	dots: false,
+	// 	arrows: false,
+	// 	focusOnSelect: true,
+	// 	vertical: true
+	// });
 
 	/*=============================
 		Checkout Page Checkbox

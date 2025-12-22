@@ -29,51 +29,49 @@ $product_published = $product->get_date_created();
 ?>
 
 <!-- Start Single Product -->
-<div class="col-lg-4 col-sm-6">
-	<div class="single-product-wrap">
-		<!-- Product Thumbnail -->
-		<figure class="product-thumbnail">
-			<a href="<?php echo $product->get_permalink() ?>" class="d-block">
-				<!-- <img class="primary-thumb" src="assets/img/products/prod-1-1.jpg"
+
+<div class="single-product">
+	<!-- Product Thumbnail -->
+	<figure class="product-thumbnail">
+		<a href="<?php echo $product->get_permalink() ?>" class="d-block">
+			<!-- <img class="primary-thumb" src="assets/img/products/prod-1-1.jpg"
 					alt="Product" /> -->
-				<?php echo $product->get_image('full') ?>
+			<?php echo $product->get_image('full') ?>
 
-				<!-- <img class="secondary-thumb" src="assets/img/products/prod-1-2.jpg"
+			<!-- <img class="secondary-thumb" src="assets/img/products/prod-1-2.jpg"
 					alt="Product" /> -->
-			</a>
-			<figcaption class="product-hvr-content">
-				<a href="<?php echo $product->add_to_cart_url() ?>" class="btn btn-black btn-addToCart"><?php echo $product->add_to_cart_text() ?></a>
+		</a>
 
-				<div class="product-hvr-content__badges">
-					<?php
-					if ($product->is_on_sale()) : ?>
-						<span class="product-badge sale">Акция</span>
-					<?php endif; ?>
 
-					<?php
-					if ($product_published && $product_published->getTimestamp() > (time() - 86400 * 5)) : ?>
-						<span class="product-badge hot">NEW</span>
-					<?php
-					endif;
-					?>
-				</div>
+		<div class="badges">
+			<?php
+			if ($product->is_on_sale()) : ?>
+				<span class="product-badge sale">Акция</span>
+			<?php endif; ?>
 
-			</figcaption>
-		</figure>
+			<?php
+			if ($product_published && $product_published->getTimestamp() > (time() - 86400 * 5)) : ?>
+				<span class="product-badge hot">NEW</span>
+			<?php
+			endif;
+			?>
+		</div>
 
-		<!-- Product Details -->
-		<div class="product-details">
-			<h2 class="product-name"><a href="<?php echo $product->get_permalink() ?>"><?php echo $product->get_title() ?></a></h2>
-			<div class="product-prices">
-				<?php echo $product->get_price_html() ?>
-			</div>
-			<div class="list-view-content">
-				<p class="product-desc"><?php $product->get_short_description() ?></p>
 
-				<div class="list-btn-group mt-30 mt-sm-14">
-					<a href="<?php echo $product->add_to_cart_url() ?>" class="btn btn-black"><?php echo $product->add_to_cart_text() ?></a>
+	</figure>
 
-				</div>
+	<!-- Product Details -->
+	<div class="product-details">
+		<h2 class="product-name"><a href="<?php echo $product->get_permalink() ?>"><?php echo $product->get_title() ?></a></h2>
+		<div class="product-prices">
+			<?php echo $product->get_price_html() ?>
+		</div>
+		<div class="list-view-content">
+			<p class="product-desc"><?php $product->get_short_description() ?></p>
+
+			<div class="list-btn-group mt-30 mt-sm-14">
+				<a href="<?php echo $product->add_to_cart_url() ?>" class="btn btn-black"><?php echo $product->add_to_cart_text() ?></a>
+
 			</div>
 		</div>
 	</div>

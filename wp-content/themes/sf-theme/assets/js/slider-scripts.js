@@ -25,4 +25,29 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+
+  // Thumbnails (horizontal)
+  const thumbsSwiper = new Swiper('.product-thumbnail-nav', {
+    slidesPerView: 3,
+    spaceBetween: 10,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true
+  });
+
+  // Main image
+  const mainSwiper = new Swiper('.product-thumb-carousel', {
+    slidesPerView: 1,
+    effect: 'fade',
+    fadeEffect: {
+      crossFade: true
+    },
+    allowTouchMove: false,
+    thumbs: {
+      swiper: thumbsSwiper
+    }
+  });
+
+
+
+
 });

@@ -151,3 +151,53 @@ Stack trace:
 [20-Dec-2025 09:54:30 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
 [20-Dec-2025 09:54:45 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
 [20-Dec-2025 09:54:45 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[20-Dec-2025 21:29:29 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:29:29 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:29:29 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:29:29 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:30:06 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:30:06 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:30:06 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:30:06 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[20-Dec-2025 21:30:46 UTC] Automatic updates starting...
+[20-Dec-2025 21:30:47 UTC]   Automatic plugin updates starting...
+[20-Dec-2025 21:30:47 UTC]   Automatic plugin updates complete.
+[20-Dec-2025 21:30:49 UTC]   Automatic theme updates starting...
+[20-Dec-2025 21:30:49 UTC]   Automatic theme updates complete.
+[20-Dec-2025 21:30:49 UTC] Automatic updates complete.
+[21-Dec-2025 12:44:50 UTC] Automatic updates starting...
+[21-Dec-2025 12:44:50 UTC]   Automatic plugin updates starting...
+[21-Dec-2025 12:44:50 UTC]   Automatic plugin updates complete.
+[21-Dec-2025 12:44:50 UTC]   Automatic theme updates starting...
+[21-Dec-2025 12:44:50 UTC]   Automatic theme updates complete.
+[21-Dec-2025 12:44:50 UTC] Automatic updates complete.
+[21-Dec-2025 13:42:36 UTC] PHP Warning:  Undefined variable $product_gallery_ids in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-single-product.php on line 36
+[21-Dec-2025 13:42:36 UTC] PHP Warning:  Undefined variable $product_image_id in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-single-product.php on line 43
+[21-Dec-2025 13:42:36 UTC] PHP Warning:  Undefined variable $product_gallery_ids in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-single-product.php on line 47
+[21-Dec-2025 13:42:36 UTC] PHP Warning:  Undefined variable $product_gallery_ids in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-single-product.php on line 62
+[21-Dec-2025 21:33:20 UTC] Automatic updates starting...
+[21-Dec-2025 21:33:22 UTC]   Automatic plugin updates starting...
+[21-Dec-2025 21:33:22 UTC]   Automatic plugin updates complete.
+[21-Dec-2025 21:33:23 UTC]   Automatic theme updates starting...
+[21-Dec-2025 21:33:23 UTC]   Automatic theme updates complete.
+[21-Dec-2025 21:33:23 UTC] Automatic updates complete.
+[21-Dec-2025 21:42:14 UTC] PHP Fatal error:  Uncaught Error: Call to a member function get_attributes() on string in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\elements\pa.php:2
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(816): require()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', false, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(206): locate_template(Array, true, false, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-single-product.php(119): get_template_part('template-parts/...')
+#4 C:\OSPanel\home\sf.local\wp-includes\template.php(816): require('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-core-functions.php(285): load_template('C:\\OSPanel\\home...', false)
+#6 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\templates\single-product.php(37): wc_get_template_part('content', 'single-product')
+#7 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#8 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#9 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#10 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\elements\pa.php on line 2
+[22-Dec-2025 10:54:02 UTC] Automatic updates starting...
+[22-Dec-2025 10:54:04 UTC]   Automatic plugin updates starting...
+[22-Dec-2025 10:54:04 UTC]   Automatic plugin updates complete.
+[22-Dec-2025 10:54:04 UTC]   Automatic theme updates starting...
+[22-Dec-2025 10:54:04 UTC]   Automatic theme updates complete.
+[22-Dec-2025 10:54:04 UTC] Automatic updates complete.

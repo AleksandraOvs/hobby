@@ -282,4 +282,177 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    /**открытие/скрытие описания товара на странице товара */
+
+    document.querySelectorAll('.single-product-details__description').forEach(block => {
+
+        const p = block.querySelector('p');
+        const btn = block.querySelector('.single-product-details__more');
+
+        if (!p || !btn) return;
+
+        if (p.scrollHeight <= p.clientHeight) {
+            btn.style.display = 'none';
+            return;
+        }
+
+        btn.addEventListener('click', () => {
+            block.classList.toggle('is-open');
+            btn.textContent = block.classList.contains('is-open')
+                ? 'Свернуть описание'
+                : 'Полное описание';
+        });
+
+    });
+
+    document
+        .querySelectorAll('.single-product-details .product-specs')
+        .forEach(specs => {
+
+            const rows = specs.querySelectorAll('.product-specs__row');
+            if (rows.length <= 6) return;
+
+            // скрываем всё после 6
+            rows.forEach((row, index) => {
+                if (index >= 6) {
+                    row.style.display = 'none';
+                }
+            });
+
+            // создаём кнопку
+            const toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'product-specs__toggle';
+            toggle.textContent = 'Все характеристики';
+
+            specs.appendChild(toggle);
+
+            let opened = false;
+
+            toggle.addEventListener('click', () => {
+                opened = !opened;
+
+                rows.forEach((row, index) => {
+                    if (index >= 6) {
+                        row.style.display = opened ? 'grid' : 'none';
+                    }
+                });
+
+                toggle.textContent = opened
+                    ? 'Скрыть характеристики'
+                    : 'Все характеристики';
+            });
+        });
+
+    //пересчет цены в зависимости от количества на странице товара
+
+    const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
+    if (!addToCartBlock) return;
+
+    const qtyInput = addToCartBlock.querySelector('input.qty');
+    const totalEl = addToCartBlock.querySelector('.price-total');
+    const priceWrap = document.querySelector('.prices-group'); // берем data-price оттуда
+
+    if (!qtyInput || !totalEl || !priceWrap) return;
+
+    const formatPrice = (price) =>
+        new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
+
+    const getBasePrice = () => parseFloat(priceWrap.dataset.price) || 0;
+
+    let lastQty = qtyInput.value;
+
+    const updateTotal = () => {
+        const qty = parseInt(qtyInput.value, 10) || 1;
+        totalEl.textContent = formatPrice(getBasePrice() * qty);
+        lastQty = qtyInput.value;
+    };
+
+    // первая отрисовка
+    updateTotal();
+
+    // таймер для любых изменений (клики +/-, ручной ввод)
+    setInterval(() => {
+        if (qtyInput.value !== lastQty) {
+            updateTotal();
+        }
+    }, 100);
+
+    // обновление при выборе вариативного товара
+    document.body.addEventListener('found_variation', (e) => {
+        const variation = e.detail?.variation;
+        if (variation?.display_price !== undefined) {
+            priceWrap.dataset.price = variation.display_price;
+        }
+        updateTotal();
+    });
+
+    // const addToCartBlock = document.querySelector('.single-product-add-to-cart');
+    // if (!addToCartBlock) return;
+
+    // const qtyInput = addToCartBlock.querySelector('input.qty');
+    // const priceWrap = addToCartBlock.querySelector('.prices-group');
+    // const totalEl = priceWrap.querySelector('.price-total');
+
+    // if (!qtyInput || !priceWrap || !totalEl) return;
+
+    // const formatPrice = (price) =>
+    //     new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
+
+    // const getBasePrice = () => parseFloat(priceWrap.dataset.price) || 0;
+
+    // let lastQty = qtyInput.value;
+
+    // const updateTotal = () => {
+    //     const qty = parseInt(qtyInput.value, 10) || 1;
+    //     totalEl.textContent = formatPrice(getBasePrice() * qty);
+    //     lastQty = qtyInput.value;
+    // };
+
+    // // первая отрисовка
+    // updateTotal();
+
+    // // ВЕЧНЫЙ ЛАЙФХАК: таймер, который проверяет количество каждые 100 мс
+    // setInterval(() => {
+    //     if (qtyInput.value !== lastQty) {
+    //         updateTotal();
+    //     }
+    // }, 100);
+
+    // // обновление при выборе вариации
+    // document.body.addEventListener('found_variation', (e) => {
+    //     const variation = e.detail?.variation;
+    //     if (variation?.display_price !== undefined) {
+    //         priceWrap.dataset.price = variation.display_price;
+    //     }
+    //     updateTotal();
+    // });
+
+    // console.log('✅ script loaded');
+
+    // const block = document.querySelector('.single-product-add-to-cart');
+    // console.log('block:', block);
+
+    // const form = block?.querySelector('form.cart');
+    // console.log('form:', form);
+
+    // const qty = form?.querySelector('input.qty');
+    // console.log('qty input:', qty);
+
+    // const priceWrap = block?.querySelector('.prices-group');
+    // console.log('priceWrap:', priceWrap);
+
+    // const amount = priceWrap?.querySelector('.amount');
+    // console.log('price amount:', amount?.textContent);
+
+    // if (!qty || !amount) {
+    //     console.warn('❌ qty или price не найдены — дальше считать бессмысленно');
+    //     return;
+    // }
+
+    // qty.addEventListener('input', () => {
+    //     console.log('qty changed:', qty.value);
+    // });
+
+
 });

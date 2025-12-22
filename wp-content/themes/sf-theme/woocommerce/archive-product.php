@@ -18,38 +18,23 @@
 
 defined('ABSPATH') || exit;
 
-get_header();
-?>
+get_header(); ?>
 
-<!-- Start Page Header Wrapper -->
 <div class="page-header-wrapper">
 	<div class="container">
-		<div class="row">
-			<div class="col-lg-12 text-center">
-				<div class="page-header-content">
-					<h2><?php woocommerce_page_title(); ?></h2>
-					<?php site_breadcrumbs() ?>
-					<!-- <nav class="page-breadcrumb">
-						<ul class="d-flex justify-content-center">
-							<li><a href="index.html">Главная</a></li>
-							<li><a href="index.html" class="active">Каталог</a></li>
-						</ul>
-					</nav> -->
-				</div>
-			</div>
-		</div>
+		<?php site_breadcrumbs() ?>
 	</div>
 </div>
-<!-- End Page Header Wrapper -->
 
 <!--== Start Shop Page Wrapper ==-->
-<div id="shop-page-wrapper" class="pt-86 pt-md-56 pt-sm-46 pb-50 pb-md-20 pb-sm-10">
+<div id="shop-page-wrapper" class="archive page-content woo-page">
 	<div class="container">
-		<div class="row">
-			<?php get_sidebar('shop') ?>
+		<h1><?php woocommerce_page_title() ?></h1>
 
+		<div class="woo-page__content">
+			<?php get_sidebar('shop') ?>
 			<!-- Start Shop Page Product Area -->
-			<div class="col-lg-9">
+			<div class="product-area">
 				<?php if (woocommerce_product_loop()) { ?>
 					<?php woocommerce_output_all_notices() ?>
 					<!-- Start Product Config Area -->
@@ -74,9 +59,6 @@ get_header();
 							</ul>
 						</div>
 						<div class="product-config-left d-sm-flex">
-
-
-
 							<?php woocommerce_result_count() ?>
 						</div>
 
@@ -119,37 +101,40 @@ get_header();
 					$base = isset($base) ? $base : esc_url_raw(str_replace(999999999, '%#%', remove_query_arg('add-to-cart', get_pagenum_link(999999999, false))));
 					$format = isset($format) ? $format : '';
 
-					if ($total <= 1) {
-						return;
-					}
+					// if ($total <= 1) {
+					// 	return;
+					// }
 					?>
-					<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
-						<?php
-						echo paginate_links(
-							apply_filters(
-								'woocommerce_pagination_args',
-								array( // WPCS: XSS ok.
-									'base'      => $base,
-									'format'    => $format,
-									'add_args'  => false,
-									'current'   => max(1, $current),
-									'total'     => $total,
-									'prev_text' => '<i class="fa fa-angle-double-left"></i>',
-									'next_text' => '<i class="fa nfa-angle-double-right"></i>',
-									'type'      => 'list',
-									'end_size'  => 3,
-									'mid_size'  => 3,
+					<?php if ($total > 1) : ?>
+						<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
+							<?php
+							echo paginate_links(
+								apply_filters(
+									'woocommerce_pagination_args',
+									array(
+										'base'      => $base,
+										'format'    => $format,
+										'add_args'  => false,
+										'current'   => max(1, $current),
+										'total'     => $total,
+										'prev_text' => '<i class="fa fa-angle-double-left"></i>',
+										'next_text' => '<i class="fa fa-angle-double-right"></i>',
+										'type'      => 'list',
+										'end_size'  => 3,
+										'mid_size'  => 3,
+									)
 								)
-							)
-						);
-						?>
-					</nav>
+							);
+							?>
+						</nav>
+					<?php endif; ?>
 
 
 				</div>
 				<!-- Page Pagination End  -->
 			</div>
 			<!-- End Shop Page Product Area -->
+
 		</div>
 	</div>
 </div>

@@ -23,6 +23,5 @@ if (! defined('ABSPATH')) {
 <!-- <ul class="products columns-<?php //echo esc_attr( wc_get_loop_prop( 'columns' ) ); 
 									?>"> -->
 
-<div class="shop-page-products-wrapper mt-44 mt-sm-30">
+<div class="shop-page-products-wrapper">
 	<div class="products-wrapper products-on-column">
-		<div class="row">
