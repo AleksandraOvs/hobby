@@ -20,4 +20,49 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    const btn = document.getElementById('load-more-btn');
+    const box = document.querySelector('.products-wrapper');
+
+    if (!btn || !box) return;
+
+    btn.addEventListener('click', () => {
+        const nextLink = document.querySelector('.page-numbers .next');
+
+        if (!nextLink) {
+            btn.remove();
+            return;
+        }
+
+        // btn.disabled = true;
+        // btn.textContent = 'Загружаем…';
+
+        btn.classList.add('is-loading');
+
+        fetch(nextLink.href)
+            .then(res => res.text())
+            .then(html => {
+                const doc = new DOMParser().parseFromString(html, 'text/html');
+
+                // новые товары
+                const newProducts = doc.querySelectorAll('.products-wrapper > *');
+                newProducts.forEach(el => box.appendChild(el));
+
+                // обновляем пагинацию
+                const newPagination = doc.querySelector('.page-pagination-wrapper');
+                const currentPagination = document.querySelector('.page-pagination-wrapper');
+
+                if (newPagination && currentPagination) {
+                    currentPagination.innerHTML = newPagination.innerHTML;
+                }
+
+                btn.disabled = false;
+                btn.textContent = 'Показать ещё';
+
+                // если дальше страниц нет — убираем кнопку
+                if (!document.querySelector('.page-numbers .next')) {
+                    btn.remove();
+                }
+            });
+    });
+
 });

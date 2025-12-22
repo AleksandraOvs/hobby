@@ -201,3 +201,18 @@ Stack trace:
 [22-Dec-2025 10:54:04 UTC]   Automatic theme updates starting...
 [22-Dec-2025 10:54:04 UTC]   Automatic theme updates complete.
 [22-Dec-2025 10:54:04 UTC] Automatic updates complete.
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 14:22:31 UTC] PHP Warning:  Undefined variable $icon_check in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\content-product.php on line 68
+[22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41

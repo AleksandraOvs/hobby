@@ -187,13 +187,16 @@
 
 .single_add_to_cart_button {
     height: 44px;
-    padding: 0 30px;
+    padding: 10px 30px;
     background: #d8b58a;
     color: #000;
     border: none;
     cursor: pointer;
     font-size: 14px;
     transition: background .2s ease;
+    border-radius: 5px;
+    width: 100%;
+    display: block;
 }
 
 .single_add_to_cart_button:hover {

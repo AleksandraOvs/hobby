@@ -24,4 +24,5 @@ if (! defined('ABSPATH')) {
 									?>"> -->
 
 <div class="shop-page-products-wrapper">
-	<div class="products-wrapper products-on-column">
+	<div class="products-wrapper products-on-column" data-page="<?php echo wc_get_loop_prop('current_page'); ?>"
+		data-max="<?php echo wc_get_loop_prop('total_pages'); ?>">
