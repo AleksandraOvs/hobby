@@ -105,12 +105,16 @@ get_header(); ?>
 								</svg>
 								Показать ещё
 							</span>
-							<span class="btn-loader" aria-hidden="true"></span>
+							<span class="btn-loader" aria-hidden="true">
+								<span></span>
+								<span></span>
+								<span></span>
+							</span>
 						</button>
 					</div>
 				<?php endif; ?>
 
-				<div class="page-pagination-wrapper mt-70 mt-md-50 mt-sm-40">
+				<div class="page-pagination-wrapper">
 
 					<?php
 					$total = isset($total) ? $total : wc_get_loop_prop('total_pages');

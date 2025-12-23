@@ -1,7 +1,19 @@
+.woocommerce .products ul::after,
+.woocommerce .products ul::before,
+.woocommerce ul.products::after,
+.woocommerce ul.products::before {
+    content: none;
+    display: table;
+}
+
 /*1. Общая сетка страницы*/
 
 .single-product {
     margin-bottom: 80px;
+}
+
+.product-thumbnail {
+    position: relative;
 }
 
 .product-title {
@@ -340,6 +352,44 @@
     font-weight: 600;
 }
 
+.relative-products__head {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.relative-products__head a svg {
+    width: 37px;
+    height: 8px;
+    object-fit: contain;
+    object-position: center;
+    transition: all .5s linear;
+}
+
+.relative-products__head a:hover svg {
+    transform: translateX(5px);
+}
+
+.relative-products__head:hover a:hover svg path {
+    fill: var(--theme-color-primary);
+}
+
+.single-product__related .products-on-column .single-product {
+    padding: 10px;
+    border: 1px solid #dddbda;
+    border-radius: 5px;
+    margin: 0;
+    position: relative;
+    width: calc(100% / 4 - 20px);
+}
+
+.product-thumbnail a img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
 @media (max-width: 991px) {
     .single-product__related .products {
         grid-template-columns: repeat(2, 1fr);
@@ -383,6 +433,12 @@
 
     .single-product-details .product-specs {
         margin-top: 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .single-product__related .products-on-column .single-product {
+        width: calc(100% / 2 - 10px);
     }
 }
 

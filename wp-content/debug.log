@@ -216,3 +216,45 @@ Stack trace:
 [22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
 [22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
 [22-Dec-2025 20:24:05 UTC] PHP Warning:  Trying to access array offset on value of type bool in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\load-works.php on line 41
+[23-Dec-2025 05:36:37 UTC] Automatic updates starting...
+[23-Dec-2025 05:36:38 UTC]   Automatic plugin updates starting...
+[23-Dec-2025 05:36:38 UTC]   Automatic plugin updates complete.
+[23-Dec-2025 05:36:39 UTC]   Automatic theme updates starting...
+[23-Dec-2025 05:36:39 UTC]   Automatic theme updates complete.
+[23-Dec-2025 05:36:39 UTC] Automatic updates complete.
+[23-Dec-2025 07:00:00 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:00:03 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:00:03 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:00:35 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:00:37 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:00:37 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:01:31 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:01:33 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 07:01:33 UTC] PHP Notice:  Функция WP_Scripts::localize вызвана <strong>неправильно</strong>. Параметр <code>$l10n</code> должен быть массивом. Для передачи произвольных данных в скрипты используйте функцию <code>wp_add_inline_script()</code>. Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.7.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[23-Dec-2025 09:30:21 UTC] Automatic updates starting...
+[23-Dec-2025 09:30:22 UTC]   Automatic plugin updates starting...
+[23-Dec-2025 09:30:22 UTC]   Automatic plugin updates complete.
+[23-Dec-2025 09:30:24 UTC]   Automatic theme updates starting...
+[23-Dec-2025 09:30:24 UTC]   Automatic theme updates complete.
+[23-Dec-2025 09:30:24 UTC] Automatic updates complete.
+[23-Dec-2025 10:51:35 UTC] Array
+(
+    [quantity] => 1
+    [action] => ajax_add_to_cart
+)
+
+[23-Dec-2025 10:52:20 UTC] Array
+(
+    [quantity] => 9
+    [action] => ajax_add_to_cart
+)
+
+[23-Dec-2025 10:54:04 UTC] Array
+(
+    [quantity] => 1
+    [action] => ajax_add_to_cart
+    [add-to-cart] => 347
+)
+
+[23-Dec-2025 15:35:44 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-related-products.php on line 28
+[23-Dec-2025 15:35:51 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-related-products.php on line 28

@@ -41,6 +41,20 @@ add_action('wp_enqueue_scripts', function () {
 		null,
 		true // грузить в footer
 	);
+
+	wp_enqueue_script(
+		'ajax_scripts',
+		get_stylesheet_directory_uri() . '/assets/js/ajax.js',
+		['jquery'],
+		null,
+		true
+	);
+
+	wp_localize_script(
+		'ajax_scripts',
+		'themeAjax',
+		['url' => admin_url('admin-ajax.php')]
+	);
 });
 
 /**
@@ -364,3 +378,80 @@ require get_template_directory() . '/inc/load-works.php';
 require get_template_directory() . '/inc/load-cats.php';
 require get_template_directory() . '/inc/breadcrumbs.php';
 require get_template_directory() . '/inc/woo-functions.php';
+
+
+function theme_posts_pagination_with_load_more($query = null)
+{
+	// Если передан кастомный WP_Query — используем его, иначе global
+	if (! $query) {
+		global $wp_query;
+		$query = $wp_query;
+	}
+
+	$max_pages = $query->max_num_pages;
+
+	if ($max_pages <= 1) {
+		return; // страниц нет — выходим
+	}
+
+	// Кнопка load more
+	echo '<div class="load-more-wrapper">';
+	echo '<button 
+            id="load-more-posts" 
+            class="btn" 
+            data-page="1" 
+            data-max="' . esc_attr($max_pages) . '">
+            <span class="btn-content">
+			<svg width="14" height="23" viewBox="0 0 14 23" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd" clip-rule="evenodd" d="M11.1652 14.4953C11.5893 14.0474 12.2979 14.0277 12.7458 14.4518C13.1937 14.8755 13.2129 15.5841 12.7893 16.032L7.36374 21.7746C6.93968 22.224 6.22837 22.2467 5.77898 21.8226C3.94705 19.9907 2.09584 17.9237 0.305852 16.032C-0.118211 15.5841 -0.0989344 14.8755 0.34894 14.4518C0.796814 14.0277 1.50547 14.0474 1.92954 14.4953L6.54736 19.3739L11.1652 14.4953Z" fill="#674126" />
+									<path d="M5.5095 1.11458C5.51101 0.49738 6.01558 -0.00150789 6.63278 3.95061e-06C7.24998 0.00151579 7.7485 0.50645 7.74736 1.12327L7.66648 21.0108C7.66497 21.628 7.16002 22.1269 6.54283 22.1254C5.92563 22.1238 5.42711 21.6189 5.42862 21.0017L5.5095 1.11458Z" fill="#674126" />
+								</svg>
+			Показать ещё
+			</span>
+            <span class="btn-loader" aria-hidden="true">
+			<span></span>
+        <span></span>
+        <span></span>
+			</span>
+          </button>';
+	echo '</div>';
+	// Цифровая пагинация
+	//echo '<nav class="page-pagination">';
+	echo get_the_posts_pagination([
+		'mid_size'           => 2,
+		'prev_text'          => '<span class="arrow-prev"></span>',
+		'next_text'          => '<span class="arrow-next"></span>',
+		'screen_reader_text' => 'Постраничная навигация по товарам',
+		'type'               => 'list', // чтобы вернулся <ul class="page-numbers">
+		'class'              => 'page-pagination', // класс для <nav>
+	]);
+	//echo '</nav>';
+
+
+}
+
+add_action('wp_ajax_load_more_posts', 'theme_load_more_posts_ajax');
+add_action('wp_ajax_nopriv_load_more_posts', 'theme_load_more_posts_ajax');
+
+function theme_load_more_posts_ajax()
+{
+
+	$page = isset($_POST['page']) ? (int) $_POST['page'] + 1 : 2;
+
+	$args = [
+		'post_type'      => 'post',
+		'post_status'    => 'publish',
+		'posts_per_page' => 9, // сколько загружаем за клик
+		'paged'          => $page,
+	];
+
+	$query = new WP_Query($args);
+
+	if ($query->have_posts()) :
+		while ($query->have_posts()) : $query->the_post();
+			get_template_part('template-parts/content-post');
+		endwhile;
+	endif;
+
+	wp_die();
+}

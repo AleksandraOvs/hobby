@@ -105,11 +105,6 @@ if (post_password_required()) {
                             <?php echo $product->get_price_html(); ?>
                         </span>
                     </div>
-
-
-
-
-
                     <?php woocommerce_template_single_add_to_cart() ?>
                 </div>
 
@@ -136,12 +131,6 @@ if (post_password_required()) {
             </div>
         </div>
 
-
-
-
-
-
-
         <!-- ================= Описание + характеристики ================= -->
         <div class="single-product__info">
 
@@ -165,12 +154,52 @@ if (post_password_required()) {
 
         <!-- ================= Related products ================= -->
         <div class="single-product__related">
-            <h2>С этим товаром также покупают</h2>
+            <div class="relative-products__head">
+                <h2>С этим товаром также покупают</h2>
+                <a href="<?php echo esc_url(site_url('/related-products/?product_id=' . $product->get_id())); ?>">
+                    <span>Смотреть еще</span>
+                    <svg width="48" height="9" viewBox="0 0 48 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M0 3.21917H44.9276L43.2673 1.5456C42.9158 1.1941 42.9158 0.616966 43.2673 0.26547C43.6192 -0.086404 44.1891 -0.0894275 44.5406 0.262069L47.7426 3.46182C48.0877 3.81104 48.0843 4.38024 47.7369 4.72682L44.5406 7.92317C44.191 8.27316 43.6173 8.27316 43.2673 7.92317C42.9158 7.57167 42.9158 7.01571 43.2673 6.66421L44.9276 5.01898H0V3.21917Z" fill="#8B4512" />
+                    </svg>
+
+                </a>
+            </div>
+
             <?php
-            woocommerce_related_products([
-                'posts_per_page' => 4,
-                'columns'        => 4,
-            ]);
+            // 1. Получаем апсейлы
+            $upsell_ids = $product->get_upsell_ids();
+
+            // 2. Если апсейлов нет — берём related
+            if (! empty($upsell_ids)) {
+                $products_ids = $upsell_ids;
+                $loop_name    = 'upsells';
+            } else {
+                $products_ids = wc_get_related_products($product->get_id(), 4);
+                $loop_name    = 'related';
+            }
+
+            // 3. Если вообще есть что выводить
+            if (! empty($products_ids)) :
+                wc_set_loop_prop('name', $loop_name);
+                wc_set_loop_prop('columns', 4);
+            ?>
+
+                <div class="products-on-column">
+                    <?php foreach ($products_ids as $product_id) : ?>
+
+                        <?php
+                        $post_object = get_post($product_id);
+                        setup_postdata($GLOBALS['post'] = $post_object);
+
+                        wc_get_template_part('content', 'product');
+                        ?>
+
+                    <?php endforeach; ?>
+                </div>
+
+            <?php
+                wp_reset_postdata();
+            endif;
             ?>
 
 

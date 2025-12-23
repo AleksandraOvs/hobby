@@ -31,22 +31,21 @@ $product_published = $product->get_date_created();
 <!-- Start Single Product -->
 
 <div class="single-product">
-
-	<div class="badges">
-		<?php
-		if ($product->is_on_sale()) : ?>
-			<span class="product-badge sale">Акция</span>
-		<?php endif; ?>
-
-		<?php
-		if ($product_published && $product_published->getTimestamp() > (time() - 86400 * 5)) : ?>
-			<span class="product-badge hot">NEW</span>
-		<?php
-		endif;
-		?>
-	</div>
 	<!-- Product Thumbnail -->
 	<figure class="product-thumbnail">
+		<div class="badges">
+			<?php
+			if ($product->is_on_sale()) : ?>
+				<span class="product-badge sale">Акция</span>
+			<?php endif; ?>
+
+			<?php
+			if ($product_published && $product_published->getTimestamp() > (time() - 86400 * 5)) : ?>
+				<span class="product-badge hot">NEW</span>
+			<?php
+			endif;
+			?>
+		</div>
 		<a href="<?php echo $product->get_permalink() ?>" class="d-block">
 			<!-- <img class="primary-thumb" src="assets/img/products/prod-1-1.jpg"
 					alt="Product" /> -->
@@ -55,11 +54,6 @@ $product_published = $product->get_date_created();
 			<!-- <img class="secondary-thumb" src="assets/img/products/prod-1-2.jpg"
 					alt="Product" /> -->
 		</a>
-
-
-
-
-
 	</figure>
 
 	<!-- Product Details -->
