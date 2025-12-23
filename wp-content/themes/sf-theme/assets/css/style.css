@@ -2096,11 +2096,11 @@ ul.dropdown-menu {
 }
 
 #toc {
-  padding-left: 20px;
+  /* padding-left: 20px; */
   position: relative;
 }
 
-#toc:before {
+/* #toc:before {
   content: '';
   width: 5px;
   height: 100%;
@@ -2108,15 +2108,15 @@ ul.dropdown-menu {
   position: absolute;
   top: 0;
   left: 0;
-}
+} */
 
 #toc li a {
-  color: var(--theme-color-primary);
+  color: var(--theme-color-accent);
   transition: all .5s linear;
 }
 
 #toc li a:hover {
-  color: var(--theme-color-accent);
+  color: var(--theme-color-primary);
 }
 
 /*CATEGORIES PAGE*/

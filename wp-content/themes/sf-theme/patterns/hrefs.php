@@ -8,9 +8,11 @@
  */
 ?>
 
-<!-- wp:group {"align":"full"} -->
-<div class="wp-block-group alignfull">
-
+<!-- wp:group {"align":"full", "className":"hrefs-block"} -->
+<div class="wp-block-group alignfull hrefs-block">
+    <!-- wp:paragraph {"className":"hrefs-block-text"} -->
+    <p class="custom-section-text hrefs-block-text">Содержание статьи:</p>
+    <!-- /wp:paragraph -->
     <!-- wp:html -->
     <ul id="toc"></ul>
     <script>
