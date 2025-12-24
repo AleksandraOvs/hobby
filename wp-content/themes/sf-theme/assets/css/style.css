@@ -9708,6 +9708,11 @@ Start Start 404 Error Page Wrapper
   .products-on-column .single-product {
     width: calc(100% / 2 - 10px);
   }
+
+  .wp-block-group.page-links .wp-block-buttons {
+    justify-content: center;
+  }
+
 }
 
 @media (max-width: 768px) {
@@ -9769,6 +9774,11 @@ Start Start 404 Error Page Wrapper
     margin-top: 0px;
     margin-top: 0;
     margin-bottom: 30px;
+  }
+
+  .wp-block-group.page-links .wp-block-buttons {
+    flex-direction: column;
+    align-items: stretch;
   }
 
 }

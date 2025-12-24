@@ -258,3 +258,75 @@ Stack trace:
 
 [23-Dec-2025 15:35:44 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-related-products.php on line 28
 [23-Dec-2025 15:35:51 UTC] PHP Parse error:  syntax error, unexpected token "<", expecting end of file in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-related-products.php on line 28
+[24-Dec-2025 05:12:39 UTC] Automatic updates starting...
+[24-Dec-2025 05:12:40 UTC]   Automatic plugin updates starting...
+[24-Dec-2025 05:12:40 UTC]   Automatic plugin updates complete.
+[24-Dec-2025 05:12:41 UTC]   Automatic theme updates starting...
+[24-Dec-2025 05:12:41 UTC]   Automatic theme updates complete.
+[24-Dec-2025 05:12:41 UTC] Automatic updates complete.
+[24-Dec-2025 05:57:11 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 05:57:11 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:32 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:32 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:46 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:46 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:58 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:12:58 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:13:30 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:13:30 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:14:04 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:14:04 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:00 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:00 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:07 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:07 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:37 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:19:37 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:18 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:18 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:40 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:40 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:43 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:43 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:49 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:49 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:57 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:20:57 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:23:15 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:23:15 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:23:21 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:23:21 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:24:37 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:24:37 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:24:45 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:24:45 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:11 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:11 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:39 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:39 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:48 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:48 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:55 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:25:55 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:27:05 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:27:05 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:27:23 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:27:23 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:29:15 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:29:15 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:29:33 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:29:33 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:30:05 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:30:05 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:30:10 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 06:30:10 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 08:12:45 UTC] PHP Parse error:  syntax error, unexpected end of file, expecting "elseif" or "else" or "endif" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\sidebar-shop.php on line 91
+[24-Dec-2025 09:31:18 UTC] Automatic updates starting...
+[24-Dec-2025 09:31:20 UTC]   Automatic plugin updates starting...
+[24-Dec-2025 09:31:20 UTC]   Automatic plugin updates complete.
+[24-Dec-2025 09:31:21 UTC]   Automatic theme updates starting...
+[24-Dec-2025 09:31:21 UTC]   Automatic theme updates complete.
+[24-Dec-2025 09:31:21 UTC] Automatic updates complete.
+[24-Dec-2025 12:03:23 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[24-Dec-2025 12:33:54 UTC] PHP Warning:  Attempt to read property "labels" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112
+[24-Dec-2025 12:33:54 UTC] PHP Warning:  Attempt to read property "name" on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\inc\breadcrumbs.php on line 112

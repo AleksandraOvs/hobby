@@ -42,18 +42,29 @@ jQuery(function ($) {
 	var rangeSlider = $(".price-range"),
 		amount = $("#amount"),
 		minPrice = rangeSlider.data('min'),
-		maxPrice = rangeSlider.data('max');
+		maxPrice = rangeSlider.data('max'),
+		minPriceField = $('#min_price'),
+		maxPriceField = $('#max_price'),
+		form = $('#price_filter');
+
 	rangeSlider.slider({
 		range: true,
 		min: minPrice,
 		max: maxPrice,
-		values: [minPrice, maxPrice],
+		values: [minPriceField.val(), maxPriceField.val()],
 		slide: function (event, ui) {
 			amount.val(ui.values[0] + " р - " + ui.values[1] + " р");
+			minPriceField.val(ui.values[0]);
+			maxPriceField.val(ui.values[1]);
+		},
+		stop: function (event, ui) {
+			form.submit();
 		}
 	});
 	amount.val(rangeSlider.slider("values", 0) +
 		" р - " + rangeSlider.slider("values", 1) + " р");
+
+
 
 	/*=============================
 		Product Quantity

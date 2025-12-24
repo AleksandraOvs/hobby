@@ -31,7 +31,10 @@ get_header(); ?>
 	<div class="container">
 		<h1><?php woocommerce_page_title() ?></h1>
 
+		<?php get_sidebar('shop-top') ?>
+
 		<div class="woo-page__content">
+
 			<?php get_sidebar('shop') ?>
 			<!-- Start Shop Page Product Area -->
 			<div class="product-area">
