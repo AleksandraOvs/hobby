@@ -6163,16 +6163,38 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   margin-bottom: 25px;
 }
 
-.sidebar-list {
-  line-height: 1;
-}
 
 .sidebar-list li {
   margin-bottom: 20px;
 }
 
+.sidebar-list {
+  line-height: 1;
+
+
+}
+
+.woo-page__content__sidebar-top .sidebar-list li {
+  padding: 10px 15px;
+  border: 1px solid var(--theme-color-primary);
+  color: 1px solid var(--theme-color-primary);
+  border-radius: 20px;
+  margin: 0;
+}
+
 .sidebar-list li:last-child {
   margin-bottom: 0;
+}
+
+.woo-page__content__sidebar-top .sidebar-list {
+  display: flex;
+  column-gap: 20px;
+  row-gap: 9px;
+  flex-wrap: wrap;
+}
+
+.woo-page__content__sidebar-top {
+  margin-bottom: 40px;
 }
 
 .sidebar-list li a {

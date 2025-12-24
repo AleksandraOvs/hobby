@@ -47,8 +47,14 @@ function site_breadcrumbs()
         $post_type_obj = get_post_type_object($post_type);
 
         // CPT с архивом
-        if ($post_type !== 'post' && $post_type_obj && $post_type_obj->has_archive) {
-            echo '<a href="' . get_post_type_archive_link($post_type) . '">' . esc_html($post_type_obj->labels->name) . '</a>' . $separator;
+        if (
+            $post_type !== 'post'
+            && $post_type_obj instanceof WP_Post_Type
+            && !empty($post_type_obj->has_archive)
+        ) {
+            echo '<a href="' . get_post_type_archive_link($post_type) . '">'
+                . esc_html($post_type_obj->labels->name)
+                . '</a>' . $separator;
         }
 
         // Для обычных постов: Primary Category + иерархия
@@ -92,11 +98,19 @@ function site_breadcrumbs()
         if ($term) {
             // Для таксономий с CPT выводим архив
             $taxonomy = get_taxonomy($term->taxonomy);
-            if (!empty($taxonomy->object_type)) {
+
+            if ($taxonomy && !empty($taxonomy->object_type)) {
                 $post_type = $taxonomy->object_type[0];
                 $post_type_obj = get_post_type_object($post_type);
-                if ($post_type_obj && $post_type_obj->has_archive && $term->taxonomy !== 'category') {
-                    echo '<a href="' . get_post_type_archive_link($post_type) . '">' . esc_html($post_type_obj->labels->name) . '</a>' . $separator;
+
+                if (
+                    $post_type_obj instanceof WP_Post_Type
+                    && !empty($post_type_obj->has_archive)
+                    && $term->taxonomy !== 'category'
+                ) {
+                    echo '<a href="' . get_post_type_archive_link($post_type) . '">'
+                        . esc_html($post_type_obj->labels->name)
+                        . '</a>' . $separator;
                 }
             }
 

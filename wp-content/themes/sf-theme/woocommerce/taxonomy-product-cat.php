@@ -38,7 +38,7 @@ get_header(); ?>
 
 		<div class="woo-page__content">
 
-			<?php //get_sidebar('shop') 
+			<?php get_sidebar('shop-cat')
 			?>
 			<!-- Start Shop Page Product Area -->
 			<div class="product-area">
