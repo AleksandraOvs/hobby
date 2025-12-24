@@ -116,3 +116,19 @@ function theme_ajax_add_to_cart()
         wp_send_json_error();
     }
 }
+
+// Скрываем категорию misc из всех списков категорий WooCommerce
+add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
+
+    if (in_array('product_cat', (array)$taxonomies)) {
+        foreach ($terms as $key => $term) {
+            if ($term->slug === 'misc') {
+                unset($terms[$key]);
+            }
+        }
+        // Чтобы индексы были последовательными
+        $terms = array_values($terms);
+    }
+
+    return $terms;
+}, 10, 4);
