@@ -12,7 +12,7 @@
     <?php render_product_categories_menu(); ?>
 
     <!-- /categories output -->
-    <a href="/shop" class="btn shop-btn">Все товары</a>
+    <a href="/catalog" class="btn shop-btn">Все товары</a>
 
     <?php echo '</div>'; ?>
 </div>

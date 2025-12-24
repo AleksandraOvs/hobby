@@ -110,6 +110,7 @@ register_nav_menus(
 	array(
 		'main_menu' => 'Главное меню',
 		'cat_menu' => 'Каталог',
+		'page_cat_menu' => 'Меню для страница Catalog',
 		'mob_menu' => 'Мобильное меню',
 		'foot_3' => 'Футер 3: Товары',
 	)

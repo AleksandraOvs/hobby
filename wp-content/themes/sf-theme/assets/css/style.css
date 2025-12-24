@@ -1706,6 +1706,45 @@ ul.dropdown-menu {
   flex-grow: 1;
 }
 
+.container .product-categories {
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.product-categories #catalog-navigation {
+  width: 30%;
+}
+
+.product-categories #categories-list {
+  width: calc(70% - 40px);
+}
+
+#categories-list .categories-list__item h2 {
+  margin-top: 0;
+}
+
+#catalog-navigation {
+  padding: 20px;
+  background: var(--theme-color-light);
+}
+
+#catalog-navigation ul li a {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  color: #313131;
+}
+
+#catalog-navigation ul li a img {
+  filter: brightness(0.5) contrast(2.5);
+}
+
+.product-categories nav ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
 /*BANNER*/
 
 .banner .container {}
@@ -9776,7 +9815,7 @@ Start Start 404 Error Page Wrapper
     justify-content: space-between;
     gap: 20px;
     align-items: flex-start;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 
   .categories-list__item .parent-category-title {
@@ -9785,6 +9824,18 @@ Start Start 404 Error Page Wrapper
     margin-top: 0px;
     margin-top: 0;
     margin-bottom: 30px;
+  }
+
+  .container .product-categories {
+    flex-direction: column;
+  }
+
+  .product-categories #catalog-navigation {
+    width: 100%;
+  }
+
+  .product-categories #categories-list {
+    width: 100%;
   }
 
   .wp-block-group.page-links .wp-block-buttons {
@@ -10011,6 +10062,10 @@ Start Start 404 Error Page Wrapper
 
   .woocommerce-Price-amount.amount {
     font-size: 20px;
+  }
+
+  .subcategory-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 
 }
