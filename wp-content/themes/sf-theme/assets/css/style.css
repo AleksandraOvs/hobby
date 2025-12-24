@@ -1037,6 +1037,12 @@ Start Header Area
   z-index: 5;
 }
 
+.menu-item a img.cat-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
 #menu-catalog__container.is-open {
   display: block;
 }
@@ -1386,11 +1392,15 @@ button.menu-toggle.active .bar:nth-child(3) {
   transition: all .5s linear;
 }
 
-
 #menu-catalog {
   /* position: relative; */
   width: 100%;
   background: var(--theme-color-primary);
+}
+
+#menu-catalog>li a {
+  justify-content: flex-start;
+  gap: 5px;
 }
 
 ul.dropdown-menu {

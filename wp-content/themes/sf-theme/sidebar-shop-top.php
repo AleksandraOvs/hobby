@@ -11,7 +11,6 @@
     ?>
 
         <?php if (!empty($product_categories) && !is_wp_error($product_categories)) : ?>
-
             <div class="single-sidebar-wrap">
                 <div class="sidebar-body">
                     <ul class="sidebar-list">

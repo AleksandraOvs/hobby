@@ -312,7 +312,6 @@ register_sidebar(array(
 
 function render_product_categories_menu($parent_id = 0, $level = 0)
 {
-
 	$terms = get_terms([
 		'taxonomy'   => 'product_cat',
 		'hide_empty' => false,
@@ -352,11 +351,23 @@ function render_product_categories_menu($parent_id = 0, $level = 0)
 
 		echo '<li class="' . esc_attr(implode(' ', $li_classes)) . '">';
 
+		// ======= Получаем иконку через ACF только для верхнего уровня =======
+		$icon_url = '';
+		if ($level === 0) {
+			$icon_id = get_field('category_icon', 'product_cat_' . $term->term_id);
+			if ($icon_id) {
+				$icon_url = wp_get_attachment_image_url($icon_id, 'thumbnail');
+			}
+		}
+
 		echo '<a href="' . esc_url(get_term_link($term)) . '">';
+		if ($icon_url) {
+			echo '<img class="cat-icon" src="' . esc_url($icon_url) . '" alt="' . esc_attr($term->name) . '">';
+		}
 		echo esc_html($term->name);
 		echo '</a>';
 
-		// Дочерние категории — на том же уровне, сразу после <a>
+		// Дочерние категории
 		if ($has_children) {
 			render_product_categories_menu($term->term_id, $level + 1);
 		}
