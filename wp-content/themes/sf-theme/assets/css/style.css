@@ -1415,10 +1415,11 @@ ul.dropdown-menu {
   position: relative;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 10px 20px;
   color: #fff;
   text-decoration: none;
+  gap: 5px;
 }
 
 #menu-catalog>li:hover,
