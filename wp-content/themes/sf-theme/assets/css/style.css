@@ -1419,7 +1419,7 @@ ul.dropdown-menu {
   padding: 10px 20px;
   color: #fff;
   text-decoration: none;
-  gap: 5px;
+  gap: 10px;
 }
 
 #menu-catalog>li:hover,
