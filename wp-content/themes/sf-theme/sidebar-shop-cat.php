@@ -100,7 +100,7 @@ function render_attribute_filter($taxonomy, $title, $base_url)
 
     <!-- Цена -->
     <div class="single-sidebar-wrap">
-        shop cat
+
         <h3 class="sidebar-title">Цена</h3>
         <div class="sidebar-body">
             <div class="price-range-wrap">

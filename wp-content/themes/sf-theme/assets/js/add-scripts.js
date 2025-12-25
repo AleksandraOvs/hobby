@@ -538,3 +538,32 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 });
+
+(function ($) {
+
+    function updateCartAjax() {
+
+        var $form = $('.woocommerce-cart-form');
+
+        // Добавляем флаг "обновить корзину"
+        if (!$form.find('input[name="update_cart"]').length) {
+            $form.append('<input type="hidden" name="update_cart" value="1">');
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+            data: $form.serialize(),
+            success: function () {
+                // WooCommerce сам перерисует фрагменты (итоги, мини-корзину и т.д.)
+                $(document.body).trigger('wc_fragment_refresh');
+            }
+        });
+    }
+
+    // слушаем чекбоксы
+    $(document).on('change', '.product-select input[type="checkbox"]', function () {
+        updateCartAjax();
+    });
+
+})(jQuery);

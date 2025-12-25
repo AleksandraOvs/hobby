@@ -203,12 +203,20 @@
                     <?php if (is_active_sidebar('header')) : ?>
                         <?php dynamic_sidebar('header'); ?>
                     <?php endif; ?>
+
+                    <button class="mini-cart-icon modalActive" data-mfp-src="#miniCart-popup">
+                        <i class="fa fa-shopping-cart"></i>
+                        <span class="cart-count"><?php //echo WC()->cart->get_cart_contents_count() 
+                                                    ?>
+                            <?php echo count(WC()->cart->get_cart()) ?>
+                        </span>
+                    </button>
                 </div>
             </div>
 
             <div class="mobile-nav">
                 <div class="container">
-                    <nav id="site-navigation" class="main-navigation">
+                    <nav class="main-navigation">
                         <?php wp_nav_menu([
                             'container' => false,
                             'theme_location'  => 'main_menu',

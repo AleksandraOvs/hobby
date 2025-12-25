@@ -5,7 +5,7 @@
 </svg>';
     ?>
 
-    <button class="btn toggle-cat-menu-button"></span>Каталог</span> <?php echo $button_svg ?> </button>
+    <button class="btn toggle-cat-menu-button"><span>Каталог</span> <?php echo $button_svg ?> </button>
     <?php echo '<div class="menu-catalog__container" id="menu-catalog__container">'; ?>
 
 

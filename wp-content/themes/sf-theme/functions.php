@@ -15,6 +15,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_style('fonts', get_stylesheet_directory_uri() . '/assets/css/fonts.css', array(), time());
 	wp_enqueue_style('main', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), time());
 	wp_enqueue_style('single-product-style', get_stylesheet_directory_uri() . '/assets/css/single-product.css', array(), time());
+	wp_enqueue_style('cart-style', get_stylesheet_directory_uri() . '/assets/css/cart.css', array(), time());
 
 	wp_enqueue_script('jquery');
 	wp_enqueue_script('swiper_scripts', get_template_directory_uri() . '/assets/js/swiper-bundle.min.js', array(), null, true);

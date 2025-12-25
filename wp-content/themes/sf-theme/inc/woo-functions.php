@@ -1,4 +1,12 @@
 <?php
+
+function enqueue_wc_cart_fragments_in_footer()
+{
+    wp_enqueue_script('wc-cart-fragments');
+}
+add_action('wp_footer', 'enqueue_wc_cart_fragments_in_footer');
+
+
 add_action('woocommerce_after_shop_loop_item_title', 'sf_show_stock_status_loop', 10);
 function sf_show_stock_status_loop()
 {
@@ -138,3 +146,66 @@ add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
 
     return $terms;
 }, 10, 4);
+
+// По умолчанию — товар считается "отмеченным"
+add_action('woocommerce_add_to_cart', function ($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data) {
+
+    if (isset(WC()->cart->cart_contents[$cart_item_key])) {
+        WC()->cart->cart_contents[$cart_item_key]['selected'] = 1;
+    }
+}, 10, 6);
+
+// Убираем из корзины позиции без чекбокса — только при обновлении корзины
+add_action('woocommerce_before_calculate_totals', function ($cart) {
+
+    if (is_admin() && ! defined('DOING_AJAX')) {
+        return;
+    }
+
+    // Выполняем ТОЛЬКО если нажата кнопка "Обновить корзину"
+    if (empty($_POST['update_cart'])) {
+        return;
+    }
+
+    if (empty($_POST['cart'])) {
+        return;
+    }
+
+    foreach ($cart->get_cart() as $key => $item) {
+
+        // если чекбокса нет — удаляем позицию
+        if (empty($_POST['cart'][$key]['selected'])) {
+            $cart->remove_cart_item($key);
+        }
+    }
+});
+
+
+// add_filter('woocommerce_cart_item_set_quantity', function ($quantity, $cart_item_key) {
+//     if (isset($_POST['cart'][$cart_item_key]['selected'])) {
+//         WC()->cart->cart_contents[$cart_item_key]['selected'] = 1;
+//     } else {
+//         WC()->cart->cart_contents[$cart_item_key]['selected'] = 0;
+//     }
+
+//     return $quantity;
+// }, 10, 2);
+
+// add_action('woocommerce_before_calculate_totals', function ($cart) {
+
+//     if (is_admin() && ! defined('DOING_AJAX')) {
+//         return;
+//     }
+
+//     foreach ($cart->get_cart() as $key => $item) {
+//         if (empty($item['selected'])) {
+//             $cart->remove_cart_item($key);
+//         }
+//     }
+// });
+
+
+add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+    $fragments['.cart-count'] = '<span class="cart-count">' . count(WC()->cart->get_cart()) . '</span>';
+    return $fragments;
+});

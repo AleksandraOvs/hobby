@@ -93,6 +93,91 @@
 </footer>
 <!--== End Footer Section ===-->
 
+<?php if (!is_cart()) : ?>
+    <!--== Start Mini Cart Wrapper ==-->
+    <div class="mfp-hide modal-minicart" id="miniCart-popup">
+        <div class="minicart-content-wrap">
+
+            <?php woocommerce_mini_cart() ?>
+
+            <!-- <h2>Корзина</h2>
+            <div class="minicart-product-list">
+               
+                <div class="single-product-item d-flex">
+                    <figure class="product-thumb">
+                        <a href="single-product.html"><img src="assets/img/products/prod-1-1.jpg" alt="Product"></a>
+                    </figure>
+                    <div class="product-details">
+                        <h2 class="product-title"><a href="single-product.html">Какой-то товар</a></h2>
+                        <div class="prod-cal d-flex align-items-center">
+                            <span class="quantity">1</span>
+                            <span class="multiplication">&#215;</span>
+                            <span class="price">9999 р</span>
+                        </div>
+                    </div>
+                    <a href="#" class="remove-icon">&#215;</a>
+                </div>
+            
+                <div class="single-product-item d-flex">
+                    <figure class="product-thumb">
+                        <a href="single-product.html"><img src="assets/img/products/prod-2-1.jpg" alt="Product"></a>
+                    </figure>
+                    <div class="product-details">
+                        <h2 class="product-title"><a href="single-product.html">Второй товар</a></h2>
+                        <div class="prod-cal d-flex align-items-center">
+                            <span class="quantity">2</span>
+                            <span class="multiplication">&#215;</span>
+                            <span class="price">3900 р</span>
+                        </div>
+                    </div>
+                    <a href="#" class="remove-icon">&#215;</a>
+                </div>
+              
+                <div class="single-product-item d-flex">
+                    <figure class="product-thumb">
+                        <a href="single-product.html"><img src="assets/img/products/prod-3-1.jpg" alt="Product"></a>
+                    </figure>
+                    <div class="product-details">
+                        <h2 class="product-title"><a href="single-product.html">Ещё один товар</a></h2>
+                        <div class="prod-cal d-flex align-items-center">
+                            <span class="quantity">1</span>
+                            <span class="multiplication">&#215;</span>
+                            <span class="price">3300 р</span>
+                        </div>
+                    </div>
+                    <a href="#" class="remove-icon">&#215;</a>
+                </div>
+              
+                <div class="single-product-item d-flex">
+                    <figure class="product-thumb">
+                        <a href="single-product.html"><img src="assets/img/products/prod-4-1.jpg" alt="Product"></a>
+                    </figure>
+                    <div class="product-details">
+                        <h2 class="product-title"><a href="single-product.html">Найс сникеры</a></h2>
+                        <div class="prod-cal d-flex align-items-center">
+                            <span class="quantity">1</span>
+                            <span class="multiplication">&#215;</span>
+                            <span class="price">3300 р</span>
+                        </div>
+                    </div>
+                    <a href="#" class="remove-icon">&#215;</a>
+                </div>
+                
+            </div>
+            <div class="minicart-calculation-wrap d-flex justify-content-between align-items-center">
+                <span class="cal-title">Подытог</span>
+                <span class="cal-amount">11900 р</span>
+            </div>
+            <div class="minicart-btn-group mt-38">
+                <a href="cart.html" class="btn btn-black ">Просмотр корзины</a>
+                <a href="checkout.html" class="btn btn-black mt-10">Оформление заказа</a>
+            </div> -->
+        </div>
+    </div>
+    <!--== End Mini Cart Wrapper ==-->
+
+<?php endif; ?>
+
 <?php
 if (current_user_can('administrator')) {
 ?>
@@ -108,7 +193,7 @@ if (current_user_can('administrator')) {
     </svg>
 
 </div>
-
+</div>
 </body>
 
 </html>

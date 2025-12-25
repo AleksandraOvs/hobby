@@ -1,0 +1,22 @@
+.wc-block-components-sidebar-layout.wc-block-cart {
+    padding-top: 0;
+    flex-direction: column;
+}
+
+.wc-block-components-sidebar-layout .wc-block-components-main {
+    box-sizing: border-box;
+    margin: 0;
+    padding-right: 0;
+    width: 100%;
+}
+
+.wc-block-components-sidebar {
+    box-sizing: border-box;
+    padding-left: 0;
+    width: 100%;
+}
+
+.wc-block-cart-item__wrap {
+    display: flex;
+    gap: 20px;
+}
