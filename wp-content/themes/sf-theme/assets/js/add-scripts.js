@@ -345,7 +345,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
     document
-        .querySelectorAll('.sidebar-body .sidebar-list')
+        .querySelectorAll('.sidebar-area-wrapper .single-sidebar-wrap .sidebar-body .sidebar-list')
         .forEach(list => {
 
             const items = list.querySelectorAll('li');
