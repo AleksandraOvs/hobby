@@ -11,8 +11,8 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
+ * @see     https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce/Templates
  * @version 2.3.6
  */
 
@@ -21,12 +21,18 @@ defined('ABSPATH') || exit;
 ?>
 <div class="cart-calculate-area mt-sm-30 mt-md-30 cart_totals <?php echo (WC()->customer->has_calculated_shipping()) ? 'calculated_shipping' : ''; ?>">
 
-	<?php //do_action( 'woocommerce_before_cart_totals' ); 
-	?>
 
-	<h5><?php esc_html_e('Cart totals', 'woocommerce'); ?></h5>
+	<h5 class="cal-title">Сумма заказов</h5>
 
 	<div class="cart-cal-table table-responsive">
+		<div class="cart-coupon-update-area d-sm-flex justify-content-between align-items-center">
+			<?php do_action('woocommerce_cart_actions'); ?>
+
+			<div class="cart-update-buttons mt-xs-14">
+				<button type="submit" name="update_cart" class="btn-update-cart">Обновить корзину</button>
+				<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
+			</div>
+		</div>
 		<table cellspacing="0" class="table table-borderless shop_table shop_table_responsive">
 
 			<tr class="cart-sub-total cart-subtotal">
@@ -43,24 +49,7 @@ defined('ABSPATH') || exit;
 
 			<?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>
 
-				<?php //do_action('woocommerce_cart_totals_before_shipping'); 
-				?>
-
 				<?php wc_cart_totals_shipping_html(); ?>
-
-				<?php //do_action('woocommerce_cart_totals_after_shipping'); 
-				?>
-
-				<?php //elseif (WC()->cart->needs_shipping() && 'yes' === get_option('woocommerce_enable_shipping_calc')) : 
-				?>
-
-				<!-- <tr class="shipping">
-					<th><?php //esc_html_e('Shipping', 'woocommerce'); 
-						?></th>
-					<td data-title="<?php //esc_attr_e('Shipping', 'woocommerce'); 
-									?>"><?php //woocommerce_shipping_calculator(); 
-																						?></td>
-				</tr> -->
 
 			<?php endif; ?>
 
@@ -82,7 +71,7 @@ defined('ABSPATH') || exit;
 				}
 
 				if ('itemized' === get_option('woocommerce_tax_total_display')) {
-					foreach (WC()->cart->get_tax_totals() as $code => $tax) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited
+					foreach (WC()->cart->get_tax_totals() as $code => $tax) { // phpcs:ignore WordPress.WP.GlobalVariablesOverride.OverrideProhibited
 			?>
 						<tr class="tax-rate tax-rate-<?php echo esc_attr(sanitize_title($code)); ?>">
 							<th><?php echo esc_html($tax->label) . $estimated_text; // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped 
@@ -103,15 +92,14 @@ defined('ABSPATH') || exit;
 			}
 			?>
 
-			<?php //do_action('woocommerce_cart_totals_before_order_total'); 
-			?>
+
 
 			<tr class="order-total">
 				<th>Итого</th>
 				<td data-title="<?php esc_attr_e('Total', 'woocommerce'); ?>"><?php wc_cart_totals_order_total_html(); ?></td>
 			</tr>
 
-			<?php do_action('woocommerce_cart_totals_after_order_total'); ?>
+
 
 		</table>
 	</div>

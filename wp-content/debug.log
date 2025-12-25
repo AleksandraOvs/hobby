@@ -348,3 +348,108 @@ Stack trace:
 [25-Dec-2025 09:30:33 UTC]   Automatic theme updates starting...
 [25-Dec-2025 09:30:33 UTC]   Automatic theme updates complete.
 [25-Dec-2025 09:30:33 UTC] Automatic updates complete.
+[25-Dec-2025 10:44:28 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[25-Dec-2025 11:07:37 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[25-Dec-2025 11:45:23 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:46:05 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:46:35 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:46:42 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:52:10 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:52:32 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 11:53:08 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 13:10:47 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 106
+[25-Dec-2025 13:10:47 UTC] PHP Warning:  Undefined global variable $product in C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2029
+[25-Dec-2025 13:10:47 UTC] PHP Warning:  Undefined variable $product_quantity in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 112
+[25-Dec-2025 13:11:11 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 106
+[25-Dec-2025 13:11:11 UTC] PHP Warning:  Undefined global variable $product in C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2029
+[25-Dec-2025 13:11:50 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 106
+[25-Dec-2025 13:11:50 UTC] PHP Warning:  Undefined global variable $product in C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2029
+[25-Dec-2025 13:11:50 UTC] PHP Warning:  Undefined variable $product_quantity in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 112
+[25-Dec-2025 13:15:41 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 106
+[25-Dec-2025 13:15:41 UTC] PHP Warning:  Undefined global variable $product in C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2029
+[25-Dec-2025 13:15:41 UTC] PHP Warning:  Undefined variable $product_quantity in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 112
+[25-Dec-2025 13:18:21 UTC] PHP Warning:  Undefined variable $product_quantity in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 112
+[25-Dec-2025 13:19:25 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 106
+[25-Dec-2025 13:19:25 UTC] PHP Warning:  Undefined global variable $product in C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-template-functions.php on line 2029
+[25-Dec-2025 13:19:25 UTC] PHP Warning:  Undefined variable $product_quantity in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 112
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:00 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:05 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:40:09 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:17 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 71
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "slug" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:49:22 UTC] PHP Warning:  Attempt to read property "name" on array in C:\OSPanel\home\sf.local\wp-content\themes\woocommerce-course\sidebar-shop.php on line 72
+[25-Dec-2025 16:58:55 UTC] PHP Warning:  Undefined array key "list_class" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 28
+[25-Dec-2025 17:25:13 UTC] PHP Warning:  Undefined variable $checkout in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 176
+[25-Dec-2025 17:25:13 UTC] PHP Warning:  Undefined variable $checkout in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 179
+[25-Dec-2025 17:25:13 UTC] PHP Fatal error:  Uncaught Error: Call to a member function is_registration_enabled() on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php:179
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-core-functions.php(346): include()
+#1 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-cart.php(101): wc_get_template('cart/cart.php')
+#2 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(75): WC_Shortcode_Cart::output(Array)
+#3 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(88): WC_Shortcodes::shortcode_wrapper(Array)
+#4 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(434): WC_Shortcodes::cart(Array, '', 'woocommerce_car...')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(woocom...', 'do_shortcode_ta...', '[woocommerce_ca...')
+#7 C:\OSPanel\home\sf.local\wp-includes\class-wp-hook.php(341): do_shortcode('[woocommerce_ca...')
+#8 C:\OSPanel\home\sf.local\wp-includes\plugin.php(205): WP_Hook->apply_filters('[woocommerce_ca...', Array)
+#9 C:\OSPanel\home\sf.local\wp-includes\post-template.php(256): apply_filters('the_content', '<!-- wp:shortco...')
+#10 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page.php(8): the_content()
+#11 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#12 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#13 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#14 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 179
+[25-Dec-2025 17:27:41 UTC] PHP Warning:  Undefined variable $checkout in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 176
+[25-Dec-2025 17:27:41 UTC] PHP Warning:  Undefined variable $checkout in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 179
+[25-Dec-2025 17:27:41 UTC] PHP Fatal error:  Uncaught Error: Call to a member function is_registration_enabled() on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php:179
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-core-functions.php(346): include()
+#1 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-cart.php(101): wc_get_template('cart/cart.php')
+#2 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(75): WC_Shortcode_Cart::output(Array)
+#3 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(88): WC_Shortcodes::shortcode_wrapper(Array)
+#4 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(434): WC_Shortcodes::cart(Array, '', 'woocommerce_car...')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(woocom...', 'do_shortcode_ta...', '[woocommerce_ca...')
+#7 C:\OSPanel\home\sf.local\wp-includes\class-wp-hook.php(341): do_shortcode('[woocommerce_ca...')
+#8 C:\OSPanel\home\sf.local\wp-includes\plugin.php(205): WP_Hook->apply_filters('[woocommerce_ca...', Array)
+#9 C:\OSPanel\home\sf.local\wp-includes\post-template.php(256): apply_filters('the_content', '<!-- wp:shortco...')
+#10 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page.php(8): the_content()
+#11 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#12 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#13 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#14 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 179

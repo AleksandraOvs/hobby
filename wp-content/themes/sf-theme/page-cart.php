@@ -1,0 +1,24 @@
+<?php get_header() ?>
+<section class="page">
+    <?php get_template_part('template-parts/elements/page-header'); ?>
+    <div class="page-content">
+        <div class="container">
+            <h1><?php the_title(); ?></h1>
+            <?php get_template_part('template-parts/elements/checkout-steps') ?>
+
+            <ul class="cart-links">
+                <li></li>
+                <li></li>
+                <li></li>
+            </ul>
+
+            <?php the_content(); ?>
+
+        </div>
+    </div>
+</section>
+
+<?php get_template_part('template-parts/section-contacts') ?>
+
+
+<?php get_footer() ?>

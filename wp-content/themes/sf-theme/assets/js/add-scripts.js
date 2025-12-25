@@ -344,6 +344,47 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         });
 
+    document
+        .querySelectorAll('.sidebar-body .sidebar-list')
+        .forEach(list => {
+
+            const items = list.querySelectorAll('li');
+
+            // если элементов мало — ничего не делаем
+            if (items.length <= 4) return;
+
+            // скрываем всё после 6-го
+            items.forEach((item, index) => {
+                if (index >= 4) {
+                    item.style.display = 'none';
+                }
+            });
+
+            // создаём кнопку
+            const toggle = document.createElement('button');
+            toggle.type = 'button';
+            toggle.className = 'sidebar-list__toggle';
+            toggle.textContent = 'Показать ещё';
+
+            list.appendChild(toggle);
+
+            let opened = false;
+
+            toggle.addEventListener('click', () => {
+                opened = !opened;
+
+                items.forEach((item, index) => {
+                    if (index >= 4) {
+                        item.style.display = opened ? 'list-item' : 'none';
+                    }
+                });
+
+                toggle.textContent = opened
+                    ? 'Скрыть'
+                    : 'Показать ещё';
+            });
+        });
+
     //пересчет цены в зависимости от количества на странице товара
 
     const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
@@ -378,14 +419,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }, 100);
 
-    // обновление при выборе вариативного товара
-    document.body.addEventListener('found_variation', (e) => {
-        const variation = e.detail?.variation;
-        if (variation?.display_price !== undefined) {
-            priceWrap.dataset.price = variation.display_price;
-        }
-        updateTotal();
-    });
+    // // обновление при выборе вариативного товара
+    // document.body.addEventListener('found_variation', (e) => {
+    //     const variation = e.detail?.variation;
+    //     if (variation?.display_price !== undefined) {
+    //         priceWrap.dataset.price = variation.display_price;
+    //     }
+    //     updateTotal();
+    // });
+
+    /**************************/
 
     // const addToCartBlock = document.querySelector('.single-product-add-to-cart');
     // if (!addToCartBlock) return;
@@ -539,31 +582,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-(function ($) {
+// (function ($) {
 
-    function updateCartAjax() {
+//     function updateCartAjax() {
 
-        var $form = $('.woocommerce-cart-form');
+//         var $form = $('.woocommerce-cart-form');
 
-        // Добавляем флаг "обновить корзину"
-        if (!$form.find('input[name="update_cart"]').length) {
-            $form.append('<input type="hidden" name="update_cart" value="1">');
-        }
+//         // Добавляем флаг "обновить корзину"
+//         if (!$form.find('input[name="update_cart"]').length) {
+//             $form.append('<input type="hidden" name="update_cart" value="1">');
+//         }
 
-        $.ajax({
-            type: 'POST',
-            url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
-            data: $form.serialize(),
-            success: function () {
-                // WooCommerce сам перерисует фрагменты (итоги, мини-корзину и т.д.)
-                $(document.body).trigger('wc_fragment_refresh');
-            }
-        });
-    }
+//         $.ajax({
+//             type: 'POST',
+//             url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+//             data: $form.serialize(),
+//             success: function () {
+//                 // WooCommerce сам перерисует фрагменты (итоги, мини-корзину и т.д.)
+//                 $(document.body).trigger('wc_fragment_refresh');
+//             }
+//         });
+//     }
 
-    // слушаем чекбоксы
-    $(document).on('change', '.product-select input[type="checkbox"]', function () {
-        updateCartAjax();
-    });
+//     // слушаем чекбоксы
+//     $(document).on('change', '.product-select input[type="checkbox"]', function () {
+//         updateCartAjax();
+//     });
 
-})(jQuery);
+// })(jQuery);
+

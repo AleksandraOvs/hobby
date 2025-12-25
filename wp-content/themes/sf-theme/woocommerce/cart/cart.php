@@ -11,180 +11,245 @@
  * happen. When this occurs the version of the template file will be bumped and
  * the readme will list any important changes.
  *
- * @see     https://woocommerce.com/document/template-structure/
- * @package WooCommerce\Templates
- * @version 10.1.0
+ * @see     https://docs.woocommerce.com/document/template-structure/
+ * @package WooCommerce/Templates
+ * @version 3.8.0
  */
 
 defined('ABSPATH') || exit;
 
-do_action('woocommerce_before_cart'); ?>
+?>
 
 <!--== Start Cart Page Wrapper ==-->
-<div id="cart-page-wrapper" class="pt-86 pt-md-56 pt-sm-46 pb-50 pb-md-20 pb-sm-10">
-	<div class="container">
-		<div class="row">
-			<div class="col-lg-8">
-				<div class="shopping-cart-list-area">
-					<form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
+<div id="cart-page-wrapper">
 
-						<div class="shopping-cart-table table-responsive">
-							<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table table-bordered text-center">
-								<thead>
-									<tr>
-										<th>Товары</th>
-										<th>Цена</th>
-										<th>Количество</th>
-										<th>Итого</th>
-									</tr>
-								</thead>
 
-								<tbody>
-									<?php
-									foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
-										$_product   = apply_filters('woocommerce_cart_item_product', $cart_item['data'], $cart_item, $cart_item_key);
-										$product_id = apply_filters('woocommerce_cart_item_product_id', $cart_item['product_id'], $cart_item, $cart_item_key);
-										/**
-										 * Filter the product name.
-										 *
-										 * @since 2.1.0
-										 * @param string $product_name Name of the product in the cart.
-										 * @param array $cart_item The product in the cart.
-										 * @param string $cart_item_key Key for the product in the cart.
-										 */
-										$product_name = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
+	<?php do_action('woocommerce_before_cart'); ?>
+	<div class="shopping-cart-list-area">
 
-										if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_cart_item_visible', true, $cart_item, $cart_item_key)) {
-											$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
-									?>
-											<tr class="woocommerce-cart-form__cart-item cart_item">
-												<td class="product-list">
-													<div class="cart-product-item d-flex align-items-center">
-														<div class="remove-icon product-remove">
+		<form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
 
-															<?php
-															echo sprintf(
-																'<a role="button" href="%s" class="remove" aria-label="%s" data-product_id="%s" data-product_sku="%s"><i class="fa fa-trash-o"></i></a>',
-																esc_url(wc_get_cart_remove_url($cart_item_key)),
-																/* translators: %s is the product name */
-																esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
-																esc_attr($product_id),
-																esc_attr($_product->get_sku())
-															);
-															?>
-														</div>
+			<?php
+			// 1. Собираем товары по категориям
+			$cart_groups = [];
 
-														<?php
+			foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
 
-														$thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
+				$_product = apply_filters(
+					'woocommerce_cart_item_product',
+					$cart_item['data'],
+					$cart_item,
+					$cart_item_key
+				);
 
-														if (! $product_permalink) {
-															echo $thumbnail; // PHPCS: XSS ok.
-														} else {
-															printf('<a href="%s" class="product-thumb">%s</a>', esc_url($product_permalink), $thumbnail); // PHPCS: XSS ok.
-														}
-														?>
+				if (! $_product || ! $_product->exists() || $cart_item['quantity'] <= 0) {
+					continue;
+				}
 
-														<?php
+				// Берём категории товара
+				$terms = get_the_terms($_product->get_id(), 'product_cat');
 
-														if (! $product_permalink) {
-															echo wp_kses_post($product_name . '&nbsp;');
-														} else {
-															/**
-															 * This filter is documented above.
-															 *
-															 * @since 2.1.0
-															 */
-															echo wp_kses_post(apply_filters('woocommerce_cart_item_name', sprintf('<a href="%s" class="product-name">%s</a>', esc_url($product_permalink), $_product->get_name()), $cart_item, $cart_item_key));
-														}
+				// Название категории по умолчанию
+				$cat_name = 'Без категории';
 
-														do_action('woocommerce_after_cart_item_name', $cart_item, $cart_item_key);
+				if (! empty($terms) && ! is_wp_error($terms)) {
 
-														// Meta data.
-														echo wc_get_formatted_cart_item_data($cart_item); // PHPCS: XSS ok.
+					// Берём первую категорию
+					$term = array_shift($terms);
 
-														// Backorder notification.
-														if ($_product->backorders_require_notification() && $_product->is_on_backorder($cart_item['quantity'])) {
-															echo wp_kses_post(apply_filters('woocommerce_cart_item_backorder_notification', '<p class="backorder_notification">' . esc_html__('Available on backorder', 'woocommerce') . '</p>', $product_id));
-														}
+					// Если есть родитель — можно вывести именно его
+					if ($term->parent) {
+						$parent = get_term($term->parent, 'product_cat');
+						if ($parent && ! is_wp_error($parent)) {
+							$cat_name = $parent->name;
+						} else {
+							$cat_name = $term->name;
+						}
+					} else {
+						$cat_name = $term->name;
+					}
+				}
 
-														?>
+				// Кладём товар в нужную группу
+				$cart_groups[$cat_name][] = [
+					'cart_item_key' => $cart_item_key,
+					'cart_item'     => $cart_item,
+					'product'       => $_product,
+				];
+			}
+			?>
 
-													</div>
 
-												</td>
-												<td>
-													<span class="price"><?php echo WC()->cart->get_product_price($_product) ?></span>
-												</td>
-												<td>
-													<?php
-													if ($_product->is_sold_individually()) {
-														$min_quantity = 1;
-														$max_quantity = 1;
-													} else {
-														$min_quantity = 0;
-														$max_quantity = $_product->get_max_purchase_quantity();
-													}
+			<div class="cart-flex woocommerce-cart-form__contents">
 
-													$product_quantity = woocommerce_quantity_input(
-														array(
-															'input_name'   => "cart[{$cart_item_key}][qty]",
-															'input_value'  => $cart_item['quantity'],
-															'max_value'    => $max_quantity,
-															'min_value'    => $min_quantity,
-															'product_name' => $product_name,
-														),
-														$_product,
-														false
-													);
-													echo $product_quantity;
-													?>
-												</td>
-												<td>
-													<span class="price"><?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']) ?></span>
-												</td>
-											</tr>
+				<!-- <div class="cart-flex__head">
+						<div class="cart-flex__col cart-flex__col--product">Товары</div>
+						<div class="cart-flex__col cart-flex__col--price">Цена</div>
+						<div class="cart-flex__col cart-flex__col--qty">Количество</div>
+						<div class="cart-flex__col cart-flex__col--total">Итого</div>
+					</div> -->
 
-									<?php }
-									} ?>
+				<?php do_action('woocommerce_before_cart_contents'); ?>
 
-								</tbody>
-							</table>
-						</div>
-					</form>
-				</div>
-			</div>
+				<?php foreach ($cart_groups as $cat_title => $items) : ?>
 
-			<div class="col-lg-4">
-				<!-- Cart Calculate Area -->
+					<!-- строка-заголовок категории -->
+					<div class="cart-flex__category">
+						<?php echo esc_html($cat_title); ?>
+					</div>
 
-				<div class="cart-calculate-area mt-sm-30 mt-md-30">
-					<h5 class="cal-title">Сумма заказов</h5>
-					<?php
-					woocommerce_cart_totals();
+					<?php foreach ($items as $data) :
+
+						$cart_item_key = $data['cart_item_key'];
+						$cart_item     = $data['cart_item'];
+						$_product      = $data['product'];
+
+						$product_id = $_product->get_id();
+
+						$product_permalink = apply_filters(
+							'woocommerce_cart_item_permalink',
+							$_product->is_visible() ? $_product->get_permalink($cart_item) : '',
+							$cart_item,
+							$cart_item_key
+						);
 					?>
 
+						<div class="cart-flex__row cart_item">
+
+							<div class="cart-flex__col cart-flex__col--product">
+								<div class="cart-product-item">
+									<?php
+									$thumbnail = apply_filters(
+										'woocommerce_cart_item_thumbnail',
+										$_product->get_image(),
+										$cart_item,
+										$cart_item_key
+									);
+
+									if ($product_permalink) {
+										printf('<a href="%s" class="product-thumb">%s</a>', esc_url($product_permalink), $thumbnail);
+									} else {
+										echo $thumbnail;
+									}
+									?>
+									<div class="cart-product-item__name">
+										<?php
+										if ($product_permalink) {
+											printf(
+												'<a href="%s" class="product-name">%s</a>',
+												esc_url($product_permalink),
+												esc_html($_product->get_name())
+											);
+										} else {
+											echo esc_html($_product->get_name());
+										}
+										?>
+										<?php
+										$sku = $_product->get_sku();
+
+										if ($sku) {
+											echo '<div class="product-sku">Артикул: ' . esc_html($sku) . '</div>';
+										}
+										?>
+									</div>
+
+								</div>
+							</div>
+
+							<div class="cart-flex__col cart-flex__col--price">
+								<div class="cart-flex__col__label">Цена:</div>
+								<span class="price"><?php echo WC()->cart->get_product_price($_product); ?></span>
+							</div>
+
+							<div class="cart-flex__col cart-flex__col--qty">
+								<div class="cart-flex__col__label">Кол-во:</div>
+								<?php
+								if ($_product->is_sold_individually()) {
+									echo sprintf('1 <input type="hidden" name="cart[%s][qty]" value="1" />', $cart_item_key);
+								} else {
+									echo woocommerce_quantity_input(
+										array(
+											'input_name'   => "cart[{$cart_item_key}][qty]",
+											'input_value'  => $cart_item['quantity'],
+											'max_value'    => $_product->get_max_purchase_quantity(),
+											'min_value'    => $_product->get_min_purchase_quantity(),
+											'product_name' => $_product->get_name(),
+										),
+										$_product,
+										false
+									);
+								}
+								?>
+							</div>
+
+							<div class="cart-flex__col cart-flex__col--total">
+								<div class="cart-flex__col__label">Сумма:</div>
+								<span class="price">
+									<?php echo WC()->cart->get_product_subtotal($_product, $cart_item['quantity']); ?>
+								</span>
+							</div>
+
+							<div class="product-remove">
+								<a href="<?php echo esc_url(wc_get_cart_remove_url($cart_item_key)); ?>"
+									class="remove"
+									aria-label="<?php esc_attr_e('Remove this item', 'woocommerce'); ?>"
+									data-product_id="<?php echo esc_attr($product_id); ?>"
+									data-product_sku="<?php echo esc_attr($_product->get_sku()); ?>">
+									<i class="fa fa-trash-o"></i>
+								</a>
+							</div>
+
+						</div>
+
+					<?php endforeach; ?>
+
+				<?php endforeach; ?>
+
+				<?php do_action('woocommerce_after_cart_contents'); ?>
+
+			</div>
+
+
+			<div class="cart-coupon-update-area d-sm-flex justify-content-between align-items-center">
+				<?php do_action('woocommerce_cart_actions'); ?>
+				<?php if (wc_coupons_enabled()) : ?>
+					<div class="coupon-form-wrap">
+
+						<input type="text" autocomplete="off" name="coupon_code" id="coupon_code" placeholder="Код купона" />
+						<button type="submit" class="btn-apply" name="apply_coupon">Применить купон</button>
+
+					</div>
+				<?php endif; ?>
+
+				<div class="cart-update-buttons mt-xs-14">
+					<button type="submit" name="update_cart" class="btn-update-cart">Обновить корзину</button>
+					<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce');
+					?>
 				</div>
 			</div>
+		</form>
+	</div>
+
+
+	<div class="row">
+		<div class="col-12">
+			<!-- Cart Calculate Area -->
+			<?php
+			woocommerce_cart_totals();
+			?>
 		</div>
 	</div>
-	<!--== End Cart Page Wrapper ==-->
 
+</div>
+<!--== End Cart Page Wrapper ==-->
 
-	<?php do_action('woocommerce_before_cart_collaterals');
-	?>
+<?php do_action('woocommerce_after_cart'); ?>
 
-	<!-- <div class="cart-collaterals">
-		<?php
-		/**
-		 * Cart collaterals hook.
-		 *
-		 * @hooked woocommerce_cross_sell_display
-		 * @hooked woocommerce_cart_totals - 10
-		 */
-		//do_action('woocommerce_cart_collaterals');
-		?>
-	</div> -->
+<?php
+/**
+ * end of cart section
+ */
 
-	<?php do_action('woocommerce_after_cart');
-	?>
+/**
+ * start of checkout section
+ */

@@ -6137,6 +6137,10 @@ Start Single Product Banner
   border-color: #d25b5b;
 }
 
+.sidebar-list__toggle {
+  color: var(--theme-color-accent);
+}
+
 /*===============================
 Start Sidebar Area Wrapper
 ================================*/
