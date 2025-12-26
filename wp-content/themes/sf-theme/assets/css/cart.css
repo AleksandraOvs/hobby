@@ -184,3 +184,56 @@
     font-weight: 600;
     font-size: 24px;
 }
+
+.woocommerce form.checkout_coupon,
+.woocommerce form.login,
+.woocommerce form.register {
+    border: 1px solid #cfc8d8;
+    padding: 20px;
+    margin: 0;
+    text-align: left;
+    border-radius: 0 0 5px 5px;
+}
+
+.review-order .review-order__row {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #d3d1d0;
+}
+
+.review-order .review-order__row .review-order__col:first-child {
+    font-weight: 600;
+    color: #343434;
+}
+
+.review-order .review-order__row .review-order__col:nth-child(2) {
+    color: #343434;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.review-order__row .review-order__col .amount bdi {
+    font-size: 16px;
+    color: #343434;
+}
+
+.checkout.woocommerce-checkout {
+    display: flex;
+    gap: 40px;
+}
+
+.checkout.woocommerce-checkout .checkout-order-fields {
+    width: calc(60% - 40px);
+}
+
+.checkout.woocommerce-checkout .order-details-area-wrap {
+    width: 40%;
+}
+
+.review-order__col .woocommerce-Price-amount.amount {
+    display: flex;
+    align-items: center;
+}

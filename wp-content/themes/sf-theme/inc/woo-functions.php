@@ -91,7 +91,7 @@ function sf_product_attributes()
 
         <?php endforeach; ?>
     </div>
-<?php
+    <?php
 }
 
 // add_action('wp_ajax_ajax_add_to_cart', 'theme_ajax_add_to_cart');
@@ -205,7 +205,187 @@ add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
 // });
 
 
+//список товаров в заказе 
+add_action('sf_checkout_products_block', function () {
+
+    if (WC()->cart->is_empty()) {
+        return;
+    }
+
+    echo '<div class="checkout-products-block">';
+    echo '<h3>Товары в заказе</h3>';
+    echo '<div class="cart-flex woocommerce-cart-form__contents">';
+
+    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+
+        $_product = $cart_item['data'];
+
+        if (! $_product || ! $_product->exists()) {
+            continue;
+        }
+
+        $product_id        = $_product->get_id();
+        $product_permalink = $_product->is_visible() ? $_product->get_permalink() : '';
+        $qty               = $cart_item['quantity'];
+        $thumb             = $_product->get_image();
+    ?>
+        <div class="cart-flex__row cart_item">
+
+            <div class="cart-flex__col cart-flex__col--product">
+                <div class="cart-product-item">
+                    <?php
+                    if ($product_permalink) {
+                        printf('<a href="%s" class="product-thumb">%s</a>', esc_url($product_permalink), $thumb);
+                    } else {
+                        echo $thumb;
+                    }
+                    ?>
+                    <div class="cart-product-item__name">
+                        <?php
+                        echo esc_html($_product->get_name());
+
+                        $sku = $_product->get_sku();
+                        if ($sku) {
+                            echo '<div class="product-sku">Артикул: ' . esc_html($sku) . '</div>';
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cart-flex__col cart-flex__col--price">
+                <div class="cart-flex__col__label">Цена:</div>
+                <span class="price"><?php echo WC()->cart->get_product_price($_product); ?></span>
+            </div>
+
+            <div class="cart-flex__col cart-flex__col--qty">
+                <div class="cart-flex__col__label">Кол-во:</div>
+                <?php echo esc_html($qty); ?>
+            </div>
+
+            <div class="cart-flex__col cart-flex__col--total">
+                <div class="cart-flex__col__label">Сумма:</div>
+                <span class="price">
+                    <?php echo WC()->cart->get_product_subtotal($_product, $qty); ?>
+                </span>
+            </div>
+
+        </div>
+<?php
+    }
+
+    echo '</div></div>';
+});
+
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     //$fragments['.cart-count'] = '<span class="cart-count">' . count(WC()->cart->get_cart()) . '</span>';
     return $fragments;
+});
+
+// add_filter('woocommerce_checkout_fields', function ($checkout_fields) {
+
+//     $checkout_fields['billing']['billing_first_name']['placeholder'] = 'Как вас зовут?';
+//     //echo '<pre>';print_r( $checkout_fields );exit;
+//     return $checkout_fields;
+// });
+
+// add_filter('woocommerce_order_button_html', function ($html) {
+
+//     return str_replace('button alt', 'btn btn-full btn-black mt-26', $html);
+// });
+
+// Добавляем единое поле "ФИО" и убираем стандартные
+add_filter('woocommerce_checkout_fields', function ($fields) {
+
+    // убираем стандартные
+    unset($fields['billing']['billing_first_name']);
+    unset($fields['billing']['billing_last_name']);
+
+    // добавляем наше
+    $fields['billing']['billing_full_name'] = [
+        'type'        => 'text',
+        'label'       => 'Имя и фамилия',
+        'required'    => true,
+        'class'       => ['form-row-wide'],
+        'priority'    => 10,
+        'autocomplete' => 'name',
+        'placeholder' => 'Ф.И.О.',
+    ];
+
+    return $fields;
+});
+
+// При сохранении — разбиваем на имя и фамилию
+add_action('woocommerce_checkout_create_order', function ($order, $data) {
+
+    if (! empty($data['billing_full_name'])) {
+        $full = trim($data['billing_full_name']);
+
+        // Простейшая логика: первое слово — имя, всё остальное — фамилия
+        $parts = preg_split('/\s+/u', $full);
+
+        $first = array_shift($parts);
+        $last  = count($parts) ? implode(' ', $parts) : '';
+
+        $order->set_billing_first_name($first);
+        $order->set_billing_last_name($last);
+
+        // Для аккаунта/профиля покупателя — тоже запишем
+        if ($customer = $order->get_customer_id()) {
+            update_user_meta($customer, 'billing_first_name', $first);
+            update_user_meta($customer, 'billing_last_name', $last);
+        }
+    }
+}, 10, 2);
+
+add_filter('woocommerce_checkout_fields', function ($fields) {
+
+    // 🔹 Удаляем стандартные поля
+    unset($fields['billing']['billing_first_name']);
+    unset($fields['billing']['billing_last_name']);
+
+    // 🔹 Добавляем наше поле
+    $fields['billing']['billing_full_name'] = array(
+        'type'        => 'text',
+        'label'       => 'Имя и фамилия',
+        'placeholder' => 'Например: Иван Петров',
+        'required'    => true,
+        'priority'    => 10,   // тут оно становится первым
+        'class'       => array('form-row-wide'),
+    );
+
+    // 🔹 дальше — твой порядок
+    $fields['billing']['billing_phone']['priority']     = 20;
+    $fields['billing']['billing_email']['priority']     = 30;
+    $fields['billing']['billing_country']['priority']   = 40;
+    $fields['billing']['billing_city']['priority']      = 50;
+    $fields['billing']['billing_address_1']['priority'] = 60;
+    $fields['billing']['billing_postcode']['priority']  = 70;
+
+    return $fields;
+});
+
+// Единое поле "Адрес"
+add_filter('woocommerce_checkout_fields', function ($fields) {
+
+    // убираем стандартные поля адреса
+    unset($fields['billing']['billing_address_1']);
+    unset($fields['billing']['billing_address_2']);
+
+    // (по желанию можно убрать и город / индекс)
+    // unset( $fields['billing']['billing_city'] );
+    // unset( $fields['billing']['billing_postcode'] );
+
+    // добавляем новое поле
+    $fields['billing']['billing_full_address'] = [
+        'type'        => 'text',
+        'label'       => 'Адрес',
+        'required'    => true,
+        'class'       => ['form-row-wide'],
+        'priority'    => 55,
+        'placeholder' => 'Например: ул. Ленина, д. 5, кв. 12',
+        'autocomplete' => 'street-address',
+    ];
+
+    return $fields;
 });

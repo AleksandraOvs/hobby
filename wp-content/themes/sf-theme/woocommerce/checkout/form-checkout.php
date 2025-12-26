@@ -33,32 +33,41 @@ if (! defined('ABSPATH')) {
 		}
 		?>
 		<form name="checkout" method="post" class="checkout woocommerce-checkout" action="<?php echo esc_url(wc_get_checkout_url()); ?>" enctype="multipart/form-data">
-			<div class="row">
+			<div class="checkout-order-fields">
 				<?php if ($checkout->get_checkout_fields()) : ?>
-					<div class="col-lg-6">
-						<!-- Checkout Form Area Start -->
-						<div class="checkout-billing-details-wrap">
-							<div class="billing-form-wrap">
-								<?php do_action('woocommerce_checkout_billing'); ?>
-								<div class="checkout-box-wrap">
-									<?php do_action('woocommerce_checkout_shipping'); ?>
-								</div>
+
+					<!-- Checkout Form Area Start -->
+					<div class="checkout-billing-details-wrap">
+						<div class="billing-form-wrap">
+							<?php do_action('woocommerce_checkout_billing'); ?>
+							<div class="checkout-box-wrap">
+								<?php //do_action('woocommerce_checkout_shipping'); 
+								?>
 							</div>
 						</div>
 					</div>
-				<?php endif; ?>
-				<div class="col-lg-6 col-xl-5 ml-auto">
-					<!-- Checkout Page Order Details -->
-					<div class="order-details-area-wrap ">
-						<h2>Ваш заказ</h2>
-						<div id="order_review" class="woocommerce-checkout-review-order order-details-table table-responsive">
-							<?php do_action('woocommerce_checkout_order_review'); ?>
-						</div>
-					</div>
 
+					<?php do_action('sf_checkout_products_block'); ?>
+
+				<?php endif; ?>
+
+			</div>
+
+			<!-- Checkout Page Order Details -->
+			<div class="order-details-area-wrap ">
+				<h2>Ваш заказ</h2>
+
+				<div id="order_review" class="woocommerce-checkout-review-order order-details-table table-responsive">
+					<?php do_action('woocommerce_checkout_order_review'); ?>
 				</div>
 			</div>
+
+
+
+
 		</form>
+
+
 		<?php do_action('woocommerce_after_checkout_form', $checkout); ?>
 	</div>
 </div>

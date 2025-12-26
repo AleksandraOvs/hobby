@@ -8557,7 +8557,6 @@ Start Checkout Page Wrapper
   font-size: 1.3rem;
   line-height: 1.5;
   padding: 0;
-  margin-top: 30px;
 }
 
 .checkout-page-coupon-area .card .card-body .apply-coupon-wrapper input {
@@ -8686,13 +8685,15 @@ Start Checkout Page Wrapper
 }
 
 .order-details-area-wrap {
-  border: 2px solid #e7e7e7;
-  padding: 50px;
+  border: 1px solid #d3d1d0;
+  padding: 20px;
   margin-top: 50px;
   color: #8d8d8d;
   font-size: 1.3rem;
   line-height: 1.5;
+  border-radius: 3px;
 }
+
 
 @media only screen and (max-width: 575.98px) {
   .order-details-area-wrap {
@@ -8713,7 +8714,11 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   line-height: 1;
   position: relative;
   padding-bottom: 15px;
-  margin-bottom: 35px;
+  margin: 0;
+}
+
+.woocommerce table.shop_table {
+  border: none;
 }
 
 @media only screen and (max-width: 767.98px) {

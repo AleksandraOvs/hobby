@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Checkout coupon form
  *
@@ -15,9 +16,9 @@
  * @version 3.4.4
  */
 
-defined( 'ABSPATH' ) || exit;
+defined('ABSPATH') || exit;
 
-if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
+if (! wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
 	return;
 }
 
@@ -26,30 +27,30 @@ if ( ! wc_coupons_enabled() ) { // @codingStandardsIgnoreLine.
 
 
 <div class="row">
-		<div class="col-lg-12">
-				<div class="checkout-page-coupon-area">
-						<!-- Checkout Coupon Accordion Start -->
-						<div class="checkoutAccordion" id="checkOutAccordion">
-								<div class="card">
-										<h3>Имеете купон? <a href="#" class="showcoupon">Нажмите тут, чтобы ввести его</a>
-										</h3>
+	<div class="col-lg-12">
+		<div class="checkout-page-coupon-area">
+			<!-- Checkout Coupon Accordion Start -->
+			<div class="checkoutAccordion" id="checkOutAccordion">
+				<div class="card">
+					<h3>Имеете купон? <a href="#" class="showcoupon">Нажмите тут, чтобы ввести его</a>
+					</h3>
 
-										<!-- <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion"> -->
-										<form class="checkout_coupon woocommerce-form-coupon" method="post" style="display:none">
-												<div class="card-body">
-														<div class="apply-coupon-wrapper">
-																<p>Если у вас есть купон, пожалуйста примените его ниже.</p>
+					<!-- <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion"> -->
+					<form class="checkout_coupon woocommerce-form-coupon" method="post" style="display:none">
+						<div class="card-body">
+							<div class="apply-coupon-wrapper">
+								<p>Если у вас есть купон, пожалуйста примените его ниже.</p>
 
-																		<input type="text" name="coupon_code" id="coupon_code" placeholder="Ваш код купона" required/>
-																		<button type="submit" name="apply_coupon" class="btn btn-black">Применить купон</button>
+								<input type="text" name="coupon_code" id="coupon_code" placeholder="Ваш код купона" required />
+								<button type="submit" name="apply_coupon" class="btn">Применить купон</button>
 
-														</div>
-												</div>
-										</form>
-
-								</div>
+							</div>
 						</div>
-						<!-- Checkout Coupon Accordion End -->
+					</form>
+
 				</div>
+			</div>
+			<!-- Checkout Coupon Accordion End -->
 		</div>
+	</div>
 </div>

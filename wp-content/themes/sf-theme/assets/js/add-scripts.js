@@ -500,87 +500,87 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-document.addEventListener('DOMContentLoaded', () => {
+// document.addEventListener('DOMContentLoaded', () => {
 
-    document.body.addEventListener('click', (e) => {
-        const btn = e.target.closest('.single_add_to_cart_button');
-        if (!btn) return;
+//     document.body.addEventListener('click', (e) => {
+//         const btn = e.target.closest('.single_add_to_cart_button');
+//         if (!btn) return;
 
-        e.preventDefault(); // отменяем стандартную отправку формы
+//         e.preventDefault(); // отменяем стандартную отправку формы
 
-        const form = btn.closest('form.cart');
-        if (!form) return;
+//         const form = btn.closest('form.cart');
+//         if (!form) return;
 
-        const formData = new FormData(form);
-        formData.append('action', 'ajax_add_to_cart');
+//         const formData = new FormData(form);
+//         formData.append('action', 'ajax_add_to_cart');
 
-        // product_id берем из value кнопки
-        const product_id = btn.value || form.querySelector('input[name="product_id"]')?.value;
-        if (!product_id) {
-            console.error('product_id не найден');
-            return;
-        }
-        formData.append('add-to-cart', product_id);
+//         // product_id берем из value кнопки
+//         const product_id = btn.value || form.querySelector('input[name="product_id"]')?.value;
+//         if (!product_id) {
+//             console.error('product_id не найден');
+//             return;
+//         }
+//         formData.append('add-to-cart', product_id);
 
-        // кнопка в состоянии загрузки
-        btn.disabled = true;
-        btn.classList.add('is-loading');
-        const originalText = btn.textContent;
-        btn.textContent = 'Добавляем…';
+//         // кнопка в состоянии загрузки
+//         btn.disabled = true;
+//         btn.classList.add('is-loading');
+//         const originalText = btn.textContent;
+//         btn.textContent = 'Добавляем…';
 
-        fetch(window.themeAjax.url, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.success) {
+//         fetch(window.themeAjax.url, {
+//             method: 'POST',
+//             body: formData
+//         })
+//             .then(res => res.json())
+//             .then(data => {
+//                 if (data.success) {
 
-                    // удаляем старые уведомления WooCommerce
-                    document.querySelectorAll('.woocommerce-message').forEach(el => el.remove());
+//                     // удаляем старые уведомления WooCommerce
+//                     document.querySelectorAll('.woocommerce-message').forEach(el => el.remove());
 
-                    // создаем новое уведомление
-                    const message = document.createElement('div');
-                    message.className = 'woocommerce-message';
-                    message.innerHTML = 'Товар добавлен в корзину! <button class="woocommerce-message-close" aria-label="Закрыть">×</button>';
+//                     // создаем новое уведомление
+//                     const message = document.createElement('div');
+//                     message.className = 'woocommerce-message';
+//                     message.innerHTML = 'Товар добавлен в корзину! <button class="woocommerce-message-close" aria-label="Закрыть">×</button>';
 
-                    // вставляем уведомление
-                    const noticesWrapper = document.querySelector('.woocommerce-notices-wrapper');
-                    if (noticesWrapper) {
-                        noticesWrapper.appendChild(message);
-                    } else {
-                        form.parentNode.insertBefore(message, form);
-                    }
+//                     // вставляем уведомление
+//                     const noticesWrapper = document.querySelector('.woocommerce-notices-wrapper');
+//                     if (noticesWrapper) {
+//                         noticesWrapper.appendChild(message);
+//                     } else {
+//                         form.parentNode.insertBefore(message, form);
+//                     }
 
-                    // обработка кнопки закрытия
-                    message.querySelector('.woocommerce-message-close').addEventListener('click', () => {
-                        message.remove();
-                    });
+//                     // обработка кнопки закрытия
+//                     message.querySelector('.woocommerce-message-close').addEventListener('click', () => {
+//                         message.remove();
+//                     });
 
-                    // автоматическое скрытие через 10 секунд (5000)
-                    setTimeout(() => {
-                        if (message.parentNode) message.remove();
-                    }, 5000);
+//                     // автоматическое скрытие через 10 секунд (5000)
+//                     setTimeout(() => {
+//                         if (message.parentNode) message.remove();
+//                     }, 5000);
 
-                    // обновляем счетчик корзины, если есть
-                    const cartCount = document.querySelector('.cart-count');
-                    if (cartCount && data.cart_count !== undefined) {
-                        cartCount.textContent = data.cart_count;
-                    }
+//                     // обновляем счетчик корзины, если есть
+//                     const cartCount = document.querySelector('.cart-count');
+//                     if (cartCount && data.cart_count !== undefined) {
+//                         cartCount.textContent = data.cart_count;
+//                     }
 
-                } else {
-                    console.error('Ошибка добавления товара');
-                }
-            })
-            .finally(() => {
-                btn.disabled = false;
-                btn.classList.remove('is-loading');
-                btn.textContent = originalText;
-            });
+//                 } else {
+//                     console.error('Ошибка добавления товара');
+//                 }
+//             })
+//             .finally(() => {
+//                 btn.disabled = false;
+//                 btn.classList.remove('is-loading');
+//                 btn.textContent = originalText;
+//             });
 
-    });
+//     });
 
-});
+// });
 
 // (function ($) {
 
