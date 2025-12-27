@@ -5,6 +5,11 @@
         <div class="container">
             <h1><?php the_title(); ?></h1>
 
+            <div class="single-description">
+                <div class="sd-date"><?php echo get_the_date('d.m.Y'); ?></div>
+                <div class="sd-excerpt"><?php the_excerpt() ?></div>
+            </div>
+
             <?php the_content(); ?>
 
         </div>
