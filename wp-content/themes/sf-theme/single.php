@@ -4,7 +4,6 @@
     <div class="page-content">
         <div class="container">
             <h1><?php the_title(); ?></h1>
-            sdsdsdsdsdsd
             <div class="single-description">
                 <div class="sd-date"><?php echo get_the_date('d.m.Y'); ?></div>
                 <div class="sd-excerpt"><?php the_excerpt() ?></div>

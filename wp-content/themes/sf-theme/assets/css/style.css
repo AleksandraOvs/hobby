@@ -1956,6 +1956,24 @@ ul.dropdown-menu {
   gap: 30px;
 }
 
+/*SINGLE*/
+
+.single-description {
+  display: flex;
+  gap: 40px;
+}
+
+.sd-date {
+  line-height: 2;
+  font-size: 16px;
+  color: #898989;
+}
+
+.sd-excerpt {
+  font-size: 20px;
+  color: #343434;
+}
+
 /*BREADCRUMBS*/
 
 .breadcrumbs__list,
