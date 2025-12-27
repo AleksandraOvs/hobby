@@ -514,3 +514,9 @@ Stack trace:
 [27-Dec-2025 00:42:55 UTC] Ошибка перепланировки события Cron для хука action_scheduler_run_queue, код ошибки: could_not_set, сообщение об ошибке: Список событий cron не может быть сохранен., данные: {"schedule":"every_minute","args":["WP Cron"],"interval":60}
 [27-Dec-2025 08:30:15 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
 [27-Dec-2025 09:12:21 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131
+[27-Dec-2025 09:34:03 UTC] Automatic updates starting...
+[27-Dec-2025 09:34:04 UTC]   Automatic plugin updates starting...
+[27-Dec-2025 09:34:04 UTC]   Automatic plugin updates complete.
+[27-Dec-2025 09:34:04 UTC]   Automatic theme updates starting...
+[27-Dec-2025 09:34:04 UTC]   Automatic theme updates complete.
+[27-Dec-2025 09:34:04 UTC] Automatic updates complete.
