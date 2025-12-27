@@ -465,3 +465,51 @@ Stack trace:
 [26-Dec-2025 09:30:49 UTC]   Automatic theme updates starting...
 [26-Dec-2025 09:30:49 UTC]   Automatic theme updates complete.
 [26-Dec-2025 09:30:49 UTC] Automatic updates complete.
+[26-Dec-2025 15:43:15 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение in C:\OSPanel\home\sf.local\wp-includes\class-wpdb.php on line 1994
+[26-Dec-2025 15:43:17 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение in C:\OSPanel\home\sf.local\wp-includes\class-wpdb.php on line 1994
+[26-Dec-2025 15:43:21 UTC] PHP Warning:  mysqli_real_connect(): (HY000/2002): Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение in C:\OSPanel\home\sf.local\wp-includes\class-wpdb.php on line 1994
+[26-Dec-2025 21:30:32 UTC] Automatic updates starting...
+[26-Dec-2025 21:30:35 UTC]   Automatic plugin updates starting...
+[26-Dec-2025 21:30:35 UTC]   Automatic plugin updates complete.
+[26-Dec-2025 21:30:36 UTC]   Automatic theme updates starting...
+[26-Dec-2025 21:30:36 UTC]   Automatic theme updates complete.
+[26-Dec-2025 21:30:36 UTC] Automatic updates complete.
+[26-Dec-2025 21:41:43 UTC] PHP Warning:  Undefined variable $product in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 161
+[26-Dec-2025 21:41:43 UTC] PHP Fatal error:  Uncaught Error: Call to a member function has_weight() on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php:161
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-core-functions.php(346): include()
+#1 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-cart.php(101): wc_get_template('cart/cart.php')
+#2 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(75): WC_Shortcode_Cart::output(Array)
+#3 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(88): WC_Shortcodes::shortcode_wrapper(Array)
+#4 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(434): WC_Shortcodes::cart(Array, '', 'woocommerce_car...')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(woocom...', 'do_shortcode_ta...', '[woocommerce_ca...')
+#7 C:\OSPanel\home\sf.local\wp-includes\class-wp-hook.php(341): do_shortcode('[woocommerce_ca...')
+#8 C:\OSPanel\home\sf.local\wp-includes\plugin.php(205): WP_Hook->apply_filters('[woocommerce_ca...', Array)
+#9 C:\OSPanel\home\sf.local\wp-includes\post-template.php(256): apply_filters('the_content', '<!-- wp:shortco...')
+#10 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-cart.php(9): the_content()
+#11 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#12 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#13 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#14 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 161
+[26-Dec-2025 21:42:04 UTC] PHP Fatal error:  Uncaught Error: Call to a member function has_weight() on null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php:162
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\wc-core-functions.php(346): include()
+#1 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\shortcodes\class-wc-shortcode-cart.php(101): wc_get_template('cart/cart.php')
+#2 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(75): WC_Shortcode_Cart::output(Array)
+#3 C:\OSPanel\home\sf.local\wp-content\plugins\woocommerce\includes\class-wc-shortcodes.php(88): WC_Shortcodes::shortcode_wrapper(Array)
+#4 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(434): WC_Shortcodes::cart(Array, '', 'woocommerce_car...')
+#5 [internal function]: do_shortcode_tag(Array)
+#6 C:\OSPanel\home\sf.local\wp-includes\shortcodes.php(273): preg_replace_callback('/\\[(\\[?)(woocom...', 'do_shortcode_ta...', '[woocommerce_ca...')
+#7 C:\OSPanel\home\sf.local\wp-includes\class-wp-hook.php(341): do_shortcode('[woocommerce_ca...')
+#8 C:\OSPanel\home\sf.local\wp-includes\plugin.php(205): WP_Hook->apply_filters('[woocommerce_ca...', Array)
+#9 C:\OSPanel\home\sf.local\wp-includes\post-template.php(256): apply_filters('the_content', '<!-- wp:shortco...')
+#10 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\page-cart.php(9): the_content()
+#11 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#12 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#13 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#14 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\woocommerce\cart\cart.php on line 162
+[27-Dec-2025 00:42:55 UTC] Ошибка перепланировки события Cron для хука action_scheduler_run_queue, код ошибки: could_not_set, сообщение об ошибке: Список событий cron не может быть сохранен., данные: {"schedule":"every_minute","args":["WP Cron"],"interval":60}
+[27-Dec-2025 08:30:15 UTC] PHP Notice:  Функция wp_enqueue_script() вызвана <strong>неправильно</strong>. Скрипт "wp-editor" не может быть использован в очереди совместно с новым редактором виджетов (wp-edit-widgets или wp-customize-widgets). Дополнительную информацию можно найти на странице <a href="https://developer.wordpress.org/advanced-administration/debug/debug-wordpress/">&laquo;Отладка в WordPress&raquo;</a>. (Это сообщение было добавлено в версии 5.8.0.) in C:\OSPanel\home\sf.local\wp-includes\functions.php on line 6131

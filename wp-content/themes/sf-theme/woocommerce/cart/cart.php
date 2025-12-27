@@ -156,6 +156,34 @@ defined('ABSPATH') || exit;
 								</div>
 							</div>
 
+
+							<?php
+
+							// вес одной позиции (без количества)
+							if ($_product && $_product->has_weight()) :
+
+								$single_weight = (float) $_product->get_weight();
+
+								// вес с учётом количества
+								$total_weight = $single_weight * (int) $cart_item['quantity'];
+							?>
+								<div class="cart-flex__col cart-flex__col--weight">
+									<div class="cart-flex__col__label">Вес:</div>
+
+									<?php
+									echo esc_html(
+										wc_get_weight(
+											$total_weight,
+											get_option('woocommerce_weight_unit')
+										)
+									);
+									?>
+								</div>
+							<?php endif; ?>
+
+
+
+
 							<div class="cart-flex__col cart-flex__col--price">
 								<div class="cart-flex__col__label">Цена:</div>
 								<span class="price"><?php echo WC()->cart->get_product_price($_product); ?></span>
@@ -195,7 +223,10 @@ defined('ABSPATH') || exit;
 									aria-label="<?php esc_attr_e('Remove this item', 'woocommerce'); ?>"
 									data-product_id="<?php echo esc_attr($product_id); ?>"
 									data-product_sku="<?php echo esc_attr($_product->get_sku()); ?>">
-									<i class="fa fa-trash-o"></i>
+									<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M17.75 7.75L15.755 19.096C15.6736 19.5594 15.4315 19.9792 15.0712 20.2817C14.7109 20.5842 14.2555 20.75 13.785 20.75H5.715C5.24454 20.75 4.78913 20.5842 4.42882 20.2817C4.06852 19.9792 3.82639 19.5594 3.745 19.096L1.75 7.75M18.75 4.75H13.125M13.125 4.75V2.75C13.125 2.21957 12.9143 1.71086 12.5392 1.33579C12.1641 0.960714 11.6554 0.75 11.125 0.75H8.375C7.84457 0.75 7.33586 0.960714 6.96079 1.33579C6.58571 1.71086 6.375 2.21957 6.375 2.75V4.75M13.125 4.75H6.375M0.75 4.75H6.375" stroke="#797979" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+									</svg>
+
 								</a>
 							</div>
 
@@ -209,47 +240,79 @@ defined('ABSPATH') || exit;
 
 			</div>
 
+			<div class="cart-totals">
+				<div class="cart-coupon-update-area d-sm-flex justify-content-between align-items-center">
+					<?php do_action('woocommerce_cart_actions'); ?>
+					<?php if (wc_coupons_enabled()) : ?>
+						<div class="coupon-form-wrap">
 
-			<div class="cart-coupon-update-area d-sm-flex justify-content-between align-items-center">
-				<?php do_action('woocommerce_cart_actions'); ?>
-				<?php if (wc_coupons_enabled()) : ?>
-					<div class="coupon-form-wrap">
+							<input type="text" autocomplete="off" name="coupon_code" id="coupon_code" placeholder="Введите промокод" />
+							<button type="submit" class="btn-apply" name="apply_coupon"><span>Применить купон</span></button>
 
-						<input type="text" autocomplete="off" name="coupon_code" id="coupon_code" placeholder="Код купона" />
-						<button type="submit" class="btn-apply" name="apply_coupon">Применить купон</button>
+						</div>
+					<?php endif; ?>
 
+					<div class="cart-update-buttons mt-xs-14">
+						<button type="submit" name="update_cart" class="btn-update-cart">Обновить корзину</button>
+						<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce');
+						?>
 					</div>
-				<?php endif; ?>
-
-				<div class="cart-update-buttons mt-xs-14">
-					<button type="submit" name="update_cart" class="btn-update-cart">Обновить корзину</button>
-					<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce');
-					?>
 				</div>
+
+				<ul class="cart-totals__info">
+					<li class="cart-totals__info__item">
+						<span>Позиций:</span>
+						<p><?php echo count(WC()->cart->get_cart()) ?></p>
+					</li>
+
+					<li class="cart-totals__info__item">
+						<span>Вес:</span>
+						<p> <?php
+							$total_weight = WC()->cart->get_cart_contents_weight();
+							echo esc_html(
+								wc_get_weight(
+									$total_weight,
+									get_option('woocommerce_weight_unit')
+								)
+							);
+							?></p>
+					</li>
+					<?php
+					$discount_total = WC()->cart->get_discount_total(); // общая сумма скидок
+
+					if ($discount_total > 0) {
+					?>
+						<li class="cart-totals__info__item">
+							<span>Скидка:</span>
+							<p><?php echo wc_price($discount_total) ?></p>
+						</li>
+					<?php
+					}
+					?>
+
+					<li class="cart-totals__info__item">
+						<span>Итого:</span>
+						<p><?php echo wc_cart_totals_order_total_html(); ?></p>
+					</li>
+				</ul>
 			</div>
 		</form>
 	</div>
 
 
-	<div class="row">
-		<div class="col-12">
-			<!-- Cart Calculate Area -->
-			<?php
-			woocommerce_cart_totals();
-			?>
-		</div>
-	</div>
+	<div class="cart-buttons">
+		<a class="cart-button btn" href="<?php echo site_url('catalog') ?>" class="btn">Продолжить покупки</a>
+		<?php do_action('woocommerce_proceed_to_checkout');
+		?>
 
+
+		<?php do_action('woocommerce_after_cart');
+		?>
+	</div>
 </div>
 <!--== End Cart Page Wrapper ==-->
 
-<?php do_action('woocommerce_after_cart'); ?>
+
+
 
 <?php
-/**
- * end of cart section
- */
-
-/**
- * start of checkout section
- */

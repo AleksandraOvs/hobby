@@ -311,6 +311,33 @@ register_sidebar(array(
 	'after_title'   => '',
 ));
 
+register_sidebar(array(
+	'id' => 'footer-1',
+	'name' => 'Сайдбар футера',
+	'before_widget' => '<div class=" footer-sidebar-wrap">',
+	'after_widget'  => '</div>',
+	'before_title'  => '',
+	'after_title'   => '',
+));
+
+register_sidebar(array(
+	'id' => 'footer-2',
+	'name' => 'Сайдбар футера2',
+	'before_widget' => '<div class=" footer-sidebar-wrap">',
+	'after_widget'  => '</div>',
+	'before_title'  => '',
+	'after_title'   => '',
+));
+
+register_sidebar(array(
+	'id' => 'footer-3',
+	'name' => 'Сайдбар футера3',
+	'before_widget' => '<div class=" footer-sidebar-wrap">',
+	'after_widget'  => '</div>',
+	'before_title'  => '',
+	'after_title'   => '',
+));
+
 
 function render_product_categories_menu($parent_id = 0, $level = 0)
 {

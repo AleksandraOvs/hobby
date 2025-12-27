@@ -86,6 +86,8 @@ get_header() ?>
                         'limit'  => 8
                     ]);
                     ?>
+
+                    <?php get_template_part('template-parts/banners-catalog') ?>
                 </div>
 
                 <!-- <button id="load-more-categories">Показать ещё</button> -->

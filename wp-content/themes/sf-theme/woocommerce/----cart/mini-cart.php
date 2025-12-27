@@ -28,6 +28,23 @@ do_action('woocommerce_before_mini_cart'); ?>
 							<?php else : ?>
 								<?php echo $thumbnail; ?>
 							<?php endif; ?>
+
+							<?php
+							// Кнопка удаления товара
+							echo apply_filters(
+								'woocommerce_cart_item_remove_link',
+								sprintf(
+									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"></a>',
+									esc_url(wc_get_cart_remove_url($cart_item_key)),
+									esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
+									esc_attr($product_id),
+									esc_attr($cart_item_key),
+									esc_attr($_product->get_sku())
+								),
+								$cart_item_key
+							);
+							?>
+
 						</figure>
 
 						<div class="product-details">
@@ -51,22 +68,6 @@ do_action('woocommerce_before_mini_cart'); ?>
 								?>
 							</div>
 						</div>
-
-						<?php
-						// Кнопка удаления товара
-						echo apply_filters(
-							'woocommerce_cart_item_remove_link',
-							sprintf(
-								'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">&#215;</a>',
-								esc_url(wc_get_cart_remove_url($cart_item_key)),
-								esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
-								esc_attr($product_id),
-								esc_attr($cart_item_key),
-								esc_attr($_product->get_sku())
-							),
-							$cart_item_key
-						);
-						?>
 
 						<?php echo wc_get_formatted_cart_item_data($cart_item); ?>
 					</li>

@@ -22,12 +22,30 @@ do_action('woocommerce_before_mini_cart'); ?>
 			?>
 					<li class="woocommerce-mini-cart-item">
 
+
 						<figure class="product-thumb">
 							<?php if (! empty($product_permalink)) : ?>
 								<a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
 							<?php else : ?>
 								<?php echo $thumbnail; ?>
 							<?php endif; ?>
+
+							<?php
+							// Кнопка удаления товара
+							echo apply_filters(
+								'woocommerce_cart_item_remove_link',
+								sprintf(
+									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">&#215;</a>',
+									esc_url(wc_get_cart_remove_url($cart_item_key)),
+									esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
+									esc_attr($product_id),
+									esc_attr($cart_item_key),
+									esc_attr($_product->get_sku())
+								),
+								$cart_item_key
+							);
+							?>
+
 						</figure>
 
 						<div class="product-details">
@@ -52,22 +70,6 @@ do_action('woocommerce_before_mini_cart'); ?>
 							</div>
 						</div>
 
-						<?php
-						// Кнопка удаления товара
-						echo apply_filters(
-							'woocommerce_cart_item_remove_link',
-							sprintf(
-								'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">&#215;</a>',
-								esc_url(wc_get_cart_remove_url($cart_item_key)),
-								esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
-								esc_attr($product_id),
-								esc_attr($cart_item_key),
-								esc_attr($_product->get_sku())
-							),
-							$cart_item_key
-						);
-						?>
-
 						<?php echo wc_get_formatted_cart_item_data($cart_item); ?>
 					</li>
 			<?php
@@ -78,14 +80,18 @@ do_action('woocommerce_before_mini_cart'); ?>
 			?>
 		</ul>
 
-		<p class="woocommerce-mini-cart__total total">
-			<?php do_action('woocommerce_widget_shopping_cart_total'); ?>
-		</p>
+		<div class="woocommerce-mini-cart__footer">
+			<p class="woocommerce-mini-cart__total total">
+				<?php do_action('woocommerce_widget_shopping_cart_total'); ?>
+			</p>
 
-		<div class="minicart-btn-group">
-			<a href="<?php echo wc_get_cart_url(); ?>" class="btn btn-black">Просмотр корзины</a>
-			<a href="<?php echo wc_get_checkout_url(); ?>" class="btn btn-black">Оформление заказа</a>
+			<div class="minicart-btn-group">
+				<a href="<?php echo wc_get_cart_url(); ?>" class="btn">Просмотр корзины</a>
+				<a href="<?php echo wc_get_checkout_url(); ?>" class="btn">Оформление заказа</a>
+			</div>
 		</div>
+
+
 
 	<?php else : ?>
 

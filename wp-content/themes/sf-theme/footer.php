@@ -1,95 +1,79 @@
 <!--== Start Footer Section ===-->
 <footer id="footer-area">
-    <!-- Start Footer Widget Area -->
-    <div class="footer-widget-area pt-40 pb-28">
-        <div class="container">
-            <div class="footer-widget-content">
-                <div class="row">
+    <div class="container">
+        <div class="footer-col">
+            <?php
+            $footer_logo = get_theme_mod('footer_logo');
+            $img = wp_get_attachment_image_src($footer_logo, 'full');
+            if ($img) : echo '<a class="custom-logo-link" href="' . site_url() . '"><img src="' . $img[0] . '" alt=""></a>';
+            endif;
+            ?>
 
-                    <!-- Start Footer Widget Item -->
-                    <div class="col-sm-3 col-lg-3">
-                        <div class="footer-widget-item-wrap">
-                            <h3 class="widget-title">Каталог</h3>
-                            <div class="widget-body">
-                                <?php
-                                wp_nav_menu(
-                                    array(
-                                        'theme_location' => 'foot_1',
-                                        'container' => false,
-                                        'menu_class' => 'footer-list',
-                                    )
-                                );
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Footer Widget Item -->
+            <div class="site-info">
+                <span>&copy;<?php echo date('Y'); ?>.Все права защищены</span>
+            </div>
 
-                    <!-- Start Footer Widget Item -->
-                    <div class="col-sm-3 col-lg-3">
-                        <div class="footer-widget-item-wrap">
-                            <h3 class="widget-title">Страницы</h3>
-                            <div class="widget-body">
-                                <?php
-                                wp_nav_menu(
-                                    array(
-                                        'theme_location' => 'foot_2',
-                                        'container' => false,
-                                        'menu_class' => 'footer-list',
-                                    )
-                                );
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Footer Widget Item -->
+        </div>
 
-                    <!-- Start Footer Widget Item -->
-                    <div class="col-sm-3 col-lg-3">
-                        <div class="footer-widget-item-wrap">
-                            <h3 class="widget-title">Товары</h3>
-                            <div class="widget-body">
-                                <?php
-                                wp_nav_menu(
-                                    array(
-                                        'theme_location' => 'foot_3',
-                                        'container' => false,
-                                        'menu_class' => 'footer-list',
-                                    )
-                                );
-                                ?>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- End Footer Widget Item -->
+        <?php if (is_active_sidebar('footer-1')) : ?>
+            <div class="footer-col">
+                <?php dynamic_sidebar('footer-1'); ?>
+            </div>
+        <?php endif; ?>
 
-                    <!-- Start Footer Widget Item -->
-                    <div class="col-sm-3 col-lg-3">
-                        <div class="footer-widget-item-wrap">
-                            <!-- <h3 class="widget-title">Напишите мне</h3>
-                            <div class="widget-body">
-                                <div class="contact-text">
-                                    <a href="#">(+1) 234 56 78</a>
-                                    <a href="#">me@misha.blog</a>
-                                    <p>Санкт-Петербург, Невский пр.</p>
-                                </div>
-                            </div> -->
-                        </div>
-                    </div>
-                    <!-- End Footer Widget Item -->
-                </div>
+        <?php if (is_active_sidebar('footer-2')) : ?>
+            <div class="footer-col">
+                <?php dynamic_sidebar('footer-2'); ?>
+            </div>
+        <?php endif; ?>
+
+        <div class="footer-col">
+            <h3>Напишите нам</h3>
+            <!-- Мессенджеры -->
+            <?php
+            // Мессенджеры
+            $mes1 = get_field('mes_1', 'option');
+            $mes2 = get_field('mes_2', 'option');
+            $mes3 = get_field('mes_3', 'option');
+            ?>
+            <div class="contacts-messengers">
+                <?php
+                $messengers = [$mes1, $mes2, $mes3];
+
+                foreach ($messengers as $index => $mes):
+                    if (!$mes) continue;
+
+                    $icon_key = "mes" . ($index + 1) . "_icon";
+                    $text_key = "mes" . ($index + 1) . "_text";
+                    $link_key = "mes" . ($index + 1) . "_link";
+
+                    // безопасный доступ к Link полю
+                    $url = (isset($mes[$link_key]['url']) && is_string($mes[$link_key]['url'])) ? $mes[$link_key]['url'] : '';
+                    $target = (isset($mes[$link_key]['target']) && is_string($mes[$link_key]['target'])) ? $mes[$link_key]['target'] : '';
+                    $text = !empty($mes[$text_key]) ? $mes[$text_key] : '';
+                    $icon = !empty($mes[$icon_key]) ? $mes[$icon_key] : '';
+                ?>
+                    <?php if ($url): ?>
+                        <a class="messenger messenger-<?php echo $index + 1; ?>" href="<?php echo esc_url($url); ?>" <?php if ($target) echo 'target="' . esc_attr($target) . '"'; ?>>
+                            <?php if ($icon): ?>
+                                <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_html($text); ?>">
+                            <?php endif; ?>
+
+                        </a>
+                    <?php elseif ($text): ?>
+                        <span class="messenger messenger-<?php echo $index + 1; ?>">
+                            <?php if ($icon): ?>
+                                <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_html($text); ?>">
+                            <?php endif; ?>
+
+                        </span>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
         </div>
-    </div>
-    <!-- End Footer Widget Area -->
 
-    <!-- Start Footer Bottom Area -->
-    <div class="footer-bottom-wrapper">
-        <div class="container">
 
-        </div>
     </div>
-    <!-- End Footer Bottom Area -->
 </footer>
 <!--== End Footer Section ===-->
 

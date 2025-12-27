@@ -47,12 +47,7 @@ $product_published = $product->get_date_created();
 			?>
 		</div>
 		<a href="<?php echo $product->get_permalink() ?>" class="d-block">
-			<!-- <img class="primary-thumb" src="assets/img/products/prod-1-1.jpg"
-					alt="Product" /> -->
 			<?php echo $product->get_image('full') ?>
-
-			<!-- <img class="secondary-thumb" src="assets/img/products/prod-1-2.jpg"
-					alt="Product" /> -->
 		</a>
 	</figure>
 
@@ -72,16 +67,6 @@ $product_published = $product->get_date_created();
 
 		<div class="product-prices">
 			<?php echo $product->get_price_html() ?>
-		</div>
-		<div class="list-view-content">
-			<p class="product-desc"><?php $product->get_short_description() ?></p>
-
-
-			<!-- <a href="<?php //echo $product->add_to_cart_url() 
-							?>" class="single_add_to_cart_button"><?php //echo $product->add_to_cart_text() 
-																	?></a> -->
-
-
 		</div>
 	</div>
 </div>
