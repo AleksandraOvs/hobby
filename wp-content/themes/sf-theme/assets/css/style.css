@@ -6455,6 +6455,16 @@ Start Footer Section
   text-align: right;
 }
 
+.links-sidebar {
+  margin-top: 20px;
+  text-align: right;
+}
+
+.links-sidebar p {
+  margin: 0;
+  margin-bottom: 5px;
+}
+
 .footer-col .contacts-messengers {
   justify-content: flex-end;
   margin-top: 10px;
@@ -9712,6 +9722,11 @@ Start Start 404 Error Page Wrapper
 
   .footer-col .contacts-messengers {
     justify-content: center;
+  }
+
+  .links-sidebar {
+    margin-top: 20px;
+    text-align: center;
   }
 
   /* .header-center nav {

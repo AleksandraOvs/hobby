@@ -70,6 +70,12 @@
                     <?php endif; ?>
                 <?php endforeach; ?>
             </div>
+
+            <?php if (is_active_sidebar('footer-3')) : ?>
+                <div class="links-sidebar">
+                    <?php dynamic_sidebar('footer-3'); ?>
+                </div>
+            <?php endif; ?>
         </div>
 
 
