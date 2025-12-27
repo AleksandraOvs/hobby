@@ -9,10 +9,7 @@ get_header() ?>
     <div class="page-content">
         <div class="container">
             <h1>Каталог</h1>
-
             <div class="product-categories">
-
-
                 <nav id="catalog-navigation" class="catalog-navigation">
                     <?php //wp_nav_menu([
                     //'container' => false,

@@ -10184,6 +10184,13 @@ Start Start 404 Error Page Wrapper
     height: 210px;
   }
 
+  .section-works__description {
+    text-align: center;
+    width: 70%;
+    margin: 30px auto 0;
+  }
+
+
   .work-description {
     font-size: 14px;
   }

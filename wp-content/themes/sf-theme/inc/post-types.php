@@ -20,9 +20,9 @@ function register_template_post_type()
         'show_in_rest' => true, // ✅ без этого Gutenberg не заработает
         'supports' => ['title'], // ✅ поддержка редактора
         'menu_icon' => 'dashicons-layout',
-        'has_archive' => false,
-        'rewrite' => false,
-        'publicly_queryable' => false, // можно отключить вывод на фронте
+        'has_archive' => true,
+        'rewrite'            => ['slug' => 'works'],
+        'publicly_queryable' => true, // можно отключить вывод на фронте
     ]);
 }
 add_action('init', 'register_template_post_type');
