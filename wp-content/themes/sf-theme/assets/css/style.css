@@ -1802,6 +1802,17 @@ ul.dropdown-menu {
   padding-top: 0;
 }
 
+/*ARCHIVE */
+.page-description {
+  margin: 30px auto 40px;
+  text-align: center;
+  width: 70%;
+}
+
+.page-content .archive-title {
+  text-align: center;
+}
+
 /*ABOUT*/
 
 .section-about {

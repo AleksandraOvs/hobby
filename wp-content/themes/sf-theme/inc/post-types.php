@@ -21,8 +21,8 @@ function register_template_post_type()
         'supports' => ['title'], // ✅ поддержка редактора
         'menu_icon' => 'dashicons-layout',
         'has_archive' => true,
-        'rewrite'            => ['slug' => 'works'],
-        'publicly_queryable' => true, // можно отключить вывод на фронте
+        // 'rewrite'            => ['slug' => 'works'],
+        // 'publicly_queryable' => true, // можно отключить вывод на фронте
     ]);
 }
 add_action('init', 'register_template_post_type');

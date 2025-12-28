@@ -14,6 +14,7 @@ get_header();
 <main id="primary" class="site-main archive-page">
 
     <section class="page">
+
         <?php get_template_part('template-parts/elements/page-header'); ?>
         <div class="page-content">
             <div class="container">
@@ -32,7 +33,15 @@ get_header();
 
                     </div>
 
-                    <?php theme_posts_loop_with_pagination(['post_type' => 'post', 'posts_per_page' => 9]); ?>
+
+                    <?php if ($query->max_num_pages > 1): ?>
+                        <button class="btn" id="load-more-works"
+                            data-page="1"
+                            data-max="<?php echo $query->max_num_pages; ?>">
+                            Посмотреть ещё
+                        </button>
+                    <?php endif; ?>
+
 
                 <?php else : ?>
                     <p>Записей не найдено.</p>
