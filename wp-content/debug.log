@@ -857,3 +857,309 @@ Stack trace:
 [28-Dec-2025 09:30:53 UTC]   Automatic theme updates starting...
 [28-Dec-2025 09:30:53 UTC]   Automatic theme updates complete.
 [28-Dec-2025 09:30:53 UTC] Automatic updates complete.
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:58:28 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:58:28 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 10:59:06 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 10:59:06 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 10:59:33 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\front-page.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 10:59:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\index.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 10:59:35 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\index.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 11:00:02 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\front-page.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 11:00:06 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\index.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 11:00:07 UTC] PHP Fatal error:  Uncaught Error: Call to undefined function yith_wcwl_get_wishlist_url() in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php:230
+Stack trace:
+#0 C:\OSPanel\home\sf.local\wp-includes\template.php(814): require_once()
+#1 C:\OSPanel\home\sf.local\wp-includes\template.php(749): load_template('C:\\OSPanel\\home...', true, Array)
+#2 C:\OSPanel\home\sf.local\wp-includes\general-template.php(48): locate_template(Array, true, true, Array)
+#3 C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\index.php(1): get_header()
+#4 C:\OSPanel\home\sf.local\wp-includes\template-loader.php(125): include('C:\\OSPanel\\home...')
+#5 C:\OSPanel\home\sf.local\wp-blog-header.php(19): require_once('C:\\OSPanel\\home...')
+#6 C:\OSPanel\home\sf.local\index.php(17): require('C:\\OSPanel\\home...')
+#7 {main}
+  thrown in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\header.php on line 230
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:01:33 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:01:33 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:04 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:04 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "url" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 30
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "sizes" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Trying to access array offset on value of type null in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 34
+[28-Dec-2025 11:04:37 UTC] PHP Deprecated:  ltrim(): Passing null to parameter #1 ($string) of type string is deprecated in C:\OSPanel\home\sf.local\wp-includes\formatting.php on line 4496
+[28-Dec-2025 11:04:37 UTC] PHP Warning:  Undefined array key "alt" in C:\OSPanel\home\sf.local\wp-content\themes\sf-theme\template-parts\works.php on line 35
