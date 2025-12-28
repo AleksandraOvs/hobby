@@ -320,6 +320,10 @@
     text-decoration: underline;
 }
 
+.single-product__related {
+    padding-bottom: 80px;
+}
+
 /*характеристики товара*/
 
 .single-product-details .product-specs__row {
