@@ -3101,6 +3101,8 @@ Start Mini Cart Wrapper
   right: 0;
   top: 0;
   height: 100%;
+  width: 400px;
+  max-width: 70%;
   -webkit-transform: translate(100%, 0);
   -moz-transform: translate(100%, 0);
   -ms-transform: translate(100%, 0);
