@@ -1629,6 +1629,10 @@ ul.dropdown-menu {
   border-radius: 5px;
 }
 
+.info-banner__inner P:last-child {
+  margin-bottom: 0;
+}
+
 .info-banner__inner h2 {
   font-size: 30px;
   font-weight: 400;
