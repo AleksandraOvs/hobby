@@ -3,6 +3,7 @@
 $images_group = get_field('work_image_group');
 $heading      = get_field('work_heading');
 $description  = get_field('work_description');
+$sign         = get_field('work_sign');
 
 // сразу нормализуем список изображений
 $valid_images = [];
@@ -83,8 +84,8 @@ $count = count($valid_images);
         <div class="work-description"><?php echo esc_html($description); ?></div>
     <?php endif; ?>
 
-    <?php if ($heading): ?>
-        <h3 class="work-heading"><?php echo esc_html($heading); ?></h3>
+    <?php if ($sign): ?>
+        <div class="work-sign"><?php echo esc_html($sign); ?></div>
     <?php endif; ?>
 
     <?php if ($count > 0): ?>
