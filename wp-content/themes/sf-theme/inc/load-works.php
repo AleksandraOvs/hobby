@@ -17,43 +17,13 @@ function load_more_works()
     if ($query->have_posts()) :
         while ($query->have_posts()) : $query->the_post();
 
-            $image       = get_field('work_image');
-            $heading     = get_field('work_heading');
-            $description = get_field('work_description');
-            $sign        = get_field('work_sign');
+            // $image       = get_field('work_image');
+            // $heading     = get_field('work_heading');
+            // $description = get_field('work_description');
+            // $sign        = get_field('work_sign');
 ?>
 
-            <div class="work-item">
-                <div class="work-image">
-                    <?php if ($image) { ?>
-
-                        <a
-                            href="<?php echo esc_url($image['url']); ?>"
-                            data-fancybox="works-gallery"
-                            data-caption="<?php echo esc_attr($heading); ?>">
-                            <img
-                                src="<?php echo esc_url($image['sizes']['large']); ?>"
-                                alt="<?php echo esc_attr($image['alt']); ?>">
-                        </a>
-
-                    <?php } else {
-                    ?>
-                        <img src="<?php echo get_stylesheet_directory_uri() ?>/assets/img/svg/placeholder.svg" alt="<?php echo esc_attr($image['alt']); ?>">
-                    <?php
-                    } ?>
-                </div>
-                <?php if ($heading): ?>
-                    <h3 class="work-heading"><?php echo esc_html($heading); ?></h3>
-                <?php endif; ?>
-
-                <?php if ($description): ?>
-                    <div class="work-description"><?php echo esc_html($description); ?></div>
-                <?php endif; ?>
-
-                <?php if ($sign): ?>
-                    <div class="work-sign"><?php echo esc_html($sign); ?></div>
-                <?php endif; ?>
-            </div>
+             <?php get_template_part('template-parts/work-item'); ?>
 
 <?php endwhile;
     endif;

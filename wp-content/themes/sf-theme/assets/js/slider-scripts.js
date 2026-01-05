@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', function () {
     loop: true,
     slidesPerView: 1,
     pagination: {
-      el: '.swiper-pagination',
+      el: '.works-swiper-pagination',
       clickable: true,
     },
     navigation: {
@@ -60,7 +60,14 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
+  new Swiper('.work-modal-swiper', {
+    loop: true,
+    slidesPerView: 1,
+    pagination: {
+      el: '.work-modal-pagination',
+      clickable: true,
+    },
 
-
+  });
 
 });

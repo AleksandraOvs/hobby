@@ -15,45 +15,8 @@
         if ($query->have_posts()) :
             echo '<div class="works-list">';
             while ($query->have_posts()) : $query->the_post();
-
-                $image       = get_field('work_image');
-                $heading     = get_field('work_heading');
-                $description = get_field('work_description');
-                $sign        = get_field('work_sign');
         ?>
-
-                <div class="work-item">
-                    <div class="work-image">
-                        <?php if ($image) { ?>
-
-                            <a
-                                href="<?php echo esc_url($image['url']); ?>"
-                                data-fancybox="works-gallery"
-                                data-caption="<?php echo esc_attr($heading); ?>">
-                                <img
-                                    src="<?php echo esc_url($image['sizes']['large']); ?>"
-                                    alt="<?php echo esc_attr($image['alt']); ?>">
-                            </a>
-
-                        <?php } else {
-                        ?>
-                            <img src="<?php echo get_stylesheet_directory_uri() ?>/assets/img/svg/placeholder.svg" alt="<?php echo esc_attr($image['alt']); ?>">
-                        <?php
-                        } ?>
-                    </div>
-                    <?php if ($heading): ?>
-                        <h3 class="work-heading"><?php echo esc_html($heading); ?></h3>
-                    <?php endif; ?>
-
-                    <?php if ($description): ?>
-                        <div class="work-description"><?php echo esc_html($description); ?></div>
-                    <?php endif; ?>
-
-                    <?php if ($sign): ?>
-                        <div class="work-sign"><?php echo esc_html($sign); ?></div>
-                    <?php endif; ?>
-                </div>
-
+                <?php get_template_part('template-parts/work-item'); ?>
         <?php
             endwhile;
             echo '</div>';
@@ -129,6 +92,37 @@
             requestAnimationFrame(() => {
                 item.classList.add('is-visible');
             });
+        });
+    });
+</script>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        Fancybox.bind("[data-fancybox]", {
+            on: {
+                done: (fancybox, slide) => {
+                    const modal = slide.$content;
+                    const swiperEl = modal.querySelector('.work-modal-swiper');
+
+                    if (swiperEl && !swiperEl.swiper) {
+                        new Swiper(swiperEl, {
+                            loop: true,
+                            slidesPerView: 1,
+                            spaceBetween: 16,
+                            navigation: {
+                                nextEl: modal.querySelector('.work-modal-next'),
+                                prevEl: modal.querySelector('.work-modal-prev'),
+                            },
+                            pagination: {
+                                el: modal.querySelector('.work-modal-pagination'),
+                                clickable: true,
+                            }
+                        });
+                    }
+                }
+            }
         });
     });
 </script>
