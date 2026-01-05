@@ -1280,7 +1280,6 @@ ul.dropdown-menu li:hover>a::after {
   flex-wrap: wrap;
   column-gap: 10px;
   align-items: center;
-  justify-content: flex-end;
   row-gap: 10px;
 }
 
