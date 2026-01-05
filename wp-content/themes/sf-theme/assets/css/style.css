@@ -1294,6 +1294,10 @@ ul.dropdown-menu li:hover>a::after {
   justify-content: flex-end;
 }
 
+.contacts-address__inner p {
+  margin: 0;
+}
+
 .menu-toggle {
   display: none;
 }
