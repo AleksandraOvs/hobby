@@ -1537,6 +1537,20 @@ ul.dropdown-menu {
   opacity: 0.6;
 } */
 
+.single-template-products-wrapper {
+  display: flex;
+  gap: 40px;
+}
+
+.single-template-products-wrapper .single-product {
+  padding: 10px;
+  border: 1px solid #dddbda;
+  border-radius: 5px;
+  margin: 0;
+  position: relative;
+  width: calc(100% / 3 - 20px);
+}
+
 @media (max-width: 991px) {
   #menu-catalog {
     width: 100%;
@@ -2002,6 +2016,7 @@ ul.dropdown-menu {
 .woocommerce-breadcrumb {
   justify-content: center;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 10px;
 }
@@ -4213,6 +4228,7 @@ Products Style Here
   pointer-events: none;
   z-index: 3;
 }
+
 
 @media only screen and (max-width: 767.98px) {
   .single-product-wrap .product-thumbnail .product-hvr-content>.btn-addToCart {
@@ -8614,6 +8630,47 @@ Start Cart Page Wrapper
   width: 55%;
 }
 
+.cart-empty.woocommerce-info::before {
+  content: none;
+}
+
+.cart-empty.woocommerce-info {
+  background: transparent;
+  border: none;
+  position: relative;
+  font-size: 24px;
+  color: #343434;
+  text-align: center;
+  padding: 50px 0;
+}
+
+.cart-empty.woocommerce-info::after {
+  content: '';
+  height: 2px;
+  width: 150px;
+  background: var(--theme-color-accent);
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 75px);
+}
+
+p.return-to-shop .button.wc-backward {
+  margin: 0 auto;
+  display: block;
+  max-width: 280px;
+  text-align: center;
+  background: var(--theme-color-accent);
+  color: #fff;
+  font-weight: 400;
+  transition: all .5s linear;
+}
+
+p.return-to-shop .button.wc-backward:hover {
+  background: var(--theme-color-beige);
+  color: var(--theme-color-primary);
+}
+
 @media only screen and (max-width: 575.98px) {
   .cart-coupon-update-area .coupon-form-wrap {
     width: 100%;
@@ -10194,6 +10251,16 @@ Start Start 404 Error Page Wrapper
     align-items: stretch;
   }
 
+  .single-template-products-wrapper {
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .single-template-products-wrapper .single-product {
+    width: calc(100% / 2 - 10px);
+
+  }
+
 }
 
 @media (max-width: 576px) {
@@ -10446,6 +10513,11 @@ Start Start 404 Error Page Wrapper
 
   .swiper.work-modal-swiper {
     height: 290px;
+  }
+
+  .single-description {
+    flex-direction: column;
+    gap: 0;
   }
 }
 

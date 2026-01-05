@@ -3,7 +3,7 @@
 // Функция для вывода цепочки категорий с родителями
 function get_category_breadcrumbs($category)
 {
-    echo '<ul class="breadcrumbs__list">';
+    echo '<ul class="breadcrumbs__list cat">';
     $separator = ' <svg width="4" height="8" viewBox="0 0 4 8" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M2.66823 4.06847L-2.62371e-07 1.40024L0.665885 0.73436L4 4.06847L0.665885 7.40259L-2.91067e-08 6.7367L2.66823 4.06847Z" fill="#fff"/>
     </svg> ';

@@ -582,32 +582,139 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // });
 
-// (function ($) {
+(function ($) {
 
-//     function updateCartAjax() {
+    function updateCartAjax() {
 
-//         var $form = $('.woocommerce-cart-form');
+        var $form = $('.woocommerce-cart-form');
 
-//         // Добавляем флаг "обновить корзину"
-//         if (!$form.find('input[name="update_cart"]').length) {
-//             $form.append('<input type="hidden" name="update_cart" value="1">');
-//         }
+        // Добавляем флаг "обновить корзину"
+        if (!$form.find('input[name="update_cart"]').length) {
+            $form.append('<input type="hidden" name="update_cart" value="1">');
+        }
 
-//         $.ajax({
-//             type: 'POST',
-//             url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
-//             data: $form.serialize(),
-//             success: function () {
-//                 // WooCommerce сам перерисует фрагменты (итоги, мини-корзину и т.д.)
-//                 $(document.body).trigger('wc_fragment_refresh');
-//             }
-//         });
-//     }
+        $.ajax({
+            type: 'POST',
+            url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+            data: $form.serialize(),
+            success: function () {
+                // WooCommerce сам перерисует фрагменты (итоги, мини-корзину и т.д.)
+                $(document.body).trigger('wc_fragment_refresh');
+            }
+        });
+    }
 
-//     // слушаем чекбоксы
-//     $(document).on('change', '.product-select input[type="checkbox"]', function () {
-//         updateCartAjax();
-//     });
+    // слушаем чекбоксы
+    $(document).on('change', '.product-select input[type="checkbox"]', function () {
+        updateCartAjax();
+    });
 
-// })(jQuery);
+})(jQuery);
 
+document.addEventListener('DOMContentLoaded', () => {
+
+    document.body.addEventListener('click', (e) => {
+        const btn = e.target.closest('.single_add_to_cart_button');
+        if (!btn) return;
+
+        e.preventDefault(); // отменяем стандартную отправку формы
+
+        const form = btn.closest('form.cart');
+        if (!form) return;
+
+        const formData = new FormData(form);
+
+        // product_id
+        const product_id =
+            btn.value ||
+            form.querySelector('input[name="product_id"]')?.value;
+
+        if (!product_id) {
+            console.error('product_id не найден');
+            return;
+        }
+
+        // важно — именно add-to-cart (WooCommerce ждёт это поле)
+        formData.append('add-to-cart', product_id);
+
+        // кнопка в состоянии загрузки
+        btn.disabled = true;
+        btn.classList.add('is-loading');
+        const originalText = btn.textContent;
+        btn.textContent = 'Добавляем…';
+
+        // используем нативный endpoint WooCommerce
+        const url = wc_add_to_cart_params.wc_ajax_url.replace(
+            '%%endpoint%%',
+            'add_to_cart'
+        );
+
+        fetch(url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(() => {
+
+                // WooCommerce сам обновит мини-корзину
+                document.body.dispatchEvent(new Event('wc_fragment_refresh'));
+
+                // удаляем старые сообщения
+                document.querySelectorAll('.woocommerce-message').forEach(el => el.remove());
+
+                const message = document.createElement('div');
+                message.className = 'woocommerce-message';
+                message.innerHTML =
+                    'Товар добавлен в корзину! <button class="woocommerce-message-close" aria-label="Закрыть">×</button>';
+
+                const noticesWrapper = document.querySelector('.woocommerce-notices-wrapper');
+                if (noticesWrapper) {
+                    noticesWrapper.appendChild(message);
+                } else {
+                    form.parentNode.insertBefore(message, form);
+                }
+
+                message
+                    .querySelector('.woocommerce-message-close')
+                    .addEventListener('click', () => message.remove());
+
+                setTimeout(() => {
+                    if (message.parentNode) message.remove();
+                }, 5000);
+            })
+            .catch(err => {
+                console.error('Ошибка добавления товара', err);
+            })
+            .finally(() => {
+                btn.disabled = false;
+                btn.classList.remove('is-loading');
+                btn.textContent = originalText;
+            });
+
+    });
+
+});
+
+(function ($) {
+
+    function updateCartAjax() {
+        var $form = $('.woocommerce-cart-form');
+
+        if (!$form.find('input[name="update_cart"]').length) {
+            $form.append('<input type="hidden" name="update_cart" value="1">');
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+            data: $form.serialize(),
+            success: function () {
+                $(document.body).trigger('wc_fragment_refresh');
+            }
+        });
+    }
+
+    $(document).on('change', '.product-select input[type="checkbox"]', function () {
+        updateCartAjax();
+    });
+
+})(jQuery);

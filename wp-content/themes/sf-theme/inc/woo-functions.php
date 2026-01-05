@@ -94,36 +94,36 @@ function sf_product_attributes()
     <?php
 }
 
-// add_action('wp_ajax_ajax_add_to_cart', 'theme_ajax_add_to_cart');
-// add_action('wp_ajax_nopriv_ajax_add_to_cart', 'theme_ajax_add_to_cart');
+add_action('wp_ajax_ajax_add_to_cart', 'theme_ajax_add_to_cart');
+add_action('wp_ajax_nopriv_ajax_add_to_cart', 'theme_ajax_add_to_cart');
 
-// function theme_ajax_add_to_cart()
-// {
-//     if (empty($_POST['add-to-cart'])) {
-//         wp_send_json_error();
-//     }
+function theme_ajax_add_to_cart()
+{
+    if (empty($_POST['add-to-cart'])) {
+        wp_send_json_error();
+    }
 
-//     $product_id = intval($_POST['add-to-cart']);
-//     $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+    $product_id = intval($_POST['add-to-cart']);
+    $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
 
-//     $added = WC()->cart->add_to_cart($product_id, $quantity);
+    $added = WC()->cart->add_to_cart($product_id, $quantity);
 
-//     if ($added) {
-//         // -----------------------
-//         // Очищаем уведомления из сессии WooCommerce,
-//         // чтобы они не появлялись повторно на других страницах
-//         // -----------------------
-//         if (isset(WC()->session)) {
-//             WC()->session->__unset('wc_notices');
-//         }
+    if ($added) {
+        // -----------------------
+        // Очищаем уведомления из сессии WooCommerce,
+        // чтобы они не появлялись повторно на других страницах
+        // -----------------------
+        if (isset(WC()->session)) {
+            WC()->session->__unset('wc_notices');
+        }
 
-//         wp_send_json_success([
-//             'cart_count' => WC()->cart->get_cart_contents_count(),
-//         ]);
-//     } else {
-//         wp_send_json_error();
-//     }
-// }
+        wp_send_json_success([
+            'cart_count' => WC()->cart->get_cart_contents_count(),
+        ]);
+    } else {
+        wp_send_json_error();
+    }
+}
 
 add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
 
@@ -271,7 +271,7 @@ add_action('sf_checkout_products_block', function () {
             </div>
 
         </div>
-<?php
+    <?php
     }
 
     echo '</div></div>';
@@ -388,4 +388,19 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     ];
 
     return $fields;
+});
+
+// Фрагмент для обновления счетчика корзины
+add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+
+    $count = WC()->cart->get_cart_contents_count();
+
+    ob_start();
+    ?>
+    <span class="cart-count"><?php echo esc_html($count); ?></span>
+<?php
+
+    $fragments['span.cart-count'] = ob_get_clean();
+
+    return $fragments;
 });
