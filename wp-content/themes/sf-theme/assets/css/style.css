@@ -1290,6 +1290,10 @@ ul.dropdown-menu li:hover>a::after {
   object-position: center;
 }
 
+.header-right .contact-address {
+  justify-content: flex-end;
+}
+
 .menu-toggle {
   display: none;
 }
