@@ -1636,6 +1636,15 @@ ul.dropdown-menu {
   color: #fff;
 }
 
+div.page-title {
+  margin-top: 40px;
+  text-align: center;
+  text-transform: none;
+  margin-bottom: 40px;
+  font-size: 48px;
+  font-weight: 300;
+}
+
 /*INFO BANNER*/
 
 .info-banner {
@@ -10264,7 +10273,9 @@ Start Start 404 Error Page Wrapper
 }
 
 @media (max-width: 576px) {
-  h1 {
+
+  h1,
+  div.page-title {
     font-size: 30px;
   }
 
