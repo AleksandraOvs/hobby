@@ -22,7 +22,7 @@ get_header(); ?>
 
 <div class="page-header-wrapper">
 	<div class="container">
-		<?php site_breadcrumbs() ?>
+		<?php woocommerce_breadcrumb() ?>
 	</div>
 </div>
 

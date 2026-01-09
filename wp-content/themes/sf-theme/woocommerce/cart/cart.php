@@ -156,32 +156,21 @@ defined('ABSPATH') || exit;
 								</div>
 							</div>
 
+							<div class="cart-flex__col cart-flex__col--weight">
+								<div class="cart-flex__col__label">Вес:</div>
 
-							<?php
+								<?php
+								if ($_product && $_product->has_weight()) {
 
-							// вес одной позиции (без количества)
-							if ($_product && $_product->has_weight()) :
+									$single_weight = (float) $_product->get_weight();
+									$total_weight  = $single_weight * (int) $cart_item['quantity'];
 
-								$single_weight = (float) $_product->get_weight();
-
-								// вес с учётом количества
-								$total_weight = $single_weight * (int) $cart_item['quantity'];
-							?>
-								<div class="cart-flex__col cart-flex__col--weight">
-									<div class="cart-flex__col__label">Вес:</div>
-
-									<?php
-									echo esc_html(
-										wc_get_weight(
-											$total_weight,
-											get_option('woocommerce_weight_unit')
-										)
-									);
-									?>
-								</div>
-							<?php endif; ?>
-
-
+									echo esc_html(wc_format_weight($total_weight));
+								} else {
+									echo '—';
+								}
+								?>
+							</div>
 
 
 							<div class="cart-flex__col cart-flex__col--price">

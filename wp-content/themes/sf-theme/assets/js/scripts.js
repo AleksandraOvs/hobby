@@ -72,51 +72,51 @@ jQuery(function ($) {
 	/*=============================
 	Product Quantity
 ==============================*/
-	(function ($) {
-		let cartUpdateTimer = null;
+	// (function ($) {
+	// 	let cartUpdateTimer = null;
 
-		$(document).on('click', '.qty-btn', function (e) {
-			e.preventDefault();
+	// 	$(document).on('click', '.qty-btn', function (e) {
+	// 		e.preventDefault();
 
-			const $btn = $(this);
-			const $wrap = $btn.closest('.pro-qty');
-			const $input = $wrap.find('input.qty');
+	// 		const $btn = $(this);
+	// 		const $wrap = $btn.closest('.pro-qty');
+	// 		const $input = $wrap.find('input.qty');
 
-			let value = parseFloat($input.val()) || 0;
-			const step = parseFloat($input.data('step')) || 1;
-			const min = parseFloat($input.data('min')) || 1;
-			const max = parseFloat($input.data('max')) || Infinity;
+	// 		let value = parseFloat($input.val()) || 0;
+	// 		const step = parseFloat($input.data('step')) || 1;
+	// 		const min = parseFloat($input.data('min')) || 1;
+	// 		const max = parseFloat($input.data('max')) || Infinity;
 
-			if ($btn.hasClass('inc')) {
-				value += step;
-			} else if ($btn.hasClass('dec')) {
-				value -= step;
-			}
+	// 		if ($btn.hasClass('inc')) {
+	// 			value += step;
+	// 		} else if ($btn.hasClass('dec')) {
+	// 			value -= step;
+	// 		}
 
-			// ограничиваем диапазон
-			value = Math.max(min, value);
-			value = Math.min(max, value);
+	// 		// ограничиваем диапазон
+	// 		value = Math.max(min, value);
+	// 		value = Math.min(max, value);
 
-			// устанавливаем значение и уведомляем WooCommerce
-			$input.val(value).trigger('input').trigger('change');
+	// 		// устанавливаем значение и уведомляем WooCommerce
+	// 		$input.val(value).trigger('input').trigger('change');
 
-			/* =========
-			   Обновление корзины
-			   ========= */
-			if ($('body').hasClass('woocommerce-cart')) {
-				clearTimeout(cartUpdateTimer);
+	// 		/* =========
+	// 		   Обновление корзины
+	// 		   ========= */
+	// 		if ($('body').hasClass('woocommerce-cart')) {
+	// 			clearTimeout(cartUpdateTimer);
 
-				cartUpdateTimer = setTimeout(function () {
-					const $updateBtn = $('button[name="update_cart"]');
+	// 			cartUpdateTimer = setTimeout(function () {
+	// 				const $updateBtn = $('button[name="update_cart"]');
 
-					if ($updateBtn.length) {
-						$updateBtn.prop('disabled', false).trigger('click');
-					}
-				}, 400);
-			}
-		});
+	// 				if ($updateBtn.length) {
+	// 					$updateBtn.prop('disabled', false).trigger('click');
+	// 				}
+	// 			}, 400);
+	// 		}
+	// 	});
 
-	})(jQuery);
+	// })(jQuery);
 	/*==================================
 			Single Product Zoom
 	===================================*/

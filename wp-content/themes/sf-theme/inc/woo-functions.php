@@ -404,3 +404,7 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 
     return $fragments;
 });
+
+// add_action('init', function () {
+//     add_rewrite_endpoint('support', EP_ROOT | EP_PAGES);
+// });

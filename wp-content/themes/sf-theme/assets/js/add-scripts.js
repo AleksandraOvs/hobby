@@ -387,57 +387,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //пересчет цены в зависимости от количества на странице товара
 
-    const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
-    if (!addToCartBlock) return;
-
-    const qtyInput = addToCartBlock.querySelector('input.qty');
-    const totalEl = addToCartBlock.querySelector('.price-total');
-    const priceWrap = document.querySelector('.prices-group'); // берем data-price оттуда
-
-    if (!qtyInput || !totalEl || !priceWrap) return;
-
-    const formatPrice = (price) =>
-        new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
-
-    const getBasePrice = () => parseFloat(priceWrap.dataset.price) || 0;
-
-    let lastQty = qtyInput.value;
-
-    const updateTotal = () => {
-        const qty = parseInt(qtyInput.value, 10) || 1;
-        totalEl.textContent = formatPrice(getBasePrice() * qty);
-        lastQty = qtyInput.value;
-    };
-
-    // первая отрисовка
-    updateTotal();
-
-    // таймер для любых изменений (клики +/-, ручной ввод)
-    setInterval(() => {
-        if (qtyInput.value !== lastQty) {
-            updateTotal();
-        }
-    }, 100);
-
-    // // обновление при выборе вариативного товара
-    // document.body.addEventListener('found_variation', (e) => {
-    //     const variation = e.detail?.variation;
-    //     if (variation?.display_price !== undefined) {
-    //         priceWrap.dataset.price = variation.display_price;
-    //     }
-    //     updateTotal();
-    // });
-
-    /**************************/
-
-    // const addToCartBlock = document.querySelector('.single-product-add-to-cart');
+    // const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
     // if (!addToCartBlock) return;
 
     // const qtyInput = addToCartBlock.querySelector('input.qty');
-    // const priceWrap = addToCartBlock.querySelector('.prices-group');
-    // const totalEl = priceWrap.querySelector('.price-total');
+    // const totalEl = addToCartBlock.querySelector('.price-total');
+    // const priceWrap = document.querySelector('.prices-group'); // берем data-price оттуда
 
-    // if (!qtyInput || !priceWrap || !totalEl) return;
+    // if (!qtyInput || !totalEl || !priceWrap) return;
 
     // const formatPrice = (price) =>
     //     new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
@@ -455,48 +412,88 @@ document.addEventListener('DOMContentLoaded', () => {
     // // первая отрисовка
     // updateTotal();
 
-    // // ВЕЧНЫЙ ЛАЙФХАК: таймер, который проверяет количество каждые 100 мс
+    // // таймер для любых изменений (клики +/-, ручной ввод)
     // setInterval(() => {
     //     if (qtyInput.value !== lastQty) {
     //         updateTotal();
     //     }
     // }, 100);
 
-    // // обновление при выборе вариации
-    // document.body.addEventListener('found_variation', (e) => {
-    //     const variation = e.detail?.variation;
-    //     if (variation?.display_price !== undefined) {
-    //         priceWrap.dataset.price = variation.display_price;
-    //     }
-    //     updateTotal();
-    // });
+    // пересчет цены в зависимости от количества с учетом bulk-скидок
+    document.addEventListener('DOMContentLoaded', () => {
 
-    // console.log('✅ script loaded');
+        const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
+        if (!addToCartBlock) return;
 
-    // const block = document.querySelector('.single-product-add-to-cart');
-    // console.log('block:', block);
+        const qtyInput = addToCartBlock.querySelector('input.qty');
+        const totalEl = addToCartBlock.querySelector('.price-total');
+        const priceWrap = document.querySelector('.prices-group');
+        const priceSingleEl = priceWrap?.querySelector('.price-single');
+        const bulkDataEl = document.getElementById('bulk-discount-data');
 
-    // const form = block?.querySelector('form.cart');
-    // console.log('form:', form);
+        if (!qtyInput || !priceWrap || !priceSingleEl) return;
 
-    // const qty = form?.querySelector('input.qty');
-    // console.log('qty input:', qty);
+        // --- БЕЗОПАСНО читаем bulk-данные ---
+        let discounts = [];
 
-    // const priceWrap = block?.querySelector('.prices-group');
-    // console.log('priceWrap:', priceWrap);
+        if (bulkDataEl && bulkDataEl.textContent.trim() !== '') {
+            try {
+                const bulkData = JSON.parse(bulkDataEl.textContent);
+                discounts = bulkData.discounts || [];
+            } catch (e) {
+                console.warn('Ошибка bulk JSON', e);
+            }
+        }
 
-    // const amount = priceWrap?.querySelector('.amount');
-    // console.log('price amount:', amount?.textContent);
+        const basePrice = parseFloat(priceWrap.dataset.price) || 0;
 
-    // if (!qty || !amount) {
-    //     console.warn('❌ qty или price не найдены — дальше считать бессмысленно');
-    //     return;
-    // }
+        const formatPrice = (price) =>
+            new Intl.NumberFormat('ru-RU', {
+                style: 'currency',
+                currency: 'RUB'
+            }).format(price);
 
-    // qty.addEventListener('input', () => {
-    //     console.log('qty changed:', qty.value);
-    // });
+        const getUnitPriceByQty = (qty) => {
+            let unitPrice = basePrice;
 
+            discounts.forEach(row => {
+                if (qty >= row.min_qty && row.price) {
+                    unitPrice = parseFloat(row.price);
+                }
+            });
+
+            return unitPrice;
+        };
+
+        let lastQty = qtyInput.value;
+
+        const updatePrices = () => {
+            const qty = parseInt(qtyInput.value, 10) || 1;
+
+            const unitPrice = getUnitPriceByQty(qty);
+            const total = unitPrice * qty;
+
+            // цена за 1 шт
+            priceSingleEl.textContent = formatPrice(unitPrice);
+
+            // итоговая цена
+            if (totalEl) {
+                totalEl.textContent = formatPrice(total);
+            }
+
+            lastQty = qtyInput.value;
+        };
+
+        // первая отрисовка — КЛЮЧЕВО
+        updatePrices();
+
+        // отслеживаем любые изменения количества
+        setInterval(() => {
+            if (qtyInput.value !== lastQty) {
+                updatePrices();
+            }
+        }, 100);
+    });
 
 });
 

@@ -17,7 +17,15 @@ do_action('woocommerce_before_mini_cart'); ?>
 				if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
 					$product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
 					$thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
-					$product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
+					//$product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
+					$unit_price = 0;
+
+					if ($cart_item['quantity'] > 0) {
+						$unit_price = $cart_item['line_total'] / $cart_item['quantity'];
+					}
+
+					// Форматируем цену по правилам WooCommerce
+					$product_price = wc_price($unit_price);
 					$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
 			?>
 					<li class="woocommerce-mini-cart-item">

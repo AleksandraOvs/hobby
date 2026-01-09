@@ -29,15 +29,18 @@
     gap: 30px;
 }
 
+/* 
 .single-product__top>div {
-    width: calc(100% / 3);
-}
+    width: calc(100% / 2);
+} */
 
 .single-product__top .single-product-add-to-cart {
     border: 2px solid #e9e9e9;
     padding: 20px;
     border-radius: 5px;
+    width: calc(50% - 15px);
 }
+
 
 .single-product-details .sku {
     margin-top: 0;
@@ -73,7 +76,7 @@
 }
 
 /*3. Галерея товара*/
-.single-product__gallery {
+/* .single-product__gallery {
     display: flex;
     gap: 20px;
 }
@@ -108,6 +111,85 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+} */
+
+.single-product-thumb-wrap {
+    display: flex;
+    align-items: stretch;
+    /* выравниваем по верху */
+    gap: 15px;
+    width: calc(50% - 15px);
+    /* расстояние между основным слайдером и миниатюрами */
+    position: relative;
+}
+
+/* Большой слайдер */
+.single-product-thumb-wrap .product-thumb-carousel {
+    flex: 1;
+    width: calc(100% - 75px);
+}
+
+
+.swiper-slide.product-thumb-item {
+    aspect-ratio: 1/1;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.swiper-slide.product-thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Миниатюры */
+.single-product-thumb-wrap .product-thumbnail-nav {
+    width: 60px;
+    /* ширина колонки миниатюр */
+    display: flex;
+    flex-direction: column;
+    /* вертикально */
+    gap: 10px;
+    margin: 0;
+    /* расстояние между миниатюрами */
+}
+
+/* Размер миниатюр */
+
+.single-product-thumb-wrap .product-thumbnail-nav .swiper-slide {
+    transition: all .5s linear;
+}
+
+.single-product-thumb-wrap .product-thumbnail-nav .swiper-slide img {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+
+}
+
+.single-product-thumb-wrap .product-thumbnail-nav .swiper-slide-thumb-active {
+    opacity: .7;
+    /* цвет выделенной миниатюры */
+}
+
+/* Настройка Swiper Wrapper */
+.single-product-thumb-wrap .swiper {
+    box-sizing: border-box;
+    overflow: hidden;
+    margin: 0;
+}
+
+.swiper.product-thumbnail-nav .swiper-wrapper .swiper-slide {
+    width: 60px;
+    aspect-ratio: 1/1;
+}
+
+.swiper.product-thumbnail-nav .swiper-wrapper figure.swiper-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
 }
 
 /*4. Блок цены / корзины*/
@@ -226,7 +308,7 @@
 .single-product__info {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 60px;
+    gap: 30px;
     margin-bottom: 60px;
     margin-top: 100px;
 }
@@ -271,8 +353,16 @@
 
 .product-specs .product-specs__row {
     display: flex;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
     width: 100%;
     justify-content: space-between;
+}
+
+.product-specs {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 /*8. Доставка*/

@@ -49,6 +49,8 @@ $product_published = $product->get_date_created();
 		<a href="<?php echo $product->get_permalink() ?>" class="d-block">
 			<?php echo $product->get_image('full') ?>
 		</a>
+
+		<?php custom_add_to_wishlist_button(); ?>
 	</figure>
 
 	<!-- Product Details -->
@@ -68,6 +70,9 @@ $product_published = $product->get_date_created();
 		<div class="product-prices">
 			<?php echo $product->get_price_html() ?>
 		</div>
+
+		<?php // do_action('woocommerce_after_shop_loop_item'); 
+		?>
 	</div>
 </div>
 <!-- End Single Product -->

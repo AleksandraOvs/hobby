@@ -418,6 +418,7 @@ require get_template_directory() . '/inc/load-works.php';
 require get_template_directory() . '/inc/load-cats.php';
 require get_template_directory() . '/inc/breadcrumbs.php';
 require get_template_directory() . '/inc/woo-functions.php';
+require get_template_directory() . '/wishlist/wl.php';
 
 
 function theme_posts_pagination_with_load_more($query = null)

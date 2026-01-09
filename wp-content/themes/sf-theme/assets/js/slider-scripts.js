@@ -26,65 +26,36 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 
 
-  // // Thumbnails (horizontal)
-  // const thumbsSwiper = new Swiper('.product-thumbnail-nav', {
-  //   slidesPerView: 3,
-  //   spaceBetween: 10,
-  //   watchSlidesProgress: true,
-  //   slideToClickedSlide: true
-  // });
+  // Thumbnails (horizontal)
+  const thumbsSwiper = new Swiper('.product-thumbnail-nav', {
+    slidesPerView: 3,
+    spaceBetween: 10,
+    watchSlidesProgress: true,
+    slideToClickedSlide: true,
+    grabCursor: true,
+    direction: 'vertical',
+  });
 
-  // // Main image
-  // const mainSwiper = new Swiper('.product-thumb-carousel', {
-  //   slidesPerView: 1,
-  //   effect: 'fade',
-  //   fadeEffect: {
-  //     crossFade: true
-  //   },
-  //   allowTouchMove: false,
-  //   thumbs: {
-  //     swiper: thumbsSwiper
-  //   }
-  // });
+  // Main image
+  const mainSwiper = new Swiper('.product-thumb-carousel', {
+    slidesPerView: 1,
+    //effect: 'fade',
+    // fadeEffect: {
+    //   crossFade: true
+    // },
+    allowTouchMove: false,
+    thumbs: {
+      swiper: thumbsSwiper
+    }
+  });
 
-  function initProductSliders() {
-
-    document.querySelectorAll('.product-gallery').forEach(gallery => {
-
-      const thumbsEl = gallery.querySelector('.product-thumbnail-nav');
-      const mainEl = gallery.querySelector('.product-thumb-carousel');
-
-      if (!thumbsEl || !mainEl) return;
-
-      // чтобы не создавать повторно
-      if (thumbsEl.dataset.swiperInitialized) return;
-
-      const thumbsSwiper = new Swiper(thumbsEl, {
-        slidesPerView: 3,
-        spaceBetween: 10,
-        watchSlidesProgress: true,
-        slideToClickedSlide: true
-      });
-
-      const mainSwiper = new Swiper(mainEl, {
-        slidesPerView: 1,
-        effect: 'fade',
-        fadeEffect: { crossFade: true },
-        allowTouchMove: false,
-        thumbs: {
-          swiper: thumbsSwiper
-        }
-      });
-
-      thumbsEl.dataset.swiperInitialized = 'true';
-      mainEl.dataset.swiperInitialized = 'true';
-    });
-  }
-
-  document.addEventListener('DOMContentLoaded', initProductSliders);
+  /**
+   * WooCommerce: AJAX-фрагменты
+   */
+  // document.body.addEventListener('wc_fragments_loaded', initProductSliders);
 
   // WooCommerce перерисовывает фрагменты → запускаем снова
-  document.body.addEventListener('wc_fragments_refreshed', initProductSliders);
+  // document.body.addEventListener('wc_fragments_refreshed', initProductSliders);
 
   new Swiper('.works-swiper', {
     loop: true,
