@@ -1,0 +1,68 @@
+.bulk-discount-flex {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 10px;
+}
+
+.bulk-discount-flex h4 {
+    margin: 0 0 5px 0;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--theme-color-accent);
+}
+
+.bulk-price .woocommerce-Price-amount.amount {
+    font-size: 16px;
+    text-decoration: none;
+    font-weight: 400;
+    color: var(--theme-color-primary);
+}
+
+.bulk-discount-item {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.bulk-min-qty {
+    flex: 1;
+    font-weight: 400;
+}
+
+.bulk-price {
+    flex: 1;
+}
+
+.bulk-price .woocommerce-Price-amount.amount bdi span {
+    font-size: 14px;
+}
+
+.bulk-discount {
+    flex: 0 0 50px;
+    text-align: right;
+    font-weight: 600;
+    color: var(--theme-color-accent);
+}
+
+.bulk-discount._percent {
+    border: 2px solid var(--theme-color-accent);
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* Для админки */
+.bulk-discount-row input {
+    padding: 3px 5px;
+}
+
+.bulk-discount-row button.remove-row {
+    background: #ff4d4d;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.bulk-discount-row button.remove-row:hover {
+    background: #e60000;
+}

@@ -109,8 +109,7 @@ $has_gallery = count($image_ids) > 1;
                 <div class="single-product-add-to-cart">
                     <?php
                     $icon_check = '<svg width="25" height="17" viewBox="0 0 25 17" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M6.80197 10.6692C7.47019 11.3408 8.69775 12.573 9.28206 12.9743L20.7333 1.45849L20.9854 1.18071C21.3947 0.709402 21.9635 0.0551611 22.6363 0.00451539C22.8615 -0.0121145 23.0732 0.0177393 23.2641 0.0850149C23.5222 0.176857 23.7418 0.341262 23.9017 0.552916C24.06 0.763058 24.1609 1.02423 24.1821 1.31148C24.1995 1.53863 24.1678 1.78428 24.0778 2.03487C23.8911 2.54397 18.1005 8.25448 16.0713 10.2561L15.437 10.8839C14.3939 11.9244 13.5635 12.7839 12.8745 13.4959C11.1715 15.2572 10.2908 16.1669 9.52773 16.3978C8.59948 16.6783 8.02575 16.0717 6.84427 14.8229L5.09284 13.0484C3.51602 11.5177 0.0596547 8.16338 0.00409559 7.4328C-0.0117784 7.2117 0.0192093 7.00422 0.0845951 6.8194C0.179461 6.55748 0.348034 6.33748 0.563089 6.17987C0.776255 6.0234 1.0378 5.92627 1.32051 5.90737C1.5401 5.89187 1.77518 5.92288 2.01215 6.00754C2.39578 6.14549 3.03187 6.80617 3.4359 7.22419L6.80197 10.6692Z" fill="#B6713D"/>
-</svg>';
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M6.80197 10.6692C7.47019 11.3408 8.69775 12.573 9.28206 12.9743L20.7333 1.45849L20.9854 1.18071C21.3947 0.709402 21.9635 0.0551611 22.6363 0.00451539C22.8615 -0.0121145 23.0732 0.0177393 23.2641 0.0850149C23.5222 0.176857 23.7418 0.341262 23.9017 0.552916C24.06 0.763058 24.1609 1.02423 24.1821 1.31148C24.1995 1.53863 24.1678 1.78428 24.0778 2.03487C23.8911 2.54397 18.1005 8.25448 16.0713 10.2561L15.437 10.8839C14.3939 11.9244 13.5635 12.7839 12.8745 13.4959C11.1715 15.2572 10.2908 16.1669 9.52773 16.3978C8.59948 16.6783 8.02575 16.0717 6.84427 14.8229L5.09284 13.0484C3.51602 11.5177 0.0596547 8.16338 0.00409559 7.4328C-0.0117784 7.2117 0.0192093 7.00422 0.0845951 6.8194C0.179461 6.55748 0.348034 6.33748 0.563089 6.17987C0.776255 6.0234 1.0378 5.92627 1.32051 5.90737C1.5401 5.89187 1.77518 5.92288 2.01215 6.00754C2.39578 6.14549 3.03187 6.80617 3.4359 7.22419L6.80197 10.6692Z" fill="#B6713D"/></svg>';
 
                     if ($product->is_in_stock()) : ?>
                         <div class="stock-status"><?php echo $icon_check; ?><span>В наличии</span></div>
@@ -118,17 +117,108 @@ $has_gallery = count($image_ids) > 1;
                         <div class="stock-status"><span>Нет в наличии</span></div>
                     <?php endif; ?>
 
-                    <div class="prices-group" data-price="<?php echo esc_attr($product->get_price()); ?>">
-                        <span class="price-single"><?php echo $product->get_price_html(); ?></span>
-                    </div>
-
-                    <?php echo do_shortcode('[bulk_price_table]'); ?>
-
                     <?php
-                    woocommerce_template_single_add_to_cart();
-                    custom_add_to_wishlist_button();
+                    $bulk_prices = get_post_meta($product->get_id(), '_bulk_prices', true) ?: [];
+                    $base_price = floatval($product->get_price());
+
+                    // --- находим минимальную цену с учетом bulk-скидок ---
+                    $min_price = $base_price;
+                    foreach ($bulk_prices as $bp) {
+                        if (!empty($bp['price'])) {
+                            $price_with_discount = floatval($bp['price']) * (1 - floatval($bp['discount']) / 100);
+                            if ($price_with_discount < $min_price) $min_price = $price_with_discount;
+                        }
+                    }
                     ?>
+
+                    <form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype='multipart/form-data'>
+
+                        <!-- Количество и итоговая цена -->
+                        <div class="cart__price-update">
+                            <?php
+                            woocommerce_quantity_input([
+                                'min_value'   => $product->get_min_purchase_quantity(),
+                                'max_value'   => $product->get_max_purchase_quantity(),
+                                'input_value' => isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(),
+                            ]);
+                            ?>
+                            <span class="price-single"><?php echo wc_price($min_price); ?></span>
+                            <span class="price-total"><?php echo wc_price($min_price); ?></span>
+                        </div>
+
+                        <!-- Таблица скидок (информативно) -->
+                        <div class="bulk-discount-table"><?php echo do_shortcode('[bulk_price_table]'); ?></div>
+
+                        <!-- JSON для JS -->
+                        <?php
+                        $bulk_json = [];
+                        foreach ($bulk_prices as $bp) {
+                            $bulk_json[] = [
+                                'min_qty' => intval($bp['min_qty']),
+                                'discount' => floatval($bp['discount']),
+                                'price' => floatval($bp['price']),
+                            ];
+                        }
+                        ?>
+                        <div id="bulk-discount-data" style="display:none;"><?php echo wp_json_encode(['discounts' => $bulk_json]); ?></div>
+
+                        <button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt">
+                            <?php echo esc_html($product->single_add_to_cart_text()); ?>
+                        </button>
+                    </form>
+
+                    <?php custom_add_to_wishlist_button(); ?>
                 </div>
+
+                <script>
+                    document.addEventListener('DOMContentLoaded', () => {
+                        const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
+                        if (!addToCartBlock) return;
+
+                        const qtyInput = addToCartBlock.querySelector('input.qty');
+                        const priceSingleEl = addToCartBlock.querySelector('.price-single');
+                        const totalEl = addToCartBlock.querySelector('.price-total');
+                        const bulkDataEl = document.getElementById('bulk-discount-data');
+                        if (!qtyInput || !priceSingleEl || !totalEl || !bulkDataEl) return;
+
+                        const bulkData = JSON.parse(bulkDataEl.textContent);
+                        const discounts = bulkData.discounts || [];
+
+                        const formatPrice = price => new Intl.NumberFormat('ru-RU', {
+                            style: 'currency',
+                            currency: 'RUB'
+                        }).format(price);
+
+                        const getUnitPriceByQty = qty => {
+                            let unitPrice = parseFloat(priceSingleEl.textContent.replace(/\s|₽/g, '')) || 0;
+                            discounts.forEach(row => {
+                                if (qty >= row.min_qty && row.price) {
+                                    unitPrice = parseFloat(row.price) * (1 - parseFloat(row.discount) / 100);
+                                }
+                            });
+                            return unitPrice;
+                        };
+
+                        const updatePrices = () => {
+                            const qty = parseInt(qtyInput.value, 10) || 1;
+                            const unitPrice = getUnitPriceByQty(qty);
+                            const total = unitPrice * qty;
+
+                            priceSingleEl.textContent = formatPrice(unitPrice);
+                            totalEl.textContent = formatPrice(total);
+                        };
+
+                        // начальная отрисовка
+                        updatePrices();
+
+                        // ручной ввод и +/- кнопки
+                        qtyInput.addEventListener('input', updatePrices);
+                        addToCartBlock.querySelectorAll('.inc, .dec').forEach(btn => {
+                            btn.addEventListener('click', () => setTimeout(updatePrices, 50));
+                        });
+                    });
+                </script>
+
 
             </div>
 
