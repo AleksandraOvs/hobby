@@ -387,103 +387,103 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //пересчет цены в зависимости от количества на странице товара
 
-    // const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
-    // if (!addToCartBlock) return;
+    const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
+    if (!addToCartBlock) return;
 
-    // const qtyInput = addToCartBlock.querySelector('input.qty');
-    // const totalEl = addToCartBlock.querySelector('.price-total');
-    // const priceWrap = document.querySelector('.prices-group'); // берем data-price оттуда
+    const qtyInput = addToCartBlock.querySelector('input.qty');
+    const totalEl = addToCartBlock.querySelector('.price-total');
+    const priceWrap = document.querySelector('.prices-group'); // берем data-price оттуда
 
-    // if (!qtyInput || !totalEl || !priceWrap) return;
+    if (!qtyInput || !totalEl || !priceWrap) return;
 
-    // const formatPrice = (price) =>
-    //     new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
+    const formatPrice = (price) =>
+        new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
 
-    // const getBasePrice = () => parseFloat(priceWrap.dataset.price) || 0;
+    const getBasePrice = () => parseFloat(priceWrap.dataset.price) || 0;
 
-    // let lastQty = qtyInput.value;
+    let lastQty = qtyInput.value;
 
-    // const updateTotal = () => {
-    //     const qty = parseInt(qtyInput.value, 10) || 1;
-    //     totalEl.textContent = formatPrice(getBasePrice() * qty);
-    //     lastQty = qtyInput.value;
-    // };
+    const updateTotal = () => {
+        const qty = parseInt(qtyInput.value, 10) || 1;
+        totalEl.textContent = formatPrice(getBasePrice() * qty);
+        lastQty = qtyInput.value;
+    };
 
-    // // первая отрисовка
-    // updateTotal();
+    // первая отрисовка
+    updateTotal();
 
-    // // таймер для любых изменений (клики +/-, ручной ввод)
-    // setInterval(() => {
-    //     if (qtyInput.value !== lastQty) {
-    //         updateTotal();
-    //     }
-    // }, 100);
+    // таймер для любых изменений (клики +/-, ручной ввод)
+    setInterval(() => {
+        if (qtyInput.value !== lastQty) {
+            updateTotal();
+        }
+    }, 100);
 
     // пересчет цены в зависимости от количества с учетом bulk-скидок
-    document.addEventListener('DOMContentLoaded', () => {
-        const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
-        if (!addToCartBlock) return;
+    // document.addEventListener('DOMContentLoaded', () => {
+    //     const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
+    //     if (!addToCartBlock) return;
 
-        const qtyInput = addToCartBlock.querySelector('input.qty');
-        const totalEl = addToCartBlock.querySelector('.price-total');
-        const priceWrap = document.querySelector('.prices-group');
-        const priceSingleEl = priceWrap?.querySelector('.price-single');
-        const bulkDataEl = document.getElementById('bulk-discount-data');
+    //     const qtyInput = addToCartBlock.querySelector('input.qty');
+    //     const totalEl = addToCartBlock.querySelector('.price-total');
+    //     const priceWrap = document.querySelector('.prices-group');
+    //     const priceSingleEl = priceWrap?.querySelector('.price-single');
+    //     const bulkDataEl = document.getElementById('bulk-discount-data');
 
-        if (!qtyInput || !priceWrap || !priceSingleEl || !bulkDataEl) return;
+    //     if (!qtyInput || !priceWrap || !priceSingleEl || !bulkDataEl) return;
 
-        let discounts = [];
-        try {
-            const bulkData = JSON.parse(bulkDataEl.textContent);
-            discounts = bulkData.discounts || [];
-        } catch (e) {
-            console.warn('Ошибка при чтении bulk JSON', e);
-        }
+    //     let discounts = [];
+    //     try {
+    //         const bulkData = JSON.parse(bulkDataEl.textContent);
+    //         discounts = bulkData.discounts || [];
+    //     } catch (e) {
+    //         console.warn('Ошибка при чтении bulk JSON', e);
+    //     }
 
-        const basePrice = parseFloat(priceWrap.dataset.price) || 0;
+    //     const basePrice = parseFloat(priceWrap.dataset.price) || 0;
 
-        const formatPrice = (price) =>
-            new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
+    //     const formatPrice = (price) =>
+    //         new Intl.NumberFormat('ru-RU', { style: 'currency', currency: 'RUB' }).format(price);
 
-        const getUnitPriceByQty = (qty) => {
-            let applicableDiscount = 0;
+    //     const getUnitPriceByQty = (qty) => {
+    //         let applicableDiscount = 0;
 
-            // находим максимальный min_qty <= qty
-            discounts.forEach(row => {
-                if (qty >= row.min_qty) {
-                    applicableDiscount = parseFloat(row.discount) || 0;
-                }
-            });
+    //         // находим максимальный min_qty <= qty
+    //         discounts.forEach(row => {
+    //             if (qty >= row.min_qty) {
+    //                 applicableDiscount = parseFloat(row.discount) || 0;
+    //             }
+    //         });
 
-            // цена за 1 шт с учетом скидки
-            return basePrice * (1 - applicableDiscount / 100);
-        };
+    //         // цена за 1 шт с учетом скидки
+    //         return basePrice * (1 - applicableDiscount / 100);
+    //     };
 
-        const updatePrices = () => {
-            const qty = parseInt(qtyInput.value, 10) || 1;
-            const unitPrice = getUnitPriceByQty(qty);
-            const total = unitPrice * qty;
+    //     const updatePrices = () => {
+    //         const qty = parseInt(qtyInput.value, 10) || 1;
+    //         const unitPrice = getUnitPriceByQty(qty);
+    //         const total = unitPrice * qty;
 
-            // цена за 1 шт
-            priceSingleEl.textContent = formatPrice(unitPrice);
+    //         // цена за 1 шт
+    //         priceSingleEl.textContent = formatPrice(unitPrice);
 
-            // итоговая цена
-            if (totalEl) {
-                totalEl.textContent = formatPrice(total);
-            }
-        };
+    //         // итоговая цена
+    //         if (totalEl) {
+    //             totalEl.textContent = formatPrice(total);
+    //         }
+    //     };
 
-        // начальная отрисовка
-        updatePrices();
+    //     // начальная отрисовка
+    //     updatePrices();
 
-        // отслеживаем ручной ввод
-        qtyInput.addEventListener('input', updatePrices);
+    //     // отслеживаем ручной ввод
+    //     qtyInput.addEventListener('input', updatePrices);
 
-        // отслеживаем клики на +/- кнопки
-        addToCartBlock.querySelectorAll('.inc, .dec').forEach(btn => {
-            btn.addEventListener('click', () => setTimeout(updatePrices, 50));
-        });
-    });
+    //     // отслеживаем клики на +/- кнопки
+    //     addToCartBlock.querySelectorAll('.inc, .dec').forEach(btn => {
+    //         btn.addEventListener('click', () => setTimeout(updatePrices, 50));
+    //     });
+    // });
 
 });
 
@@ -568,6 +568,41 @@ document.addEventListener('DOMContentLoaded', () => {
 //     });
 
 // });
+
+jQuery(function ($) {
+
+    let updateTimer;
+
+    $(document).on('change', '.qty', function () {
+
+        clearTimeout(updateTimer);
+
+        updateTimer = setTimeout(function () {
+
+            const $form = $('form.woocommerce-cart-form');
+
+            if (!$form.length) return;
+
+            const formData = $form.serialize();
+
+            $.ajax({
+                url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+                type: 'POST',
+                data: formData,
+                success: function () {
+
+                    // Обновляем фрагменты (итоги, мини-корзина и т.п.)
+                    $(document.body).trigger('wc_fragment_refresh');
+
+                    // Перерисовываем корзину
+                    $(document.body).trigger('updated_cart_totals');
+                }
+            });
+
+        }, 300);
+    });
+});
+
 
 (function ($) {
 
@@ -705,3 +740,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 })(jQuery);
+
+jQuery(function ($) {
+
+    let updateTimer;
+
+    $(document).on('change', '.qty', function () {
+
+        clearTimeout(updateTimer);
+
+        updateTimer = setTimeout(function () {
+
+            const $form = $('form.woocommerce-cart-form');
+
+            if (!$form.length) return;
+
+            const formData = $form.serialize();
+
+            $.ajax({
+                url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+                type: 'POST',
+                data: formData,
+                success: function () {
+
+                    // Обновляем фрагменты (итоги, мини-корзина и т.п.)
+                    $(document.body).trigger('wc_fragment_refresh');
+
+                    // Перерисовываем корзину
+                    $(document.body).trigger('updated_cart_totals');
+                }
+            });
+
+        }, 300);
+    });
+});

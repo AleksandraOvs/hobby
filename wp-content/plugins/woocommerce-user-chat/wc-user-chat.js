@@ -10,9 +10,9 @@ jQuery(function ($) {
         messages.forEach(msg => {
             const cls = msg.sender === 'admin' ? 'admin' : 'user';
             $messages.append(
-                `<div class="wc-chat-message ${cls}">
-                    <span class="text">${msg.message}</span>
-                    <span class="time">${msg.sent_at}</span>
+                `<div class="wc-chat-message-inner ${cls}">
+                    <div class="wc-chat-message">${msg.message}</div>
+                    <p class="time">${msg.sent_at}</p>
                 </div>`
             );
         });

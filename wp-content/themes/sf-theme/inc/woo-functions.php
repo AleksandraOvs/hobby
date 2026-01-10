@@ -125,27 +125,7 @@ function theme_ajax_add_to_cart()
     }
 }
 
-add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
 
-    if (in_array('product_cat', (array) $taxonomies, true)) {
-
-        foreach ($terms as $key => $term) {
-
-            // пропускаем, если это не объект
-            if (! is_object($term)) {
-                continue;
-            }
-
-            if ($term->slug === 'misc') {
-                unset($terms[$key]);
-            }
-        }
-
-        $terms = array_values($terms);
-    }
-
-    return $terms;
-}, 10, 4);
 
 // // По умолчанию — товар считается "отмеченным"
 // add_action('woocommerce_add_to_cart', function ($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data) {
@@ -315,6 +295,19 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
     return $fields;
 });
 
+add_action('wp_footer', function () {
+    if (! is_cart()) return;
+    ?>
+    <script>
+        jQuery(function($) {
+            $(document).on('change', '.qty', function() {
+                $('[name="update_cart"]').trigger('click');
+            });
+        });
+    </script>
+<?php
+});
+
 // При сохранении — разбиваем на имя и фамилию
 add_action('woocommerce_checkout_create_order', function ($order, $data) {
 
@@ -396,7 +389,7 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
     $count = WC()->cart->get_cart_contents_count();
 
     ob_start();
-    ?>
+?>
     <span class="cart-count"><?php echo esc_html($count); ?></span>
 <?php
 
@@ -408,3 +401,9 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 // add_action('init', function () {
 //     add_rewrite_endpoint('support', EP_ROOT | EP_PAGES);
 // });
+
+// Убираем тип "Вариативный товар" из админки
+add_filter('product_type_selector', function ($types) {
+    unset($types['variable']);
+    return $types;
+});

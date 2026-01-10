@@ -167,7 +167,7 @@ $has_gallery = count($image_ids) > 1;
                         </button>
                     </form>
 
-                    <?php custom_add_to_wishlist_button() ?>
+                    <?php custom_add_to_wishlist_button(); ?>
                 </div>
 
                 <script>

@@ -63,47 +63,26 @@ do_action('woocommerce_before_mini_cart'); ?>
 								$base_unit_price = (float) $_product->get_price();
 
 								// 2. Цена за штуку с учётом всех скидок корзины
-								$discounted_unit_price = $qty > 0
-									? (float) $cart_item['line_total'] / $qty
-									: 0;
-								?>
+								// $discounted_unit_price = $qty > 0
+								// 	? (float) $cart_item['line_total'] / $qty
+								// 	: 0;
 
-								<?php if ($discounted_unit_price !== $base_unit_price) { ?>
-
-
-									<div class="price-discounted">
-										<p>Цена:</p>
-
-										<div class="price-base _old-price">
-											<?php echo wc_price($discounted_unit_price); ?>
-											<div class="screen-reader-text">
-												Цена с учетом скидки
-											</div> <?php echo wc_price($base_unit_price); ?>
-										</div>
-									</div>
-
-
-								<?php } else {
-								?>
-									<div class="price-base">
-										<span class="price"><?php echo wc_price($base_unit_price) . '/шт.'; ?></span>
-										<!-- Количество -->
-										<div class="quantity">
-											Кол-во: <?php echo $qty; ?>
-										</div>
-									</div>
-
-
-
-								<?php
-								} ?>
-
-								<?php
 								// 3. Итог за количество
-
-								echo '<div class="product-total">' . $total_price = (float) $cart_item['line_total'] . '</div>';
+								$total_price = (float) $cart_item['line_total'];
 								?>
 
+								<span class="price-base">
+									Цена за шт: <?php echo wc_price($base_unit_price); ?>
+								</span>
+
+								<!-- <?php //if ($discounted_unit_price !== $base_unit_price) : 
+										?>
+									<span class="price-discounted">
+										Цена со скидкой: <?php //echo wc_price($discounted_unit_price); 
+															?>
+									</span>
+								<?php //endif; 
+								?> -->
 
 								<!-- <span class="price-total">
 									<?php //echo sprintf('%d × %s = %s', $qty, wc_price($discounted_unit_price), wc_price($total_price)); 

@@ -17,6 +17,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 				if ($_product && $_product->exists() && $cart_item['quantity'] > 0 && apply_filters('woocommerce_widget_cart_item_visible', true, $cart_item, $cart_item_key)) {
 					$product_name      = apply_filters('woocommerce_cart_item_name', $_product->get_name(), $cart_item, $cart_item_key);
 					$thumbnail         = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
+					$product_price     = apply_filters('woocommerce_cart_item_price', WC()->cart->get_product_price($_product), $cart_item, $cart_item_key);
 					$product_permalink = apply_filters('woocommerce_cart_item_permalink', $_product->is_visible() ? $_product->get_permalink($cart_item) : '', $cart_item, $cart_item_key);
 			?>
 					<li class="woocommerce-mini-cart-item">
@@ -33,7 +34,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 							echo apply_filters(
 								'woocommerce_cart_item_remove_link',
 								sprintf(
-									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">&#215;</a>',
+									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s"></a>',
 									esc_url(wc_get_cart_remove_url($cart_item_key)),
 									esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
 									esc_attr($product_id),
@@ -55,60 +56,16 @@ do_action('woocommerce_before_mini_cart'); ?>
 								<?php endif; ?>
 							</h2>
 
-							<div class="prod-cal d-flex flex-column">
+							<div class="prod-cal d-flex align-items-center">
 								<?php
-								$qty = (int) $cart_item['quantity'];
-
-								// 1. Базовая цена за штуку (витрина)
-								$base_unit_price = (float) $_product->get_price();
-
-								// 2. Цена за штуку с учётом всех скидок корзины
-								$discounted_unit_price = $qty > 0
-									? (float) $cart_item['line_total'] / $qty
-									: 0;
+								// Количество и цена через стандартный фильтр WooCommerce
+								echo apply_filters(
+									'woocommerce_widget_cart_item_quantity',
+									'<span class="quantity">' . sprintf('%s &times; %s', $cart_item['quantity'], $product_price) . '</span>',
+									$cart_item,
+									$cart_item_key
+								);
 								?>
-
-								<?php if ($discounted_unit_price !== $base_unit_price) { ?>
-
-
-									<div class="price-discounted">
-										<p>Цена:</p>
-
-										<div class="price-base _old-price">
-											<?php echo wc_price($discounted_unit_price); ?>
-											<div class="screen-reader-text">
-												Цена с учетом скидки
-											</div> <?php echo wc_price($base_unit_price); ?>
-										</div>
-									</div>
-
-
-								<?php } else {
-								?>
-									<div class="price-base">
-										<span class="price"><?php echo wc_price($base_unit_price) . '/шт.'; ?></span>
-										<!-- Количество -->
-										<div class="quantity">
-											Кол-во: <?php echo $qty; ?>
-										</div>
-									</div>
-
-
-
-								<?php
-								} ?>
-
-								<?php
-								// 3. Итог за количество
-
-								echo '<div class="product-total">' . $total_price = (float) $cart_item['line_total'] . '</div>';
-								?>
-
-
-								<!-- <span class="price-total">
-									<?php //echo sprintf('%d × %s = %s', $qty, wc_price($discounted_unit_price), wc_price($total_price)); 
-									?>
-								</span> -->
 							</div>
 						</div>
 
@@ -122,15 +79,13 @@ do_action('woocommerce_before_mini_cart'); ?>
 			?>
 		</ul>
 
-		<div class="woocommerce-mini-cart__footer">
-			<p class="woocommerce-mini-cart__total total">
-				<?php do_action('woocommerce_widget_shopping_cart_total'); ?>
-			</p>
+		<p class="woocommerce-mini-cart__total total">
+			<?php do_action('woocommerce_widget_shopping_cart_total'); ?>
+		</p>
 
-			<div class="minicart-btn-group">
-				<a href="<?php echo wc_get_cart_url(); ?>" class="btn">Просмотр корзины</a>
-				<a href="<?php echo wc_get_checkout_url(); ?>" class="btn">Оформление заказа</a>
-			</div>
+		<div class="minicart-btn-group">
+			<a href="<?php echo wc_get_cart_url(); ?>" class="btn btn-black">Просмотр корзины</a>
+			<a href="<?php echo wc_get_checkout_url(); ?>" class="btn btn-black">Оформление заказа</a>
 		</div>
 
 	<?php else : ?>

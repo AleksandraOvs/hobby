@@ -39,8 +39,10 @@
     padding: 20px;
     border-radius: 5px;
     width: calc(50% - 15px);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
-
 
 .single-product-details .sku {
     margin-top: 0;
