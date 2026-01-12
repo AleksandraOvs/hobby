@@ -193,7 +193,6 @@ function cwc_shop_filters_shortcode()
         ?>
 
         <div class="single-sidebar-wrap">
-            <h3 class="sidebar-title">Наличие</h3>
             <div class="sidebar-body">
                 <ul class="sidebar-list" data-taxonomy="instock_filter">
                     <li>
