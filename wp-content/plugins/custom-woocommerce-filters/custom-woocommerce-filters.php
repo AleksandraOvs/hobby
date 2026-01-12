@@ -139,12 +139,29 @@ function cwc_render_price_filter()
         <h3 class="sidebar-title">Цена</h3>
         <div class="sidebar-body">
             <div class="price-range-wrap">
-                <div id="price-slider" class="price-range" data-min="<?php echo $store_min_price; ?>" data-max="<?php echo $store_max_price; ?>"></div>
-                <div class="range-slider">
-                    <label for="amount">Цена:</label>
-                    <input type="text" id="amount" readonly />
-                    <input type="hidden" id="min_price" name="min_price" value="<?php echo $min_price; ?>">
-                    <input type="hidden" id="max_price" name="max_price" value="<?php echo $max_price; ?>">
+                <div id="price-slider"
+                    class="price-range"
+                    data-min="<?php echo $store_min_price; ?>"
+                    data-max="<?php echo $store_max_price; ?>"></div>
+
+                <div class="range-inputs">
+                    <div class="price-input">
+                        <span class="price-prefix">От</span>
+                        <input type="number"
+                            id="min_price"
+                            min="<?php echo $store_min_price; ?>"
+                            max="<?php echo $store_max_price; ?>"
+                            value="<?php echo $min_price; ?>">
+                    </div>
+
+                    <div class="price-input">
+                        <span class="price-prefix">До</span>
+                        <input type="number"
+                            id="max_price"
+                            min="<?php echo $store_min_price; ?>"
+                            max="<?php echo $store_max_price; ?>"
+                            value="<?php echo $max_price; ?>">
+                    </div>
                 </div>
             </div>
         </div>
@@ -171,10 +188,27 @@ function cwc_shop_filters_shortcode()
     <div class="sidebar-area-wrapper" data-current-cat="<?php echo esc_attr($current_cat_id); ?>">
 
         <?php
+        // цена
+        echo cwc_render_price_filter();
+        ?>
+
+        <div class="single-sidebar-wrap">
+            <h3 class="sidebar-title">Наличие</h3>
+            <div class="sidebar-body">
+                <ul class="sidebar-list" data-taxonomy="instock_filter">
+                    <li>
+                        <a href="#" class="filter-item" data-slug="instock">
+                            <span class="filter-checkbox"></span> Есть в наличии
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <?php
+        // атрибуты
         echo cwc_render_attribute_filter('pa_material', 'Материал', $current_cat_id);
         echo cwc_render_attribute_filter('pa_strana', 'Страна', $current_cat_id);
         echo cwc_render_attribute_filter('pa_metod', 'Метод', $current_cat_id);
-        echo cwc_render_price_filter();
         ?>
 
         <div class="cwc-filter-actions">

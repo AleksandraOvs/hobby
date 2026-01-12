@@ -155,3 +155,37 @@
     background-size: contain;
     background-position: center;
 }
+
+/* Chrome, Edge, Safari */
+.price-input input[type="number"]::-webkit-outer-spin-button,
+.price-input input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Firefox */
+.price-input input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.price-input {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.price-prefix {
+    position: absolute;
+    left: 12px;
+    font-size: 14px;
+    color: #888;
+    pointer-events: none;
+}
+
+.price-input input {
+    width: 100%;
+    padding: 10px 12px 10px 40px;
+    /* место под "От/До" */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}

@@ -15,7 +15,15 @@
         $(wrapper).find('.sidebar-list').each(function () {
             var taxonomy = $(this).data('taxonomy');
             var active = $(this).find('a.active').data('slug');
-            if (active) filters['filter_' + taxonomy] = active;
+
+            if (active) {
+                if (taxonomy === 'instock_filter' && active === 'instock') {
+                    // специальное поле для наличия
+                    filters['instock'] = true;
+                } else {
+                    filters['filter_' + taxonomy] = active;
+                }
+            }
         });
 
         // Цена
@@ -64,35 +72,56 @@
     });
 
     // jQuery UI Slider
+    // jQuery UI Slider
     $(".sidebar-area-wrapper").each(function () {
         var wrapper = $(this);
         var slider = wrapper.find("#price-slider");
 
+        var minInput = wrapper.find('#min_price');
+        var maxInput = wrapper.find('#max_price');
+
+        var min = parseInt(slider.data('min'));
+        var max = parseInt(slider.data('max'));
+
         slider.slider({
             range: true,
-            min: parseInt(slider.data('min')),
-            max: parseInt(slider.data('max')),
+            min: min,
+            max: max,
             values: [
-                parseInt(wrapper.find('#min_price').val()),
-                parseInt(wrapper.find('#max_price').val())
+                parseInt(minInput.val()),
+                parseInt(maxInput.val())
             ],
             slide: function (event, ui) {
-                wrapper.find("#amount").val(ui.values[0] + " - " + ui.values[1]);
-                wrapper.find('#min_price').val(ui.values[0]);
-                wrapper.find('#max_price').val(ui.values[1]);
+                minInput.val(ui.values[0]);
+                maxInput.val(ui.values[1]);
             },
-            // change: function () {
-            //     if (cwcIsInit) return;
-            //     updateProducts(wrapper);
-            // }
             change: function () {
-                // ничего не делаем — просто обновляем значения
+                // только синхронизация, без автозапроса
             }
         });
 
-        wrapper.find("#amount").val(
-            slider.slider("values", 0) + " - " + slider.slider("values", 1)
-        );
+        // Ввод руками → двигаем слайдер
+        minInput.on('change', function () {
+            var minVal = parseInt($(this).val()) || min;
+            var maxVal = parseInt(maxInput.val()) || max;
+
+            if (minVal < min) minVal = min;
+            if (minVal > maxVal) minVal = maxVal;
+
+            slider.slider('values', 0, minVal);
+            $(this).val(minVal);
+        });
+
+        maxInput.on('change', function () {
+            var minVal = parseInt(minInput.val()) || min;
+            var maxVal = parseInt($(this).val()) || max;
+
+            if (maxVal > max) maxVal = max;
+            if (maxVal < minVal) maxVal = minVal;
+
+            slider.slider('values', 1, maxVal);
+            $(this).val(maxVal);
+        });
     });
 
     // Очистка фильтров
