@@ -134,6 +134,9 @@ function cwc_render_price_filter()
     $max_price = isset($_GET['max_price']) ? intval($_GET['max_price']) : $store_max_price;
 
     ob_start();
+
+    print_r($min_price);
+    print_r($max_price);
 ?>
     <div class="single-sidebar-wrap">
         <h3 class="sidebar-title">Цена</h3>
