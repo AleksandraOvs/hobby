@@ -129,44 +129,55 @@ $has_gallery = count($image_ids) > 1;
                     }
                     ?>
 
-                    <form class="cart" action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>" method="post" enctype='multipart/form-data'>
+                    <?php if ($product->is_type('variable')) : ?>
 
-                        <!-- Количество и итоговая цена -->
-                        <div class="cart__price-update">
-                            <?php
-                            woocommerce_quantity_input([
-                                'min_value'   => $product->get_min_purchase_quantity(),
-                                'max_value'   => $product->get_max_purchase_quantity(),
-                                'input_value' => isset($_POST['quantity']) ? wc_stock_amount(wp_unslash($_POST['quantity'])) : $product->get_min_purchase_quantity(),
-                            ]);
-                            ?>
-                            <span class="price-single"><?php echo wc_price($min_price); ?></span>
-                            <span class="price-total"><?php echo wc_price($min_price); ?></span>
-                        </div>
-
-                        <!-- Таблица скидок (информативно) -->
-                        <div class="bulk-discount-table"><?php echo do_shortcode('[bulk_price_table]'); ?></div>
-
-                        <!-- JSON для JS -->
                         <?php
-                        $bulk_json = [];
-                        foreach ($bulk_prices as $bp) {
-                            $bulk_json[] = [
-                                'min_qty' => intval($bp['min_qty']),
-                                'discount' => floatval($bp['discount']),
-                                'price' => floatval($bp['price']),
-                            ];
-                        }
+                        /**
+                         * ВАЖНО:
+                         * Это подключает стандартный шаблон WooCommerce
+                         * с атрибутами, variation_id и всей JS-магией
+                         */
+                        woocommerce_variable_add_to_cart();
                         ?>
-                        <div id="bulk-discount-data" style="display:none;"><?php echo wp_json_encode(['discounts' => $bulk_json]); ?></div>
 
-                        <button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt">
-                            <?php echo esc_html($product->single_add_to_cart_text()); ?>
-                        </button>
+                    <?php else : ?>
 
-                        <?php custom_add_to_wishlist_button()
-                        ?>
-                    </form>
+                        <form class="cart"
+                            action="<?php echo esc_url(apply_filters('woocommerce_add_to_cart_form_action', $product->get_permalink())); ?>"
+                            method="post"
+                            enctype="multipart/form-data">
+
+                            <!-- Количество и итоговая цена -->
+                            <div class="cart__price-update">
+                                <?php
+                                woocommerce_quantity_input([
+                                    'min_value'   => $product->get_min_purchase_quantity(),
+                                    'max_value'   => $product->get_max_purchase_quantity(),
+                                    'input_value' => isset($_POST['quantity'])
+                                        ? wc_stock_amount(wp_unslash($_POST['quantity']))
+                                        : $product->get_min_purchase_quantity(),
+                                ]);
+                                ?>
+                                <span class="price-single"><?php echo wc_price($min_price); ?></span>
+                                <span class="price-total"><?php echo wc_price($min_price); ?></span>
+                            </div>
+
+                            <div class="bulk-discount-table">
+                                <?php echo do_shortcode('[bulk_price_table]'); ?>
+                            </div>
+
+                            <button type="submit"
+                                name="add-to-cart"
+                                value="<?php echo esc_attr($product->get_id()); ?>"
+                                class="single_add_to_cart_button button alt">
+                                <?php echo esc_html($product->single_add_to_cart_text()); ?>
+                            </button>
+
+                            <?php custom_add_to_wishlist_button(); ?>
+
+                        </form>
+
+                    <?php endif; ?>
                 </div>
 
                 <script>
