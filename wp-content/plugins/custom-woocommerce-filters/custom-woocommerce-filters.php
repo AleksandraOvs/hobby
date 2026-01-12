@@ -28,26 +28,35 @@ add_action('wp_enqueue_scripts', function () {
 // ----------------------
 function cwc_get_store_price_range()
 {
+    $cached = get_transient('cwc_price_range');
+    if ($cached !== false) {
+        return $cached;
+    }
+
     $all_product_ids = wc_get_products([
         'status' => 'publish',
-        'limit' => -1,
+        'limit'  => -1,
         'return' => 'ids',
     ]);
 
     $prices = [];
-    if (!empty($all_product_ids)) {
-        foreach ($all_product_ids as $product_id) {
-            $price = get_post_meta($product_id, '_price', true);
-            if (is_numeric($price)) {
-                $prices[] = floatval($price);
-            }
+
+    foreach ($all_product_ids as $product_id) {
+        $price = get_post_meta($product_id, '_price', true);
+        if (is_numeric($price)) {
+            $prices[] = (float) $price;
         }
     }
 
     $min_price = !empty($prices) ? floor(min($prices)) : 0;
     $max_price = !empty($prices) ? ceil(max($prices)) : 100000;
 
-    return [$min_price, $max_price];
+    $result = [$min_price, $max_price];
+
+    // Кешируем на 12 часов
+    set_transient('cwc_price_range', $result, 12 * HOUR_IN_SECONDS);
+
+    return $result;
 }
 
 // ----------------------
@@ -157,10 +166,8 @@ function cwc_shop_filters_shortcode()
             $current_cat_id = $current_cat->term_id;
         }
     }
-
 ?>
     <div class="sidebar-area-wrapper" data-current-cat="<?php echo esc_attr($current_cat_id); ?>">
-        <button id="cwc-reset-filters" class="cwc-reset-button">Очистить фильтры</button>
 
         <?php
         echo cwc_render_attribute_filter('pa_material', 'Материал', $current_cat_id);
@@ -168,6 +175,8 @@ function cwc_shop_filters_shortcode()
         echo cwc_render_attribute_filter('pa_metod', 'Метод', $current_cat_id);
         echo cwc_render_price_filter();
         ?>
+
+        <button id="cwc-reset-filters" class="cwc-reset-button">Очистить фильтры</button>
     </div>
 <?php
     return ob_get_clean();

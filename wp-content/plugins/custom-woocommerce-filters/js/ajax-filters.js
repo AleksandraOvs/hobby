@@ -1,6 +1,10 @@
 (function ($) {
+    let cwcIsInit = true;
+    let cwcIsUpdating = false;
 
     function updateProducts(wrapper) {
+
+
         if (cwcIsInit || cwcIsUpdating) return;
 
         cwcIsUpdating = true;
@@ -50,6 +54,7 @@
         e.preventDefault();
         var wrapper = $(this).closest('.sidebar-area-wrapper');
         $(this).toggleClass('active').siblings().removeClass('active');
+        //$(this).closest('li').siblings().find('.filter-item').removeClass('active');
         updateProducts(wrapper);
     });
 
