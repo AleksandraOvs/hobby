@@ -774,3 +774,8 @@ jQuery(function ($) {
         }, 300);
     });
 });
+
+// Только скроллим, если явно разрешено
+if (element.dataset.allowScroll === "true") {
+    element.scrollIntoView({ behavior: "smooth" });
+}

@@ -490,6 +490,29 @@
     display: none;
 }
 
+.single-product-add-to-cart form.cart .custom-wishlist-btn {
+    position: relative;
+    margin-top: 10px;
+    border: 2px solid #343434;
+    border-radius: 5px;
+}
+
+.single-product-add-to-cart form.cart .custom-wishlist-btn .wishlist-icon svg path {
+    stroke: #343434;
+}
+
+.single-product-add-to-cart form.cart .custom-wishlist-btn .wishlist-text {
+    transform: none;
+    color: #343434;
+    opacity: 1;
+    font-size: 16px;
+}
+
+.single-product-add-to-cart form.cart .custom-wishlist-btn.added .wishlist-icon svg path {
+    fill: var(--theme-color-accent);
+    stroke: var(--theme-color-accent);
+}
+
 @media (max-width: 991px) {
     .single-product__related .products {
         grid-template-columns: repeat(2, 1fr);
@@ -520,16 +543,16 @@
     }
 
     .cart__price-update {
-        flex-direction: column;
+        justify-content: center;
     }
 
     .stock-status {
         justify-content: center;
     }
 
-    .price-total::before {
+    /* .price-total::before {
         content: '';
-    }
+    } */
 
     .single-product-details .product-specs {
         margin-top: 30px;
@@ -537,6 +560,37 @@
 }
 
 @media (max-width: 768px) {
+
+    .single-product__top>div {
+        width: 520px;
+        margin: 0 auto;
+    }
+
+    .single-product__top .single-product-add-to-cart {
+        width: 100%;
+    }
+
+    .single-product-add-to-cart form.cart {
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* 
+    .single-product-add-to-cart form.cart .cart__price-update {
+        width: 40%;
+    }
+
+    .single-product-add-to-cart form.cart .bulk-discount-table {
+        width: 50%;
+    } */
+
+    .swiper.product-thumbnail-nav {
+        position: absolute;
+        z-index: 3;
+        top: 10px;
+        left: 10px;
+    }
+
     .single-product__related .products-on-column .single-product {
         width: calc(100% / 2 - 10px);
     }
@@ -566,6 +620,14 @@
     .visible-on-mobile {
         display: block;
     }
+}
+
+@media (max-width: 576px) {
+    .single-product__top>div {
+        width: 100%;
+        max-width: 420px;
+    }
+
 }
 
 @media (max-width: 480px) {

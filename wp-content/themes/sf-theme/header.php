@@ -28,7 +28,30 @@
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/apple-touch-icon.png">
 
     <?php wp_head(); ?>
+    <script>
+        // Предотвратить изменение scrollTop всеми скриптами
+        let scrollBlocked = true;
 
+        const originalScrollTop = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollTop');
+        if (originalScrollTop && originalScrollTop.set) {
+            Object.defineProperty(document.documentElement, 'scrollTop', {
+                set(value) {
+                    if (!scrollBlocked) originalScrollTop.set.call(this, value);
+                }
+            });
+        }
+
+        const originalScrollTopBody = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollTop');
+        if (originalScrollTopBody && originalScrollTopBody.set) {
+            Object.defineProperty(document.body, 'scrollTop', {
+                set(value) {
+                    if (!scrollBlocked) originalScrollTopBody.set.call(this, value);
+                }
+            });
+        }
+
+        console.log('🛑 Автоскролл заблокирован, страница больше не телепортируется.');
+    </script>
 </head>
 
 <body <?php body_class(); ?>>

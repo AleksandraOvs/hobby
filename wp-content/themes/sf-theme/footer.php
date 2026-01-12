@@ -114,6 +114,49 @@ if (current_user_can('administrator')) {
 
 </div>
 </div>
+
+<script>
+    (function() {
+        let lastScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+
+        const observer = new MutationObserver(() => {
+            const currentScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            if (currentScrollTop !== lastScrollTop) {
+                console.group('⚠ Scroll изменился!');
+                console.log('Старое значение:', lastScrollTop);
+                console.log('Новое значение:', currentScrollTop);
+                console.trace(); // Показывает, какой скрипт вызвал изменение
+                console.groupEnd();
+                lastScrollTop = currentScrollTop;
+            }
+        });
+
+        // Следим за изменениями всего документа (DOM + атрибуты)
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true,
+            attributes: true,
+            characterData: true
+        });
+
+        // Также ловим прямое изменение scrollTop через JS
+        const originalScrollTop = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollTop');
+        if (originalScrollTop && originalScrollTop.set) {
+            Object.defineProperty(document.documentElement, 'scrollTop', {
+                set(value) {
+                    console.group('⚠ Установка scrollTop!');
+                    console.log('Новое значение:', value);
+                    console.trace();
+                    console.groupEnd();
+                    lastScrollTop = value;
+                    originalScrollTop.set.call(this, value);
+                }
+            });
+        }
+
+        console.log('🟢 Диагностика scrollTop активирована. Обнови корзину или элемент, чтобы отследить скрипт.');
+    })();
+</script>
 </body>
 
 </html>

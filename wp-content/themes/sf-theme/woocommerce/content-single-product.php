@@ -100,8 +100,6 @@ $has_gallery = count($image_ids) > 1;
                             <?php endif; ?>
                         </div>
                     </div>
-
-
                 </div>
 
                 <!-- End Single Product Thumbnail -->
@@ -165,9 +163,10 @@ $has_gallery = count($image_ids) > 1;
                         <button type="submit" name="add-to-cart" value="<?php echo esc_attr($product->get_id()); ?>" class="single_add_to_cart_button button alt">
                             <?php echo esc_html($product->single_add_to_cart_text()); ?>
                         </button>
-                    </form>
 
-                    <?php custom_add_to_wishlist_button() ?>
+                        <?php custom_add_to_wishlist_button()
+                        ?>
+                    </form>
                 </div>
 
                 <script>

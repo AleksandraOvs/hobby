@@ -38,7 +38,7 @@ if (is_admin() && file_exists(plugin_dir_path(__FILE__) . 'admin/admin-chat.php'
 }
 
 // ---------------------------
-// Создание таблицы сообщений
+// Создание таблицы сообщений с поддержкой файлов
 // ---------------------------
 register_activation_hook(__FILE__, function () {
     global $wpdb;
@@ -49,7 +49,11 @@ register_activation_hook(__FILE__, function () {
         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
         user_id BIGINT UNSIGNED NOT NULL,
         admin_id BIGINT UNSIGNED DEFAULT 1,
-        message TEXT NOT NULL,
+        message TEXT NULL,
+        message_type VARCHAR(20) NOT NULL DEFAULT 'text',
+        file_url TEXT NULL,
+        file_name VARCHAR(255) NULL,
+        file_type VARCHAR(100) NULL,
         sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
         sender ENUM('user','admin') NOT NULL,
         is_read TINYINT(1) DEFAULT 0,
@@ -103,24 +107,63 @@ add_shortcode('wc_user_chat', function () {
 });
 
 // ---------------------------
-// AJAX: отправка сообщений пользователем
+// AJAX: отправка сообщений пользователем с поддержкой файлов
 // ---------------------------
 add_action('wp_ajax_wc_send_chat', function () {
     check_ajax_referer('wc_user_chat_nonce', 'nonce');
     global $wpdb;
 
-    $message = sanitize_text_field($_POST['message'] ?? '');
     $user_id = get_current_user_id();
-    if (!$message || !$user_id) wp_send_json_error();
+    if (!$user_id) wp_send_json_error();
+
+    $message = sanitize_text_field($_POST['message'] ?? '');
+    $file_name = '';
+    $file_url  = '';
+
+    // Если пришел файл
+    if (!empty($_FILES['file']['name'])) {
+        $uploaded_file = $_FILES['file'];
+
+        // Ограничение размера 5 МБ
+        if ($uploaded_file['size'] > 5 * 1024 * 1024) {
+            wp_send_json_error(['message' => 'Файл слишком большой. Максимум 5 МБ']);
+        }
+
+        // Разрешенные типы файлов
+        $allowed_types = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (!in_array($uploaded_file['type'], $allowed_types)) {
+            wp_send_json_error(['message' => 'Недопустимый тип файла']);
+        }
+
+        require_once ABSPATH . 'wp-admin/includes/file.php';
+        $upload = wp_handle_upload($uploaded_file, ['test_form' => false]);
+
+        if (!isset($upload['error'])) {
+            $file_name = sanitize_file_name($uploaded_file['name']);
+            $file_url  = esc_url($upload['url']);
+        } else {
+            wp_send_json_error(['message' => $upload['error']]);
+        }
+    }
+
+    // Если нет текста и нет файла — не сохраняем
+    if (!$message && !$file_url) wp_send_json_error(['message' => 'Нет текста или файла']);
 
     $wpdb->insert($wpdb->prefix . 'wc_user_chat', [
-        'user_id' => $user_id,
-        'message' => $message,
-        'sender'  => 'user',
-        'is_read' => 0
+        'user_id'   => $user_id,
+        'message'   => $message,
+        'file_name' => $file_name,
+        'file_url'  => $file_url,
+        'sender'    => 'user',
+        'is_read'   => 0,
+        'sent_at'   => current_time('mysql')
     ]);
 
-    wp_send_json_success();
+    wp_send_json_success([
+        'message'   => $message,
+        'file_name' => $file_name,
+        'file_url'  => $file_url
+    ]);
 });
 
 // ---------------------------
@@ -144,8 +187,31 @@ add_action('wp_ajax_wc_get_chat', function () {
         $wpdb->prepare(
             "SELECT * FROM {$wpdb->prefix}wc_user_chat WHERE user_id = %d ORDER BY sent_at ASC",
             $user_id
-        )
+        ),
+        ARRAY_A
     );
+
+    // Генерируем HTML с миниатюрами для изображений
+    // Генерируем HTML для файла
+    foreach ($messages as &$msg) {
+        $msg['file_html'] = '';
+        if (!empty($msg['file_url'])) {
+            $ext = strtolower(pathinfo($msg['file_url'], PATHINFO_EXTENSION));
+            $img_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+
+            if (in_array($ext, $img_exts)) {
+                $msg['file_html'] = '<div class="wc-chat-file">
+                <img src="' . esc_url($msg['file_url']) . '" data-full="' . esc_url($msg['file_url']) . '" class="wc-chat-thumb" alt="' . esc_attr($msg['file_name']) . '">
+                <a href="' . esc_url($msg['file_url']) . '" download class="wc-chat-download">Скачать</a>
+            </div>';
+            } else {
+                $msg['file_html'] = '<div class="wc-chat-file">
+                <a href="' . esc_url($msg['file_url']) . '" target="_blank">' . esc_html($msg['file_name']) . '</a>
+                <a href="' . esc_url($msg['file_url']) . '" download class="wc-chat-download">Скачать</a>
+            </div>';
+            }
+        }
+    }
 
     wp_send_json_success($messages);
 });
@@ -180,3 +246,110 @@ function wc_user_chat_admin_menu()
         'wc_user_chat_admin_page'
     );
 }
+
+
+//отправка файлов
+add_action('wp_ajax_wc_user_chat_upload_file', 'wc_user_chat_upload_file');
+add_action('wp_ajax_nopriv_wc_user_chat_upload_file', 'wc_user_chat_upload_file');
+
+function wc_user_chat_upload_file()
+{
+
+    if (empty($_FILES['file'])) {
+        wp_send_json_error('Файл не передан');
+    }
+
+    // Кто отправляет
+    $sender = is_admin() ? 'admin' : 'user';
+
+    // Ограничения
+    $max_size = 5 * 1024 * 1024; // 5 MB
+    $allowed_types = [
+        'image/jpeg',
+        'image/png',
+        'application/pdf',
+        'application/msword',
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document'
+    ];
+
+    $file = $_FILES['file'];
+
+    if ($file['size'] > $max_size) {
+        wp_send_json_error('Файл слишком большой');
+    }
+
+    if (!in_array($file['type'], $allowed_types, true)) {
+        wp_send_json_error('Недопустимый тип файла');
+    }
+
+    require_once ABSPATH . 'wp-admin/includes/file.php';
+
+    $upload = wp_handle_upload($file, [
+        'test_form' => false
+    ]);
+
+    if (isset($upload['error'])) {
+        wp_send_json_error($upload['error']);
+    }
+
+    global $wpdb;
+
+    $table = $wpdb->prefix . 'wc_user_chat_messages';
+
+    $wpdb->insert($table, [
+        'chat_id'      => intval($_POST['chat_id']),
+        'sender'       => $sender,
+        'message_type' => 'file',
+        'file_url'     => esc_url_raw($upload['url']),
+        'file_name'    => sanitize_text_field($file['name']),
+        'file_type'    => sanitize_text_field($file['type']),
+        'created_at'   => current_time('mysql')
+    ]);
+
+    wp_send_json_success([
+        'url'  => $upload['url'],
+        'name' => $file['name'],
+        'type' => $file['type']
+    ]);
+}
+
+// Тестовый эндпоинт для проверки таблицы
+add_action('wp_ajax_wc_user_chat_test', function () {
+    global $wpdb;
+    $table = $wpdb->prefix . 'wc_user_chat';
+
+    $results = $wpdb->get_results(
+        "SELECT id, user_id, message, sender, sent_at, is_read 
+         FROM $table 
+         ORDER BY sent_at DESC 
+         LIMIT 5",
+        ARRAY_A
+    );
+
+    wp_send_json_success($results);
+});
+
+// Обновляем структуру таблицы для хранения имени и URL файла
+register_activation_hook(__FILE__, function () {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wc_user_chat';  // Имя таблицы чата
+    $charset_collate = $wpdb->get_charset_collate();
+
+    // Обновленный SQL запрос для добавления новых столбцов
+    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+        user_id BIGINT UNSIGNED NOT NULL,
+        admin_id BIGINT UNSIGNED DEFAULT 1,
+        message TEXT NOT NULL,
+        sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        sender ENUM('user','admin') NOT NULL,
+        is_read TINYINT(1) DEFAULT 0,
+        file_name VARCHAR(255) DEFAULT '',    -- Новое поле для имени файла
+        file_url  VARCHAR(255) DEFAULT '',    -- Новое поле для URL файла
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    // Включаем WP функцию для выполнения SQL запроса
+    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+    dbDelta($sql);  // dbDelta автоматически обновит структуру таблицы, если нужно
+});

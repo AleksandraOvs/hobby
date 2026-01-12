@@ -177,16 +177,19 @@ add_shortcode('shop_filters', 'cwc_shop_filters_shortcode');
 // ----------------------
 // AJAX обработчик
 // ----------------------
+
 add_action('wp_ajax_cwc_filter_products', 'cwc_filter_products');
 add_action('wp_ajax_nopriv_cwc_filter_products', 'cwc_filter_products');
 
 function cwc_filter_products()
 {
-
+    /* ------------------
+     * Базовые аргументы
+     * ------------------ */
     $args = [
         'post_type'      => 'product',
-        'posts_per_page' => 12,
         'post_status'    => 'publish',
+        'posts_per_page' => 12,
         'tax_query'      => [],
         'meta_query'     => [],
     ];
@@ -198,8 +201,25 @@ function cwc_filter_products()
         $args['tax_query'][] = [
             'taxonomy' => 'product_cat',
             'field'    => 'term_id',
-            'terms'    => intval($_POST['current_cat_id']),
+            'terms'    => (int) $_POST['current_cat_id'],
         ];
+    }
+
+    /* ------------------
+     * Сортировка WooCommerce (КЛЮЧЕВО)
+     * ------------------ */
+    $orderby = !empty($_POST['orderby'])
+        ? wc_clean($_POST['orderby'])
+        : '';
+
+    // Получаем корректные аргументы сортировки
+    $ordering_args = WC()->query->get_catalog_ordering_args($orderby);
+
+    $args['orderby'] = $ordering_args['orderby'];
+    $args['order']   = $ordering_args['order'];
+
+    if (!empty($ordering_args['meta_key'])) {
+        $args['meta_key'] = $ordering_args['meta_key'];
     }
 
     /* ------------------
@@ -210,7 +230,7 @@ function cwc_filter_products()
             $args['tax_query'][] = [
                 'taxonomy' => str_replace('filter_', '', $key),
                 'field'    => 'slug',
-                'terms'    => sanitize_text_field($value),
+                'terms'    => wc_clean($value),
             ];
         }
     }
@@ -220,7 +240,7 @@ function cwc_filter_products()
     }
 
     /* ------------------
-     * Цена (по всему магазину)
+     * Цена
      * ------------------ */
     list($store_min, $store_max) = cwc_get_store_price_range();
 
@@ -242,14 +262,10 @@ function cwc_filter_products()
     ob_start();
 
     if ($query->have_posts()) {
-        // woocommerce_product_loop_start();
-
         while ($query->have_posts()) {
             $query->the_post();
             wc_get_template_part('content', 'product');
         }
-
-        //  woocommerce_product_loop_end();
     } else {
         echo '<p class="no-products">Товары не найдены</p>';
     }

@@ -221,3 +221,25 @@
     background: var(--theme-color-accent);
     color: #fff;
 }
+
+.empty-wl {
+    background: transparent;
+    border: none;
+    position: relative;
+    font-size: 24px;
+    color: #343434;
+    text-align: center;
+    padding: 50px 0;
+
+}
+
+.empty-wl:after {
+    content: '';
+    height: 2px;
+    width: 150px;
+    background: var(--theme-color-accent);
+    display: block;
+    position: absolute;
+    bottom: 0;
+    left: calc(50% - 75px);
+}

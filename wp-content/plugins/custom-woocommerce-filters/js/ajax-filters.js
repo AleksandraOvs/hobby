@@ -1,9 +1,13 @@
 (function ($) {
 
     function updateProducts(wrapper) {
+        if (cwcIsInit || cwcIsUpdating) return;
+
+        cwcIsUpdating = true;
+
         var filters = { action: 'cwc_filter_products' };
 
-        // Атрибуты внутри конкретного шорткода
+        // Атрибуты
         $(wrapper).find('.sidebar-list').each(function () {
             var taxonomy = $(this).data('taxonomy');
             var active = $(this).find('a.active').data('slug');
@@ -14,10 +18,12 @@
         filters.min_price = $(wrapper).find('#min_price').val();
         filters.max_price = $(wrapper).find('#max_price').val();
 
-        // Текущая категория
-        filters.current_cat_id = $(wrapper).data('current-cat');
+        // Сортировка
+        var orderby = $('select.orderby').val();
+        if (orderby) filters.orderby = orderby;
 
-        console.log('AJAX filters to send:', filters); // <-- лог для проверки
+        // Категория
+        filters.current_cat_id = $(wrapper).data('current-cat');
 
         $.ajax({
             url: cwc_ajax_object.ajax_url,
@@ -27,13 +33,14 @@
                 $('.products-wrapper').fadeTo(200, 0.5);
             },
             success: function (response) {
-                console.log('AJAX response:', response); // <-- лог ответа
                 if (response.success) {
-                    $('.products-wrapper').html(response.data.html).fadeTo(200, 1);
+                    $('.products-wrapper')
+                        .html(response.data.html)
+                        .fadeTo(200, 1);
                 }
             },
-            error: function (xhr, status, error) {
-                console.log('AJAX Error:', status, error);
+            complete: function () {
+                cwcIsUpdating = false;
             }
         });
     }
@@ -50,6 +57,7 @@
     $(".sidebar-area-wrapper").each(function () {
         var wrapper = $(this);
         var slider = wrapper.find("#price-slider");
+
         slider.slider({
             range: true,
             min: parseInt(slider.data('min')),
@@ -63,12 +71,15 @@
                 wrapper.find('#min_price').val(ui.values[0]);
                 wrapper.find('#max_price').val(ui.values[1]);
             },
-            change: function (event, ui) {
+            change: function () {
+                if (cwcIsInit) return;
                 updateProducts(wrapper);
             }
         });
 
-        wrapper.find("#amount").val(slider.slider("values", 0) + " - " + slider.slider("values", 1));
+        wrapper.find("#amount").val(
+            slider.slider("values", 0) + " - " + slider.slider("values", 1)
+        );
     });
 
     // Очистка фильтров
@@ -85,6 +96,19 @@
         wrapper.find("#amount").val(slider.data('min') + " - " + slider.data('max'));
 
         updateProducts(wrapper);
+    });
+
+    // Перехват стандартной сортировки WooCommerce
+    $(document).on('change', 'select.orderby', function (e) {
+        if (cwcIsInit) return;
+        e.preventDefault();
+
+        var wrapper = $('.sidebar-area-wrapper').first();
+        updateProducts(wrapper);
+    });
+
+    $(window).on('load', function () {
+        cwcIsInit = false;
     });
 
 })(jQuery);

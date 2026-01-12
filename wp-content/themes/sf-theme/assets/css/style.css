@@ -8426,6 +8426,8 @@ p.return-to-shop .button.wc-backward {
   text-align: center;
   background: var(--theme-color-accent);
   color: #fff;
+  padding: 10px;
+  border-radius: 5px;
   font-weight: 400;
   transition: all .5s linear;
 }

@@ -21,7 +21,7 @@
     gap: 30px;
 }
 
-.wc-chat-message {
+.wc-chat-message-inner .wc-chat-message-inner-content {
     position: relative;
     padding: 8px 12px;
     margin-bottom: 5px;
@@ -30,7 +30,7 @@
     width: 100%;
 }
 
-.wc-chat-message:after {
+.wc-chat-message-inner .wc-chat-message-inner-content:after {
     content: '';
     position: absolute;
     /* Абсолютное позиционирование */
@@ -41,10 +41,9 @@
     /* Прозрачные границы */
     border-top: 10px solid #f2ddc8;
     /* Добавляем треугольник */
-
 }
 
-.wc-chat-message-inner.user .wc-chat-message {
+.wc-chat-message-inner.user .wc-chat-message-inner-content {
     background: #f2ddc8;
     text-align: left;
     width: 100%;
@@ -54,7 +53,7 @@
     align-items: flex-end;
 }
 
-.wc-chat-message-inner.admin .wc-chat-message {
+.wc-chat-message-inner.admin .wc-chat-message-inner-content {
     background: #f5f5f5;
     text-align: left;
     width: 100%;
@@ -66,7 +65,7 @@
     gap: 10px;
 }
 
-.admin .wc-chat-message:after {
+.admin .wc-chat-message-inner-content:after {
     border-top: 10px solid #f5f5f5;
     right: 30px;
     left: unset;
@@ -113,4 +112,85 @@
     color: #343434;
     text-decoration: underline;
     width: max-content;
+}
+
+.wc-chat-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: zoom-out;
+}
+
+.wc-chat-lightbox-inner img {
+    max-width: 90vw;
+    max-height: 90vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .5);
+}
+
+.wc-chat-file {
+    margin-top: 8px;
+}
+
+.wc-chat-thumb img {
+    max-width: 140px;
+    border-radius: 6px;
+    cursor: zoom-in;
+    display: block;
+}
+
+.wc-chat-file-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 4px;
+}
+
+.wc-chat-download {
+    font-size: 13px;
+    text-decoration: none;
+    color: #2271b1;
+}
+
+.wc-chat-thumb {
+    max-width: 120px;
+    cursor: zoom-in;
+    border-radius: 6px;
+}
+
+.wc-chat-lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, .85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+.wc-chat-lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+}
+
+.wc-chat-file {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    gap: 5px;
+    width: 140px;
+}
+
+.wc-chat-file img {
+    width: 120px;
+    height: 120px;
+}
+
+.wc-chat-file a.wc-chat-download {
+    position: relative;
+    color: #343434;
 }

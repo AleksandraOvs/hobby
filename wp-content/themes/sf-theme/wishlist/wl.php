@@ -87,7 +87,11 @@ function custom_wishlist_shortcode()
     $wishlist = get_user_meta($user_id, 'custom_wishlist', true) ?: [];
 
     if (empty($wishlist)) {
-        return '<p>Ваш список избранного пуст</p>';
+        return
+
+            '<p class="empty-wl">Ваш список избранного пуст</p>
+            <p class="return-to-shop"><a href="' . site_url('shop') . '" class="button wc-backward">В магазин</a></p>
+        ';
     }
 
     // группировка по категориям
@@ -127,13 +131,13 @@ function custom_wishlist_shortcode()
                 $price_html = wc_price($price);
 
                 // проверка — в корзине ли товар
-                $in_cart = false;
-                foreach (WC()->cart->get_cart() as $cart_item) {
-                    if ($cart_item['product_id'] == $product_id) {
-                        $in_cart = true;
-                        break;
-                    }
-                }
+                // $in_cart = false;
+                // foreach (WC()->cart->get_cart() as $cart_item) {
+                //     if ($cart_item['product_id'] == $product_id) {
+                //         $in_cart = true;
+                //         break;
+                //     }
+                // }
             ?>
 
                 <div class="cart-flex__row wishlist-item">
@@ -167,20 +171,23 @@ function custom_wishlist_shortcode()
                     <!-- Итого + кнопка -->
                     <div class="cart-flex__col cart-flex__col--total">
                         <div class="wishlist-cart-actions">
-                            <?php if ($in_cart) : ?>
+                            <!-- <?php //if ($in_cart) : 
+                                    ?>
                                 <a href="<?php echo esc_url(wc_get_cart_url()); ?>"
                                     class="button wishlist-in-cart">
                                     В корзине
                                 </a>
-                            <?php else : ?>
-                                <a href="<?php echo esc_url($product->add_to_cart_url()); ?>"
-                                    class="button add_to_cart_button ajax_add_to_cart wishlist-add-to-cart"
-                                    data-product_id="<?php echo esc_attr($product_id); ?>"
-                                    data-quantity="1"
-                                    rel="nofollow">
-                                    В корзину
-                                </a>
-                            <?php endif; ?>
+                            <?php //else : 
+                            ?> -->
+                            <a href="<?php echo esc_url($product->add_to_cart_url()); ?>"
+                                class="button add_to_cart_button ajax_add_to_cart wishlist-add-to-cart"
+                                data-product_id="<?php echo esc_attr($product_id); ?>"
+                                data-quantity="1"
+                                rel="nofollow">
+                                В корзину
+                            </a>
+                            <?php //endif; 
+                            ?>
                         </div>
                     </div>
 
