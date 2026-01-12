@@ -24,15 +24,10 @@ add_action('wp_enqueue_scripts', function () {
 });
 
 // ----------------------
-// Получение минимальной и максимальной цены по магазину
+// Получение минимальной и максимальной цены по магазину (без кэша)
 // ----------------------
 function cwc_get_store_price_range()
 {
-    $cached = get_transient('cwc_price_range');
-    if ($cached !== false) {
-        return $cached;
-    }
-
     $all_product_ids = wc_get_products([
         'status' => 'publish',
         'limit'  => -1,
@@ -51,13 +46,9 @@ function cwc_get_store_price_range()
     $min_price = !empty($prices) ? floor(min($prices)) : 0;
     $max_price = !empty($prices) ? ceil(max($prices)) : 100000;
 
-    $result = [$min_price, $max_price];
-
-    // Кешируем на 12 часов
-    set_transient('cwc_price_range', $result, 12 * HOUR_IN_SECONDS);
-
-    return $result;
+    return [$min_price, $max_price];
 }
+
 
 // ----------------------
 // Фильтр атрибутов
