@@ -372,12 +372,20 @@ function cwc_filter_products()
 
             $taxonomy = $m[1];
 
-            $min = floatval($_POST["filter_{$taxonomy}_min"] ?? '');
-            $max = floatval($_POST["filter_{$taxonomy}_max"] ?? '');
+            $min_raw = $_POST["filter_{$taxonomy}_min"] ?? null;
+            $max_raw = $_POST["filter_{$taxonomy}_max"] ?? null;
 
-            if ($min === '' || $max === '') {
+            if ($min_raw === null || $max_raw === null) {
                 continue;
             }
+
+            $min = floatval($min_raw);
+            $max = floatval($max_raw);
+
+            // если диапазон не сузили — НЕ применяем фильтр
+            // if ($min <= $store_min && $max >= $store_max) {
+            //     continue;
+            // }
 
             // Получаем термы атрибута
             $terms = get_terms([
@@ -434,10 +442,22 @@ function cwc_filter_products()
     /* ------------------
      * Атрибуты
      * ------------------ */
+    // foreach ($_POST as $key => $value) {
+    //     if (strpos($key, 'filter_pa_') === 0 && !empty($value)) {
+    //         $args['tax_query'][] = [
+    //             'taxonomy' => str_replace('filter_', '', $key),
+    //             'field'    => 'slug',
+    //             'terms'    => wc_clean($value),
+    //         ];
+    //     }
+    // }
     foreach ($_POST as $key => $value) {
-        if (strpos($key, 'filter_pa_') === 0 && !empty($value)) {
+        if (
+            preg_match('/^filter_(pa_[a-z0-9\-]+)$/', $key, $m)
+            && !is_array($value)
+        ) {
             $args['tax_query'][] = [
-                'taxonomy' => str_replace('filter_', '', $key),
+                'taxonomy' => $m[1],
                 'field'    => 'slug',
                 'terms'    => wc_clean($value),
             ];

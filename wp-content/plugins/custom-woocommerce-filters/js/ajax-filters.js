@@ -13,7 +13,7 @@
         };
 
         /* -------------------
-         * Атрибуты (checkbox)
+         * Атрибуты (checkbox / radio)
          * ------------------- */
         $(wrapper).find('.sidebar-list').each(function () {
             var taxonomy = $(this).data('taxonomy');
@@ -29,24 +29,48 @@
         });
 
         /* -------------------
-         * Цена
+         * Цена (ТОЛЬКО если сужена)
          * ------------------- */
-        var minPrice = $(wrapper).find('#min_price').val();
-        var maxPrice = $(wrapper).find('#max_price').val();
+        var minPriceInput = $(wrapper).find('#min_price');
+        var maxPriceInput = $(wrapper).find('#max_price');
+        var priceSlider = $(wrapper).find('#price-slider');
 
-        if (minPrice !== '') filters.min_price = minPrice;
-        if (maxPrice !== '') filters.max_price = maxPrice;
+        if (priceSlider.length) {
+            var priceMinDef = parseInt(priceSlider.data('min'), 10);
+            var priceMaxDef = parseInt(priceSlider.data('max'), 10);
+
+            var priceMin = parseInt(minPriceInput.val(), 10);
+            var priceMax = parseInt(maxPriceInput.val(), 10);
+
+            if (priceMin > priceMinDef || priceMax < priceMaxDef) {
+                filters.min_price = priceMin;
+                filters.max_price = priceMax;
+            }
+        }
 
         /* -------------------
-         * Числовые атрибуты
+         * Числовые атрибуты (✅ FIX)
+         * Отправляем ТОЛЬКО если диапазон изменён
          * ------------------- */
-        $(wrapper).find('input[name^="filter_pa_"]').each(function () {
-            var name = $(this).attr('name');
-            var val = $(this).val();
+        $(wrapper).find('.range-inputs').each(function () {
 
-            if (val !== '' && !isNaN(val)) {
-                filters[name] = val;
-            }
+            var $minInput = $(this).find('input[name$="_min"]');
+            var $maxInput = $(this).find('input[name$="_max"]');
+
+            if (!$minInput.length || !$maxInput.length) return;
+
+            var minVal = parseFloat($minInput.val());
+            var maxVal = parseFloat($maxInput.val());
+
+            var minDef = parseFloat($minInput.attr('min'));
+            var maxDef = parseFloat($maxInput.attr('max'));
+
+            // пользователь НЕ трогал диапазон → не участвует в запросе
+            if (minVal === minDef && maxVal === maxDef) return;
+
+            // пользователь сузил → отправляем
+            filters[$minInput.attr('name')] = minVal;
+            filters[$maxInput.attr('name')] = maxVal;
         });
 
         /* -------------------
@@ -111,7 +135,6 @@
 
         var wrapper = $(this);
         var slider = wrapper.find('#price-slider');
-
         if (!slider.length) return;
 
         var minInput = wrapper.find('#min_price');
@@ -133,30 +156,6 @@
                 maxInput.val(ui.values[1]);
             }
         });
-
-        minInput.on('change', function () {
-            var minVal = parseInt($(this).val(), 10);
-            var maxVal = parseInt(maxInput.val(), 10);
-
-            if (isNaN(minVal)) minVal = min;
-            if (minVal < min) minVal = min;
-            if (minVal > maxVal) minVal = maxVal;
-
-            slider.slider('values', 0, minVal);
-            $(this).val(minVal);
-        });
-
-        maxInput.on('change', function () {
-            var minVal = parseInt(minInput.val(), 10);
-            var maxVal = parseInt($(this).val(), 10);
-
-            if (isNaN(maxVal)) maxVal = max;
-            if (maxVal > max) maxVal = max;
-            if (maxVal < minVal) maxVal = minVal;
-
-            slider.slider('values', 1, maxVal);
-            $(this).val(maxVal);
-        });
     });
 
     /* -------------------
@@ -169,7 +168,7 @@
 
         wrapper.find('.filter-item').removeClass('active');
 
-        // Цена
+        // цена
         var slider = wrapper.find('#price-slider');
         if (slider.length) {
             slider.slider('values', [
@@ -181,17 +180,13 @@
             wrapper.find('#max_price').val(slider.data('max'));
         }
 
-        // Числовые атрибуты
-        wrapper.find('input[name^="filter_pa_"]').each(function () {
-            var min = $(this).attr('min');
-            var max = $(this).attr('max');
+        // числовые атрибуты
+        wrapper.find('.range-inputs').each(function () {
+            var $min = $(this).find('input[name$="_min"]');
+            var $max = $(this).find('input[name$="_max"]');
 
-            if ($(this).attr('name').endsWith('_min')) {
-                $(this).val(min);
-            }
-            if ($(this).attr('name').endsWith('_max')) {
-                $(this).val(max);
-            }
+            $min.val($min.attr('min'));
+            $max.val($max.attr('max'));
         });
 
         updateProducts(wrapper);
