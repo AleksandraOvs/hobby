@@ -403,7 +403,7 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 // });
 
 // Убираем тип "Вариативный товар" из админки
-add_filter('product_type_selector', function ($types) {
-    unset($types['variable']);
-    return $types;
-});
+// add_filter('product_type_selector', function ($types) {
+//     unset($types['variable']);
+//     return $types;
+// });
