@@ -4,7 +4,7 @@
  * Plugin Name: WooCommerce User Chat
  * Description: Простой чат с админом для личного кабинета WooCommerce с обновлением через AJAX и подсветкой новых сообщений.
  * Version: 1.2
- * Author: Шурочка
+ * Author: PurpleWeb
  */
 
 if (!defined('ABSPATH')) exit;

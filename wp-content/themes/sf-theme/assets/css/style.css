@@ -6134,6 +6134,7 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   display: block;
 }
 
+/* 
 .sidebar-list li a:hover {
   color: #d25b5b;
   text-decoration: underline;
@@ -6143,7 +6144,7 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   float: right;
   text-align: center;
   width: 50px;
-}
+} */
 
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
   .sidebar-list li a span {
@@ -6151,55 +6152,7 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   }
 }
 
-.price-range-wrap {
-  margin-right: 15px;
-  padding-top: 8px;
-}
 
-.price-range-wrap .price-range.ui-widget-content {
-  border: none;
-  background: #eeeeee;
-  height: 3px;
-}
-
-.price-range-wrap .price-range.ui-widget-content .ui-slider-range {
-  background: #262626;
-}
-
-.price-range-wrap .price-range.ui-widget-content .ui-slider-handle {
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-  border: none;
-  background: #262626;
-  height: 15px;
-  width: 15px;
-  outline: none;
-  top: -6px;
-  cursor: ew-resize;
-  margin-left: 0;
-}
-
-.price-range-wrap .range-slider {
-  font-size: 1.4rem;
-  line-height: 1;
-  color: #8d8d8d;
-  margin-top: 22px;
-}
-
-.price-range-wrap .range-slider * {
-  margin: 0;
-  line-height: 1;
-}
-
-.price-range-wrap .range-slider input#amount {
-  border: none;
-  outline: none;
-  font-size: 1.4rem;
-  line-height: 1;
-  color: #8d8d8d;
-  pointer-events: none;
-}
 
 .size-list {
   margin-top: -2px;

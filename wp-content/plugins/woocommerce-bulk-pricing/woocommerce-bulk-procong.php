@@ -3,7 +3,7 @@
 Plugin Name: WooCommerce Bulk Discount by Quantity
 Description: Скидки по количеству товара (только проценты). Цена за единицу пересчитывается автоматически в корзине.
 Version: 2.2
-Author: Шурочка
+Author: PurpleWeb
 */
 
 if (!defined('ABSPATH')) exit;

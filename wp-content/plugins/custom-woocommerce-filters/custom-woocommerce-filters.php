@@ -3,7 +3,7 @@
 Plugin Name: Custom WooCommerce Filters
 Description: AJAX фильтр товаров WooCommerce через шорткод [shop_filters] с jQuery UI Slider.
 Version: 1.4
-Author: Шурочка
+Author: PurpleWeb
 */
 
 if (!defined('ABSPATH')) exit;
@@ -111,7 +111,8 @@ function cwc_render_attribute_filter($taxonomy, $title, $current_cat_id = 0)
                         <a href="#"
                             class="filter-item <?php echo (isset($_GET['filter_' . $taxonomy]) && $_GET['filter_' . $taxonomy] === $term->slug) ? 'active' : ''; ?>"
                             data-slug="<?php echo esc_attr($term->slug); ?>">
-                            <?php echo esc_html($term->name); ?> (<?php echo $count; ?>)
+                            <span class="filter-checkbox"></span>
+                            <?php echo esc_html($term->name); ?>(<?php echo $count; ?>)
                         </a>
                     </li>
                 <?php endforeach; ?>
@@ -176,7 +177,10 @@ function cwc_shop_filters_shortcode()
         echo cwc_render_price_filter();
         ?>
 
-        <button id="cwc-reset-filters" class="cwc-reset-button">Очистить фильтры</button>
+        <div class="cwc-filter-actions">
+            <button id="cwc-apply-filters" class="cwc-apply-button">Применить</button>
+            <button id="cwc-reset-filters" class="cwc-reset-button">Сбросить</button>
+        </div>
     </div>
 <?php
     return ob_get_clean();

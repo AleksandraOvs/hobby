@@ -50,12 +50,17 @@
     }
 
     // Клик по атрибуту
-    $(document).on('click', '.filter-item', function (e) {
+    $(document).on('click', '.filter-item, .filter-item *', function (e) {
         e.preventDefault();
-        var wrapper = $(this).closest('.sidebar-area-wrapper');
-        $(this).toggleClass('active').siblings().removeClass('active');
-        //$(this).closest('li').siblings().find('.filter-item').removeClass('active');
-        updateProducts(wrapper);
+
+        var $item = $(this).closest('.filter-item');
+
+        $item
+            .toggleClass('active')
+            .closest('li')
+            .siblings()
+            .find('.filter-item')
+            .removeClass('active');
     });
 
     // jQuery UI Slider
@@ -76,9 +81,12 @@
                 wrapper.find('#min_price').val(ui.values[0]);
                 wrapper.find('#max_price').val(ui.values[1]);
             },
+            // change: function () {
+            //     if (cwcIsInit) return;
+            //     updateProducts(wrapper);
+            // }
             change: function () {
-                if (cwcIsInit) return;
-                updateProducts(wrapper);
+                // ничего не делаем — просто обновляем значения
             }
         });
 
@@ -100,6 +108,14 @@
         wrapper.find('#max_price').val(slider.data('max'));
         wrapper.find("#amount").val(slider.data('min') + " - " + slider.data('max'));
 
+        updateProducts(wrapper);
+    });
+
+    // Применить 
+    $(document).on('click', '#cwc-apply-filters', function (e) {
+        e.preventDefault();
+
+        var wrapper = $(this).closest('.sidebar-area-wrapper');
         updateProducts(wrapper);
     });
 

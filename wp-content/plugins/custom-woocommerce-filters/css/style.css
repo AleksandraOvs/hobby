@@ -28,8 +28,8 @@
 }
 
 .sidebar-list li a.active {
-    font-weight: bold;
-    color: #0073aa;
+    font-weight: 400;
+    color: #8b4512;
 }
 
 .range-slider {
@@ -40,18 +40,118 @@
     padding: 10px 0;
 }
 
-.cwc-reset-button {
+.price-range-wrap {
+    margin-right: 15px;
+    padding-top: 8px;
+}
+
+.price-range-wrap .price-range.ui-widget-content {
+    border: none;
+    background: #eeeeee;
+    height: 3px;
+}
+
+.price-range-wrap .price-range.ui-widget-content .ui-slider-range {
+    background: #262626;
+}
+
+.price-range-wrap .price-range.ui-widget-content .ui-slider-handle {
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    border: none;
+    background: #262626;
+    height: 15px;
+    width: 15px;
+    outline: none;
+    top: -6px;
+    cursor: ew-resize;
+    margin-left: 0;
+}
+
+.price-range-wrap .range-slider {
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #8d8d8d;
+    margin-top: 22px;
+}
+
+.price-range-wrap .range-slider * {
+    margin: 0;
+    line-height: 1;
+}
+
+.price-range-wrap .range-slider input#amount {
+    border: none;
+    outline: none;
+    font-size: 1.4rem;
+    line-height: 1;
+    color: #8d8d8d;
+    pointer-events: none;
+}
+
+.cwc-reset-button,
+.cwc-apply-button {
     display: block;
     margin-bottom: 15px;
     padding: 8px 12px;
-    background: #0073aa;
+    background: #8b4512;
+    border: 1px solid #8b4512;
     color: #fff;
-    border: none;
     cursor: pointer;
+    width: 100%;
     border-radius: 4px;
     font-size: 14px;
+    transition: all .5s linear;
+}
+
+.cwc-reset-button {
+    background: transparent;
+    color: #8b4512;
 }
 
 .cwc-reset-button:hover {
-    background: #005177;
+    background: #8b4512;
+    color: #fff;
+}
+
+.cwc-apply-button:hover {
+    background: transparent;
+    color: #8b4512;
+
+}
+
+.sidebar-list li a.filter-item {
+    font-size: 1.4rem;
+    -webkit-transition: 0.2s 0.2s ease-out;
+    -moz-transition: 0.2s 0.2s ease-out;
+    -o-transition: 0.2s 0.2s ease-out;
+    transition: 0.2s 0.2s ease-out;
+    display: flex;
+    gap: 5px;
+}
+
+.sidebar-list li a.filter-item span {
+    position: relative;
+    width: 14px;
+    height: 14px;
+    display: block;
+    border: 1px solid #343434;
+    border-radius: 3px;
+    background: #fff;
+}
+
+.sidebar-list li a.filter-item.active span {
+    background: #8b4512;
+    transition: all .5s linear;
+}
+
+.sidebar-list li a.filter-item.active span:after {
+    content: '';
+    width: 12px;
+    height: 12px;
+    background: url(../imgs/check.svg) no-repeat;
+    display: block;
+    background-size: contain;
+    background-position: center;
 }
