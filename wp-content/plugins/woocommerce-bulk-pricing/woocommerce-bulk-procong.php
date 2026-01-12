@@ -9,7 +9,7 @@ Author: PurpleWeb
 if (!defined('ABSPATH')) exit;
 
 /* --------------------------------------------------------------------------
-| Подключаем фронтальные стили
+фронт
 |-------------------------------------------------------------------------- */
 add_action('wp_enqueue_scripts', function () {
     wp_enqueue_style(
@@ -18,6 +18,20 @@ add_action('wp_enqueue_scripts', function () {
         [],
         '1.0'
     );
+
+    add_action('wp_enqueue_scripts', function () {
+        wp_enqueue_script(
+            'wc-bulk-variation',
+            plugin_dir_url(__FILE__) . 'assets/js/bulk-variation.js',
+            ['jquery'],
+            '1.0',
+            true
+        );
+
+        wp_localize_script('wc-bulk-variation', 'wc_bulk_discount', [
+            'ajax_url' => admin_url('admin-ajax.php')
+        ]);
+    });
 });
 
 /* --------------------------------------------------------------------------
@@ -64,6 +78,41 @@ add_action('woocommerce_product_options_general_product_data', function () {
     echo '</div>';
 });
 
+
+/* --------------------------------------------------------------------------
+| 1.2. Метаблок внутри вариации
+|-------------------------------------------------------------------------- */
+
+add_action('woocommerce_variation_options_pricing', function ($loop, $variation_data, $variation) {
+    $variation_id = $variation->ID;
+    $rows = get_post_meta($variation_id, '_bulk_discounts', true) ?: [];
+?>
+    <div class="form-row form-row-full">
+        <strong>Скидки по количеству</strong>
+
+        <div class="bulk_discount_container">
+            <?php foreach ($rows as $row): ?>
+                <div class="bulk-discount-row">
+                    <input type="number" min="1"
+                        name="bulk_discounts[<?php echo $variation_id; ?>][min_qty][]"
+                        value="<?php echo esc_attr($row['min_qty']); ?>"
+                        placeholder="Мин. кол-во">
+
+                    <input type="number" step="0.01" min="0"
+                        name="bulk_discounts[<?php echo $variation_id; ?>][discount][]"
+                        value="<?php echo esc_attr($row['discount']); ?>"
+                        placeholder="% Скидки">
+
+                    <button type="button" class="button remove-row">✕</button>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <button type="button" class="button add-bulk-row">Добавить диапазон</button>
+    </div>
+<?php
+}, 10, 3);
+
 /* --------------------------------------------------------------------------
 | 2. Сохранение мета-данных
 |-------------------------------------------------------------------------- */
@@ -82,6 +131,32 @@ add_action('woocommerce_process_product_meta', function ($post_id) {
 });
 
 /* --------------------------------------------------------------------------
+| 2.2. Сохранение скидок вариаций
+|-------------------------------------------------------------------------- */
+
+add_action('woocommerce_save_product_variation', function ($variation_id) {
+    if (empty($_POST['bulk_discounts'][$variation_id])) {
+        delete_post_meta($variation_id, '_bulk_discounts');
+        return;
+    }
+
+    $data = [];
+    $input = $_POST['bulk_discounts'][$variation_id];
+
+    foreach ($input['min_qty'] as $i => $min_qty) {
+        if ($min_qty === '') continue;
+
+        $data[] = [
+            'min_qty'  => (int) $min_qty,
+            'discount' => (float) $input['discount'][$i],
+        ];
+    }
+
+    update_post_meta($variation_id, '_bulk_discounts', $data);
+}, 10, 1);
+
+
+/* --------------------------------------------------------------------------
 | 3. Вывод скидок на фронте (flex)
 |-------------------------------------------------------------------------- */
 function wc_render_bulk_discount_table($product = null)
@@ -90,31 +165,30 @@ function wc_render_bulk_discount_table($product = null)
     if (!$product) return '';
 
     $discounts = get_post_meta($product->get_id(), '_bulk_discounts', true);
-    if (!$discounts) $discounts = []; // на случай, если скидок нет
+    if (!$discounts) return '';
 
     usort($discounts, fn($a, $b) => $a['min_qty'] <=> $b['min_qty']);
+
     $base_price = (float) $product->get_price();
     if (!$base_price) return '';
 
     ob_start();
 ?>
     <div class="bulk-discount-flex">
-        <h4>Скидки!</h4>
+        <h4>Скидки</h4>
 
-        <!-- Базовая цена за 1 шт -->
         <div class="bulk-discount-item">
-            <span class="bulk-min-qty">От 1 шт.</span>
-            <span class="bulk-price"><?php echo wc_price($base_price); ?>/шт.</span>
-            <span class="bulk-discount">Розница</span>
+            <span>От 1 шт.</span>
+            <span><?php echo wc_price($base_price); ?>/шт.</span>
+            <span>Розница</span>
         </div>
 
-        <!-- Диапазоны скидок -->
         <?php foreach ($discounts as $row):
             $final = $base_price * (1 - $row['discount'] / 100); ?>
             <div class="bulk-discount-item">
-                <span class="bulk-min-qty">От <?php echo esc_html($row['min_qty']); ?> шт.</span>
-                <span class="bulk-price"><?php echo wc_price($final); ?>/шт.</span>
-                <span class="bulk-discount _percent">- <?php echo esc_html($row['discount']); ?>%</span>
+                <span>От <?php echo esc_html($row['min_qty']); ?> шт.</span>
+                <span><?php echo wc_price($final); ?>/шт.</span>
+                <span>-<?php echo esc_html($row['discount']); ?>%</span>
             </div>
         <?php endforeach; ?>
     </div>
@@ -130,21 +204,59 @@ add_shortcode('bulk_price_table', 'wc_render_bulk_discount_table');
 /* --------------------------------------------------------------------------
 | 5. Пересчет цены в корзине
 |-------------------------------------------------------------------------- */
+// add_action('woocommerce_before_calculate_totals', function ($cart) {
+//     if (is_admin() && !defined('DOING_AJAX')) return;
+
+//     foreach ($cart->get_cart() as $cart_item) {
+//         $product = $cart_item['data'];
+//         $qty = $cart_item['quantity'];
+
+//         $discounts = get_post_meta($product->get_id(), '_bulk_discounts', true);
+//         if (!$discounts) continue;
+//         usort($discounts, fn($a, $b) => $a['min_qty'] <=> $b['min_qty']);
+
+//         $applicable = null;
+//         foreach ($discounts as $row) {
+//             if ($qty >= $row['min_qty']) $applicable = $row;
+//         }
+//         if (!$applicable) continue;
+
+//         $base_price = (float) $product->get_regular_price();
+//         if (!$base_price) $base_price = (float) $product->get_price();
+
+//         $final_price = $base_price * (1 - $applicable['discount'] / 100);
+//         $product->set_price($final_price);
+//     }
+// }, 20);
+
 add_action('woocommerce_before_calculate_totals', function ($cart) {
     if (is_admin() && !defined('DOING_AJAX')) return;
 
     foreach ($cart->get_cart() as $cart_item) {
         $product = $cart_item['data'];
-        $qty = $cart_item['quantity'];
+        $qty     = $cart_item['quantity'];
 
-        $discounts = get_post_meta($product->get_id(), '_bulk_discounts', true);
+        if ($product->is_type('variation')) {
+            $target_id = $product->get_id();
+        } else {
+            $target_id = $product->get_parent_id();
+            if (!$target_id) {
+                $target_id = $product->get_id();
+            }
+        }
+
+        $discounts = get_post_meta($target_id, '_bulk_discounts', true);
         if (!$discounts) continue;
+
         usort($discounts, fn($a, $b) => $a['min_qty'] <=> $b['min_qty']);
 
         $applicable = null;
         foreach ($discounts as $row) {
-            if ($qty >= $row['min_qty']) $applicable = $row;
+            if ($qty >= $row['min_qty']) {
+                $applicable = $row;
+            }
         }
+
         if (!$applicable) continue;
 
         $base_price = (float) $product->get_regular_price();
@@ -154,3 +266,25 @@ add_action('woocommerce_before_calculate_totals', function ($cart) {
         $product->set_price($final_price);
     }
 }, 20);
+
+
+add_action('wp_ajax_get_bulk_discount_table', 'wc_ajax_bulk_discount_table');
+add_action('wp_ajax_nopriv_get_bulk_discount_table', 'wc_ajax_bulk_discount_table');
+
+function wc_ajax_bulk_discount_table()
+{
+    if (empty($_POST['variation_id'])) {
+        wp_send_json_error();
+    }
+
+    $variation_id = (int) $_POST['variation_id'];
+    $variation = wc_get_product($variation_id);
+
+    if (!$variation) {
+        wp_send_json_error();
+    }
+
+    ob_start();
+    echo wc_render_bulk_discount_table($variation);
+    wp_send_json_success(ob_get_clean());
+}
