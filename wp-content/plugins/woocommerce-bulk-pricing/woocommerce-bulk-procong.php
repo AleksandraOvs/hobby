@@ -186,9 +186,9 @@ function wc_render_bulk_discount_table($product = null)
         <?php foreach ($discounts as $row):
             $final = $base_price * (1 - $row['discount'] / 100); ?>
             <div class="bulk-discount-item">
-                <span>От <?php echo esc_html($row['min_qty']); ?> шт.</span>
-                <span><?php echo wc_price($final); ?>/шт.</span>
-                <span>-<?php echo esc_html($row['discount']); ?>%</span>
+                <span class="bulk-min-qty">От <?php echo esc_html($row['min_qty']); ?> шт.</span>
+                <span class="bulk-price"><?php echo wc_price($final); ?>/шт.</span>
+                <span class="">-<?php echo esc_html($row['discount']); ?>%</span>
             </div>
         <?php endforeach; ?>
     </div>

@@ -33,7 +33,12 @@ do_action('woocommerce_before_mini_cart'); ?>
 							echo apply_filters(
 								'woocommerce_cart_item_remove_link',
 								sprintf(
-									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">&#215;</a>',
+									'<a href="%s" class="remove remove_from_cart_button" aria-label="%s" data-product_id="%s" data-cart_item_key="%s" data-product_sku="%s">
+									<svg width="9" height="9" viewBox="0 0 9 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M4.114 4.822L7.36 8.068C7.45333 8.16133 7.568 8.21133 7.704 8.218C7.84 8.22467 7.96133 8.17467 8.068 8.068C8.17467 7.96133 8.228 7.84333 8.228 7.714C8.228 7.58467 8.17467 7.46667 8.068 7.36L4.822 4.114L8.068 0.868C8.16133 0.774666 8.21133 0.66 8.218 0.524C8.22467 0.388 8.17467 0.266666 8.068 0.159999C7.96133 0.0533327 7.84333 0 7.714 0C7.58467 0 7.46667 0.0533327 7.36 0.159999L4.114 3.406L0.868 0.159999C0.774666 0.066666 0.66 0.0166664 0.524 0.00999975C0.388 0.00333309 0.266666 0.0533327 0.159999 0.159999C0.0533327 0.266666 0 0.384666 0 0.513999C0 0.643333 0.0533327 0.761333 0.159999 0.868L3.406 4.114L0.159999 7.36C0.066666 7.45333 0.0166664 7.56833 0.00999975 7.705C0.00333309 7.84033 0.0533327 7.96133 0.159999 8.068C0.266666 8.17467 0.384666 8.228 0.513999 8.228C0.643333 8.228 0.761333 8.17467 0.868 8.068L4.114 4.822Z" fill="white"/>
+</svg>
+
+									</a>',
 									esc_url(wc_get_cart_remove_url($cart_item_key)),
 									esc_attr(sprintf(__('Remove %s from cart', 'woocommerce'), wp_strip_all_tags($product_name))),
 									esc_attr($product_id),
@@ -74,11 +79,14 @@ do_action('woocommerce_before_mini_cart'); ?>
 									<div class="price-discounted">
 										<p>Цена:</p>
 
-										<div class="price-base _old-price">
+										<div class="price-base">
 											<?php echo wc_price($discounted_unit_price); ?>
-											<div class="screen-reader-text">
-												Цена с учетом скидки
-											</div> <?php echo wc_price($base_unit_price); ?>
+											<div class="price-base _old">
+												<div class="screen-reader-text">
+													Цена с учетом скидки
+												</div> <?php echo wc_price($base_unit_price); ?>
+											</div>
+
 										</div>
 									</div>
 

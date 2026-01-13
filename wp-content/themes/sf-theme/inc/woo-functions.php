@@ -407,3 +407,21 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 //     unset($types['variable']);
 //     return $types;
 // });
+
+// add_action('wp_ajax_calc_single_price', 'calc_single_price');
+// add_action('wp_ajax_nopriv_calc_single_price', 'calc_single_price');
+
+// function calc_single_price()
+// {
+//     $product_id = intval($_POST['product_id'] ?? 0);
+//     $qty        = intval($_POST['qty'] ?? 1);
+
+//     $product = wc_get_product($product_id);
+//     if (!$product) wp_send_json_error();
+
+//     $price = $product->get_price() * $qty;
+
+//     wp_send_json_success([
+//         'price_html' => wc_price($price)
+//     ]);
+// }

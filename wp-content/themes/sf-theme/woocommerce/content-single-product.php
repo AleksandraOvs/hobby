@@ -64,18 +64,13 @@ $has_gallery = count($image_ids) > 1;
                         <div class="swiper product-thumbnail-nav">
                             <div class="swiper-wrapper">
                                 <figure class="swiper-slide product-thumb-item">
-                                    <?php echo wp_get_attachment_image($product_image_id);
-                                    ?>
+                                    <?php echo wp_get_attachment_image($product_image_id); ?>
                                 </figure>
-                                <?php
-                                foreach ($product_gallery_ids as $product_gallery_id) {
-                                ?>
+                                <?php foreach ($product_gallery_ids as $product_gallery_id) : ?>
                                     <figure class="swiper-slide product-thumb-item">
                                         <?php echo wp_get_attachment_image($product_gallery_id, 'full'); ?>
                                     </figure>
-                                <?php
-                                }
-                                ?>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     <?php endif; ?>
@@ -84,19 +79,14 @@ $has_gallery = count($image_ids) > 1;
                     <div class="swiper product-thumb-carousel">
                         <div class="swiper-wrapper">
                             <figure class="swiper-slide product-thumb-item">
-                                <?php echo wp_get_attachment_image($product_image_id, 'full');
-                                ?>
+                                <?php echo wp_get_attachment_image($product_image_id, 'full'); ?>
                             </figure>
                             <?php if ($product_gallery_ids) : ?>
-                                <?php
-                                foreach ($product_gallery_ids as $product_gallery_id) {
-                                ?>
+                                <?php foreach ($product_gallery_ids as $product_gallery_id) : ?>
                                     <figure class="swiper-slide product-thumb-item">
                                         <?php echo wp_get_attachment_image($product_gallery_id, 'full'); ?>
                                     </figure>
-                                <?php
-                                }
-                                ?>
+                                <?php endforeach; ?>
                             <?php endif; ?>
                         </div>
                     </div>
@@ -115,29 +105,15 @@ $has_gallery = count($image_ids) > 1;
                         <div class="stock-status"><span>Нет в наличии</span></div>
                     <?php endif; ?>
 
-                    <?php
-                    $bulk_prices = get_post_meta($product->get_id(), '_bulk_prices', true) ?: [];
-                    $base_price = floatval($product->get_price());
-
-                    // --- находим минимальную цену с учетом bulk-скидок ---
-                    $min_price = $base_price;
-                    foreach ($bulk_prices as $bp) {
-                        if (!empty($bp['price'])) {
-                            $price_with_discount = floatval($bp['price']) * (1 - floatval($bp['discount']) / 100);
-                            if ($price_with_discount < $min_price) $min_price = $price_with_discount;
-                        }
-                    }
-                    ?>
-
                     <?php if ($product->is_type('variable')) : ?>
 
                         <?php
                         /**
-                         * ВАЖНО:
-                         * Это подключает стандартный шаблон WooCommerce
-                         * с атрибутами, variation_id и всей JS-магией
+                         * Стандартный шаблон WooCommerce для вариативного товара
                          */
                         woocommerce_variable_add_to_cart();
+
+
                         ?>
 
                     <?php else : ?>
@@ -147,7 +123,6 @@ $has_gallery = count($image_ids) > 1;
                             method="post"
                             enctype="multipart/form-data">
 
-                            <!-- Количество и итоговая цена -->
                             <div class="cart__price-update">
                                 <?php
                                 woocommerce_quantity_input([
@@ -156,10 +131,22 @@ $has_gallery = count($image_ids) > 1;
                                     'input_value' => isset($_POST['quantity'])
                                         ? wc_stock_amount(wp_unslash($_POST['quantity']))
                                         : $product->get_min_purchase_quantity(),
+                                    'step'        => 1, // шаг
                                 ]);
                                 ?>
-                                <span class="price-single"><?php echo wc_price($min_price); ?></span>
-                                <span class="price-total"><?php echo wc_price($min_price); ?></span>
+
+                                <?php
+                                $base_price = floatval($product->get_price());
+                                $bulk_prices = get_post_meta($product->get_id(), '_bulk_prices', true) ?: [];
+                                ?>
+                                <span class="price-single"
+                                    data-base-price="<?php echo $base_price; ?>"
+                                    data-bulk='<?php echo json_encode($bulk_prices); ?>'>
+                                    <?php echo wc_price($base_price); ?>
+                                </span>
+                                <span class="price-total">
+                                    <?php echo wc_price($base_price); ?>
+                                </span>
                             </div>
 
                             <div class="bulk-discount-table">
@@ -180,58 +167,8 @@ $has_gallery = count($image_ids) > 1;
                     <?php endif; ?>
                 </div>
 
-                <script>
-                    document.addEventListener('DOMContentLoaded', () => {
-                        const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
-                        if (!addToCartBlock) return;
-
-                        const qtyInput = addToCartBlock.querySelector('input.qty');
-                        const priceSingleEl = addToCartBlock.querySelector('.price-single');
-                        const totalEl = addToCartBlock.querySelector('.price-total');
-                        const bulkDataEl = document.getElementById('bulk-discount-data');
-                        if (!qtyInput || !priceSingleEl || !totalEl || !bulkDataEl) return;
-
-                        const bulkData = JSON.parse(bulkDataEl.textContent);
-                        const discounts = bulkData.discounts || [];
-
-                        const formatPrice = price => new Intl.NumberFormat('ru-RU', {
-                            style: 'currency',
-                            currency: 'RUB'
-                        }).format(price);
-
-                        const getUnitPriceByQty = qty => {
-                            let unitPrice = parseFloat(priceSingleEl.textContent.replace(/\s|₽/g, '')) || 0;
-                            discounts.forEach(row => {
-                                if (qty >= row.min_qty && row.price) {
-                                    unitPrice = parseFloat(row.price) * (1 - parseFloat(row.discount) / 100);
-                                }
-                            });
-                            return unitPrice;
-                        };
-
-                        const updatePrices = () => {
-                            const qty = parseInt(qtyInput.value, 10) || 1;
-                            const unitPrice = getUnitPriceByQty(qty);
-                            const total = unitPrice * qty;
-
-                            priceSingleEl.textContent = formatPrice(unitPrice);
-                            totalEl.textContent = formatPrice(total);
-                        };
-
-                        // начальная отрисовка
-                        updatePrices();
-
-                        // ручной ввод и +/- кнопки
-                        qtyInput.addEventListener('input', updatePrices);
-                        addToCartBlock.querySelectorAll('.inc, .dec').forEach(btn => {
-                            btn.addEventListener('click', () => setTimeout(updatePrices, 50));
-                        });
-                    });
-                </script>
-
 
             </div>
-
 
             <?php do_action('woocommerce_after_single_product'); ?>
 
@@ -245,10 +182,8 @@ $has_gallery = count($image_ids) > 1;
                     <?php endif; ?>
                     <?php echo wpautop($product->get_description()); ?>
 
-                    <!-- ================= Доставка ================= -->
                     <div class="single-product__delivery">
                         <h2>Доставка</h2>
-                        <!-- тут статический контент / ACF / shortcode -->
                     </div>
                 </div>
 
@@ -259,8 +194,6 @@ $has_gallery = count($image_ids) > 1;
 
             </div>
 
-
-
             <!-- ================= Related products ================= -->
             <div class="single-product__related">
                 <div class="relative-products__head">
@@ -270,15 +203,11 @@ $has_gallery = count($image_ids) > 1;
                         <svg width="48" height="9" viewBox="0 0 48 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M0 3.21917H44.9276L43.2673 1.5456C42.9158 1.1941 42.9158 0.616966 43.2673 0.26547C43.6192 -0.086404 44.1891 -0.0894275 44.5406 0.262069L47.7426 3.46182C48.0877 3.81104 48.0843 4.38024 47.7369 4.72682L44.5406 7.92317C44.191 8.27316 43.6173 8.27316 43.2673 7.92317C42.9158 7.57167 42.9158 7.01571 43.2673 6.66421L44.9276 5.01898H0V3.21917Z" fill="#8B4512" />
                         </svg>
-
                     </a>
                 </div>
 
                 <?php
-                // 1. Получаем апсейлы
                 $upsell_ids = $product->get_upsell_ids();
-
-                // 2. Если апсейлов нет — берём related
                 if (! empty($upsell_ids)) {
                     $products_ids = $upsell_ids;
                     $loop_name    = 'upsells';
@@ -287,7 +216,6 @@ $has_gallery = count($image_ids) > 1;
                     $loop_name    = 'related';
                 }
 
-                // 3. Если вообще есть что выводить
                 if (! empty($products_ids)) :
                     wc_set_loop_prop('name', $loop_name);
                     wc_set_loop_prop('columns', 4);
@@ -295,14 +223,11 @@ $has_gallery = count($image_ids) > 1;
 
                     <div class="products-on-column">
                         <?php foreach ($products_ids as $product_id) : ?>
-
                             <?php
                             $post_object = get_post($product_id);
                             setup_postdata($GLOBALS['post'] = $post_object);
-
                             wc_get_template_part('content', 'product');
                             ?>
-
                         <?php endforeach; ?>
                     </div>
 
@@ -312,7 +237,6 @@ $has_gallery = count($image_ids) > 1;
                             <svg width="48" height="9" viewBox="0 0 48 9" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 3.21917H44.9276L43.2673 1.5456C42.9158 1.1941 42.9158 0.616966 43.2673 0.26547C43.6192 -0.086404 44.1891 -0.0894275 44.5406 0.262069L47.7426 3.46182C48.0877 3.81104 48.0843 4.38024 47.7369 4.72682L44.5406 7.92317C44.191 8.27316 43.6173 8.27316 43.2673 7.92317C42.9158 7.57167 42.9158 7.01571 43.2673 6.66421L44.9276 5.01898H0V3.21917Z" fill="#8B4512" />
                             </svg>
-
                         </a>
                     </div>
 
@@ -320,7 +244,6 @@ $has_gallery = count($image_ids) > 1;
                     wp_reset_postdata();
                 endif;
                 ?>
-
 
             </div>
 

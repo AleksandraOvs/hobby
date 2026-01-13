@@ -328,15 +328,23 @@ button:focus {
 }
 
 .nice-select {
-  -webkit-border-radius: 0px;
-  -moz-border-radius: 0px;
-  border-radius: 0px;
-  float: none;
-  height: auto;
-
-  line-height: inherit;
-  padding: 8px 30px 8px 15px;
+  -webkit-border-radius: 3px;
+  -moz-border-radius: 3px;
+  border-radius: 3px;
+  float: unset;
+  height: 40px;
+  line-height: 1;
+  padding: 8px 15px;
   width: 200px;
+  display: flex;
+  align-items: center;
+}
+
+.woocommerce div.product form.cart .variations label {
+  font-weight: 600;
+  text-align: left;
+  margin-bottom: 0;
+  color: var(--theme-color-accent);
 }
 
 @media only screen and (max-width: 479.98px),
@@ -4137,7 +4145,7 @@ Start Slider Categories Area / index5.html
 
 
 .woocommerce-Price-amount.amount {
-  font-size: 26px;
+
   text-decoration: none;
   font-weight: 600;
   color: var(--theme-color-accent);

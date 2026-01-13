@@ -26,9 +26,10 @@
 }
 
 .bulk-min-qty {
-    flex: 1;
     font-weight: 400;
+    width: calc(100% / 3);
 }
+
 
 .bulk-price {
     flex: 1;

@@ -248,6 +248,10 @@
     color: var(--theme-color-primary);
 }
 
+.single-product-add-to-cart form.cart .cart__price-update .price-single {
+    display: none;
+}
+
 /*5. Кнопка «В корзину» + quantity*/
 
 .woocommerce div.product form.cart .button {
