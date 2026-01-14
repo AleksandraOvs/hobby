@@ -278,6 +278,6 @@
     flex-direction: column;
 }
 
-h2.form-login {
+.page-content h2.form-login {
     text-align: center;
 }
