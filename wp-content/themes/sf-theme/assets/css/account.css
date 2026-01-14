@@ -262,3 +262,18 @@
         width: calc(100% / 3 - 10px);
     }
 }
+
+.woocommerce form.checkout_coupon,
+.woocommerce form.login,
+.woocommerce form.register {
+    border: 2px solid var(--theme-color-beige);
+    padding: 20px;
+    margin: 0;
+    text-align: left;
+    border-radius: 5px;
+}
+
+.woocommerce-form.woocommerce-form-login .form-row {
+    display: flex;
+    flex-direction: column;
+}
