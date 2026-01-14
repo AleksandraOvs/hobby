@@ -301,3 +301,16 @@ jQuery(function ($) {
     });
 
 });
+
+// jQuery(function ($) {
+//     $(document).on('change', '.qty', function () {
+//         $('body').trigger('update_cart'); // Это вызовет обновление корзины
+//     });
+// });
+
+jQuery(function ($) {
+    $(document).on('change input', '.qty', function () {
+        $('button[name="update_cart"]').prop('disabled', false);
+        $('body').trigger('update_cart'); // WooCommerce обновит корзину через AJAX
+    });
+});

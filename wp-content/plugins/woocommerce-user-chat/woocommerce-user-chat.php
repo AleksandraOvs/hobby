@@ -174,47 +174,66 @@ add_action('wp_ajax_wc_get_chat', function () {
     global $wpdb;
 
     $user_id = get_current_user_id();
-    if (!$user_id) wp_send_json_error();
-
-    // Помечаем сообщения пользователя как прочитанные админом
-    $wpdb->update(
-        $wpdb->prefix . 'wc_user_chat',
-        ['is_read' => 1],
-        ['user_id' => $user_id, 'sender' => 'user', 'is_read' => 0]
-    );
+    if (!$user_id) {
+        wp_send_json_error();
+    }
 
     $messages = $wpdb->get_results(
         $wpdb->prepare(
-            "SELECT * FROM {$wpdb->prefix}wc_user_chat WHERE user_id = %d ORDER BY sent_at ASC",
+            "SELECT * FROM {$wpdb->prefix}wc_user_chat 
+             WHERE user_id = %d 
+             ORDER BY sent_at ASC",
             $user_id
         ),
         ARRAY_A
     );
 
-    // Генерируем HTML с миниатюрами для изображений
-    // Генерируем HTML для файла
-    foreach ($messages as &$msg) {
-        $msg['file_html'] = '';
+    ob_start();
+
+    foreach ($messages as $msg) {
+
+        $message  = $msg['message'];
+        $sender   = $msg['sender'];
+        $sent_at  = $msg['sent_at'];
+
+        $file_html = '';
         if (!empty($msg['file_url'])) {
+
             $ext = strtolower(pathinfo($msg['file_url'], PATHINFO_EXTENSION));
             $img_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
 
-            if (in_array($ext, $img_exts)) {
-                $msg['file_html'] = '<div class="wc-chat-file">
-                <img src="' . esc_url($msg['file_url']) . '" data-full="' . esc_url($msg['file_url']) . '" class="wc-chat-thumb" alt="' . esc_attr($msg['file_name']) . '">
-                <a href="' . esc_url($msg['file_url']) . '" download class="wc-chat-download">Скачать</a>
+            if (in_array($ext, $img_exts, true)) {
+
+                // 🖼 миниатюра изображения
+                $file_html = '
+            <div class="wc-chat-file">
+                <img
+                    src="' . esc_url($msg['file_url']) . '"
+                    data-full="' . esc_url($msg['file_url']) . '"
+                    class="wc-chat-thumb"
+                    alt="' . esc_attr($msg['file_name']) . '"
+                >
             </div>';
             } else {
-                $msg['file_html'] = '<div class="wc-chat-file">
-                <a href="' . esc_url($msg['file_url']) . '" target="_blank">' . esc_html($msg['file_name']) . '</a>
-                <a href="' . esc_url($msg['file_url']) . '" download class="wc-chat-download">Скачать</a>
+
+                // 📄 обычный файл
+                $file_html = '
+            <div class="wc-chat-file">
+                <a href="' . esc_url($msg['file_url']) . '" target="_blank">
+                    ' . esc_html($msg['file_name']) . '
+                </a>
             </div>';
             }
         }
+
+        include plugin_dir_path(__FILE__) . 'templates/chat-message.php';
     }
 
-    wp_send_json_success($messages);
+    wp_send_json_success([
+        'html' => ob_get_clean()
+    ]);
 });
+
 
 // ---------------------------
 // AJAX: очистка чата
@@ -330,26 +349,26 @@ add_action('wp_ajax_wc_user_chat_test', function () {
 });
 
 // Обновляем структуру таблицы для хранения имени и URL файла
-register_activation_hook(__FILE__, function () {
-    global $wpdb;
-    $table_name = $wpdb->prefix . 'wc_user_chat';  // Имя таблицы чата
-    $charset_collate = $wpdb->get_charset_collate();
+// register_activation_hook(__FILE__, function () {
+//     global $wpdb;
+//     $table_name = $wpdb->prefix . 'wc_user_chat';  // Имя таблицы чата
+//     $charset_collate = $wpdb->get_charset_collate();
 
-    // Обновленный SQL запрос для добавления новых столбцов
-    $sql = "CREATE TABLE IF NOT EXISTS $table_name (
-        id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
-        user_id BIGINT UNSIGNED NOT NULL,
-        admin_id BIGINT UNSIGNED DEFAULT 1,
-        message TEXT NOT NULL,
-        sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-        sender ENUM('user','admin') NOT NULL,
-        is_read TINYINT(1) DEFAULT 0,
-        file_name VARCHAR(255) DEFAULT '',    -- Новое поле для имени файла
-        file_url  VARCHAR(255) DEFAULT '',    -- Новое поле для URL файла
-        PRIMARY KEY (id)
-    ) $charset_collate;";
+//     // Обновленный SQL запрос для добавления новых столбцов
+//     $sql = "CREATE TABLE IF NOT EXISTS $table_name (
+//         id BIGINT UNSIGNED NOT NULL AUTO_INCREMENT,
+//         user_id BIGINT UNSIGNED NOT NULL,
+//         admin_id BIGINT UNSIGNED DEFAULT 1,
+//         message TEXT NOT NULL,
+//         sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+//         sender ENUM('user','admin') NOT NULL,
+//         is_read TINYINT(1) DEFAULT 0,
+//         file_name VARCHAR(255) DEFAULT '',    -- Новое поле для имени файла
+//         file_url  VARCHAR(255) DEFAULT '',    -- Новое поле для URL файла
+//         PRIMARY KEY (id)
+//     ) $charset_collate;";
 
-    // Включаем WP функцию для выполнения SQL запроса
-    require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
-    dbDelta($sql);  // dbDelta автоматически обновит структуру таблицы, если нужно
-});
+//     // Включаем WP функцию для выполнения SQL запроса
+//     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+//     dbDelta($sql);  // dbDelta автоматически обновит структуру таблицы, если нужно
+// });

@@ -89,7 +89,7 @@
 #wc-chat-input {
     width: 100%;
     min-height: 120px;
-    margin-top: 30px;
+    margin-top: 0;
     padding: 5px;
     border: 1px solid #ccc;
     border-radius: 5px;

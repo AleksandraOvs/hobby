@@ -201,6 +201,10 @@
     font-size: 24px;
 }
 
+.cart-product-item__name a {
+    font-weight: 600;
+}
+
 .woocommerce form.checkout_coupon,
 .woocommerce form.login,
 .woocommerce form.register {

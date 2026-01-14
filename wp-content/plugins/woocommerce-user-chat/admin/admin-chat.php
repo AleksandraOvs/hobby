@@ -67,6 +67,7 @@ function wc_user_chat_admin_page()
                 <button id="wc-chat-send" class="button button-primary">
                     Ответить
                 </button>
+
                 <input type="file" id="wc-chat-file" />
             </div>
         </div>

@@ -31,14 +31,6 @@ defined('ABSPATH') || exit;
 					<form class="woocommerce-cart-form" action="<?php echo esc_url(wc_get_cart_url()); ?>" method="post">
 						<div class="shopping-cart-table table-responsive">
 							<table class="shop_table shop_table_responsive cart woocommerce-cart-form__contents table table-bordered text-center">
-								<thead>
-									<tr>
-										<th>Товары</th>
-										<th>Цена</th>
-										<th>Количество</th>
-										<th>Итого</th>
-									</tr>
-								</thead>
 
 								<tbody>
 									<?php do_action('woocommerce_before_cart_contents'); ?>

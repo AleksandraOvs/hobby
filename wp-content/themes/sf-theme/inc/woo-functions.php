@@ -425,3 +425,16 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 //         'price_html' => wc_price($price)
 //     ]);
 // }
+
+add_filter('woocommerce_add_to_cart_fragments', 'custom_woocommerce_cart_totals_fragment');
+function custom_woocommerce_cart_totals_fragment($fragments)
+{
+    ob_start();
+?>
+    <div class="cart_totals <?php echo WC()->customer->has_calculated_shipping() ? 'calculated_shipping' : ''; ?>">
+        <?php woocommerce_cart_totals(); ?>
+    </div>
+<?php
+    $fragments['div.cart_totals'] = ob_get_clean();
+    return $fragments;
+}

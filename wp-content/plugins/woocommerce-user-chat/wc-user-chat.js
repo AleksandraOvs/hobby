@@ -1,41 +1,15 @@
 jQuery(function ($) {
+
     const $messages = $('#wc-chat-messages');
     const $input = $('#wc-chat-input');
 
     // -----------------------------
-    // Рендер сообщений в контейнер
+    // Рендер HTML сообщений
     // -----------------------------
-    function renderMessages(messages) {
+    function renderMessages(html) {
         if (!$messages.length) return;
 
-        $messages.html('');
-
-        messages.forEach(msg => {
-            const cls = msg.sender === 'admin' ? 'admin' : 'user';
-            const label = msg.sender === 'admin'
-                ? 'Ответ специалиста'
-                : 'Ваше обращение';
-
-            let messageContent = '';
-
-            if (msg.message) {
-                messageContent += `<div class="wc-chat-message">${msg.message}</div>`;
-            }
-
-            // Вставляем готовый HTML для файлов
-            if (msg.file_html) {
-                messageContent += msg.file_html;
-            }
-
-            $messages.append(`
-            <div class="wc-chat-message-inner ${cls}">
-                <div class="wc-chat-message-inner-content">
-                    ${messageContent}
-                </div>
-                <p class="time">${label} · ${msg.sent_at}</p>
-            </div>
-        `);
-        });
+        $messages.html(html);
 
         if ($messages[0]) {
             $messages.scrollTop($messages[0].scrollHeight);
@@ -43,53 +17,45 @@ jQuery(function ($) {
     }
 
     // -----------------------------
-    // Загрузка всей истории сообщений
-    // -----------------------------
-    function loadHistory() {
-        $.post(wcUserChat.ajax_url, {
-            action: 'wc_chat_load_history',
-            nonce: wcUserChat.nonce
-        }, function (res) {
-            if (res.success) {
-                renderMessages(res.data);
-            }
-        });
-    }
-
-    // -----------------------------
-    // Загрузка новых сообщений для автообновления
+    // Загрузка сообщений (история + обновления)
     // -----------------------------
     function loadMessages() {
         $.post(wcUserChat.ajax_url, {
             action: 'wc_get_chat',
             nonce: wcUserChat.nonce
         }, function (res) {
-            if (res.success) {
-                renderMessages(res.data);
+            if (res.success && res.data.html !== undefined) {
+                renderMessages(res.data.html);
             }
         });
     }
 
     // -----------------------------
-    // Отправка сообщения с файлом
+    // Обертка + file input
     // -----------------------------
-    const $chatWrapper = $('<div class="wc-chat-wrapper"></div>'); // обертка для чата
+    const $chatWrapper = $('<div class="wc-chat-wrapper"></div>');
     $input.wrap($chatWrapper);
-    $input.after('<input type="file" id="wc-chat-file" />');
 
+    const $fileInput = $('<input type="file" id="wc-chat-file" />');
+    $input.before($fileInput);
+
+    // -----------------------------
+    // Отправка сообщения
+    // -----------------------------
     $('#wc-chat-send').on('click', function () {
-        const text = $input.val().trim();
-        const fileInput = $('#wc-chat-file')[0];
 
-        if (!text && !fileInput.files.length) return;
+        const text = $input.val().trim();
+        const fileEl = $('#wc-chat-file')[0];
+
+        if (!text && !fileEl.files.length) return;
 
         const formData = new FormData();
         formData.append('action', 'wc_send_chat');
         formData.append('message', text);
         formData.append('nonce', wcUserChat.nonce);
 
-        if (fileInput.files.length > 0) {
-            formData.append('file', fileInput.files[0]);
+        if (fileEl.files.length > 0) {
+            formData.append('file', fileEl.files[0]);
         }
 
         $.ajax({
@@ -114,6 +80,7 @@ jQuery(function ($) {
     // Очистка чата
     // -----------------------------
     $('#wc-chat-clear').on('click', function () {
+
         if (!confirm('Вы уверены, что хотите очистить чат?')) return;
 
         $.post(wcUserChat.ajax_url, {
@@ -128,22 +95,25 @@ jQuery(function ($) {
     });
 
     // -----------------------------
-    // Автоподгрузка каждые 3 секунд
+    // Автообновление
     // -----------------------------
     setInterval(loadMessages, 30000);
 
     // -----------------------------
-    // Первая загрузка истории сообщений
+    // Первая загрузка
     // -----------------------------
-    loadHistory();
+    loadMessages();
 });
+
 
 // -----------------------------
 // Лайтбокс изображений
 // -----------------------------
 jQuery(function ($) {
+
     $('body').on('click', '.wc-chat-thumb', function (e) {
         e.preventDefault();
+
         const src = $(this).data('full');
         if (!src) return;
 
@@ -159,4 +129,5 @@ jQuery(function ($) {
             $overlay.remove();
         });
     });
+
 });
