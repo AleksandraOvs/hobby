@@ -27,12 +27,24 @@ defined('ABSPATH') || exit;
 
 	<div class="review-order__row">
 		<div class="review-order__col">Скидка:</div>
-		<div class="review-order__col">000-00</div>
+		<div class="review-order__col">
+			<?php
+			$discount_total = WC()->cart->get_discount_total();
+			echo $discount_total > 0 ? wc_price($discount_total) : wc_price(0);
+			?>
+		</div>
 	</div>
 
 	<div class="review-order__row">
 		<div class="review-order__col">Общий вес:</div>
-		<div class="review-order__col">111-11</div>
+		<div class="review-order__col">
+			<?php
+			$weight = WC()->cart->get_cart_contents_weight(); // общий вес корзины
+			$unit   = get_option('woocommerce_weight_unit');   // единица из настроек: кг, г и т.д.
+
+			echo $weight ? $weight . ' ' . esc_html($unit) : '0 ' . esc_html($unit);
+			?>
+		</div>
 	</div>
 
 	<div class="review-order__row">

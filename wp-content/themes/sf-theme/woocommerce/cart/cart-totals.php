@@ -4,7 +4,7 @@ defined('ABSPATH') || exit;
 do_action('woocommerce_before_cart_totals');
 ?>
 
-<ul class="cart-totals__info">
+<ul class="cart-totals__info" style="display: none;">
 
 	<li class="cart-totals__info__item">
 		<span>Позиций:</span>
@@ -76,4 +76,5 @@ do_action('woocommerce_before_cart_totals');
 
 </ul>
 
-<?php do_action('woocommerce_after_cart_totals'); ?>
+<?php do_action('woocommerce_after_cart_totals');
+?>

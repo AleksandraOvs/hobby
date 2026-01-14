@@ -147,7 +147,7 @@ defined('ABSPATH') || exit;
 			wc_get_template_part('cart/cart', 'totals');
 			?>
 
-			<div class="cart-form-actions">
+			<div class="cart-form-actions" style="display: none;">
 				<?php do_action('woocommerce_cart_actions'); ?>
 
 				<?php if (wc_coupons_enabled()) : ?>

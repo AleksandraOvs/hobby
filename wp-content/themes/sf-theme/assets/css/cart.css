@@ -743,3 +743,14 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
         margin-top: 20px;
     }
 }
+
+.wc-block-components-button.wp-element-button.wc-block-cart__submit-button {
+    background: var(--theme-color-accent);
+    border-radius: 5px;
+    transition: all s linear;
+}
+
+.wc-block-components-button.wp-element-button.wc-block-cart__submit-button :hover {
+    background: var(--theme-color-beige);
+    color: var(--theme-color-primary);
+}
