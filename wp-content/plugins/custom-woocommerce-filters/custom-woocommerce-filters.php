@@ -126,8 +126,8 @@ function cwc_render_price_filter()
 
     ob_start();
 
-    print_r($min_price);
-    print_r($max_price);
+    // print_r($min_price);
+    // print_r($max_price);
 ?>
     <div class="single-sidebar-wrap">
         <h3 class="sidebar-title">Цена</h3>
