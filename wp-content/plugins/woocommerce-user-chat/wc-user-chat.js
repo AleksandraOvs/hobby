@@ -2,22 +2,18 @@ jQuery(function ($) {
 
     const $messages = $('#wc-chat-messages');
     const $input = $('#wc-chat-input');
+    const $file = $('#wc-chat-file');
 
     // -----------------------------
-    // Рендер HTML сообщений
+    // Рендер сообщений
     // -----------------------------
     function renderMessages(html) {
-        if (!$messages.length) return;
-
         $messages.html(html);
-
-        if ($messages[0]) {
-            $messages.scrollTop($messages[0].scrollHeight);
-        }
+        // $messages.scrollTop($messages[0].scrollHeight);
     }
 
     // -----------------------------
-    // Загрузка сообщений (история + обновления)
+    // Загрузка сообщений
     // -----------------------------
     function loadMessages() {
         $.post(wcUserChat.ajax_url, {
@@ -31,30 +27,21 @@ jQuery(function ($) {
     }
 
     // -----------------------------
-    // Обертка + file input
-    // -----------------------------
-    const $chatWrapper = $('<div class="wc-chat-wrapper"></div>');
-    $input.wrap($chatWrapper);
-
-    const $fileInput = $('<input type="file" id="wc-chat-file" />');
-    $input.before($fileInput);
-
-    // -----------------------------
     // Отправка сообщения
     // -----------------------------
     $('#wc-chat-send').on('click', function () {
 
         const text = $input.val().trim();
-        const fileEl = $('#wc-chat-file')[0];
+        const fileEl = $file[0];
 
         if (!text && !fileEl.files.length) return;
 
         const formData = new FormData();
         formData.append('action', 'wc_send_chat');
-        formData.append('message', text);
         formData.append('nonce', wcUserChat.nonce);
+        formData.append('message', text);
 
-        if (fileEl.files.length > 0) {
+        if (fileEl.files.length) {
             formData.append('file', fileEl.files[0]);
         }
 
@@ -64,13 +51,13 @@ jQuery(function ($) {
             data: formData,
             processData: false,
             contentType: false,
-            success: function (res) {
+            success(res) {
                 if (res.success) {
                     $input.val('');
-                    $('#wc-chat-file').val('');
+                    $file.val('');
                     loadMessages();
                 } else {
-                    alert(res.data?.message || 'Ошибка при отправке сообщения');
+                    alert(res.data?.message || 'Ошибка отправки');
                 }
             }
         });
@@ -88,8 +75,8 @@ jQuery(function ($) {
             nonce: wcUserChat.nonce
         }, function (res) {
             if (res.success) {
-                $messages.html('');
-                $('#wc-chat-file').val('');
+                $messages.empty();
+                $file.val('');
             }
         });
     });

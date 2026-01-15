@@ -25,6 +25,10 @@
     align-items: center;
 }
 
+.bulk-discount-item span {
+    flex: 1;
+}
+
 .bulk-min-qty {
     font-weight: 400;
     width: calc(100% / 3);
@@ -46,10 +50,11 @@
     color: var(--theme-color-accent);
 }
 
-.bulk-discount._percent {
-    border: 2px solid var(--theme-color-accent);
+._percent {
+    border: 1px solid var(--theme-color-accent);
     text-align: center;
     border-radius: 5px;
+    padding: 3px 7px;
 }
 
 /* Для админки */

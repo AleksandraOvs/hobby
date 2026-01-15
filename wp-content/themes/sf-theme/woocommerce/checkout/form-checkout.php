@@ -61,10 +61,6 @@ if (! defined('ABSPATH')) {
 					<?php do_action('woocommerce_checkout_order_review'); ?>
 				</div>
 			</div>
-
-
-
-
 		</form>
 
 

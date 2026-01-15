@@ -35,16 +35,35 @@ $product_published = $product->get_date_created();
 	<figure class="product-thumbnail">
 		<div class="badges">
 			<?php
-			if ($product->is_on_sale()) : ?>
+			// -------------------------
+			// ТЕГИ ТОВАРА
+			// -------------------------
+			$product_tags = wp_get_post_terms($product->get_id(), 'product_tag', [
+				'fields' => 'slugs'
+			]);
+
+			$has_sale_tag = in_array('sale', $product_tags, true);
+			$has_new_tag  = in_array('new', $product_tags, true);
+
+			// -------------------------
+			// АКЦИЯ
+			// -------------------------
+			if ($product->is_on_sale() || $has_sale_tag) : ?>
 				<span class="product-badge sale">Акция</span>
 			<?php endif; ?>
 
 			<?php
-			if ($product_published && $product_published->getTimestamp() > (time() - 86400 * 5)) : ?>
+			// -------------------------
+			// NEW
+			// -------------------------
+			$is_new_by_date = (
+				$product_published &&
+				$product_published->getTimestamp() > (time() - 86400 * 5)
+			);
+
+			if ($is_new_by_date || $has_new_tag) : ?>
 				<span class="product-badge hot">NEW</span>
-			<?php
-			endif;
-			?>
+			<?php endif; ?>
 		</div>
 		<a href="<?php echo $product->get_permalink() ?>" class="d-block">
 			<?php echo $product->get_image('full') ?>

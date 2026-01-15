@@ -906,6 +906,10 @@ a.added_to_cart.wc-forward {
   justify-content: center;
 }
 
+.page-pagination-wrapper {
+  padding-top: 40px;
+}
+
 .page-pagination ul li {
   margin: 0 5px;
 }
@@ -4721,9 +4725,9 @@ del .woocommerce-Price-amount.amount bdi {
   gap: 40px;
 }
 
-.page-pagination-wrapper {
+/* .page-pagination-wrapper {
   margin-top: 30px;
-}
+} */
 
 .products-on-column {
   margin-top: 30px;
@@ -4795,7 +4799,7 @@ del .woocommerce-Price-amount.amount bdi {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 6px;
+  gap: 5px;
   /* расстояние между кружочками */
   position: absolute;
   bottom: 0;
@@ -7245,6 +7249,10 @@ Start Shop Page Wrapper
 .product-config-area {
   font-size: 1.4rem;
   line-height: 1.5;
+}
+
+.product-area {
+  padding-bottom: 40px;
 }
 
 .product-config-area ul li {

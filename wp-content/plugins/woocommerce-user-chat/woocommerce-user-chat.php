@@ -94,14 +94,23 @@ add_action('wp_enqueue_scripts', function () {
 // Шорткод чата
 // ---------------------------
 add_shortcode('wc_user_chat', function () {
-    if (!is_user_logged_in() || !class_exists('WooCommerce')) return 'Только для авторизованных клиентов';
+
+    if (!is_user_logged_in() || !class_exists('WooCommerce')) {
+        return 'Только для авторизованных клиентов';
+    }
+
     ob_start(); ?>
+
     <div id="wc-chat-container">
+
         <div id="wc-chat-messages"></div>
-        <textarea id="wc-chat-input" placeholder="Написать сообщение"></textarea>
-        <button id="wc-chat-send">Отправить</button>
-        <button id="wc-chat-clear" class="wc-chat-clear">Очистить чат</button>
+
+        <?php
+        include plugin_dir_path(__FILE__) . 'templates/chat-form.php';
+        ?>
+
     </div>
+
 <?php
     return ob_get_clean();
 });
@@ -182,7 +191,7 @@ add_action('wp_ajax_wc_get_chat', function () {
         $wpdb->prepare(
             "SELECT * FROM {$wpdb->prefix}wc_user_chat 
              WHERE user_id = %d 
-             ORDER BY sent_at ASC",
+             ORDER BY sent_at DESC",
             $user_id
         ),
         ARRAY_A

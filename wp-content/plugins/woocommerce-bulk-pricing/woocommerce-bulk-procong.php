@@ -188,7 +188,8 @@ function wc_render_bulk_discount_table($product = null)
             <div class="bulk-discount-item">
                 <span class="bulk-min-qty">От <?php echo esc_html($row['min_qty']); ?> шт.</span>
                 <span class="bulk-price"><?php echo wc_price($final); ?>/шт.</span>
-                <span class="">-<?php echo esc_html($row['discount']); ?>%</span>
+                <span class="bulk-discount">
+                    <span class="_percent">-<?php echo esc_html($row['discount']); ?>%</span></span>
             </div>
         <?php endforeach; ?>
     </div>

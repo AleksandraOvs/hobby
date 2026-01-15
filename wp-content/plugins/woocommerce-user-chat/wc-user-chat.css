@@ -19,6 +19,7 @@
     display: flex;
     flex-direction: column;
     gap: 30px;
+    margin-bottom: 40px;
 }
 
 .wc-chat-message-inner .wc-chat-message-inner-content {
@@ -97,21 +98,92 @@
 
 #wc-chat-send,
 #wc-chat-clear {
-    width: 48%;
     padding: 8px;
-    margin-top: 5px;
     cursor: pointer;
     border: none;
     border-radius: 5px;
     background: #8b4512;
     color: #fff;
+    transition: all .5s linear;
+}
+
+#wc-chat-send:hover {
+    background: var(--theme-color-beige);
+    color: var(--theme-color-primary);
+}
+
+.wc-chat-actions__buttons {
+    display: flex;
+    gap: 10px;
+}
+
+.wc-chat-file-btn {
+    margin: 0;
+}
+
+.wc-chat-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 20px;
+}
+
+#wc-chat-send {
+    min-width: 280px;
+}
+
+.wc-chat-actions__buttons {
+    display: flex;
+    gap: 10px;
+    width: max-content;
 }
 
 #wc-chat-clear {
     background: transparent;
     color: #343434;
     text-decoration: underline;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: 2px solid rgba(139, 69, 18, .3);
+    padding: 5px;
+    position: relative;
+    transition: all .5s linear;
+}
+
+#wc-chat-clear svg path {
+    fill: rgba(139, 69, 18, .3);
+    transition: all .5s linear;
+}
+
+#wc-chat-clear:hover svg path {
+    fill: rgba(139, 69, 18, 1);
+}
+
+#wc-chat-clear:hover {
+    border-color: rgba(139, 69, 18, 1);
+}
+
+#wc-chat-clear:hover span,
+.wc-chat-file-btn:hover span {
+    opacity: 1;
+    transform: scale(1);
+}
+
+#wc-chat-clear span,
+.wc-chat-file-btn span {
+    position: absolute;
+    bottom: -16px;
     width: max-content;
+    font-size: 10px;
+    left: -10px;
+    opacity: 0;
+    transform: scale(.7);
+    transition: all .5s linear;
+}
+
+.wc-chat-file-btn span {
+    left: -17px;
 }
 
 .wc-chat-lightbox {
@@ -193,4 +265,32 @@
 .wc-chat-file a.wc-chat-download {
     position: relative;
     color: #343434;
+}
+
+.wc-chat-file-btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #444;
+    cursor: pointer;
+    transition: background .2s ease, color .2s ease;
+    padding: 7px;
+}
+
+.wc-chat-file-btn:hover {
+    background: #e5e7eb;
+    color: #000;
+}
+
+.wc-chat-file-btn svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
 }
