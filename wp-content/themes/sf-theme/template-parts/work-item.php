@@ -122,29 +122,26 @@ $count = count($valid_images);
                 <div class="work-title"><span>Изделие: </span><?php the_title() ?></div>
 
                 <?php
-                $products_group = get_field('works_products');
-                $links = $products_group['work_products_link'] ?? [];
+                $links = get_field('work_products_link');
                 ?>
 
                 <?php if (!empty($links) && is_array($links)): ?>
-
                     <div class="work-modal-products">
                         <span>Товар: </span>
-                        <?php $total = count($links);
-                        $i = 0; ?>
-                        <?php foreach ($links as $post_id): $i++; ?>
-                            <?php
-                            $post_obj = get_post($post_id);
-                            if (!$post_obj) continue;
-                            $url   = get_permalink($post_obj);
-                            $title = get_the_title($post_obj);
-                            ?>
-                            <a
-                                href="<?php echo esc_url($url); ?>"
-                                class="work-modal-product-link">
+
+                        <?php
+                        $total = count($links);
+                        $i = 0;
+
+                        foreach ($links as $url):
+                            $i++;
+
+                            $post_id = url_to_postid($url);
+                            $title = $post_id ? get_the_title($post_id) : $url;
+                        ?>
+                            <a href="<?php echo esc_url($url); ?>" class="work-modal-product-link">
                                 <?php echo esc_html($title); ?>
-                            </a>
-                            <?php echo ($i < $total) ? ', ' : '.'; ?>
+                            </a><?php echo ($i < $total) ? ', ' : '.'; ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
