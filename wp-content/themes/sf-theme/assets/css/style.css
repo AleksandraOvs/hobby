@@ -1592,6 +1592,7 @@ ul.dropdown-menu {
 .single-template-products-wrapper {
   display: flex;
   gap: 40px;
+  flex-wrap: wrap;
 }
 
 .single-template-products-wrapper .single-product {
@@ -1601,6 +1602,7 @@ ul.dropdown-menu {
   margin: 0;
   position: relative;
   width: calc(100% / 3 - 20px);
+  flex-grow: 1;
 }
 
 @media (max-width: 991px) {
