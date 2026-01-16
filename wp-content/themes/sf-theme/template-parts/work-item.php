@@ -115,8 +115,8 @@ $count = count($valid_images);
                     </div>
                 <?php endif; ?>
 
-                <?php if ($heading): ?>
-                    <h3 class="work-modal-heading"><?php echo esc_html($heading); ?></h3>
+                <?php if ($sign): ?>
+                    <h3 class="work-modal-heading"><?php echo esc_html($sign); ?></h3>
                 <?php endif; ?>
 
                 <div class="work-title"><span>Изделие: </span><?php the_title() ?></div>

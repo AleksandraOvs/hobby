@@ -4888,7 +4888,7 @@ del .woocommerce-Price-amount.amount bdi {
   transition: all .5s linear;
 }
 
-.docs-nav ul li a :hover {
+.docs-nav ul li:hover a {
   background: var(--theme-color-accent);
   color: #fff;
 }
