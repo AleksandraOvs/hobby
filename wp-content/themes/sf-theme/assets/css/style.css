@@ -2116,6 +2116,12 @@ div.page-title {
   transform: translateY(0);
 }
 
+.btn.works-link {
+  margin: 30px auto;
+  display: block;
+  max-width: 280px;
+}
+
 .works-list {
   display: flex;
   flex-wrap: wrap;
