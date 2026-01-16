@@ -1609,6 +1609,10 @@ ul.dropdown-menu {
   aspect-ratio: 1 / 1;
 }
 
+.single-template-products-wrapper .single-product .product-details .stock-status {
+  justify-content: center;
+}
+
 @media (max-width: 991px) {
   #menu-catalog {
     width: 100%;
