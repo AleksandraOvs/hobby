@@ -149,8 +149,12 @@ $has_gallery = count($image_ids) > 1;
                                 </span>
                             </div>
 
-                            <div class="bulk-discount-table">
-                                <?php echo do_shortcode('[bulk_price_table]'); ?>
+                            <div class="bulk-discount-wrapper">
+                                <?php
+                                if ($product && $product->is_type('simple')) {
+                                    echo wc_render_bulk_discount_table($product);
+                                }
+                                ?>
                             </div>
 
                             <button type="submit"

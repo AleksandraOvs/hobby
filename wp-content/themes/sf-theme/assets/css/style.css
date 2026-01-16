@@ -4861,6 +4861,37 @@ del .woocommerce-Price-amount.amount bdi {
   }
 }
 
+#toc {
+  padding: 30px;
+  background: #f5f5f5;
+}
+
+.docs-nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.docs-nav ul li a {
+  display: block;
+  padding: 5px 15px;
+  border: 2px solid var(--theme-color-accent);
+  border-radius: 30px;
+  transition: all .5s linear;
+}
+
+.docs-nav ul li a :hover {
+  background: var(--theme-color-accent);
+  color: #fff;
+}
+
+.docs-nav ul li.active a {
+  background: var(--theme-color-accent);
+  color: #fff;
+}
+
 .woocommerce-notices-wrapper .woocommerce-message {
   position: fixed;
   z-index: 5;

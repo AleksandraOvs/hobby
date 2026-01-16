@@ -12,6 +12,7 @@ if (!defined('ABSPATH')) exit;
 фронт
 |-------------------------------------------------------------------------- */
 add_action('wp_enqueue_scripts', function () {
+
     wp_enqueue_style(
         'wc-bulk-discount',
         plugin_dir_url(__FILE__) . 'assets/css/wc-bulk-discount.css',
@@ -19,19 +20,41 @@ add_action('wp_enqueue_scripts', function () {
         '1.0'
     );
 
-    add_action('wp_enqueue_scripts', function () {
-        wp_enqueue_script(
-            'wc-bulk-variation',
-            plugin_dir_url(__FILE__) . 'assets/js/bulk-variation.js',
-            ['jquery'],
-            '1.0',
-            true
-        );
+    wp_enqueue_script(
+        'wc-bulk-variation-front',
+        plugin_dir_url(__FILE__) . 'assets/js/bulk-variation-front.js',
+        ['jquery'],
+        '1.0',
+        true
+    );
 
-        wp_localize_script('wc-bulk-variation', 'wc_bulk_discount', [
-            'ajax_url' => admin_url('admin-ajax.php')
-        ]);
-    });
+    wp_localize_script('wc-bulk-variation-front', 'wc_bulk_discount', [
+        'ajax_url' => admin_url('admin-ajax.php')
+    ]);
+});
+
+/* --------------------------------------------------------------------------
+админка
+|-------------------------------------------------------------------------- */
+
+add_action('admin_enqueue_scripts', function ($hook) {
+
+    if ($hook !== 'post.php' && $hook !== 'post-new.php') {
+        return;
+    }
+
+    global $post;
+    if (!$post || $post->post_type !== 'product') {
+        return;
+    }
+
+    wp_enqueue_script(
+        'wc-bulk-variation-admin',
+        plugin_dir_url(__FILE__) . 'assets/js/bulk-variation-admin.js',
+        ['jquery'],
+        '1.0',
+        true
+    );
 });
 
 /* --------------------------------------------------------------------------
