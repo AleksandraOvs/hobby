@@ -1605,6 +1605,10 @@ ul.dropdown-menu {
   flex-grow: 1;
 }
 
+.single-template-products-wrapper .single-product figure a img {
+  aspect-ratio: 1 / 1;
+}
+
 @media (max-width: 991px) {
   #menu-catalog {
     width: 100%;
