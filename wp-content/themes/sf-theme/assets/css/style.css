@@ -10344,3 +10344,9 @@ Start Start 404 Error Page Wrapper
 
 
 }
+
+/*GUT*/
+
+.wp-block-gallery figure.wp-block-image {
+  aspect-ratio: 1/1;
+}
