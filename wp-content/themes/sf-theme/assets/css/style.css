@@ -1611,6 +1611,7 @@ ul.dropdown-menu {
 
 .single-template-products-wrapper .single-product .product-details .stock-status {
   justify-content: center;
+  margin-bottom: 1em;
 }
 
 @media (max-width: 991px) {
