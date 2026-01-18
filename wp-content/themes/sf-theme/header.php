@@ -228,30 +228,34 @@
                     <?php endif; ?>
 
                     <?php
-                    // Получаем текущего пользователя
-                    if (is_user_logged_in()) {
+                    // Получаем вишлист для текущего пользователя или куки
+                    $wishlist = [];
 
-                        $icon = '<svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    if (is_user_logged_in()) {
+                        $wishlist = get_user_meta(get_current_user_id(), 'custom_wishlist', true) ?: [];
+                    } elseif (!empty($_COOKIE['custom_wishlist'])) {
+                        $wishlist = json_decode(stripslashes($_COOKIE['custom_wishlist']), true);
+                        if (!is_array($wishlist)) $wishlist = [];
+                    }
+
+                    $count = count($wishlist);
+
+                    // SVG сердечка
+                    $icon = '<svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0712 2.37846C14.411 2.02507 14.7734 1.70759 15.1661 1.42602C16.4871 0.47622 18.0121 0 19.9831 0C22.1866 0 24.1969 0.817512 25.6649 2.13581C27.1941 3.51232 28.1424 5.43118 28.1424 7.56132C28.1424 10.8178 26.451 13.9302 23.9195 16.9648C21.5709 19.7824 18.5692 22.4818 15.572 25.1747C14.7077 25.9521 13.4045 25.9344 12.5628 25.1675C9.56674 22.4757 6.56957 19.7794 4.22249 16.9648C1.69096 13.9302 0 10.8178 0 7.56132C0 5.43118 0.947909 3.5108 2.479 2.13732C3.94545 0.817511 5.95843 0 8.15887 0C10.1318 0 11.6564 0.47622 12.9778 1.42602C13.3686 1.70759 13.731 2.02507 14.0712 2.37846ZM19.9831 2.24655C23.2486 2.24655 25.8954 4.62841 25.8954 7.56132C25.8954 12.8772 19.9831 18.1931 14.0712 23.5075C8.15887 18.1931 2.24693 12.8772 2.24693 7.56132C2.24693 4.62841 4.89487 2.24655 8.15887 2.24655C11.1156 2.24655 12.5926 3.57392 14.0712 6.23244C15.5494 3.57392 17.0279 2.24655 19.9831 2.24655Z" fill="#3D332E"/>
 </svg>';
 
-                        // Получаем массив товаров пользователя
-                        $user_id = get_current_user_id();
-                        $wishlist = get_user_meta($user_id, 'custom_wishlist', true) ?: [];
-                        $count = count($wishlist);
-
-                        // Ссылка на страницу вишлиста (можно заменить на свой URL)
-                        $url = get_permalink(get_page_by_path('izbrannoe')); // страница «Избранное»
+                    // Ссылка на страницу вишлиста
+                    //$url = get_permalink(get_page_by_path('wishlist'));
                     ?>
 
-                        <a class="header-wishlist" href="/wishlist">
-                            <span class="wishlist-icon"><?php echo $icon; ?></span>
-                            <?php if ($count > 0): ?>
-                                <span class="wishlist-counter"><?php echo esc_html($count); ?></span>
-                            <?php endif; ?>
-                        </a>
+                    <a class="header-wishlist" href="<?php echo esc_url('/wishlist'); ?>">
+                        <span class="wishlist-icon"><?php echo $icon; ?></span>
+                        <?php if ($count > 0): ?>
+                            <span class="wishlist-counter"><?php echo esc_html($count); ?></span>
+                        <?php endif; ?>
+                    </a>
 
-                    <?php } ?>
 
                     <?php if (!is_cart()) : ?>
                         <button class="mini-cart-icon modalActive" data-mfp-src="#miniCart-popup">
