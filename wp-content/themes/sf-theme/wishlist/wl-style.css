@@ -118,7 +118,6 @@
 
 .wishlist-item:hover {
     border-color: var(--theme-color-accent);
-    background: #f5f5f5;
 }
 
 .wishlist-item img {

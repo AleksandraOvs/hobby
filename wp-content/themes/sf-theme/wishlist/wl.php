@@ -123,20 +123,37 @@ function custom_wishlist_shortcode()
     $clean_wishlist = [];
 
     foreach ($wishlist as $product_id) {
+
         if (get_post_status($product_id) !== 'publish') continue;
 
         $product = wc_get_product($product_id);
         if (!$product) continue;
 
         $clean_wishlist[] = $product_id;
+
         $terms = wp_get_post_terms($product_id, 'product_cat');
 
         if (empty($terms)) {
+
             $wishlist_by_cat['Без категории'][] = $product;
         } else {
+
+            // ищем самую "глубокую" категорию
+            $direct_term = null;
+
             foreach ($terms as $term) {
-                $wishlist_by_cat[$term->name][] = $product;
+                if ($term->parent !== 0) {
+                    $direct_term = $term;
+                    break;
+                }
             }
+
+            // если подкатегорий нет — берём первую
+            if (!$direct_term) {
+                $direct_term = $terms[0];
+            }
+
+            $wishlist_by_cat[$direct_term->name][] = $product;
         }
     }
 
@@ -165,10 +182,13 @@ function custom_wishlist_shortcode()
                 $price_html = wc_price($price);
 
                 $in_cart = false;
-                foreach (WC()->cart->get_cart() as $cart_item) {
-                    if ($cart_item['product_id'] == $product_id) {
-                        $in_cart = true;
-                        break;
+
+                if (function_exists('WC') && WC()->cart) {
+                    foreach (WC()->cart->get_cart() as $cart_item) {
+                        if ((int) $cart_item['product_id'] === (int) $product_id) {
+                            $in_cart = true;
+                            break;
+                        }
                     }
                 }
             ?>
@@ -212,7 +232,12 @@ function custom_wishlist_shortcode()
                         <button class="custom-wishlist-btn added"
                             data-product_id="<?php echo esc_attr($product_id); ?>"
                             aria-label="Удалить из избранного">
-                            <span class="wishlist-icon">♥</span>
+                            <span class="wishlist-icon">
+                                <svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M19.9834 1C21.8169 1.00007 23.4892 1.6382 24.75 2.66895L24.9971 2.87988C26.3343 4.08409 27.1426 5.74037 27.1426 7.56152C27.1425 10.2866 25.8123 12.9936 23.6045 15.7686L23.1514 16.3242C20.8576 19.0761 17.913 21.7265 14.9033 24.4307V24.4316C14.4245 24.8621 13.7016 24.8523 13.2363 24.4287L13.2314 24.4238L10.9971 22.4043C8.79358 20.3905 6.70955 18.386 4.99023 16.3242L4.53711 15.7686C2.32944 12.9937 1.00007 10.2866 1 7.56152C1 5.73956 1.8084 4.08228 3.14648 2.88184L3.14844 2.88086C4.4316 1.72608 6.20631 1 8.15918 1C9.84003 1.00005 11.0995 1.37513 12.1807 2.09082L12.3945 2.23828C12.733 2.48229 13.0498 2.75975 13.3506 3.07227L14.0713 3.82129L14.792 3.07129C15.0925 2.75878 15.4094 2.48179 15.749 2.23828H15.75C16.8785 1.42685 18.1926 1 19.9834 1Z" fill="#8b4512" stroke="none" />
+                                </svg>
+
+                            </span>
                         </button>
                     </div>
 
