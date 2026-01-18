@@ -20,7 +20,7 @@
     <?php if (!empty($product_categories) && !is_wp_error($product_categories)) : ?>
         <div class="single-sidebar-wrap">
             <div class="sidebar-body">
-                <ul class="sidebar-list">
+                <ul class="cats-list">
                     <?php foreach ($product_categories as $product_category) : ?>
                         <li>
                             <a href="<?php echo esc_url(get_term_link($product_category)); ?>">

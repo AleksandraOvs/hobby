@@ -1,5 +1,7 @@
 .sidebar-area-wrapper {
     margin-bottom: 20px;
+    padding: 20px;
+    background: #f5f5f5;
 }
 
 .single-sidebar-wrap {
@@ -47,12 +49,12 @@
 
 .price-range-wrap .price-range.ui-widget-content {
     border: none;
-    background: #eeeeee;
+    background: #cacaca;
     height: 3px;
 }
 
 .price-range-wrap .price-range.ui-widget-content .ui-slider-range {
-    background: #262626;
+    background: #a5561d;
 }
 
 .range-inputs {
@@ -66,7 +68,7 @@
     -moz-border-radius: 50%;
     border-radius: 50%;
     border: none;
-    background: #262626;
+    background: #8b4512;
     height: 15px;
     width: 15px;
     outline: none;

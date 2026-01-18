@@ -10,7 +10,7 @@
     bottom: 0;
     justify-content: space-between;
     overflow: hidden;
-
+    z-index: 100;
 }
 
 

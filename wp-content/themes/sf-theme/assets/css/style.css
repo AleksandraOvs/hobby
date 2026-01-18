@@ -6174,11 +6174,11 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
 
 }
 
-.woo-page__content__sidebar-top .sidebar-list li {
-  padding: 10px 15px;
-  border: 1px solid var(--theme-color-primary);
+.cats-list li {
+  padding: 5px 15px;
+  border: 1px solid var(--theme-color-accent);
   color: 1px solid var(--theme-color-primary);
-  border-radius: 20px;
+  border-radius: 30px;
   margin: 0;
 }
 
@@ -6186,9 +6186,9 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   margin-bottom: 0;
 }
 
-.woo-page__content__sidebar-top .sidebar-list {
+.cats-list {
   display: flex;
-  column-gap: 20px;
+  column-gap: 10px;
   row-gap: 9px;
   flex-wrap: wrap;
 }

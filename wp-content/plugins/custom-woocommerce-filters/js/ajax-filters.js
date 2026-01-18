@@ -104,6 +104,8 @@
                     $('.products-wrapper')
                         .html(response.data.html)
                         .fadeTo(200, 1);
+
+                    initShowMoreFilters(document);
                 }
             },
             complete: function () {
@@ -209,8 +211,50 @@
         updateProducts($('.sidebar-area-wrapper').first());
     });
 
+    /* -------------------
+ * Показать ещё (атрибуты)
+ * ------------------- */
+    function initShowMoreFilters(context) {
+
+        $(context).find('ul.sidebar-list').each(function () {
+
+            var $list = $(this);
+            var $items = $list.find('li');
+
+            if ($items.length <= 5) return;
+
+            // прячем всё после 5
+            $items.slice(5).hide();
+
+            // защита от повторного добавления кнопки
+            if ($list.next('.cwc-show-more').length) return;
+
+            var $btn = $('<button type="button" class="cwc-show-more">Показать ещё</button>');
+
+            $btn.on('click', function () {
+
+                var expanded = $btn.hasClass('opened');
+
+                if (!expanded) {
+                    $items.show();
+                    $btn
+                        .addClass('opened')
+                        .text('Скрыть');
+                } else {
+                    $items.slice(5).hide();
+                    $btn
+                        .removeClass('opened')
+                        .text('Показать ещё');
+                }
+            });
+
+            $list.after($btn);
+        });
+    }
+
     $(window).on('load', function () {
         cwcIsInit = false;
+        initShowMoreFilters(document);
     });
 
 })(jQuery);
