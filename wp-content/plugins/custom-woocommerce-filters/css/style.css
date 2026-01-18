@@ -133,6 +133,12 @@
 
 }
 
+.cwc-show-more {
+    color: #8b4512;
+    margin-top: 15px;
+}
+
+
 .sidebar-list li a.filter-item {
     font-size: 1.4rem;
     -webkit-transition: 0.2s 0.2s ease-out;

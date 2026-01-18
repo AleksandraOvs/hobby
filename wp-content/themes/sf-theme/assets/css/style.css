@@ -6163,15 +6163,11 @@ only screen and (min-width: 768px) and (max-width: 991.98px) {
   margin-bottom: 25px;
 }
 
-
-.sidebar-list li {
-  margin-bottom: 20px;
-}
-
 .sidebar-list {
   line-height: 1;
-
-
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .cats-list li {
@@ -8424,21 +8420,24 @@ Start Cart Page Wrapper
   width: 100%;
 }
 
-.cart-empty.woocommerce-info::before {
+.cart-empty.woocommerce-info::before,
+.woocommerce-no-products-found .woocommerce-info:before {
   content: none;
 }
 
-.cart-empty.woocommerce-info {
+.cart-empty.woocommerce-info,
+.woocommerce-no-products-found .woocommerce-info {
   background: transparent;
   border: none;
   position: relative;
-  font-size: 24px;
+  font-size: 20px;
   color: #343434;
   text-align: center;
   padding: 50px 0;
 }
 
-.cart-empty.woocommerce-info::after {
+.cart-empty.woocommerce-info::after,
+.woocommerce-no-products-found .woocommerce-info:after {
   content: '';
   height: 2px;
   width: 150px;
