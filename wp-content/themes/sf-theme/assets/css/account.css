@@ -71,7 +71,38 @@
 .my-order__title {
     background: #f5f5f5;
     padding: 30px 20px;
-    font-size: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.my-order__title h3 {
+    font-size: 24px;
+    margin: 0;
+    color: #898989;
+}
+
+.my-order__title h3 a {
+    color: #898989;
+    font-size: 24px;
+}
+
+.my-order__title__right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.my-order__title__right svg {
+    width: 15px;
+    height: 15px;
+    object-fit: contain;
+    object-position: center;
+    transition: all .2s linear;
+}
+
+.my-order.is-open .my-order__title .my-order__title__right svg {
+    transform: rotate(90deg);
 }
 
 .my-order__item {
@@ -120,6 +151,9 @@
 
 .my-order__item-info {
     width: calc(100% - 116px);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .my-order__item-img img {
@@ -202,22 +236,42 @@
 }
 
 .my-order__summary-item._discount span span.amount,
-.my-order__summary-item span {
+.my-order__summary-item span.amount span {
     font-weight: 400;
     color: #898989;
 }
 
 .my-order__summary-item._status {
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+}
+
+.my-order__summary-item span {
+    color: #898989;
+}
+
+.my-order__summary-item._status svg {
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    object-position: center;
 }
 
 .my-order__summary-item._status span {
     font-weight: 600;
-    color: var(--theme-color-accent);
+    color: #B6713D;
 }
 
-.woocommerce-MyAccount-content h3 {
+.my-account-orders {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.woocommerce-MyAccount-content>h3 {
     margin-bottom: 20px;
 }
 
@@ -280,4 +334,17 @@
 
 .page-content h2.form-login {
     text-align: center;
+}
+
+/*СПИСОК ЗАКАЗОВ*/
+
+.my-order__items {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease;
+}
+
+.my-order.is-open .my-order__items {
+    max-height: 2000px;
+    /* заведомо больше реальной высоты */
 }
