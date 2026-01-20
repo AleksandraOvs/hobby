@@ -10102,9 +10102,9 @@ Start Start 404 Error Page Wrapper
     margin-bottom: 30px;
   }
 
-  .container .product-categories {
+  /* .container .product-categories {
     flex-direction: column-reverse;
-  }
+  } */
 
   .product-categories #catalog-navigation {
     width: 100%;
