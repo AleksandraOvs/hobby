@@ -28,7 +28,30 @@
     <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/apple-touch-icon.png">
 
     <?php wp_head(); ?>
+    <script>
+        // Предотвратить изменение scrollTop всеми скриптами
+        let scrollBlocked = true;
 
+        const originalScrollTop = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollTop');
+        if (originalScrollTop && originalScrollTop.set) {
+            Object.defineProperty(document.documentElement, 'scrollTop', {
+                set(value) {
+                    if (!scrollBlocked) originalScrollTop.set.call(this, value);
+                }
+            });
+        }
+
+        const originalScrollTopBody = Object.getOwnPropertyDescriptor(HTMLElement.prototype, 'scrollTop');
+        if (originalScrollTopBody && originalScrollTopBody.set) {
+            Object.defineProperty(document.body, 'scrollTop', {
+                set(value) {
+                    if (!scrollBlocked) originalScrollTopBody.set.call(this, value);
+                }
+            });
+        }
+
+        console.log('🛑 Автоскролл заблокирован, страница больше не телепортируется.');
+    </script>
 </head>
 
 <body <?php body_class(); ?>>
@@ -205,30 +228,34 @@
                     <?php endif; ?>
 
                     <?php
-                    // Получаем текущего пользователя
-                    if (is_user_logged_in()) {
+                    // Получаем вишлист для текущего пользователя или куки
+                    $wishlist = [];
 
-                        $icon = '<svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    if (is_user_logged_in()) {
+                        $wishlist = get_user_meta(get_current_user_id(), 'custom_wishlist', true) ?: [];
+                    } elseif (!empty($_COOKIE['custom_wishlist'])) {
+                        $wishlist = json_decode(stripslashes($_COOKIE['custom_wishlist']), true);
+                        if (!is_array($wishlist)) $wishlist = [];
+                    }
+
+                    $count = count($wishlist);
+
+                    // SVG сердечка
+                    $icon = '<svg width="29" height="26" viewBox="0 0 29 26" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path fill-rule="evenodd" clip-rule="evenodd" d="M14.0712 2.37846C14.411 2.02507 14.7734 1.70759 15.1661 1.42602C16.4871 0.47622 18.0121 0 19.9831 0C22.1866 0 24.1969 0.817512 25.6649 2.13581C27.1941 3.51232 28.1424 5.43118 28.1424 7.56132C28.1424 10.8178 26.451 13.9302 23.9195 16.9648C21.5709 19.7824 18.5692 22.4818 15.572 25.1747C14.7077 25.9521 13.4045 25.9344 12.5628 25.1675C9.56674 22.4757 6.56957 19.7794 4.22249 16.9648C1.69096 13.9302 0 10.8178 0 7.56132C0 5.43118 0.947909 3.5108 2.479 2.13732C3.94545 0.817511 5.95843 0 8.15887 0C10.1318 0 11.6564 0.47622 12.9778 1.42602C13.3686 1.70759 13.731 2.02507 14.0712 2.37846ZM19.9831 2.24655C23.2486 2.24655 25.8954 4.62841 25.8954 7.56132C25.8954 12.8772 19.9831 18.1931 14.0712 23.5075C8.15887 18.1931 2.24693 12.8772 2.24693 7.56132C2.24693 4.62841 4.89487 2.24655 8.15887 2.24655C11.1156 2.24655 12.5926 3.57392 14.0712 6.23244C15.5494 3.57392 17.0279 2.24655 19.9831 2.24655Z" fill="#3D332E"/>
 </svg>';
 
-                        // Получаем массив товаров пользователя
-                        $user_id = get_current_user_id();
-                        $wishlist = get_user_meta($user_id, 'custom_wishlist', true) ?: [];
-                        $count = count($wishlist);
-
-                        // Ссылка на страницу вишлиста (можно заменить на свой URL)
-                        $url = get_permalink(get_page_by_path('izbrannoe')); // страница «Избранное»
+                    // Ссылка на страницу вишлиста
+                    //$url = get_permalink(get_page_by_path('wishlist'));
                     ?>
 
-                        <a class="header-wishlist" href="/wishlist">
-                            <span class="wishlist-icon"><?php echo $icon; ?></span>
-                            <?php if ($count > 0): ?>
-                                <span class="wishlist-counter"><?php echo esc_html($count); ?></span>
-                            <?php endif; ?>
-                        </a>
+                    <a class="header-wishlist" href="<?php echo esc_url('/wishlist'); ?>">
+                        <span class="wishlist-icon"><?php echo $icon; ?></span>
+                        <?php if ($count > 0): ?>
+                            <span class="wishlist-counter"><?php echo esc_html($count); ?></span>
+                        <?php endif; ?>
+                    </a>
 
-                    <?php } ?>
 
                     <?php if (!is_cart()) : ?>
                         <button class="mini-cart-icon modalActive" data-mfp-src="#miniCart-popup">
@@ -248,6 +275,15 @@
                             </span>
                         </button>
                     <?php endif; ?>
+
+                    <a href="/my-account" class="header-ma-link">
+                        <svg width="31" height="30" viewBox="0 0 31 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9.17135 9.73191C9.17135 10.3517 8.66831 10.8552 8.04809 10.8552C7.42787 10.8552 6.9248 10.3517 6.9248 9.73191V4.11931C6.9248 2.98658 7.38893 1.95477 8.13501 1.20869C8.87958 0.464128 9.91139 0 11.0437 0H26.231C27.3603 0 28.391 0.464128 29.1367 1.20869C29.8858 1.95931 30.3503 2.98961 30.3503 4.11931V25.3217C30.3503 26.454 29.8858 27.4862 29.1412 28.2308C28.3955 28.9765 27.3634 29.441 26.231 29.441H11.0437C9.91592 29.441 8.88525 28.975 8.13955 28.2308C7.38894 27.4787 6.9248 26.4495 6.9248 25.3217V19.7106C6.9248 19.0904 7.42787 18.5873 8.04809 18.5873C8.66831 18.5873 9.17135 19.0904 9.17135 19.7106V25.3217C9.17135 25.8384 9.38264 26.3089 9.71826 26.643C10.0569 26.9828 10.5271 27.1941 11.0437 27.1941H26.231C26.7446 27.1941 27.2152 26.9813 27.5535 26.643C27.8921 26.3044 28.1034 25.8353 28.1034 25.3217V4.11931C28.1034 3.60378 27.8921 3.13209 27.555 2.79496C27.2182 2.45783 26.7462 2.24693 26.231 2.24693H11.0437C10.5301 2.24693 10.0614 2.45783 9.7228 2.79647C9.38415 3.13512 9.17135 3.60529 9.17135 4.11931V9.73191Z" fill="#3D332E" />
+                            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.4953 10.1782C14.0474 9.75418 14.0277 9.04552 14.4518 8.59765C14.8755 8.14977 15.5841 8.1305 16.032 8.55418L21.7746 13.9797C22.224 14.4038 22.2467 15.1151 21.8226 15.5645C19.9907 17.3964 17.9237 19.2476 16.032 21.0376C15.5841 21.4616 14.8755 21.4424 14.4518 20.9945C14.0277 20.5466 14.0474 19.838 14.4953 19.4139L19.3739 14.7961L14.4953 10.1782Z" fill="#3D332E" />
+                            <path d="M1.11458 15.8339C0.49738 15.8324 -0.00150838 15.3279 3.42694e-06 14.7107C0.00151524 14.0935 0.50645 13.5949 1.12327 13.5961L21.0108 13.677C21.628 13.6785 22.1269 14.1834 22.1254 14.8006C22.1238 15.4178 21.6189 15.9163 21.0017 15.9148L1.11458 15.8339Z" fill="#3D332E" />
+                        </svg>
+
+                    </a>
                 </div>
             </div>
 
