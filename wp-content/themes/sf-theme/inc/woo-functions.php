@@ -426,15 +426,41 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 //     ]);
 // }
 
-add_filter('woocommerce_add_to_cart_fragments', 'custom_woocommerce_cart_totals_fragment');
-function custom_woocommerce_cart_totals_fragment($fragments)
-{
-    ob_start();
-?>
-    <div class="cart_totals <?php echo WC()->customer->has_calculated_shipping() ? 'calculated_shipping' : ''; ?>">
-        <?php woocommerce_cart_totals(); ?>
-    </div>
-<?php
-    $fragments['div.cart_totals'] = ob_get_clean();
-    return $fragments;
-}
+
+
+// add_filter('woocommerce_get_children', 'sort_variations_by_menu_order', 10, 2);
+// function sort_variations_by_menu_order($children, $product)
+// {
+
+//     if (! $product || $product->get_type() !== 'variable') {
+//         return $children;
+//     }
+
+//     global $wpdb;
+
+//     $ids = implode(',', array_map('absint', $children));
+
+//     if (empty($ids)) {
+//         return $children;
+//     }
+
+//     return $wpdb->get_col("
+//         SELECT ID
+//         FROM {$wpdb->posts}
+//         WHERE ID IN ($ids)
+//         ORDER BY menu_order ASC
+//     ");
+// }
+
+// add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
+//     $args['orderby'] = 'menu_order';
+//     return $args;
+// });
+
+// add_filter(
+//     'woocommerce_dropdown_variation_attribute_options_args',
+//     function ($args) {
+//         $args['orderby'] = 'menu_order';
+//         return $args;
+//     }
+// );

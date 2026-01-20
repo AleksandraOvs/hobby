@@ -30,7 +30,7 @@ if ($max_value && $min_value === $max_value) {
 ?>
 	<div class="quantity pro-qty">
 		<?php do_action('woocommerce_before_quantity_input_field'); ?>
-		<a href="#" class="dec qty-btn">-</a>
+		<button type="button" class="dec qty-btn">-</button>
 		<input
 			type="text"
 			id="<?php echo esc_attr($input_id); ?>"
@@ -44,7 +44,7 @@ if ($max_value && $min_value === $max_value) {
 			size="4"
 			placeholder="<?php echo esc_attr($placeholder); ?>"
 			inputmode="<?php echo esc_attr($inputmode); ?>" />
-		<a href="#" class="inc qty-btn">+</a>
+		<button type="button" class="inc qty-btn">+</button>
 
 		<?php do_action('woocommerce_after_quantity_input_field'); ?>
 	</div>

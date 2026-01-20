@@ -28,7 +28,12 @@ defined('ABSPATH') || exit;
 
 	<div class="cart-cal-table table-responsive">
 		<table cellspacing="0" class="table table-borderless shop_table shop_table_responsive">
-
+			<tr class="cart-items-count">
+				<th><?php esc_html_e('Количество товаров', 'woocommerce'); ?></th>
+				<td data-title="<?php esc_attr_e('Количество товаров', 'woocommerce'); ?>" class="cart-items-count-value">
+					<?php echo WC()->cart->get_cart_contents_count(); ?>
+				</td>
+			</tr>
 			<tr class="cart-sub-total cart-subtotal">
 				<th><?php esc_html_e('Subtotal', 'woocommerce'); ?></th>
 				<td data-title="<?php esc_attr_e('Subtotal', 'woocommerce'); ?>"><?php wc_cart_totals_subtotal_html(); ?></td>

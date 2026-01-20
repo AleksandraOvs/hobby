@@ -178,12 +178,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-});
 
-// =====================================
-// SINGLE PRODUCT — AJAX PRICE UPDATE
-// =====================================
-document.addEventListener('DOMContentLoaded', () => {
+
+    // =====================================
+    // SINGLE PRODUCT — AJAX PRICE UPDATE
+    // =====================================
+
 
     const addToCartBlock = document.querySelector('.single-product-add-to-cart form.cart');
     if (!addToCartBlock) return;
@@ -273,44 +273,36 @@ jQuery(function ($) {
 
 });
 
-// ================================
-// CART QTY + AJAX UPDATE
-// ================================
+
+// =====================================
+// CART — AJAX QTY UPDATE (FIXED)
+// =====================================
 jQuery(function ($) {
 
-    let cartTimer = null;
+    let cartUpdateTimer = null;
 
-    function updateCart() {
+    function updateCartAjax() {
         const $form = $('form.woocommerce-cart-form');
         if (!$form.length) return;
 
         $.ajax({
             type: 'POST',
-            url: wc_cart_params.wc_ajax_url.replace('%%endpoint%%', 'update_cart'),
+            url: wc_cart_params.wc_ajax_url
+                .toString()
+                .replace('%%endpoint%%', 'update_cart'),
             data: $form.serialize(),
             success: function () {
+                // Обновляем totals и mini-cart
                 $(document.body).trigger('wc_fragment_refresh');
+                $(document.body).trigger('updated_cart_totals');
             }
         });
     }
 
-    // 🔑 реагируем ТОЛЬКО на change
-    $(document).on('change', '.woocommerce-cart-form input.qty', function () {
-        clearTimeout(cartTimer);
-        cartTimer = setTimeout(updateCart, 150);
+    // Реагируем на ИЗМЕНЕНИЕ количества
+    $(document).on('change', 'form.woocommerce-cart-form input.qty', function () {
+        clearTimeout(cartUpdateTimer);
+        cartUpdateTimer = setTimeout(updateCartAjax, 300);
     });
 
-});
-
-// jQuery(function ($) {
-//     $(document).on('change', '.qty', function () {
-//         $('body').trigger('update_cart'); // Это вызовет обновление корзины
-//     });
-// });
-
-jQuery(function ($) {
-    $(document).on('change input', '.qty', function () {
-        $('button[name="update_cart"]').prop('disabled', false);
-        $('body').trigger('update_cart'); // WooCommerce обновит корзину через AJAX
-    });
 });

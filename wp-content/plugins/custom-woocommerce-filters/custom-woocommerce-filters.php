@@ -62,6 +62,7 @@ function cwc_render_attribute_filter($taxonomy, $title, $current_cat_id = 0)
 
     ob_start();
 ?>
+
     <div class="single-sidebar-wrap">
         <h3 class="sidebar-title"><?php echo esc_html($title); ?></h3>
         <div class="sidebar-body">
@@ -265,7 +266,7 @@ function cwc_shop_filters_shortcode()
         }
     }
 ?>
-    <div class="sidebar-area-wrapper" data-current-cat="<?php echo esc_attr($current_cat_id); ?>">
+    <div class="sidebar-area-wrapper _filters" data-current-cat="<?php echo esc_attr($current_cat_id); ?>">
 
         <?php
         // цена
