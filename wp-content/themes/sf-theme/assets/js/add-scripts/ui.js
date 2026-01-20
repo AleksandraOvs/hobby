@@ -1,30 +1,5 @@
 // ui.js
-document.addEventListener('click', function (e) {
-    console.log('menu script click');
-    const toggleBtn = e.target.closest('.toggle-cat-menu-button');
-    const menu = document.getElementById('menu-catalog__container');
 
-    if (!menu) return;
-
-    if (toggleBtn) {
-        e.preventDefault();
-
-        const isOpen = menu.classList.contains('is-open');
-        menu.classList.toggle('is-open', !isOpen);
-        toggleBtn.classList.toggle('active', !isOpen);
-        return;
-    }
-
-    if (
-        !e.target.closest('#menu-catalog__container') &&
-        !e.target.closest('.toggle-cat-menu-button')
-    ) {
-        menu.classList.remove('is-open');
-        document
-            .querySelector('.toggle-cat-menu-button')
-            ?.classList.remove('active');
-    }
-});
 
 // === Мобильное меню ===
 const body = document.body;
@@ -145,6 +120,8 @@ document.addEventListener('DOMContentLoaded', () => {
             upArrow.classList.toggle('show', window.scrollY > 300);
         });
     }
+
+
 
     /* ===============================
        WOOCOMMERCE MESSAGE AUTO-HIDE
