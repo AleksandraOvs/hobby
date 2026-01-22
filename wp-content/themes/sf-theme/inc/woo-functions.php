@@ -151,7 +151,7 @@ add_action('sf_checkout_products_block', function () {
 
     echo '<div class="checkout-products-block">';
     echo '<h3>Товары в заказе</h3>';
-    echo '<div class="cart-flex woocommerce-cart-form__contents">';
+    echo '<div class="cart-flex woocommerce-cart-form__contents checkout-products-block__contents">';
 
     foreach (WC()->cart->get_cart() as $item) {
         $_product = $item['data'];
@@ -160,27 +160,28 @@ add_action('sf_checkout_products_block', function () {
         $qty = $item['quantity'];
     ?>
         <div class="cart-flex__row cart_item">
-            <div class="cart-flex__col cart-flex__col--product">
-                <div class="cart-product-item">
-                    <?= $_product->get_image(); ?>
-                    <div class="cart-product-item__name">
-                        <?= esc_html($_product->get_name()); ?>
-                        <?php if ($sku = $_product->get_sku()) : ?>
-                            <div class="product-sku">Артикул: <?= esc_html($sku); ?></div>
-                        <?php endif; ?>
+            <div class="cart-flex__col cart-flex__col--product checkout-products-block__contents__product">
+
+                <?= $_product->get_image(); ?>
+                <div class="cart-product-item__name">
+                    <?= esc_html($_product->get_name()); ?> <div class="product-sku">Артикул:
+                        <?php if ($sku = $_product->get_sku()) { ?>
+                            <?= esc_html($sku); ?>
+                        <?php } else {
+                            echo '—';
+                        } ?>
                     </div>
                 </div>
-            </div>
 
-            <div class="cart-flex__col cart-flex__col--price">
-                <?= WC()->cart->get_product_price($_product); ?>
             </div>
 
             <div class="cart-flex__col cart-flex__col--qty">
-                <?= esc_html($qty); ?>
+                <div class="cart-flex__col__label">Кол-во:</div>
+                <p><?= esc_html($qty); ?> шт.</p>
             </div>
 
             <div class="cart-flex__col cart-flex__col--total">
+                <div class="cart-flex__col__label">Сумма:</div>
                 <?= WC()->cart->get_product_subtotal($_product, $qty); ?>
             </div>
         </div>
@@ -202,6 +203,7 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 /* ---------- Checkout fields (единый блок) ---------- */
 add_filter('woocommerce_checkout_fields', function ($fields) {
 
+    // Убираем стандартные
     unset(
         $fields['billing']['billing_first_name'],
         $fields['billing']['billing_last_name'],
@@ -209,24 +211,43 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_address_2']
     );
 
+    // ФИО
     $fields['billing']['billing_full_name'] = [
-        'type' => 'text',
-        'label' => 'Имя и фамилия',
-        'required' => true,
-        'priority' => 10,
-        'class' => ['form-row-wide'],
+        'type'        => 'text',
+        'required'    => true,
+        'priority'    => 10,
+        'class'       => ['form-row-wide'],
+        'placeholder' => 'Ф.И.О *',
     ];
 
+    // Телефон
+    $fields['billing']['billing_phone']['priority']    = 20;
+    $fields['billing']['billing_phone']['placeholder'] = '+7 (___) ___-__-__';
+
+    // Email
+    $fields['billing']['billing_email']['priority']    = 30;
+    $fields['billing']['billing_email']['placeholder'] = 'E-mail *';
+
+    // Адрес
     $fields['billing']['billing_full_address'] = [
-        'type' => 'text',
-        'label' => 'Адрес',
-        'required' => true,
-        'priority' => 55,
-        'class' => ['form-row-wide'],
+        'type'        => 'text',
+        'required'    => false,
+        'priority'    => 60,
+        'class'       => ['form-row-wide'],
+        'placeholder' => 'Адрес доставки',
     ];
 
     return $fields;
 });
+
+// add_action('woocommerce_before_checkout_billing_form', function () {
+//     echo '<div class="checkout-block-title">Покупатель</div>';
+// });
+
+// add_action('woocommerce_before_checkout_shipping_form', function () {
+//     echo '<div class="checkout-block-title">Способ получения</div>';
+// });
+
 
 /* ---------- Split name on order ---------- */
 add_action('woocommerce_checkout_create_order', function ($order, $data) {
@@ -240,3 +261,30 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
     $order->set_billing_first_name($first);
     $order->set_billing_last_name($last);
 }, 10, 2);
+
+
+add_action('init', function () {
+    remove_action(
+        'woocommerce_checkout_order_review',
+        'woocommerce_checkout_shipping',
+        10
+    );
+});
+
+add_action('woocommerce_review_order_after_shipping', function () {
+    $packages = WC()->shipping()->get_packages();
+    $chosen   = WC()->session->get('chosen_shipping_methods');
+
+    if (empty($packages) || empty($chosen)) return;
+
+    foreach ($packages as $i => $package) {
+        foreach ($package['rates'] as $rate_id => $rate) {
+            if ($rate_id === $chosen[$i]) {
+                echo '<tr class="chosen-shipping">';
+                echo '<th>Доставка</th>';
+                echo '<td>' . esc_html($rate->get_label()) . ': ' . wc_price($rate->get_cost()) . '</td>';
+                echo '</tr>';
+            }
+        }
+    }
+});

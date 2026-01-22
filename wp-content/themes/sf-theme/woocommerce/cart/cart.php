@@ -88,9 +88,6 @@ defined('ABSPATH') || exit;
 					?>
 
 						<div class="cart-flex__row cart_item">
-
-
-
 							<div class="cart-flex__col cart-flex__col--product">
 
 								<div class="cart-product-item">

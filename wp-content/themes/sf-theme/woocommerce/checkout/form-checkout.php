@@ -39,11 +39,23 @@ if (! defined('ABSPATH')) {
 					<!-- Checkout Form Area Start -->
 					<div class="checkout-billing-details-wrap">
 						<div class="billing-form-wrap">
-							<?php do_action('woocommerce_checkout_billing'); ?>
-							<div class="checkout-box-wrap">
-								<?php //do_action('woocommerce_checkout_shipping'); 
-								?>
+
+							<!-- Покупатель -->
+							<div class="checkout-section">
+								<div class="checkout-section__title">Покупатель</div>
+								<div class="checkout-section__content">
+									<?php do_action('woocommerce_checkout_billing'); ?>
+								</div>
 							</div>
+
+							<!-- Способ получения -->
+							<div class="checkout-section">
+								<div class="checkout-section__title">Способ получения</div>
+								<div class="checkout-section__content">
+									<?php do_action('woocommerce_checkout_shipping'); ?>
+								</div>
+							</div>
+
 						</div>
 					</div>
 
