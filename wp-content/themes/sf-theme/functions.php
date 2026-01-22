@@ -28,7 +28,19 @@ add_action('wp_enqueue_scripts', function () {
 	//wp_enqueue_script('add_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts.js', array(), time(), true);
 	wp_enqueue_script('add_ui_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/ui.js', array(), time(), true);
 	wp_enqueue_script('add_product_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/product.js', array(), time(), true);
-	wp_enqueue_script('add_cart_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/cart.js', array(), time(), true);
+	//wp_enqueue_script('add_cart_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/cart.js', array(), time(), true);
+
+	wp_enqueue_script(
+		'cart-js',
+		get_stylesheet_directory_uri() . '/assets/js/add-scripts/cart.js',
+		['jquery', 'wc-cart-fragments'],
+		'1.0',
+		true
+	);
+
+	wp_localize_script('cart-js', 'cart_ajax', [
+		'ajax_url' => admin_url('admin-ajax.php'),
+	]);
 
 
 	wp_enqueue_script('ajax_scripts', get_stylesheet_directory_uri() . '/assets/js/ajax.js', array(), time(), true);

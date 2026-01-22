@@ -27,10 +27,7 @@ defined('ABSPATH') || exit;
 					</div>
 
 					<button type="button" id="remove-selected" class="remove-selected-btn">
-						<svg width="20" height="22" viewBox="0 0 20 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-							<path d="M17.75 7.75L15.755 19.096C15.6736 19.5594 15.4315 19.9792 15.0712 20.2817C14.7109 20.5842 14.2555 20.75 13.785 20.75H5.715C5.24454 20.75 4.78913 20.5842 4.42882 20.2817C4.06852 19.9792 3.82639 19.5594 3.745 19.096L1.75 7.75M18.75 4.75H13.125M13.125 4.75V2.75C13.125 2.21957 12.9143 1.71086 12.5392 1.33579C12.1641 0.960714 11.6554 0.75 11.125 0.75H8.375C7.84457 0.75 7.33586 0.960714 6.96079 1.33579C6.58571 1.71086 6.375 2.21957 6.375 2.75V4.75M13.125 4.75H6.375M0.75 4.75H6.375" stroke="#797979" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
-						</svg>
-						<span>Удалить выбранное</span>
+						Удалить выбранное
 					</button>
 
 				</div>
@@ -89,22 +86,19 @@ defined('ABSPATH') || exit;
 
 						<div class="cart-flex__row cart_item">
 
-
+							<div class="cart-select">
+								<label>
+									<input type="checkbox"
+										class="cart-item-checkbox"
+										name="cart[<?php echo $cart_item_key; ?>][selected]"
+										value="1"
+										<?php checked(1, isset($cart_item['selected']) ? $cart_item['selected'] : 1); ?>>
+								</label>
+							</div>
 
 							<div class="cart-flex__col cart-flex__col--product">
 
 								<div class="cart-product-item">
-									<div class="cart-select">
-										<label>
-											<input type="checkbox"
-												class="cart-item-checkbox"
-												name="cart[<?php echo $cart_item_key; ?>][selected]"
-												value="1"
-												<?php checked(1, isset($cart_item['selected']) ? $cart_item['selected'] : 1); ?>>
-
-
-										</label>
-									</div>
 									<?php
 									$thumbnail = apply_filters('woocommerce_cart_item_thumbnail', $_product->get_image(), $cart_item, $cart_item_key);
 

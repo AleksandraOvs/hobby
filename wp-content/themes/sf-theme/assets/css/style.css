@@ -2471,10 +2471,10 @@ div.page-title {
   cursor: pointer;
   width: 100%;
   padding: 7px 20px;
-  max-width: 280px;
+  /* max-width: 280px; */
   display: flex;
-  border: 1px solid transparent;
-  border-radius: 5px;
+  border: 1px solid #cacaca;
+  border-radius: 3px;
   justify-content: center;
   align-items: center;
   gap: 7px;
@@ -4927,8 +4927,8 @@ del .woocommerce-Price-amount.amount bdi {
 .woocommerce-notices-wrapper .woocommerce-message {
   position: fixed;
   z-index: 5;
-  right: 0;
-  bottom: 20px;
+  left: 10px;
+  bottom: 10px;
   margin: 0;
   color: #fff;
   background: rgba(0, 0, 0, .7);
@@ -8428,7 +8428,7 @@ Start Cart Page Wrapper
 }
 
 .cart-coupon-update-area button:hover {
-  color: #d25b5b;
+  color: var(--theme-color-primary);
 }
 
 .cart-coupon-update-area .coupon-form-wrap {
@@ -10320,6 +10320,7 @@ Start Start 404 Error Page Wrapper
   #menu-mobile {
     display: flex;
     align-items: flex-start;
+    justify-content: space-between;
     gap: 10px;
   }
 
@@ -10364,13 +10365,13 @@ Start Start 404 Error Page Wrapper
     font-size: 20px;
   }
 
-  .subcategory-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
   .work-modal.fancybox__content {
     width: 96%;
     min-width: unset;
+  }
+
+  .product-categories #catalog-navigation {
+    display: none;
   }
 
 }
@@ -10393,6 +10394,10 @@ Start Start 404 Error Page Wrapper
   .single-description {
     flex-direction: column;
     gap: 0;
+  }
+
+  .section-contacts__inner__left h2 {
+    text-align: center;
   }
 }
 

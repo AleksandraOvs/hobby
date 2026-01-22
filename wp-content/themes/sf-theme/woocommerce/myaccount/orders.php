@@ -122,16 +122,18 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						$weight       = $product->get_weight() ? wc_format_weight($product->get_weight() * $quantity) : '';
 					?>
 						<div class="my-order__item">
-							<div class="my-order__item-left">
-								<div class="my-order__item-img"><?php echo $product_img; ?></div>
+
+							<div class="my-order__item-img"><?php echo $product_img; ?></div>
+
+							<div class="my-order__item-right">
 								<div class="my-order__item-info">
 									<div class="my-order__item-name"><?php echo esc_html($product_name); ?></div>
 									<?php if ($product_sku) : ?>
 										<div class="my-order__item-sku"><?php echo esc_html('SKU: ' . $product_sku); ?></div>
 									<?php endif; ?>
 								</div>
-							</div>
-							<div class="my-order__item-right">
+
+
 								<?php if ($weight) : ?>
 									<div class="my-order__item-right__item _weight">
 										<p class="label">Вес:</p>
@@ -150,6 +152,8 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 									<a href="<?php echo esc_url($order->get_view_order_url()); ?>"><?php esc_html_e('View', 'woocommerce'); ?></a>
 								</div>
 							</div>
+
+
 						</div>
 					<?php endforeach; ?>
 

@@ -31,9 +31,35 @@ do_action('woocommerce_before_account_navigation');
 					<span class="nav-icon"><?php echo my_account_svg($endpoint); ?></span>
 					<span class="nav-label"><?php echo esc_html($label); ?></span>
 				</a>
+				<svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path fill-rule="evenodd" clip-rule="evenodd" d="M17.2626 0.469778C17.8276 -0.130789 18.7755 -0.159138 19.3761 0.405523C19.9771 0.970184 20.0054 1.91847 19.4407 2.51904L11.012 11.4346C10.4474 12.0351 9.49907 12.0635 8.8985 11.4988C6.02719 8.62751 3.20804 5.48332 0.405525 2.51904C-0.159136 1.91847 -0.130792 0.970184 0.469775 0.405523C1.07072 -0.159138 2.01863 -0.130789 2.58329 0.469778L9.92313 8.2333L17.2626 0.469778Z" fill="#8B4512" />
+				</svg>
 			</li>
 		<?php endforeach; ?>
 	</ul>
 </nav>
+
+<script>
+	document.addEventListener('click', function(e) {
+		const nav = document.querySelector('.woocommerce-MyAccount-navigation');
+		if (!nav) return;
+
+		const ul = nav.querySelector('ul');
+		if (!ul) return;
+
+		const isMobile = window.innerWidth < 768;
+
+		if (!isMobile) return;
+
+		// Клик по самому меню
+		if (nav.contains(e.target)) {
+			ul.classList.add('show');
+		} else {
+			// Клик вне меню
+			ul.classList.remove('show');
+		}
+	});
+</script>
+
 
 <?php do_action('woocommerce_after_account_navigation'); ?>

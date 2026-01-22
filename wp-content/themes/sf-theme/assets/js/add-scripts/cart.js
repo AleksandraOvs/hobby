@@ -117,3 +117,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+document.addEventListener('change', e => {
+    const cb = e.target.closest('.cart-item-checkbox');
+    if (!cb) return;
+
+    const formData = new FormData();
+    formData.append('action', 'toggle_cart_item');
+    formData.append('cart_item_key', cb.name.match(/\[(.*?)\]/)[1]);
+    formData.append('selected', cb.checked ? '1' : '0');
+
+    fetch(cart_ajax.ajax_url, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: formData
+    }).then(() => {
+        // пересчёт итогов
+        fetch(cart_ajax.ajax_url, {
+            method: 'POST',
+            credentials: 'same-origin',
+            body: formData
+        }).then(() => {
+
+            // пересчёт корзины
+            jQuery(document.body).trigger('wc_update_cart');
+            jQuery(document.body).trigger('wc_fragment_refresh');
+
+            // если ты на checkout
+            jQuery(document.body).trigger('update_checkout');
+        });
+    });
+}); 

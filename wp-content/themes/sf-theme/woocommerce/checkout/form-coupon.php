@@ -32,15 +32,13 @@ if (! wc_coupons_enabled()) { // @codingStandardsIgnoreLine.
 			<!-- Checkout Coupon Accordion Start -->
 			<div class="checkoutAccordion" id="checkOutAccordion">
 				<div class="card">
-					<h3>Имеете купон? <a href="#" class="showcoupon">Нажмите тут, чтобы ввести его</a>
+					<h3>Есть купон? <a href="#" class="showcoupon">Нажмите тут, чтобы ввести его</a>
 					</h3>
 
 					<!-- <div id="couponaccordion" class="collapse" data-parent="#checkOutAccordion"> -->
 					<form class="checkout_coupon woocommerce-form-coupon" method="post" style="display:none">
 						<div class="card-body">
 							<div class="apply-coupon-wrapper">
-								<p>Если у вас есть купон, пожалуйста примените его ниже.</p>
-
 								<input type="text" name="coupon_code" id="coupon_code" placeholder="Ваш код купона" required />
 								<button type="submit" name="apply_coupon" class="btn">Применить купон</button>
 

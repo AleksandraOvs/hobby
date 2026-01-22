@@ -1,69 +1,55 @@
 <?php
+/* ======================================
+ * Woo helpers / cart / checkout
+ * ====================================== */
 
-function enqueue_wc_cart_fragments_in_footer()
-{
+/* ---------- Cart fragments ---------- */
+add_action('wp_footer', function () {
     wp_enqueue_script('wc-cart-fragments');
-}
-add_action('wp_footer', 'enqueue_wc_cart_fragments_in_footer');
+});
 
-
-add_action('woocommerce_after_shop_loop_item_title', 'sf_show_stock_status_loop', 10);
-function sf_show_stock_status_loop()
-{
+/* ---------- Stock status in loop ---------- */
+add_action('woocommerce_after_shop_loop_item_title', function () {
     global $product;
-
     if (! $product) return;
 
-    $stock_status = $product->get_stock_status(); // возвращает 'instock', 'outofstock' или 'onbackorder'
+    $status = $product->get_stock_status();
 
-    if ($stock_status === 'instock') {
-        // Проверяем разрешены ли предзаказы и нет ли наличия
-        if ($product->managing_stock() && $product->get_stock_quantity() === 0 && $product->backorders_allowed()) {
+    if ($status === 'instock') {
+        if (
+            $product->managing_stock() &&
+            $product->get_stock_quantity() === 0 &&
+            $product->backorders_allowed()
+        ) {
             echo '<span class="stock-status on-order">На заказ</span>';
         } else {
             echo '<span class="stock-status in-stock">В наличии</span>';
         }
-    } elseif ($stock_status === 'onbackorder') {
+    } elseif ($status === 'onbackorder') {
         echo '<span class="stock-status on-order">На заказ</span>';
     } else {
         echo '<span class="stock-status out-of-stock">Нет в наличии</span>';
     }
-}
+});
 
+/* ---------- UI cleanup ---------- */
 remove_action('woocommerce_before_main_content', 'woocommerce_breadcrumb', 20);
 remove_action('woocommerce_sidebar', 'woocommerce_get_sidebar', 10);
+add_filter('woocommerce_quantity_input_type', fn() => 'text');
 
-add_filter('woocommerce_quantity_input_type', 'sf_quantity_input_text');
-function sf_quantity_input_text($type)
-{
-    return 'text';
-}
-
-/**
- * Вывод атрибутов (характеристик) товара 
- */
-
+/* ---------- Product attributes ---------- */
 function sf_product_attributes()
 {
     global $product;
-
-    if (! $product) {
-        return;
-    }
+    if (! $product) return;
 
     $attributes = $product->get_attributes();
-
-    if (empty($attributes)) {
-        return;
-    }
+    if (empty($attributes)) return;
 ?>
     <div class="product-specs">
         <?php foreach ($attributes as $attribute) :
-
-            // Название характеристики
             $label = wc_attribute_label($attribute->get_name());
 
-            // Значение
             if ($attribute->is_taxonomy()) {
                 $values = wc_get_product_terms(
                     $product->get_id(),
@@ -75,392 +61,182 @@ function sf_product_attributes()
                 $value = implode(', ', $attribute->get_options());
             }
 
-            if (! $value) {
-                continue;
-            }
+            if (! $value) continue;
         ?>
-
             <div class="product-specs__row">
-                <div class="product-specs__name">
-                    <?php echo esc_html($label); ?>
-                </div>
-                <div class="product-specs__value">
-                    <?php echo esc_html($value); ?>
-                </div>
+                <div class="product-specs__name"><?= esc_html($label); ?></div>
+                <div class="product-specs__value"><?= esc_html($value); ?></div>
             </div>
-
         <?php endforeach; ?>
     </div>
-    <?php
-}
+    <?php }
 
+/* ---------- AJAX add to cart ---------- */
 add_action('wp_ajax_ajax_add_to_cart', 'theme_ajax_add_to_cart');
 add_action('wp_ajax_nopriv_ajax_add_to_cart', 'theme_ajax_add_to_cart');
 
 function theme_ajax_add_to_cart()
 {
-    if (empty($_POST['add-to-cart'])) {
-        wp_send_json_error();
-    }
+    $product_id = intval($_POST['add-to-cart'] ?? 0);
+    $qty        = intval($_POST['quantity'] ?? 1);
 
-    $product_id = intval($_POST['add-to-cart']);
-    $quantity   = isset($_POST['quantity']) ? intval($_POST['quantity']) : 1;
+    if (! $product_id) wp_send_json_error();
 
-    $added = WC()->cart->add_to_cart($product_id, $quantity);
+    $key = WC()->cart->add_to_cart($product_id, $qty);
 
-    if ($added) {
-        // -----------------------
-        // Очищаем уведомления из сессии WooCommerce,
-        // чтобы они не появлялись повторно на других страницах
-        // -----------------------
-        if (isset(WC()->session)) {
-            WC()->session->__unset('wc_notices');
-        }
-
+    if ($key) {
+        WC()->session?->__unset('wc_notices');
         wp_send_json_success([
             'cart_count' => WC()->cart->get_cart_contents_count(),
         ]);
-    } else {
-        wp_send_json_error();
     }
+
+    wp_send_json_error();
 }
 
+/* ---------- selected logic ---------- */
 
+// по умолчанию товар выбран
+add_action('woocommerce_add_to_cart', function ($key) {
+    if (isset(WC()->cart->cart_contents[$key])) {
+        WC()->cart->cart_contents[$key]['selected'] = 1;
+    }
+}, 10);
 
-// // По умолчанию — товар считается "отмеченным"
-// add_action('woocommerce_add_to_cart', function ($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data) {
+// AJAX переключение чекбокса
+add_action('wp_ajax_toggle_cart_item', 'sf_toggle_cart_item');
+add_action('wp_ajax_nopriv_toggle_cart_item', 'sf_toggle_cart_item');
 
-//     if (isset(WC()->cart->cart_contents[$cart_item_key])) {
-//         WC()->cart->cart_contents[$cart_item_key]['selected'] = 1;
-//     }
-// }, 10, 6);
+function sf_toggle_cart_item()
+{
+    if (
+        empty($_POST['cart_item_key']) ||
+        ! isset(WC()->cart->cart_contents[$_POST['cart_item_key']])
+    ) {
+        wp_send_json_error();
+    }
 
-// // Убираем из корзины позиции без чекбокса — только при обновлении корзины
-// add_action('woocommerce_before_calculate_totals', function ($cart) {
+    $key = wc_clean($_POST['cart_item_key']);
+    $selected = ! empty($_POST['selected']) ? 1 : 0;
 
-//     if (is_admin() && ! defined('DOING_AJAX')) {
-//         return;
-//     }
+    WC()->cart->cart_contents[$key]['selected'] = $selected;
+    WC()->cart->set_session();
 
-//     // Выполняем ТОЛЬКО если нажата кнопка "Обновить корзину"
-//     if (empty($_POST['update_cart'])) {
-//         return;
-//     }
+    // 🔥 ВАЖНО
+    WC()->cart->calculate_totals();
 
-//     if (empty($_POST['cart'])) {
-//         return;
-//     }
+    wp_send_json_success([
+        'totals' => WC()->cart->get_totals(),
+    ]);
+}
 
-//     foreach ($cart->get_cart() as $key => $item) {
+// ❗ единственное место, где selected влияет на корзину
+add_action('woocommerce_before_calculate_totals', function ($cart) {
 
-//         // если чекбокса нет — удаляем позицию
-//         if (empty($_POST['cart'][$key]['selected'])) {
-//             $cart->remove_cart_item($key);
-//         }
-//     }
-// });
-
-
-// add_filter('woocommerce_cart_item_set_quantity', function ($quantity, $cart_item_key) {
-//     if (isset($_POST['cart'][$cart_item_key]['selected'])) {
-//         WC()->cart->cart_contents[$cart_item_key]['selected'] = 1;
-//     } else {
-//         WC()->cart->cart_contents[$cart_item_key]['selected'] = 0;
-//     }
-
-//     return $quantity;
-// }, 10, 2);
-
-// add_action('woocommerce_before_calculate_totals', function ($cart) {
-
-//     if (is_admin() && ! defined('DOING_AJAX')) {
-//         return;
-//     }
-
-//     foreach ($cart->get_cart() as $key => $item) {
-//         if (empty($item['selected'])) {
-//             $cart->remove_cart_item($key);
-//         }
-//     }
-// });
-
-
-//список товаров в заказе 
-add_action('sf_checkout_products_block', function () {
-
-    if (WC()->cart->is_empty()) {
+    if (is_admin() && ! defined('DOING_AJAX')) {
         return;
     }
+
+    foreach ($cart->get_cart() as $cart_item) {
+        if (empty($cart_item['selected'])) {
+            $cart_item['data']->set_price(0);
+        }
+    }
+}, 100);
+
+/* ---------- Checkout products block ---------- */
+add_action('sf_checkout_products_block', function () {
+
+    if (WC()->cart->is_empty()) return;
 
     echo '<div class="checkout-products-block">';
     echo '<h3>Товары в заказе</h3>';
     echo '<div class="cart-flex woocommerce-cart-form__contents">';
 
-    foreach (WC()->cart->get_cart() as $cart_item_key => $cart_item) {
+    foreach (WC()->cart->get_cart() as $item) {
+        $_product = $item['data'];
+        if (! $_product || ! $_product->exists()) continue;
 
-        $_product = $cart_item['data'];
-
-        if (! $_product || ! $_product->exists()) {
-            continue;
-        }
-
-        $product_id        = $_product->get_id();
-        $product_permalink = $_product->is_visible() ? $_product->get_permalink() : '';
-        $qty               = $cart_item['quantity'];
-        $thumb             = $_product->get_image();
+        $qty = $item['quantity'];
     ?>
         <div class="cart-flex__row cart_item">
-
             <div class="cart-flex__col cart-flex__col--product">
                 <div class="cart-product-item">
-                    <?php
-                    if ($product_permalink) {
-                        printf('<a href="%s" class="product-thumb">%s</a>', esc_url($product_permalink), $thumb);
-                    } else {
-                        echo $thumb;
-                    }
-                    ?>
+                    <?= $_product->get_image(); ?>
                     <div class="cart-product-item__name">
-                        <?php
-                        echo esc_html($_product->get_name());
-
-                        $sku = $_product->get_sku();
-                        if ($sku) {
-                            echo '<div class="product-sku">Артикул: ' . esc_html($sku) . '</div>';
-                        }
-                        ?>
+                        <?= esc_html($_product->get_name()); ?>
+                        <?php if ($sku = $_product->get_sku()) : ?>
+                            <div class="product-sku">Артикул: <?= esc_html($sku); ?></div>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
 
             <div class="cart-flex__col cart-flex__col--price">
-                <div class="cart-flex__col__label">Цена:</div>
-                <span class="price"><?php echo WC()->cart->get_product_price($_product); ?></span>
+                <?= WC()->cart->get_product_price($_product); ?>
             </div>
 
             <div class="cart-flex__col cart-flex__col--qty">
-                <div class="cart-flex__col__label">Кол-во:</div>
-                <?php echo esc_html($qty); ?>
+                <?= esc_html($qty); ?>
             </div>
 
             <div class="cart-flex__col cart-flex__col--total">
-                <div class="cart-flex__col__label">Сумма:</div>
-                <span class="price">
-                    <?php echo WC()->cart->get_product_subtotal($_product, $qty); ?>
-                </span>
+                <?= WC()->cart->get_product_subtotal($_product, $qty); ?>
             </div>
-
         </div>
-    <?php
-    }
+    <?php }
 
     echo '</div></div>';
 });
 
+/* ---------- Cart count fragment ---------- */
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
-    //$fragments['.cart-count'] = '<span class="cart-count">' . count(WC()->cart->get_cart()) . '</span>';
+    ob_start();
+    ?>
+    <span class="cart-count"><?= WC()->cart->get_cart_contents_count(); ?></span>
+<?php
+    $fragments['span.cart-count'] = ob_get_clean();
     return $fragments;
 });
 
-// add_filter('woocommerce_checkout_fields', function ($checkout_fields) {
-
-//     $checkout_fields['billing']['billing_first_name']['placeholder'] = 'Как вас зовут?';
-//     //echo '<pre>';print_r( $checkout_fields );exit;
-//     return $checkout_fields;
-// });
-
-// add_filter('woocommerce_order_button_html', function ($html) {
-
-//     return str_replace('button alt', 'btn btn-full btn-black mt-26', $html);
-// });
-
-// Добавляем единое поле "ФИО" и убираем стандартные
+/* ---------- Checkout fields (единый блок) ---------- */
 add_filter('woocommerce_checkout_fields', function ($fields) {
 
-    // убираем стандартные
-    unset($fields['billing']['billing_first_name']);
-    unset($fields['billing']['billing_last_name']);
-
-    // добавляем наше
-    $fields['billing']['billing_full_name'] = [
-        'type'        => 'text',
-        'label'       => 'Имя и фамилия',
-        'required'    => true,
-        'class'       => ['form-row-wide'],
-        'priority'    => 10,
-        'autocomplete' => 'name',
-        'placeholder' => 'Ф.И.О.',
-    ];
-
-    return $fields;
-});
-
-add_action('wp_footer', function () {
-    if (! is_cart()) return;
-    ?>
-    <script>
-        jQuery(function($) {
-            $(document).on('change', '.qty', function() {
-                $('[name="update_cart"]').trigger('click');
-            });
-        });
-    </script>
-<?php
-});
-
-// При сохранении — разбиваем на имя и фамилию
-add_action('woocommerce_checkout_create_order', function ($order, $data) {
-
-    if (! empty($data['billing_full_name'])) {
-        $full = trim($data['billing_full_name']);
-
-        // Простейшая логика: первое слово — имя, всё остальное — фамилия
-        $parts = preg_split('/\s+/u', $full);
-
-        $first = array_shift($parts);
-        $last  = count($parts) ? implode(' ', $parts) : '';
-
-        $order->set_billing_first_name($first);
-        $order->set_billing_last_name($last);
-
-        // Для аккаунта/профиля покупателя — тоже запишем
-        if ($customer = $order->get_customer_id()) {
-            update_user_meta($customer, 'billing_first_name', $first);
-            update_user_meta($customer, 'billing_last_name', $last);
-        }
-    }
-}, 10, 2);
-
-add_filter('woocommerce_checkout_fields', function ($fields) {
-
-    // 🔹 Удаляем стандартные поля
-    unset($fields['billing']['billing_first_name']);
-    unset($fields['billing']['billing_last_name']);
-
-    // 🔹 Добавляем наше поле
-    $fields['billing']['billing_full_name'] = array(
-        'type'        => 'text',
-        'label'       => 'Имя и фамилия',
-        'placeholder' => 'Например: Иван Петров',
-        'required'    => true,
-        'priority'    => 10,   // тут оно становится первым
-        'class'       => array('form-row-wide'),
+    unset(
+        $fields['billing']['billing_first_name'],
+        $fields['billing']['billing_last_name'],
+        $fields['billing']['billing_address_1'],
+        $fields['billing']['billing_address_2']
     );
 
-    // 🔹 дальше — твой порядок
-    $fields['billing']['billing_phone']['priority']     = 20;
-    $fields['billing']['billing_email']['priority']     = 30;
-    $fields['billing']['billing_country']['priority']   = 40;
-    $fields['billing']['billing_city']['priority']      = 50;
-    $fields['billing']['billing_address_1']['priority'] = 60;
-    $fields['billing']['billing_postcode']['priority']  = 70;
+    $fields['billing']['billing_full_name'] = [
+        'type' => 'text',
+        'label' => 'Имя и фамилия',
+        'required' => true,
+        'priority' => 10,
+        'class' => ['form-row-wide'],
+    ];
 
-    return $fields;
-});
-
-// Единое поле "Адрес"
-add_filter('woocommerce_checkout_fields', function ($fields) {
-
-    // убираем стандартные поля адреса
-    unset($fields['billing']['billing_address_1']);
-    unset($fields['billing']['billing_address_2']);
-
-    // (по желанию можно убрать и город / индекс)
-    // unset( $fields['billing']['billing_city'] );
-    // unset( $fields['billing']['billing_postcode'] );
-
-    // добавляем новое поле
     $fields['billing']['billing_full_address'] = [
-        'type'        => 'text',
-        'label'       => 'Адрес',
-        'required'    => true,
-        'class'       => ['form-row-wide'],
-        'priority'    => 55,
-        'placeholder' => 'Например: ул. Ленина, д. 5, кв. 12',
-        'autocomplete' => 'street-address',
+        'type' => 'text',
+        'label' => 'Адрес',
+        'required' => true,
+        'priority' => 55,
+        'class' => ['form-row-wide'],
     ];
 
     return $fields;
 });
 
-// Фрагмент для обновления счетчика корзины
-add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
+/* ---------- Split name on order ---------- */
+add_action('woocommerce_checkout_create_order', function ($order, $data) {
 
-    $count = WC()->cart->get_cart_contents_count();
+    if (empty($data['billing_full_name'])) return;
 
-    ob_start();
-?>
-    <span class="cart-count"><?php echo esc_html($count); ?></span>
-<?php
+    $parts = preg_split('/\s+/u', trim($data['billing_full_name']));
+    $first = array_shift($parts);
+    $last  = implode(' ', $parts);
 
-    $fragments['span.cart-count'] = ob_get_clean();
-
-    return $fragments;
-});
-
-// add_action('init', function () {
-//     add_rewrite_endpoint('support', EP_ROOT | EP_PAGES);
-// });
-
-// Убираем тип "Вариативный товар" из админки
-// add_filter('product_type_selector', function ($types) {
-//     unset($types['variable']);
-//     return $types;
-// });
-
-// add_action('wp_ajax_calc_single_price', 'calc_single_price');
-// add_action('wp_ajax_nopriv_calc_single_price', 'calc_single_price');
-
-// function calc_single_price()
-// {
-//     $product_id = intval($_POST['product_id'] ?? 0);
-//     $qty        = intval($_POST['qty'] ?? 1);
-
-//     $product = wc_get_product($product_id);
-//     if (!$product) wp_send_json_error();
-
-//     $price = $product->get_price() * $qty;
-
-//     wp_send_json_success([
-//         'price_html' => wc_price($price)
-//     ]);
-// }
-
-
-
-// add_filter('woocommerce_get_children', 'sort_variations_by_menu_order', 10, 2);
-// function sort_variations_by_menu_order($children, $product)
-// {
-
-//     if (! $product || $product->get_type() !== 'variable') {
-//         return $children;
-//     }
-
-//     global $wpdb;
-
-//     $ids = implode(',', array_map('absint', $children));
-
-//     if (empty($ids)) {
-//         return $children;
-//     }
-
-//     return $wpdb->get_col("
-//         SELECT ID
-//         FROM {$wpdb->posts}
-//         WHERE ID IN ($ids)
-//         ORDER BY menu_order ASC
-//     ");
-// }
-
-// add_filter('woocommerce_dropdown_variation_attribute_options_args', function ($args) {
-//     $args['orderby'] = 'menu_order';
-//     return $args;
-// });
-
-// add_filter(
-//     'woocommerce_dropdown_variation_attribute_options_args',
-//     function ($args) {
-//         $args['orderby'] = 'menu_order';
-//         return $args;
-//     }
-// );
+    $order->set_billing_first_name($first);
+    $order->set_billing_last_name($last);
+}, 10, 2);
