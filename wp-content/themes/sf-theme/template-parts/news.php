@@ -21,7 +21,7 @@
                     <?php endwhile; ?>
                 </div>
             </div>
-            <a href="/" class="btn btn-news">Все новости</a>
+            <a href="/news" class="btn btn-news">Все новости</a>
         <?php endif; ?>
 
         <?php wp_reset_postdata(); ?>
