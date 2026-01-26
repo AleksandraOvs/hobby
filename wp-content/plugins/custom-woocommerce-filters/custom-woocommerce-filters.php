@@ -37,33 +37,51 @@ add_action('wp_enqueue_scripts', function () {
     ]);
 });
 
-
 /* ---------------------------------------------------
- * Диапазон цен магазина
+ * Диапазон цен магазина и категорий
  * --------------------------------------------------- */
-function cwc_get_store_price_range()
+function cwc_get_category_price_range($category_id = 0)
 {
-    $ids = wc_get_products([
+    $args = [
         'status' => 'publish',
-        'limit'  => -1,
-        'return' => 'ids',
-    ]);
+        'limit' => -1,
+    ];
 
+    if ($category_id) {
+        $args['tax_query'] = [[
+            'taxonomy' => 'product_cat',
+            'field'    => 'term_id',
+            'terms'    => $category_id,
+        ]];
+    }
+
+    $products = wc_get_products($args);
     $prices = [];
 
-    foreach ($ids as $id) {
-        $price = get_post_meta($id, '_price', true);
-        if (is_numeric($price)) {
-            $prices[] = (float)$price;
+    foreach ($products as $product) {
+        if ($product->is_type('variable')) {
+            $prices[] = (float)$product->get_variation_price('min', true);
+            $prices[] = (float)$product->get_variation_price('max', true);
+        } else {
+            $prices[] = (float)$product->get_price();
         }
     }
 
+    if (!$prices) {
+        return [0, 100000];
+    }
+
     return [
-        $prices ? floor(min($prices)) : 0,
-        $prices ? ceil(max($prices)) : 100000
+        floor(min($prices)),
+        ceil(max($prices)),
     ];
 }
 
+// Диапазон цен всего магазина
+function cwc_get_store_price_range()
+{
+    return cwc_get_category_price_range(0);
+}
 
 /* ---------------------------------------------------
  * Определение типа атрибута
@@ -89,7 +107,6 @@ function cwc_detect_attribute_type($taxonomy)
     return 'numeric';
 }
 
-
 /* ---------------------------------------------------
  * Все атрибуты WooCommerce
  * --------------------------------------------------- */
@@ -105,7 +122,6 @@ function cwc_get_all_product_attributes()
     return $out;
 }
 
-
 /* ---------------------------------------------------
  * Очистка заголовка
  * --------------------------------------------------- */
@@ -113,7 +129,6 @@ function cwc_clean_title($title)
 {
     return preg_replace('/^Товар\s*[:\-–—]?\s*/ui', '', $title);
 }
-
 
 /* ---------------------------------------------------
  * ТЕКСТОВЫЙ АТРИБУТ
@@ -176,9 +191,8 @@ function cwc_render_attribute_filter($taxonomy, $title, $current_cat_id = 0)
     return ob_get_clean();
 }
 
-
 /* ---------------------------------------------------
- * ЧИСЛОВОЙ АТРИБУТ (ИСПРАВЛЕНО: min / max ВОЗВРАЩЕНЫ)
+ * ЧИСЛОВОЙ АТРИБУТ
  * --------------------------------------------------- */
 function cwc_render_numeric_attribute_filter($taxonomy, $title, $current_cat_id = 0)
 {
@@ -214,10 +228,7 @@ function cwc_render_numeric_attribute_filter($taxonomy, $title, $current_cat_id 
 
     ob_start(); ?>
     <div class="single-sidebar-wrap">
-        <h3 class="sidebar-title">
-            <?php echo esc_html(cwc_clean_title($title)); ?>
-        </h3>
-
+        <h3 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h3>
         <div class="sidebar-body">
             <div class="range-inputs" data-taxonomy="<?php echo esc_attr($taxonomy); ?>">
                 <div class="price-input">
@@ -230,7 +241,6 @@ function cwc_render_numeric_attribute_filter($taxonomy, $title, $current_cat_id 
                         max="<?php echo esc_attr($max); ?>"
                         value="<?php echo esc_attr($min); ?>">
                 </div>
-
                 <div class="price-input">
                     <span class="price-prefix">До</span>
                     <input
@@ -248,41 +258,11 @@ function cwc_render_numeric_attribute_filter($taxonomy, $title, $current_cat_id 
     return ob_get_clean();
 }
 
-function cwc_get_category_price_range($category_id = 0)
-{
-    $args = [
-        'status' => 'publish',
-        'limit'  => -1,
-    ];
-
-    if ($category_id) {
-        $args['tax_query'] = [[
-            'taxonomy' => 'product_cat',
-            'field'    => 'term_id',
-            'terms'    => $category_id,
-        ]];
-    }
-
-    $ids = wc_get_products($args);
-    $prices = [];
-
-    foreach ($ids as $product) {
-        $prices[] = (float) $product->get_price();
-    }
-
-    return [
-        $prices ? floor(min($prices)) : 0,
-        $prices ? ceil(max($prices)) : 100000,
-    ];
-}
-
 /* ---------------------------------------------------
  * ФИЛЬТР ЦЕНЫ
  * --------------------------------------------------- */
 function cwc_render_price_filter()
 {
-    //list($min, $max) = cwc_get_store_price_range();
-
     $current_cat_id = is_product_category() ? get_queried_object_id() : 0;
     list($min, $max) = cwc_get_category_price_range($current_cat_id);
 
@@ -303,9 +283,8 @@ function cwc_render_price_filter()
     return ob_get_clean();
 }
 
-
 /* ---------------------------------------------------
- * ШОРТКОД — ПРАВИЛЬНЫЙ ПОРЯДОК
+ * ШОРТКОД
  * --------------------------------------------------- */
 function cwc_shop_filters_shortcode()
 {
@@ -363,9 +342,6 @@ add_shortcode('shop_filters', 'cwc_shop_filters_shortcode');
 /* ---------------------------------------------------
  * AJAX: фильтрация товаров
  * --------------------------------------------------- */
-// add_action('wp_ajax_cwc_filter_products', 'cwc_filter_products_callback');
-// add_action('wp_ajax_nopriv_cwc_filter_products', 'cwc_filter_products_callback');
-
 function cwc_filter_products_callback()
 {
     if (!isset($_POST['action']) || $_POST['action'] !== 'cwc_filter_products') {
@@ -385,10 +361,9 @@ function cwc_filter_products_callback()
         if (strpos($key, 'filter_') === 0 && $key !== 'filter_current_cat_id') {
             $taxonomy = str_replace('filter_', '', $key);
 
-            if ($taxonomy === 'price') continue; // цена отдельно
+            if ($taxonomy === 'price') continue;
 
             if (is_numeric($value)) {
-                // числовой атрибут
                 $meta_query[] = [
                     'key' => $taxonomy,
                     'value' => floatval($value),
@@ -396,7 +371,6 @@ function cwc_filter_products_callback()
                     'type' => 'NUMERIC',
                 ];
             } else {
-                // текстовый атрибут
                 $tax_query[] = [
                     'taxonomy' => $taxonomy,
                     'field' => 'slug',
@@ -406,13 +380,31 @@ function cwc_filter_products_callback()
         }
     }
 
-    // Цена
+    // Фильтр по цене
     if (isset($_POST['min_price']) && isset($_POST['max_price'])) {
+        $min_price = floatval($_POST['min_price']);
+        $max_price = floatval($_POST['max_price']);
+
         $meta_query[] = [
-            'key' => '_price',
-            'value' => [floatval($_POST['min_price']), floatval($_POST['max_price'])],
-            'compare' => 'BETWEEN',
-            'type' => 'NUMERIC',
+            'relation' => 'OR',
+            [
+                'key' => '_price',
+                'value' => [$min_price, $max_price],
+                'compare' => 'BETWEEN',
+                'type' => 'NUMERIC',
+            ],
+            [
+                'key' => '_min_variation_price',
+                'value' => [$min_price, $max_price],
+                'compare' => '<=',
+                'type' => 'NUMERIC',
+            ],
+            [
+                'key' => '_max_variation_price',
+                'value' => [$min_price, $max_price],
+                'compare' => '>=',
+                'type' => 'NUMERIC',
+            ],
         ];
     }
 
