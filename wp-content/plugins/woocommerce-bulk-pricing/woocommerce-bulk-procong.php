@@ -200,12 +200,6 @@ function wc_render_bulk_discount_table($product = null)
     <div class="bulk-discount-flex">
         <h4>Скидки</h4>
 
-        <div class="bulk-discount-item">
-            <span>От 1 шт.</span>
-            <span><?php echo wc_price($base_price); ?>/шт.</span>
-            <span>Розница</span>
-        </div>
-
         <?php foreach ($discounts as $row):
             $final = $base_price * (1 - $row['discount'] / 100); ?>
             <div class="bulk-discount-item">

@@ -280,10 +280,10 @@ add_action('woocommerce_review_order_after_shipping', function () {
     foreach ($packages as $i => $package) {
         foreach ($package['rates'] as $rate_id => $rate) {
             if ($rate_id === $chosen[$i]) {
-                echo '<tr class="chosen-shipping">';
-                echo '<th>Доставка</th>';
-                echo '<td>' . esc_html($rate->get_label()) . ': ' . wc_price($rate->get_cost()) . '</td>';
-                echo '</tr>';
+                echo '<div class="review-order__row">';
+                echo '<div class="review-order__col">Доставка</div>';
+                echo '<div class="review-order__col">' . esc_html($rate->get_label()) . ': ' . wc_price($rate->get_cost()) . '</div>';
+                echo '</div>';
             }
         }
     }
