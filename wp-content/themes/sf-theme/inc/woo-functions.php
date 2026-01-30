@@ -288,3 +288,41 @@ add_action('woocommerce_review_order_after_shipping', function () {
         }
     }
 });
+
+add_action('woocommerce_review_order_before_submit', 'add_checkout_agreement_checkbox', 9);
+function add_checkout_agreement_checkbox()
+{
+?>
+    <p class="form-row checkout-agreement">
+        <label class="woocommerce-form__label woocommerce-form__label-for-checkbox">
+            <input type="checkbox" name="checkout_agreement" id="checkout_agreement">
+            <span>Я согласен с условиями обработки персональных данных</span>
+        </label>
+    </p>
+<?php
+}
+
+add_action('wp_footer', 'checkout_agreement_script');
+function checkout_agreement_script()
+{
+    if (!is_checkout()) return;
+?>
+    <script>
+        jQuery(function($) {
+            const $checkbox = $('#checkout_agreement');
+            const $button = $('#place_order');
+
+            // изначально блокируем кнопку
+            $button.prop('disabled', true).addClass('disabled');
+
+            $checkbox.on('change', function() {
+                if ($(this).is(':checked')) {
+                    $button.prop('disabled', false).removeClass('disabled');
+                } else {
+                    $button.prop('disabled', true).addClass('disabled');
+                }
+            });
+        });
+    </script>
+<?php
+}

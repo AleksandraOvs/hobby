@@ -261,6 +261,11 @@
 .checkout.woocommerce-checkout {
     display: flex;
     gap: 20px;
+    flex-wrap: wrap;
+}
+
+.woocommerce-NoticeGroup.woocommerce-NoticeGroup-checkout {
+    width: 100%;
 }
 
 .checkout.woocommerce-checkout .checkout-order-fields {
