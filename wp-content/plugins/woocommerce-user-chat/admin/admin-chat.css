@@ -14,6 +14,8 @@
     margin: 0;
     list-style: none;
     background: #fff;
+    display: flex;
+    flex-direction: column;
 
 }
 
@@ -25,6 +27,9 @@
     text-align: center;
     border-bottom: 1px solid #f2ddc8;
     transition: all .5s linear;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .wc-user-list li:hover {
@@ -34,10 +39,16 @@
 .wc-unread-count {
     color: #fff;
     background: #d63638;
-    border-radius: 10px;
-    padding: 2px 6px;
+    border-radius: 100%;
     font-size: 12px;
     margin-left: 6px;
+    width: 15px;
+    height: 15px;
+    display: block;
+    padding: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .wc-chat-box {

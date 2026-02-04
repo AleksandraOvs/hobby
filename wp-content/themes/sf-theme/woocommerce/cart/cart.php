@@ -95,6 +95,7 @@ defined('ABSPATH') || exit;
 										<label>
 											<input type="checkbox"
 												class="cart-item-checkbox"
+												data-key="<?php echo esc_attr($cart_item_key); ?>"
 												name="cart[<?php echo $cart_item_key; ?>][selected]"
 												value="1"
 												<?php checked(1, isset($cart_item['selected']) ? $cart_item['selected'] : 1); ?>>
@@ -225,69 +226,6 @@ defined('ABSPATH') || exit;
 	</div>
 
 	<?php woocommerce_cart_totals(); ?>
-
-	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-
-			const selectAll = document.getElementById('select-all');
-			const checkboxes = () => document.querySelectorAll('.cart-item-checkbox');
-			const form = document.querySelector('.woocommerce-cart-form');
-			const countEl = document.getElementById('selected-count');
-
-			function updateCount() {
-				const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
-				countEl.textContent = checked;
-			}
-
-			// Начальный подсчет выбранных
-			updateCount();
-
-			// Обработка "Все / Не все"
-			selectAll.addEventListener('change', function() {
-				const checked = this.checked;
-				checkboxes().forEach(cb => cb.checked = checked);
-				updateCount();
-
-				// Добавляем скрытые поля selected для формы
-				checkboxes().forEach(cb => {
-					const key = cb.dataset.key;
-					let input = form.querySelector('input[name="cart[' + key + '][selected]"]');
-					if (!input) {
-						input = document.createElement('input');
-						input.type = 'hidden';
-						input.name = 'cart[' + key + '][selected]';
-						form.appendChild(input);
-					}
-					input.value = cb.checked ? '1' : '0';
-				});
-
-				// Авто-обновление корзины
-				form.querySelector('[name="update_cart"]').click();
-			});
-
-			// Если вручную кликают по отдельной галочке
-			document.addEventListener('change', function(e) {
-				if (e.target.classList.contains('cart-item-checkbox')) {
-					const all = checkboxes().length;
-					const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
-					selectAll.checked = all === checked;
-					updateCount();
-
-					// Обновляем hidden поля для формы
-					const key = e.target.dataset.key;
-					let input = form.querySelector('input[name="cart[' + key + '][selected]"]');
-					if (!input) {
-						input = document.createElement('input');
-						input.type = 'hidden';
-						input.name = 'cart[' + key + '][selected]';
-						form.appendChild(input);
-					}
-					input.value = e.target.checked ? '1' : '0';
-				}
-			});
-
-		});
-	</script>
 
 </div>
 
