@@ -370,6 +370,10 @@
     margin-bottom: 0;
 }
 
+.woocommerce-mini-cart-item::after {
+    content: none !important;
+}
+
 .price-base._old {
     position: absolute;
     line-height: 1;
