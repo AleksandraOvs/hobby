@@ -141,7 +141,7 @@ $count = count($valid_images);
                         ?>
                             <a href="<?php echo esc_url($url); ?>" class="work-modal-product-link">
                                 <?php echo esc_html($title); ?>
-                            </a><?php echo ($i < $total) ? ', ' : '.'; ?>
+                            </a><?php echo ($i < $total) ? ', ' : ''; ?>
                         <?php endforeach; ?>
                     </div>
                 <?php endif; ?>
