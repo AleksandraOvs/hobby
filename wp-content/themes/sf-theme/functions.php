@@ -524,8 +524,8 @@ add_action('add_meta_boxes', function () {
 		'Содержание страницы',
 		'render_page_docs_toc_metabox',
 		'page',
-		'side',
-		'default'
+		'normal',
+		'high'
 	);
 });
 
