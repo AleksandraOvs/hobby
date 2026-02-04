@@ -635,6 +635,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     justify-content: flex-start;
     align-items: flex-start;
     gap: 10px;
+    flex-direction: column;
 }
 
 .cart-discount p span.amount {
@@ -900,7 +901,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
         width: 100%;
         justify-content: space-between;
         align-items: center;
-
+        flex-direction: row;
     }
 
     .cart-totals__info .cart-totals__info__item:not(:last-child) {
