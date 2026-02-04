@@ -147,4 +147,64 @@ document.addEventListener('change', e => {
             jQuery(document.body).trigger('update_checkout');
         });
     });
-}); 
+});
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const selectAll = document.getElementById('select-all');
+    const countEl = document.getElementById('selected-count');
+    const removeBtn = document.getElementById('remove-selected');
+
+    function getCheckboxes() {
+        return document.querySelectorAll('.cart-item-checkbox');
+    }
+
+    function updateCount() {
+        const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
+        countEl.textContent = checked;
+
+        const all = getCheckboxes().length;
+        if (selectAll) {
+            selectAll.checked = all > 0 && checked === all;
+        }
+    }
+
+    // выбрать все
+    document.addEventListener('change', function (e) {
+        if (e.target.id === 'select-all') {
+            getCheckboxes().forEach(cb => cb.checked = e.target.checked);
+            updateCount();
+        }
+    });
+
+    // изменение одного
+    document.addEventListener('change', function (e) {
+        if (!e.target.classList.contains('cart-item-checkbox')) return;
+        updateCount();
+    });
+
+    // удаление выбранных
+    document.addEventListener('click', function (e) {
+        if (e.target.closest('#remove-selected')) {
+
+            const selected = document.querySelectorAll('.cart-item-checkbox:checked');
+            if (!selected.length) return;
+
+            let requests = [];
+
+            selected.forEach(cb => {
+                const row = cb.closest('.cart_item');
+                const link = row?.querySelector('.remove');
+                if (link) {
+                    requests.push(fetch(link.href, {
+                        credentials: 'same-origin'
+                    }));
+                }
+            });
+
+            Promise.all(requests).then(() => location.reload());
+        }
+    });
+
+    updateCount();
+});
