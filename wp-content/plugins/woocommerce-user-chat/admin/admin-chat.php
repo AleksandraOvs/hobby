@@ -298,7 +298,38 @@ add_action('wp_ajax_wc_user_chat_send_admin', function () {
         }
     }
 
-    // Сохраняем сообщение
+    // // Сохраняем сообщение
+    // $wpdb->insert($table_name, [
+    //     'user_id'   => $user_id,
+    //     'message'   => $message,
+    //     'file_name' => $file_name,
+    //     'file_url'  => $file_url,
+    //     'sender'    => 'admin',
+    //     'is_read'   => 1,
+    //     'sent_at'   => current_time('mysql')
+    // ]);
+
+    // wp_send_json_success([
+    //     'message'   => $message,
+    //     'file_name' => $file_name,
+    //     'file_url'  => $file_url
+    // ]);
+
+    // Сохраняем сообщение и уведомляем пользователя
+    wc_user_chat_send_admin_message($user_id, $message, $file_name, $file_url);
+
+    wp_send_json_success([
+        'message'   => $message,
+        'file_name' => $file_name,
+        'file_url'  => $file_url
+    ]);
+});
+
+function wc_user_chat_send_admin_message($user_id, $message, $file_name = '', $file_url = '')
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'wc_user_chat';
+
     $wpdb->insert($table_name, [
         'user_id'   => $user_id,
         'message'   => $message,
@@ -309,9 +340,17 @@ add_action('wp_ajax_wc_user_chat_send_admin', function () {
         'sent_at'   => current_time('mysql')
     ]);
 
-    wp_send_json_success([
-        'message'   => $message,
-        'file_name' => $file_name,
-        'file_url'  => $file_url
-    ]);
-});
+    // уведомление
+    $file_html = '';
+    if (!empty($file_url)) {
+        $ext = strtolower(pathinfo($file_url, PATHINFO_EXTENSION));
+        $img_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (in_array($ext, $img_exts, true)) {
+            $file_html = '<img src="' . esc_url($file_url) . '" style="max-width:200px;" />';
+        } else {
+            $file_html = '<a href="' . esc_url($file_url) . '" target="_blank">' . esc_html($file_name) . '</a>';
+        }
+    }
+
+    wc_user_chat_notify_user($user_id, $message, $file_html);
+}

@@ -231,54 +231,61 @@ defined('ABSPATH') || exit;
 
 			const selectAll = document.getElementById('select-all');
 			const checkboxes = () => document.querySelectorAll('.cart-item-checkbox');
+			const form = document.querySelector('.woocommerce-cart-form');
 			const countEl = document.getElementById('selected-count');
-			const removeBtn = document.getElementById('remove-selected');
 
 			function updateCount() {
 				const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
 				countEl.textContent = checked;
 			}
 
-			// начальный подсчет
+			// Начальный подсчет выбранных
 			updateCount();
 
-			// Все / не все
+			// Обработка "Все / Не все"
 			selectAll.addEventListener('change', function() {
-				checkboxes().forEach(cb => cb.checked = this.checked);
+				const checked = this.checked;
+				checkboxes().forEach(cb => cb.checked = checked);
 				updateCount();
+
+				// Добавляем скрытые поля selected для формы
+				checkboxes().forEach(cb => {
+					const key = cb.dataset.key;
+					let input = form.querySelector('input[name="cart[' + key + '][selected]"]');
+					if (!input) {
+						input = document.createElement('input');
+						input.type = 'hidden';
+						input.name = 'cart[' + key + '][selected]';
+						form.appendChild(input);
+					}
+					input.value = cb.checked ? '1' : '0';
+				});
+
+				// Авто-обновление корзины
+				form.querySelector('[name="update_cart"]').click();
 			});
 
-			// если вручную кликают
+			// Если вручную кликают по отдельной галочке
 			document.addEventListener('change', function(e) {
 				if (e.target.classList.contains('cart-item-checkbox')) {
 					const all = checkboxes().length;
 					const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
 					selectAll.checked = all === checked;
 					updateCount();
+
+					// Обновляем hidden поля для формы
+					const key = e.target.dataset.key;
+					let input = form.querySelector('input[name="cart[' + key + '][selected]"]');
+					if (!input) {
+						input = document.createElement('input');
+						input.type = 'hidden';
+						input.name = 'cart[' + key + '][selected]';
+						form.appendChild(input);
+					}
+					input.value = e.target.checked ? '1' : '0';
 				}
 			});
 
-			// Удаление выбранных
-			removeBtn.addEventListener('click', function() {
-
-				const selected = Array.from(
-					document.querySelectorAll('.cart-item-checkbox:checked')
-				).map(cb => cb.value);
-
-				if (!selected.length) return;
-
-				const form = document.querySelector('.woocommerce-cart-form');
-
-				selected.forEach(key => {
-					const input = document.createElement('input');
-					input.type = 'hidden';
-					input.name = 'remove_cart_item[]';
-					input.value = key;
-					form.appendChild(input);
-				});
-
-				form.submit();
-			});
 		});
 	</script>
 

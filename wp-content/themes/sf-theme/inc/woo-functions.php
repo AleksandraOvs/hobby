@@ -131,18 +131,55 @@ function sf_toggle_cart_item()
 }
 
 // ❗ единственное место, где selected влияет на корзину
-add_action('woocommerce_before_calculate_totals', function ($cart) {
+// add_action('woocommerce_before_calculate_totals', function ($cart) {
 
-    if (is_admin() && ! defined('DOING_AJAX')) {
+//     if (is_admin() && ! defined('DOING_AJAX')) {
+//         return;
+//     }
+
+//     foreach ($cart->get_cart() as $cart_item) {
+//         if (empty($cart_item['selected'])) {
+//             $cart_item['data']->set_price(0);
+//         }
+//     }
+// }, 100);
+
+add_action('woocommerce_cart_calculate_fees', function ($cart) {
+
+    if (is_admin() && !defined('DOING_AJAX')) {
         return;
     }
 
+    $excluded_total = 0;
+
     foreach ($cart->get_cart() as $cart_item) {
+
         if (empty($cart_item['selected'])) {
-            $cart_item['data']->set_price(0);
+            $excluded_total += $cart_item['line_total'];
         }
     }
-}, 100);
+
+    if ($excluded_total > 0) {
+        $cart->add_fee(
+            'Исключённые товары',
+            -$excluded_total,
+            false
+        );
+    }
+});
+
+
+
+// Чтобы "Исключённые товары" не считались в totals
+add_filter('woocommerce_get_cart_fees', function ($fees) {
+    foreach ($fees as $key => $fee) {
+        if (isset($fee->name) && $fee->name === 'Исключённые товары') {
+            // не удаляем полностью, оставляем в отдельном выводе
+            unset($fees[$key]);
+        }
+    }
+    return $fees;
+}, 20);
 
 /* ---------- Checkout products block ---------- */
 add_action('sf_checkout_products_block', function () {
@@ -154,6 +191,11 @@ add_action('sf_checkout_products_block', function () {
     echo '<div class="cart-flex woocommerce-cart-form__contents checkout-products-block__contents">';
 
     foreach (WC()->cart->get_cart() as $item) {
+        // Проверяем selected
+        if (isset($item['selected']) && $item['selected'] == 0) {
+            continue; // пропускаем товар
+        }
+
         $_product = $item['data'];
         if (! $_product || ! $_product->exists()) continue;
 
@@ -164,7 +206,8 @@ add_action('sf_checkout_products_block', function () {
 
                 <?= $_product->get_image(); ?>
                 <div class="cart-product-item__name">
-                    <?= esc_html($_product->get_name()); ?> <div class="product-sku">Артикул:
+                    <?= esc_html($_product->get_name()); ?>
+                    <div class="product-sku">Артикул:
                         <?php if ($sku = $_product->get_sku()) { ?>
                             <?= esc_html($sku); ?>
                         <?php } else {
@@ -189,6 +232,16 @@ add_action('sf_checkout_products_block', function () {
 
     echo '</div></div>';
 });
+
+// Показывать на странице оформления заказа только выбранные товары
+add_filter('woocommerce_cart_item_visible', function ($visible, $cart_item, $cart_item_key) {
+    // Если selected явно 0, скрываем товар
+    if (isset($cart_item['selected']) && $cart_item['selected'] == 0) {
+        return false;
+    }
+
+    return $visible;
+}, 10, 3);
 
 /* ---------- Cart count fragment ---------- */
 add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {

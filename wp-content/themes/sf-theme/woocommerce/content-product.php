@@ -86,9 +86,19 @@ $product_published = $product->get_date_created();
 			<div class="stock-status"><span>Нет в наличии</span></div>
 		<?php endif; ?>
 
-		<div class="product-prices">
-			<?php echo $product->get_price_html() ?>
-		</div>
+		<!-- <div class="product-prices">
+			<?php //echo $product->get_price_html() 
+			?>
+		</div> -->
+		<?php
+		if ($product->is_type('variable')) {
+			// Получаем минимальную цену вариации с налогами
+			$min_price = $product->get_variation_price('min', true);
+			echo '<span class="price">от ' . wc_price($min_price) . '</span>';
+		} else {
+			echo $product->get_price_html();
+		}
+		?>
 
 		<?php // do_action('woocommerce_after_shop_loop_item'); 
 		?>

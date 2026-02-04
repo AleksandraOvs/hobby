@@ -381,3 +381,116 @@ add_action('wp_ajax_wc_user_chat_test', function () {
 //     require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
 //     dbDelta($sql);  // dbDelta автоматически обновит структуру таблицы, если нужно
 // });
+
+// ---------------------------
+// AJAX отправка сообщения админом с файлом и уведомление пользователя
+// ---------------------------
+
+//уведомление о сообщении по почте пользователю
+function wc_user_chat_notify_user($user_id, $message, $file_html = '')
+{
+    $user = get_userdata($user_id);
+    if (!$user) return;
+
+    $to = $user->user_email;
+    $subject = 'Новое сообщение в чате поддержки';
+
+    // Подключаем шаблон письма
+    ob_start();
+    include plugin_dir_path(__FILE__) . 'templates/email-user-notify.php';
+    $body = ob_get_clean();
+
+    $headers = ['Content-Type: text/html; charset=UTF-8'];
+
+    wp_mail($to, $subject, $body, $headers);
+}
+
+add_action('wp_ajax_wc_user_chat_send_admin', function () {
+    global $wpdb;
+
+    $user_id = intval($_POST['user_id']);
+    $message = sanitize_text_field($_POST['message']);
+    $table_name = $wpdb->prefix . 'wc_user_chat';
+
+    $file_name = '';
+    $file_url  = '';
+
+    // Обработка файла
+    if (!empty($_FILES['file']['name'])) {
+        $uploaded_file = $_FILES['file'];
+
+        // Ограничение размера 5 МБ
+        if ($uploaded_file['size'] > 5 * 1024 * 1024) {
+            wp_send_json_error(['message' => 'Файл слишком большой. Максимум 5 МБ']);
+        }
+
+        // Разрешенные типы файлов
+        $allowed_types = ['image/jpeg', 'image/png', 'application/pdf'];
+        if (!in_array($uploaded_file['type'], $allowed_types)) {
+            wp_send_json_error(['message' => 'Недопустимый тип файла']);
+        }
+
+        // Используем WP функцию загрузки
+        $upload = wp_handle_upload($uploaded_file, ['test_form' => false]);
+
+        if (!isset($upload['error'])) {
+            $file_name = sanitize_file_name($uploaded_file['name']);
+            $file_url  = esc_url($upload['url']);
+        } else {
+            wp_send_json_error(['message' => $upload['error']]);
+        }
+    }
+
+    // Сохраняем сообщение в базе
+    $wpdb->insert($table_name, [
+        'user_id'   => $user_id,
+        'message'   => $message,
+        'file_name' => $file_name,
+        'file_url'  => $file_url,
+        'sender'    => 'admin',
+        'is_read'   => 1,
+        'sent_at'   => current_time('mysql')
+    ]);
+
+    // --------------------
+    // Уведомление пользователя по почте
+    $user = get_userdata($user_id);
+    $user_name = $user ? $user->display_name : 'Пользователь';
+
+    // Формируем HTML для файла (если есть)
+    $file_html = '';
+    if (!empty($file_url)) {
+        $ext = strtolower(pathinfo($file_url, PATHINFO_EXTENSION));
+        $img_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        if (in_array($ext, $img_exts, true)) {
+            $file_html = '<img src="' . esc_url($file_url) . '" style="max-width:200px;" />';
+        } else {
+            $file_html = '<a href="' . esc_url($file_url) . '" target="_blank">' . esc_html($file_name) . '</a>';
+        }
+    }
+
+    //wc_user_chat_notify_user($user_id, $message, $file_html);
+    // --------------------
+
+    wp_send_json_success([
+        'message'   => $message,
+        'file_name' => $file_name,
+        'file_url'  => $file_url
+    ]);
+});
+
+
+
+// Тестовый эндпоинт для проверки отправки письма пользователю
+add_action('wp_ajax_wc_user_chat_test_email', function () {
+    $user_id = get_current_user_id(); // текущий пользователь
+    if (!$user_id) wp_send_json_error('Не авторизован');
+
+    $test_message = 'Тестовое сообщение от чата';
+    $test_file = '<p>Файл прикреплен: <a href="#">пример.pdf</a></p>';
+
+    // Вызов функции уведомления
+    wc_user_chat_notify_user($user_id, $test_message, $test_file);
+
+    wp_send_json_success('Письмо отправлено (проверка)');
+});

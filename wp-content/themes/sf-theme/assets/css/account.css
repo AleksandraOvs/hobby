@@ -272,6 +272,22 @@
     width: 30%;
 }
 
+.my-order__summary>div:last-child {
+    align-items: flex-end;
+}
+
+.my-order__item-right>div:last-child {
+    align-items: flex-end;
+}
+
+.my-order__summary-item>span .amount .woocommerce-Price-currencySymbol {
+    color: var(--theme-color-accent);
+}
+
+.my-order__summary-item._discount>span .amount .woocommerce-Price-currencySymbol {
+    color: #898989;
+}
+
 .my-order__summary-item span {
     color: #898989;
 }

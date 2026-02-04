@@ -148,9 +148,11 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 									<p class="label">Сумма:</p>
 									<?php echo wp_kses_post(wc_price($item->get_total())); ?>
 								</div>
-								<div class="my-order__item-right__item _item-view">
-									<a href="<?php echo esc_url($order->get_view_order_url()); ?>"><?php esc_html_e('View', 'woocommerce'); ?></a>
-								</div>
+								<!-- <div class="my-order__item-right__item _item-view">
+									<a href="<?php //echo esc_url($order->get_view_order_url()); 
+												?>"><?php //esc_html_e('View', 'woocommerce'); 
+																										?></a>
+								</div> -->
 							</div>
 
 

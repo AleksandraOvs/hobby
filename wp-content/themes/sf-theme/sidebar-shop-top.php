@@ -12,7 +12,7 @@
 
     $product_categories = get_terms([
         'taxonomy'   => 'product_cat',
-        'hide_empty' => false,
+        'hide_empty' => true,
         'parent'     => $parent_id, // ТОЛЬКО прямые потомки текущей категории
     ]);
     ?>
