@@ -109,7 +109,7 @@ do_action('woocommerce_before_mini_cart'); ?>
 								<?php
 								// 3. Итог за количество
 
-								echo '<div class="product-total">' . $total_price = (float) $cart_item['line_total'] . '</div>';
+								//echo '<div class="product-total">' . $total_price = (float) $cart_item['line_total'] . '</div>';
 								?>
 
 
