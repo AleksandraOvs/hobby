@@ -47,11 +47,14 @@ get_header() ?>
                 </ul>
             </nav>
 
-            <div class="hrefs-block">
-                <ul id="toc">
-                    <p>Содержание статьи</p>
-                </ul>
-            </div>
+            <?php $show_toc = get_post_meta(get_the_ID(), '_show_page_toc', true); ?>
+            <?php if ($show_toc): ?>
+                <div class="hrefs-block">
+                    <ul id="toc">
+                        <p>Содержание статьи</p>
+                    </ul>
+                </div>
+            <?php endif; ?>
 
             <?php the_content(); ?>
 
@@ -61,33 +64,34 @@ get_header() ?>
 
 <?php get_template_part('template-parts/section-contacts') ?>
 
+<?php if ($show_toc): ?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const content = document.querySelector('.page-content');
+            const toc = document.getElementById('toc');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const content = document.querySelector('.page-content');
-        const toc = document.getElementById('toc');
+            if (!content || !toc) return;
 
-        if (!content || !toc) return;
+            const headings = content.querySelectorAll('h2');
+            if (!headings.length) return;
 
-        const headings = content.querySelectorAll('h2');
-        if (!headings.length) return;
+            headings.forEach((heading, index) => {
+                // если id нет — создаём
+                if (!heading.id) {
+                    heading.id = 'section-' + (index + 1);
+                }
 
-        headings.forEach((heading, index) => {
-            // если id нет — создаём
-            if (!heading.id) {
-                heading.id = 'section-' + (index + 1);
-            }
+                const li = document.createElement('li');
+                const a = document.createElement('a');
 
-            const li = document.createElement('li');
-            const a = document.createElement('a');
+                a.href = '#' + heading.id;
+                a.textContent = heading.textContent.trim();
 
-            a.href = '#' + heading.id;
-            a.textContent = heading.textContent.trim();
-
-            li.appendChild(a);
-            toc.appendChild(li);
+                li.appendChild(a);
+                toc.appendChild(li);
+            });
         });
-    });
-</script>
+    </script>
+<?php endif; ?>
 
 <?php get_footer() ?>

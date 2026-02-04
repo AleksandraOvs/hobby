@@ -516,3 +516,50 @@ function theme_load_more_posts_ajax()
 
 	wp_die();
 }
+
+// Метабокс "Показывать содержание"
+add_action('add_meta_boxes', function () {
+	add_meta_box(
+		'page_docs_toc',
+		'Содержание страницы',
+		'render_page_docs_toc_metabox',
+		'page',
+		'side',
+		'default'
+	);
+});
+
+function render_page_docs_toc_metabox($post)
+{
+	// Показываем только для шаблона page-docs
+	$template = get_page_template_slug($post->ID);
+	if ($template !== 'page-docs.php') {
+		echo '<p>Доступно только для шаблона "Страница Документы".</p>';
+		return;
+	}
+
+	$value = get_post_meta($post->ID, '_show_page_toc', true);
+
+	wp_nonce_field('save_page_docs_toc', 'page_docs_toc_nonce');
+?>
+	<label>
+		<input type="checkbox" name="show_page_toc" value="1" <?php checked($value, '1'); ?>>
+		Показывать содержание
+	</label>
+<?php
+}
+
+// Сохранение значения
+add_action('save_post', function ($post_id) {
+
+	if (!isset($_POST['page_docs_toc_nonce'])) return;
+	if (!wp_verify_nonce($_POST['page_docs_toc_nonce'], 'save_page_docs_toc')) return;
+	if (defined('DOING_AUTOSAVE') && DOING_AUTOSAVE) return;
+	if (!current_user_can('edit_post', $post_id)) return;
+
+	if (isset($_POST['show_page_toc'])) {
+		update_post_meta($post_id, '_show_page_toc', '1');
+	} else {
+		delete_post_meta($post_id, '_show_page_toc');
+	}
+});
