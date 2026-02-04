@@ -1603,6 +1603,7 @@ ul.dropdown-menu {
   display: flex;
   gap: 20px;
   flex-wrap: wrap;
+  margin-top: 60px;
 }
 
 .single-template-products-wrapper .single-product {
