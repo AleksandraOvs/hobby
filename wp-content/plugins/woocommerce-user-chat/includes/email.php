@@ -3,7 +3,7 @@
     $user=get_userdata($user_id);
     if (!$user) return;
 
-    $to=$user->user_email;
+    $to=$user -> user_email;
     $subject = 'Новое сообщение в чате от администратора';
 
     // Можно хранить шаблон письма в отдельном файле

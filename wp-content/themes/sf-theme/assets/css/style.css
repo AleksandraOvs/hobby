@@ -7182,6 +7182,11 @@ section.page {
   padding-right: 7%;
 }
 
+.page-content.woo-page .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /*=============================
 Start Blog Page Wrapper
 ===============================*/
