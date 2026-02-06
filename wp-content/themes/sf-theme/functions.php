@@ -573,3 +573,50 @@ add_action('wp_enqueue_scripts', function () {
 		wp_enqueue_script('wc-add-to-cart-variation');
 	}
 });
+
+/**
+ * Ограничиваем поле только товарами WooCommerce
+ */
+add_filter('acf/fields/post_object/query/name=work_products_link', function ($args) {
+
+	$args['post_type'] = ['product'];
+	$args['posts_per_page'] = -1;
+	$args['orderby'] = 'title';
+	$args['order'] = 'ASC';
+
+	return $args;
+});
+
+
+/**
+ * Меняем отображаемый текст товара в списке ACF:
+ * добавляем категорию перед названием
+ */
+add_filter('acf/fields/post_object/result/name=work_products_link', function ($text, $post) {
+
+	$terms = get_the_terms($post->ID, 'product_cat');
+
+	if ($terms && !is_wp_error($terms)) {
+
+		usort($terms, function ($a, $b) {
+			return $b->parent - $a->parent;
+		});
+
+		$cat_name = $terms[0]->name;
+
+		$text = '📁 ' . $cat_name . ' → ' . $text;
+	}
+
+	return $text;
+}, 10, 2);
+
+
+add_action('acf/input/admin_enqueue_scripts', function () {
+	wp_enqueue_script(
+		'acf-products-grouping',
+		get_stylesheet_directory_uri() . '/assets/js/acf-products-grouping.js',
+		['jquery'],
+		'1.0',
+		true
+	);
+});

@@ -109,6 +109,7 @@ $count = count($valid_images);
 
                     <div class="work-modal-pagination"></div>
                 </div>
+
                 <?php if ($description): ?>
                     <div class="work-modal-description">
                         <?php echo wpautop($description); ?>
@@ -119,25 +120,34 @@ $count = count($valid_images);
                     <h3 class="work-modal-heading"><?php echo esc_html($sign); ?></h3>
                 <?php endif; ?>
 
-                <div class="work-title"><span>Изделие: </span><?php the_title() ?></div>
+                <div class="work-title"><span>Изделие: </span><?php the_title(); ?></div>
 
                 <?php
                 $links = get_field('work_products_link');
                 ?>
 
-                <?php if (!empty($links) && is_array($links)): ?>
+                <?php if (!empty($links)): ?>
                     <div class="work-modal-products">
                         <span>Товар: </span>
 
                         <?php
+                        // Нормализуем к массиву объектов
+                        if (is_object($links)) {
+                            $links = [$links];
+                        }
+
                         $total = count($links);
                         $i = 0;
 
-                        foreach ($links as $url):
+                        foreach ($links as $post_obj):
                             $i++;
 
-                            $post_id = url_to_postid($url);
-                            $title = $post_id ? get_the_title($post_id) : $url;
+                            if (!is_object($post_obj)) {
+                                continue;
+                            }
+
+                            $url   = get_permalink($post_obj->ID);
+                            $title = get_the_title($post_obj->ID);
                         ?>
                             <a href="<?php echo esc_url($url); ?>" class="work-modal-product-link">
                                 <?php echo esc_html($title); ?>
