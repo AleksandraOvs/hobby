@@ -20,9 +20,18 @@ defined('ABSPATH') || exit;
 
 global $product;
 
-$attribute_keys  = array_keys($attributes);
+/**
+ * Подстраховка, если WooCommerce не передал переменные в шаблон
+ */
+$attributes           = $attributes ?? $product->get_variation_attributes();
+$available_variations = $available_variations ?? $product->get_available_variations();
+$selected_attributes  = $selected_attributes ?? $product->get_default_attributes();
+
+$attribute_keys  = array_keys((array) $attributes);
 $variations_json = wp_json_encode($available_variations);
-$variations_attr = function_exists('wc_esc_json') ? wc_esc_json($variations_json) : _wp_specialchars($variations_json, ENT_QUOTES, 'UTF-8', true);
+$variations_attr = function_exists('wc_esc_json')
+	? wc_esc_json($variations_json)
+	: _wp_specialchars($variations_json, ENT_QUOTES, 'UTF-8', true);
 
 do_action('woocommerce_before_add_to_cart_form'); ?>
 
@@ -92,6 +101,9 @@ do_action('woocommerce_before_add_to_cart_form'); ?>
 		<?php echo do_shortcode('[bulk_price_table]'); ?>
 	</div>
 
+	<div class="bulk-discounts-wrapper">
+		<div class="bulk-discounts-table" style="display:none"></div>
+	</div>
 	<?php do_action('woocommerce_after_variations_form'); ?>
 </form>
 

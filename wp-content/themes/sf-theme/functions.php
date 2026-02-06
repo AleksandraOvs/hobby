@@ -563,3 +563,9 @@ add_action('save_post', function ($post_id) {
 		delete_post_meta($post_id, '_show_page_toc');
 	}
 });
+
+add_action('wp_enqueue_scripts', function () {
+	if (is_product()) {
+		wp_enqueue_script('wc-add-to-cart-variation');
+	}
+});

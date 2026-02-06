@@ -37,25 +37,31 @@ document.addEventListener('DOMContentLoaded', () => {
        VARIATION PRODUCT
     =============================== */
 
-    const variationForm = document.querySelector('form.variations_form');
+    const $variationForm = jQuery('form.variations_form');
 
-    if (variationForm) {
-        const container = variationForm.querySelector('.cart__price-update');
-        if (!container) return;
+    if ($variationForm.length) {
 
-        const qty = container.querySelector('input.qty');
-        const total = container.querySelector('.price-total');
+        const container = $variationForm.find('.cart__price-update');
+        const qty = container.find('input.qty');
+        const total = container.find('.price-total');
 
         const update = () => {
-            const base = parseFloat(container.dataset.price || 0);
-            const count = parseInt(qty.value, 10) || 1;
-            total.textContent = formatPrice(base * count);
+            const base = parseFloat(container.data('price') || 0);
+            const count = parseInt(qty.val(), 10) || 1;
+            total.text(formatPrice(base * count));
         };
 
-        qty.addEventListener('input', update);
+        qty.on('input', update);
 
-        variationForm.addEventListener('found_variation', e => {
-            container.dataset.price = e.detail.display_price || 0;
+        // ← ВОТ КЛЮЧЕВОЙ МОМЕНТ
+        $variationForm.on('found_variation', function (event, variation) {
+            container.data('price', variation.display_price || 0);
+            update();
+        });
+
+        // если вариация сброшена
+        $variationForm.on('reset_data', function () {
+            container.data('price', 0);
             update();
         });
     }

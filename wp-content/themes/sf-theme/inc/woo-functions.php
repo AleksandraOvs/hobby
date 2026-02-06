@@ -169,16 +169,16 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
 });
 
 // Скрываем категорию 'misc' на фронтенде
-add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
-    if (in_array('product_cat', $taxonomies) && !is_admin()) {
-        foreach ($terms as $key => $term) {
-            if ($term->slug === 'misc') { // или $term->term_id === 123
-                unset($terms[$key]);
-            }
-        }
-    }
-    return $terms;
-}, 10, 4);
+// add_filter('get_terms', function ($terms, $taxonomies, $args, $term_query) {
+//     if (in_array('product_cat', $taxonomies) && !is_admin()) {
+//         foreach ($terms as $key => $term) {
+//             if ($term->slug === 'misc') { // или $term->term_id === 123
+//                 unset($terms[$key]);
+//             }
+//         }
+//     }
+//     return $terms;
+// }, 10, 4);
 
 // Чтобы "Исключённые товары" не считались в totals
 add_filter('woocommerce_get_cart_fees', function ($fees) {
