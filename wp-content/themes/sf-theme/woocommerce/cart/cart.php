@@ -202,26 +202,87 @@ defined('ABSPATH') || exit;
 
 			</div>
 
-			<div class="cart-coupon-update-area">
+			<div class="cart-bottom">
+				<div class="cart-coupon-update-area">
 
-				<?php if (wc_coupons_enabled()) : ?>
-					<div class="coupon-form-wrap">
-						<input type="text" autocomplete="off" name="coupon_code" id="coupon_code" placeholder="Код купона" />
-						<button type="submit" class="btn-apply" name="apply_coupon">
-							<svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M5.17202 10.162L1.70202 6.69202C1.51504 6.50504 1.26145 6.4 0.99702 6.4C0.732594 6.4 0.478998 6.50504 0.292021 6.69202C0.105043 6.879 0 7.13259 0 7.39702C0 7.52795 0.0257889 7.6576 0.0758939 7.77856C0.125999 7.89953 0.199439 8.00944 0.292021 8.10202L4.47202 12.282C4.86202 12.672 5.49202 12.672 5.88202 12.282L16.462 1.70202C16.649 1.51504 16.754 1.26145 16.754 0.997021C16.754 0.732594 16.649 0.478998 16.462 0.292021C16.275 0.105043 16.0214 0 15.757 0C15.4926 0 15.239 0.105043 15.052 0.292021L5.17202 10.162Z" fill="#898989" />
-							</svg>
+					<?php if (wc_coupons_enabled()) : ?>
+						<div class="coupon-form-wrap">
+							<input type="text" autocomplete="off" name="coupon_code" id="coupon_code" placeholder="Код купона" />
+							<button type="submit" class="btn-apply" name="apply_coupon">
+								<svg width="17" height="13" viewBox="0 0 17 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+									<path d="M5.17202 10.162L1.70202 6.69202C1.51504 6.50504 1.26145 6.4 0.99702 6.4C0.732594 6.4 0.478998 6.50504 0.292021 6.69202C0.105043 6.879 0 7.13259 0 7.39702C0 7.52795 0.0257889 7.6576 0.0758939 7.77856C0.125999 7.89953 0.199439 8.00944 0.292021 8.10202L4.47202 12.282C4.86202 12.672 5.49202 12.672 5.88202 12.282L16.462 1.70202C16.649 1.51504 16.754 1.26145 16.754 0.997021C16.754 0.732594 16.649 0.478998 16.462 0.292021C16.275 0.105043 16.0214 0 15.757 0C15.4926 0 15.239 0.105043 15.052 0.292021L5.17202 10.162Z" fill="#898989" />
+								</svg>
 
-							<span>Применить купон</span></button>
+								<span>Применить купон</span></button>
+						</div>
+					<?php endif; ?>
+
+					<div class="cart-update-buttons mt-xs-14">
+						<button type="submit" name="update_cart" class="btn-update-cart"></button>
+						<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
 					</div>
-				<?php endif; ?>
 
-				<div class="cart-update-buttons mt-xs-14">
-					<button type="submit" name="update_cart" class="btn-update-cart"></button>
-					<?php wp_nonce_field('woocommerce-cart', 'woocommerce-cart-nonce'); ?>
 				</div>
 
+				<div class="cart-calculate-area cart_totals <?php echo (WC()->customer->has_calculated_shipping()) ? 'calculated_shipping' : ''; ?>">
+
+					<div class="cart-cal-table table-responsive">
+
+						<ul class="cart-totals__info">
+							<li class="cart-totals__info__item">
+								<span><?php esc_html_e('Позиций', 'woocommerce'); ?></span>
+								<p data-title="<?php esc_attr_e('Количество товаров', 'woocommerce'); ?>" class="cart-items-count-value">
+									<?php echo WC()->cart->get_cart_contents_count(); ?>
+								</p>
+							</li>
+
+							<li class="cart-totals__info__item">
+								<span><?php esc_html_e('Вес:', 'woocommerce'); ?></span>
+								<p data-title="<?php esc_attr_e('Вес:', 'woocommerce'); ?>" class="cart-weight-value">
+									<?php echo WC()->cart->get_cart_contents_weight() . ' ' . get_option('woocommerce_weight_unit'); ?>
+								</p>
+							</li>
+
+							<!-- <tr class="cart-sub-total cart-subtotal">
+				<th><?php //esc_html_e('Subtotal', 'woocommerce'); 
+					?></th>
+				<td data-title="<?php //esc_attr_e('Subtotal', 'woocommerce'); 
+								?>"><?php //wc_cart_totals_subtotal_html(); 
+									?></td>
+			</tr> -->
+
+							<li class="cart-totals__info__item">
+								<span>Скидка:</span>
+								<?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
+									<div class="cart-discount coupon-<?php echo esc_attr(sanitize_title($code)); ?>">
+										<span><?php wc_cart_totals_coupon_label($coupon); ?></span>
+										<p data-title="<?php echo esc_attr(wc_cart_totals_coupon_label($coupon, false)); ?>"><?php wc_cart_totals_coupon_html($coupon); ?></p>
+									</div>
+								<?php endforeach; ?>
+							</li>
+
+							<li class="cart-totals__info__item order-total">
+								<span>Итого:</span>
+								<p data-title="<?php esc_attr_e('Total', 'woocommerce'); ?>"><?php wc_cart_totals_order_total_html(); ?></p>
+							</li>
+
+					</div>
+					</ul>
+
+					<div class="cart-buttons">
+						<a class="cart-button btn" href="<?php echo site_url('catalog') ?>" class="btn">Продолжить покупки</a>
+						<!-- <div class="wc-proceed-to-checkout"> -->
+						<?php do_action('woocommerce_proceed_to_checkout'); ?>
+						<!-- </div> -->
+					</div>
+
+
+					<?php do_action('woocommerce_after_cart_totals'); ?>
+
+				</div>
 			</div>
+
+
 		</form>
 	</div>
 

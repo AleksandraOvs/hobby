@@ -107,6 +107,7 @@
 .cart-flex__row {
     position: relative;
     padding: 20px 0;
+    border-bottom: 1px solid #ededed;
 }
 
 .cart-flex__col {
@@ -751,7 +752,6 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     width: 100%;
     justify-content: flex-end;
     gap: 15px;
-    margin-top: 40px;
 }
 
 .cart_totals .cart-coupon-update-area {
@@ -892,6 +892,13 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     border-color: #8B4512;
     background: #faf4ef;
 } */
+
+.cart-bottom {
+    display: flex;
+    gap: 10px;
+    align-items: start;
+    margin-top: 40px;
+}
 
 @media (max-width: 768px) {
 

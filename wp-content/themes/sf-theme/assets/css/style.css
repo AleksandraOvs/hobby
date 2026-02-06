@@ -8442,9 +8442,11 @@ Start Cart Page Wrapper
 
 .cart-coupon-update-area {
   font-size: 16px;
-  margin-top: 20px;
   display: flex;
   flex-direction: column;
+  width: 340px;
+  max-width: 340px;
+  padding-right: 20px;
 }
 
 .cart-coupon-update-area button {
@@ -8455,6 +8457,9 @@ Start Cart Page Wrapper
 .woocommerce-cart-form .cart_totals {
   display: flex;
   gap: 10px;
+  flex-direction: column;
+  gap: 30px;
+  width: calc(100% - 350px);
 }
 
 .cart-coupon-update-area button:hover {
@@ -8526,7 +8531,7 @@ p.return-to-shop .button.wc-backward:hover {
   border: 1px solid #898989;
   display: block;
   outline: none;
-  padding: 20px;
+  padding: 15px 20px;
   -webkit-transition: 0.2s 0.2s ease-out;
   -moz-transition: 0.2s 0.2s ease-out;
   -o-transition: 0.2s 0.2s ease-out;
@@ -8569,6 +8574,7 @@ p.return-to-shop .button.wc-backward:hover {
 
 .cart-calculate-area .cart-cal-table {
   white-space: nowrap;
+  padding-right: 34px;
 }
 
 .cart-calculate-area .cart-cal-table table {
@@ -8776,7 +8782,7 @@ Start Checkout Page Wrapper
 .order-details-area-wrap {
   border: 1px solid #d3d1d0;
   padding: 20px;
-  margin-top: 50px;
+  margin-top: 30px;
   color: #8d8d8d;
   font-size: 1.3rem;
   line-height: 1.5;
