@@ -382,6 +382,11 @@ function render_product_categories_menu($parent_id = 0, $level = 0)
 
 	foreach ($terms as $term) {
 
+		// Пропускаем категорию misc
+		if ($term->slug === 'misc') {
+			continue;
+		}
+
 		// Проверяем, есть ли дети
 		$children = get_terms([
 			'taxonomy'   => 'product_cat',
@@ -425,7 +430,6 @@ function render_product_categories_menu($parent_id = 0, $level = 0)
 
 	echo '</ul>';
 }
-
 
 /*CUSTOM LOGO */
 add_theme_support('customize-selective-refresh-widgets');

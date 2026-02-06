@@ -180,6 +180,33 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
 //     return $terms;
 // }, 10, 4);
 
+// Исключаем категорию "misc" с фронтенда
+add_action('pre_get_posts', function ($query) {
+    if (!is_admin() && $query->is_main_query() && (is_shop() || is_product_category() || is_product_tag())) {
+        $tax_query = (array) $query->get('tax_query');
+
+        $tax_query[] = array(
+            'taxonomy' => 'product_cat',
+            'field'    => 'slug',
+            'terms'    => array('misc'), // slug вашей категории
+            'operator' => 'NOT IN',
+        );
+
+        $query->set('tax_query', $tax_query);
+    }
+});
+
+// Исключаем категорию "misc" из виджетов и других списков категорий
+add_filter('woocommerce_product_categories_widget_args', function ($args) {
+    if (isset($args['exclude'])) {
+        $args['exclude'][] = get_term_by('slug', 'misc', 'product_cat')->term_id;
+    } else {
+        $args['exclude'] = array(get_term_by('slug', 'misc', 'product_cat')->term_id);
+    }
+    return $args;
+});
+
+
 // Чтобы "Исключённые товары" не считались в totals
 add_filter('woocommerce_get_cart_fees', function ($fees) {
     foreach ($fees as $key => $fee) {
