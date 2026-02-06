@@ -154,8 +154,15 @@ add_action('woocommerce_cart_calculate_fees', function ($cart) {
 
     foreach ($cart->get_cart() as $cart_item) {
 
+        // если товар НЕ выбран
         if (empty($cart_item['selected'])) {
-            $excluded_total += $cart_item['line_total'];
+
+            // WooCommerce иногда ещё не посчитал line_total
+            $line_total = isset($cart_item['line_total'])
+                ? (float) $cart_item['line_total']
+                : 0;
+
+            $excluded_total += $line_total;
         }
     }
 
