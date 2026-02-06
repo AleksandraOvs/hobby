@@ -7183,8 +7183,13 @@ section.page {
 }
 
 .page-content.woo-page .container {
-  padding-left: 0;
-  padding-right: 0;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.woocommerce-page .page-content .container {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 /*=============================
