@@ -30,6 +30,12 @@
     margin-bottom: 40px;
 }
 
+.single-product .product-details .price {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+}
+
 /* 
 .single-product__top>div {
     width: calc(100% / 2);

@@ -4788,7 +4788,7 @@ del .woocommerce-Price-amount.amount bdi {
 
 .shop-page-products-wrapper .products-on-column .single-product .product-details .stock-status {
   font-size: 14px;
-  justify-content: space-between;
+  justify-content: center;
   margin-bottom: 10px;
 }
 
