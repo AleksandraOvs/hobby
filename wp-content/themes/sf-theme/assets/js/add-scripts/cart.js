@@ -161,7 +161,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function updateCount() {
         const checked = document.querySelectorAll('.cart-item-checkbox:checked').length;
-        countEl.textContent = checked;
+
+        if (countEl) {  // <-- проверяем, существует ли элемент
+            countEl.textContent = checked;
+        }
 
         const all = getCheckboxes().length;
         if (selectAll) {
