@@ -408,3 +408,6 @@ add_action('wp', function () {
         20
     );
 });
+
+// Полностью убираем блок "Доставка по другому адресу"
+add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
