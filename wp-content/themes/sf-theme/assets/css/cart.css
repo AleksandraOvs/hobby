@@ -871,6 +871,24 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     margin-bottom: 20px;
 }
 
+.delivery-desc {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+}
+
+.delivery-desc svg {
+    width: 24px;
+    height: 24px;
+    padding: 2px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.delivery-desc p {
+    width: calc(100% - 30px);
+}
+
 /* .woocommerce-shipping-methods input[type="radio"] {
     display: none;
 }
