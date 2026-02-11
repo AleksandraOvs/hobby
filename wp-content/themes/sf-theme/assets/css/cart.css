@@ -930,6 +930,24 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     display: none;
 }
 
+.discount-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: flex-start;
+}
+
+.cart-totals__info__item p.discount-info {
+    margin-bottom: 0;
+    margin-top: 0;
+    font-size: 12px;
+    font-style: italic;
+    color: #898989;
+    max-width: 117px;
+    text-wrap: wrap;
+    line-height: 120%;
+}
+
 @media (max-width: 768px) {
 
     .cart-flex__col.cart-flex__col--product {

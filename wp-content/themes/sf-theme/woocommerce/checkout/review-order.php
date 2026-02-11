@@ -29,8 +29,19 @@ defined('ABSPATH') || exit;
 		<div class="review-order__col">Скидка:</div>
 		<div class="review-order__col">
 			<?php
+			// 1️⃣ Стандартная скидка корзины (купоны)
 			$discount_total = WC()->cart->get_discount_total();
-			echo $discount_total > 0 ? wc_price($discount_total) : wc_price(0);
+
+			// 2️⃣ Лояльная скидка пользователя
+			$loyalty_discount = 0;
+			if (is_user_logged_in()) {
+				$loyalty_discount = WC()->session->get('uld_discount_total', 0);
+			}
+
+			// 3️⃣ Общая скидка
+			$total_discount = floatval($discount_total) + floatval($loyalty_discount);
+
+			echo wc_price($total_discount);
 			?>
 		</div>
 	</div>

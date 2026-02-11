@@ -48,14 +48,23 @@ do_action('woocommerce_before_account_navigation');
 		if (!ul) return;
 
 		const isMobile = window.innerWidth < 768;
-
 		if (!isMobile) return;
 
-		// Клик по самому меню
-		if (nav.contains(e.target)) {
-			ul.classList.add('show');
-		} else {
-			// Клик вне меню
+		const link = e.target.closest('.woocommerce-MyAccount-navigation a');
+
+		// Клик по ссылке меню
+		if (link) {
+			// если меню ещё закрыто — открываем и ОТМЕНЯЕМ переход
+			if (!ul.classList.contains('show')) {
+				e.preventDefault();
+				ul.classList.add('show');
+			}
+			// если уже открыто — ничего не делаем, переход произойдёт сам
+			return;
+		}
+
+		// Клик вне меню — закрываем
+		if (!nav.contains(e.target)) {
 			ul.classList.remove('show');
 		}
 	});

@@ -314,6 +314,125 @@
     margin-bottom: 20px;
 }
 
+/*ULD*/
+.uld-box {
+    width: 100%;
+    display: flex;
+    gap: 40px;
+    align-items: stretch;
+}
+
+.uld-box__block {
+    width: calc(50% - 20px);
+    text-align: center;
+    font-size: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.uld-box__block p {
+    margin-bottom: 0;
+}
+
+.uld-box__block {
+    background: var(--theme-color-beige);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.uld-box__block.--discount-percent span {
+    font-weight: 700;
+    font-size: 80px;
+    color: var(--theme-color-primary);
+}
+
+.uld-box__block.--orders {
+    background: transparent;
+    border: 2px solid #cfcfcf;
+    gap: 30px;
+}
+
+.uld-box__block.--orders span {
+    font-size: 30px;
+    color: var(--theme-color-primary);
+}
+
+.uld-box__info {
+    display: flex;
+    gap: 40px;
+    margin-top: 60px;
+}
+
+.uld-box__info__content {
+    width: calc(50% - 20px);
+}
+
+.uld-ranges-table {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #cfcfcf;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.uld-ranges-table__head,
+.uld-ranges-table__row {
+    display: flex;
+    align-items: center;
+}
+
+.uld-ranges-table__head {
+    background: #f6f6f6;
+    font-weight: 600;
+}
+
+.uld-ranges-table__cell {
+    flex: 1;
+    padding: 12px 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.uld-ranges-table__row:last-child .uld-ranges-table__cell {
+    border-bottom: none;
+}
+
+.uld-ranges-table__body {
+
+    padding: 20px;
+}
+
+.uld-ranges-table__row .uld-ranges-table__cell:nth-child(2) {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    flex: 0;
+    min-width: 60px;
+    border: 2px solid var(--theme-color-accent);
+    padding: 3px 5px;
+    color: var(--theme-color-accent);
+    font-weight: 600;
+    border-radius: 3px;
+}
+
+.uld-ranges-table__cell span.amount bdi,
+.uld-ranges-table__cell span.amount bdi span {
+    color: var(--theme-color-primary);
+    font-weight: 400;
+    font-size: 14px;
+}
+
+.uld-box__info__content.--table h3 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.uld-ranges-table__cell span.amount bdi span {
+    font-size: 12px;
+    font-weight: 400;
+}
+
 @media (max-width: 768px) {
     .woocommerce-account .woocommerce-MyAccount-navigation {
         float: unset;

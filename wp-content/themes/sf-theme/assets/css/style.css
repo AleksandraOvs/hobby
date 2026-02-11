@@ -4939,7 +4939,7 @@ del .woocommerce-Price-amount.amount bdi {
   color: #fff;
 }
 
-.woocommerce-notices-wrapper .woocommerce-message {
+.woocommerce-message {
   position: fixed;
   z-index: 5;
   left: 10px;
@@ -4995,7 +4995,7 @@ del .woocommerce-Price-amount.amount bdi {
   color: var(--theme-color-beige);
 }
 
-.woocommerce-notices-wrapper .woocommerce-message:not(:first-child) {
+.woocommerce-message:not(:first-child) {
   margin-top: 10px;
 }
 

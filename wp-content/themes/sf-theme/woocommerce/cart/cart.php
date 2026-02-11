@@ -253,12 +253,34 @@ defined('ABSPATH') || exit;
 
 							<li class="cart-totals__info__item">
 								<span>Скидка:</span>
-								<?php foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
+								<?php
+								// 1️⃣ Вывод купонов
+								foreach (WC()->cart->get_coupons() as $code => $coupon) : ?>
 									<div class="cart-discount coupon-<?php echo esc_attr(sanitize_title($code)); ?>">
 										<span><?php wc_cart_totals_coupon_label($coupon); ?></span>
-										<p data-title="<?php echo esc_attr(wc_cart_totals_coupon_label($coupon, false)); ?>"><?php wc_cart_totals_coupon_html($coupon); ?></p>
+										<p data-title="<?php echo esc_attr(wc_cart_totals_coupon_label($coupon, false)); ?>">
+											<?php wc_cart_totals_coupon_html($coupon); ?>
+										</p>
 									</div>
 								<?php endforeach; ?>
+
+								<?php
+								// 2️⃣ Вывод лояльной скидки
+								if (is_user_logged_in()) {
+									$uld_discount = WC()->session->get('uld_discount_total', 0);
+									if ($uld_discount > 0) : ?>
+										<div class="cart-discount loyalty-discount">
+
+											<div class="discount-summary" data-title="Лояльная скидка">
+
+												<?php echo wc_price($uld_discount); ?>
+												<p class="discount-info">Скидка по программе лояльности</p>
+
+											</div>
+										</div>
+								<?php endif;
+								}
+								?>
 							</li>
 
 							<li class="cart-totals__info__item order-total">
