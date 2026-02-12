@@ -860,7 +860,9 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
 .woocommerce #payment #place_order,
 .woocommerce-page #payment #place_order {
     background: var(--theme-color-accent);
-    padding: 7px 20px;
+    padding: 10px 20px;
+    width: 100%;
+    font-weight: 400;
 }
 
 .checkout-section__title {
@@ -1214,4 +1216,37 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
 .wc-block-components-button.wp-element-button.wc-block-cart__submit-button :hover {
     background: var(--theme-color-beige);
     color: var(--theme-color-primary);
+}
+
+#place_order:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.woocommerce-form__label.woocommerce-form__label-for-checkbox.checkbox input {
+    width: 16px;
+    height: 16px;
+}
+
+.woocommerce form .form-row.woocommerce-invalid label {
+    color: var(--theme-color-primary);
+}
+
+.woocommerce form .form-row label {
+    line-height: 1.4;
+}
+
+#payment.woocommerce-checkout-payment {
+    margin-top: 30px;
+}
+
+.woocommerce-checkout .checkout .checkout-inline-error-message {
+    color: var(--wc-red);
+    font-size: .75em;
+    margin-top: 15px;
+}
+
+.woocommerce-invalid #terms {
+    outline: none;
+    outline-offset: none;
 }

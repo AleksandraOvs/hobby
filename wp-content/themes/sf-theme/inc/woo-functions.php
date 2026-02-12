@@ -411,3 +411,42 @@ add_action('wp', function () {
 
 // Полностью убираем блок "Доставка по другому адресу"
 add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
+
+add_filter('woocommerce_privacy_policy_checkbox_default_checked', '__return_false');
+
+add_action('wp_footer', function () {
+    if (!is_checkout()) return;
+?>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkbox = document.querySelector('#terms'); // сам чекбокс
+            const placeOrderBtn = document.querySelector('#place_order');
+
+            if (!checkbox || !placeOrderBtn) return;
+
+            // функция включения/выключения класса disabled
+            function togglePlaceOrderClass() {
+                if (checkbox.checked) {
+                    placeOrderBtn.classList.remove('disabled');
+                } else {
+                    placeOrderBtn.classList.add('disabled');
+                }
+            }
+
+            // состояние при загрузке страницы
+            togglePlaceOrderClass();
+
+            // при изменении состояния чекбокса
+            checkbox.addEventListener('change', togglePlaceOrderClass);
+        });
+    </script>
+    <style>
+        /* стиль для кнопки с классом disabled */
+        #place_order.disabled {
+            opacity: 0.5;
+            pointer-events: none;
+            cursor: not-allowed;
+        }
+    </style>
+<?php
+});
