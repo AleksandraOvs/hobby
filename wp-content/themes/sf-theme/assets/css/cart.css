@@ -474,6 +474,7 @@
     gap: 5px;
     padding: 3px 10px;
     font-size: 13px;
+    min-width: max-content;
 }
 
 .woocommerce-mini-cart-item .product-details .quantity del {
