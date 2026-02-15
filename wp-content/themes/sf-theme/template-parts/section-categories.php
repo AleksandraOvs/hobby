@@ -78,9 +78,20 @@ if (is_array($show_all_img_field)) {
                     <li class="product-category">
                         <a href="<?php echo esc_url($link); ?>">
                             <div class="product-category__image">
-                                <img src="<?php echo esc_url($image_url); ?>"
-                                    alt="<?php echo esc_attr($category->name); ?>"
-                                    loading="lazy">
+                                <?php if ($image_url) {
+                                ?>
+                                    <img src="<?php echo esc_url($image_url); ?>"
+                                        alt="<?php echo esc_attr($category->name); ?>"
+                                        loading="lazy">
+                                <?php
+                                } else {
+                                ?>
+                                    <img src="<?php echo get_stylesheet_directory_uri() ?>/assets/img/svg/placeholder.svg"
+                                        alt="<?php echo esc_attr($category->name); ?>"
+                                        loading="lazy">
+                                <?php
+                                }
+                                ?>
                             </div>
 
                             <span class="product-category__title">
