@@ -7183,6 +7183,11 @@ section.page {
   padding-right: 7%;
 }
 
+.page-content.categories-page .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 .page-content.woo-page .container {
   padding-left: 15px;
   padding-right: 15px;

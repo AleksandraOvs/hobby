@@ -6,7 +6,7 @@ get_header() ?>
 
 <section class="page">
     <?php get_template_part('template-parts/elements/page-header'); ?>
-    <div class="page-content">
+    <div class="page-content categories-page">
         <div class="container">
             <h1>Каталог</h1>
             <div class="product-categories">
