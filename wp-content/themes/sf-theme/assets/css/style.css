@@ -1812,6 +1812,7 @@ div.page-title {
 
 .product-category {
   flex-grow: 1;
+  width: calc(100% / 4 - 20px);
 }
 
 .container .product-categories {
