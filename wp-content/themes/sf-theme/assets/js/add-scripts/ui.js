@@ -136,21 +136,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    /* ===============================
-      КНОПКА ОТКРЫТИЯ ФИЛЬТРА НА <992PX
-   =============================== */
-
-    const button = document.querySelector('button.toggle-filter');
-    const sidebar = document.querySelector('.sidebar-area-wrapper._filters');
-
-    if (!button || !sidebar) return;
-
-    button.addEventListener('click', () => {
-        if (window.innerWidth <= 992) {
-            sidebar.classList.toggle('show');
-        }
-    });
-
 });
 
 document.addEventListener('DOMContentLoaded', () => {

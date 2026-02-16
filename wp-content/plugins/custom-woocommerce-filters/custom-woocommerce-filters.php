@@ -25,6 +25,14 @@ add_action('wp_enqueue_scripts', function () {
     );
 
     wp_enqueue_script(
+        'cwc-scripts',
+        plugin_dir_url(__FILE__) . 'js/scripts.js',
+        'jquery',
+        '1.1',
+        true
+    );
+
+    wp_enqueue_script(
         'cwc-ajax-filters',
         plugin_dir_url(__FILE__) . 'js/ajax-filters.js',
         ['jquery', 'jquery-ui-slider'],
@@ -142,7 +150,7 @@ function cwc_render_attribute_filter($taxonomy, $title, $current_cat_id = 0)
 
     ob_start(); ?>
     <div class="single-sidebar-wrap">
-        <h3 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h3>
+        <h4 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h4>
         <div class="sidebar-body">
             <ul class="sidebar-list" data-taxonomy="<?php echo esc_attr($taxonomy); ?>">
                 <?php foreach ($terms as $term):
@@ -228,7 +236,7 @@ function cwc_render_numeric_attribute_filter($taxonomy, $title, $current_cat_id 
 
     ob_start(); ?>
     <div class="single-sidebar-wrap">
-        <h3 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h3>
+        <h4 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h4>
         <div class="sidebar-body">
             <div class="range-inputs" data-taxonomy="<?php echo esc_attr($taxonomy); ?>">
                 <div class="price-input">
@@ -268,7 +276,7 @@ function cwc_render_price_filter()
 
     ob_start(); ?>
     <div class="single-sidebar-wrap">
-        <h3 class="sidebar-title">Цена</h3>
+        <h4 class="sidebar-title">Цена</h4>
         <div class="sidebar-body">
             <div class="price-range-wrap">
                 <div id="price-slider" class="price-range" data-min="<?php echo $min; ?>" data-max="<?php echo $max; ?>"></div>
@@ -308,7 +316,12 @@ function cwc_shop_filters_shortcode()
 
     ob_start(); ?>
     <div class="sidebar-area-wrapper _filters" data-current-cat="<?php echo esc_attr($current_cat_id); ?>">
-
+        <h3 class="filters-heading">Фильтры</h3>
+        <div class="close-filters">
+            <svg width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M6.8125 6.10156L12.2031 11.5L11.5 12.2031L6.10156 6.8125L0.703125 12.2031L0 11.5L5.39062 6.10156L0 0.703125L0.703125 0L6.10156 5.39062L11.5 0L12.2031 0.703125L6.8125 6.10156Z" fill="#564d49" />
+            </svg>
+        </div>
         <?php echo cwc_render_price_filter(); ?>
 
         <div class="single-sidebar-wrap">
@@ -344,108 +357,117 @@ add_shortcode('shop_filters', 'cwc_shop_filters_shortcode');
  * --------------------------------------------------- */
 function cwc_filter_products_callback()
 {
+
+    error_log('CWC POST: ' . print_r($_POST, true));
     if (!isset($_POST['action']) || $_POST['action'] !== 'cwc_filter_products') {
         wp_send_json_error('Неверный запрос');
     }
 
-    $args = [
-        'status' => 'publish',
-        'limit'  => -1,
-    ];
-
-    $tax_query = [];
+    $tax_query  = [];
     $meta_query = ['relation' => 'AND'];
 
-    // Атрибуты
+    /* -------------------------
+     * Атрибуты
+     * ------------------------- */
     foreach ($_POST as $key => $value) {
-        if (strpos($key, 'filter_') === 0 && $key !== 'filter_current_cat_id') {
-            $taxonomy = str_replace('filter_', '', $key);
 
-            if ($taxonomy === 'price') continue;
+        if (strpos($key, 'filter_') !== 0) continue;
+        if ($key === 'filter_current_cat_id') continue;
 
-            if (is_numeric($value)) {
-                $meta_query[] = [
-                    'key' => $taxonomy,
-                    'value' => floatval($value),
-                    'compare' => '=',
-                    'type' => 'NUMERIC',
-                ];
-            } else {
-                $tax_query[] = [
-                    'taxonomy' => $taxonomy,
-                    'field' => 'slug',
-                    'terms' => sanitize_text_field($value),
-                ];
-            }
+        $taxonomy = str_replace('filter_', '', $key);
+
+        // числовые атрибуты (meta)
+        if (is_numeric($value)) {
+            $meta_query[] = [
+                'key'     => $taxonomy,
+                'value'   => floatval($value),
+                'compare' => '=',
+                'type'    => 'NUMERIC',
+            ];
+        }
+        // текстовые атрибуты (tax)
+        else {
+            $tax_query[] = [
+                'taxonomy' => $taxonomy,
+                'field'    => 'slug',
+                'terms'    => sanitize_text_field($value),
+            ];
         }
     }
 
-    // Фильтр по цене
-    if (isset($_POST['min_price']) && isset($_POST['max_price'])) {
+    /* -------------------------
+     * Цена (ПРАВИЛЬНО ДЛЯ ВАРИАЦИЙ)
+     * ------------------------- */
+    if (isset($_POST['min_price'], $_POST['max_price'])) {
+
         $min_price = floatval($_POST['min_price']);
         $max_price = floatval($_POST['max_price']);
 
         $meta_query[] = [
             'relation' => 'OR',
+
+            // простые товары
             [
-                'key' => '_price',
-                'value' => [$min_price, $max_price],
+                'key'     => '_price',
+                'value'   => [$min_price, $max_price],
                 'compare' => 'BETWEEN',
-                'type' => 'NUMERIC',
+                'type'    => 'NUMERIC',
             ],
+
+            // вариативные: диапазоны пересекаются
             [
-                'key' => '_min_variation_price',
-                'value' => [$min_price, $max_price],
+                'key'     => '_min_variation_price',
+                'value'   => $max_price,
                 'compare' => '<=',
-                'type' => 'NUMERIC',
+                'type'    => 'NUMERIC',
             ],
             [
-                'key' => '_max_variation_price',
-                'value' => [$min_price, $max_price],
+                'key'     => '_max_variation_price',
+                'value'   => $min_price,
                 'compare' => '>=',
-                'type' => 'NUMERIC',
+                'type'    => 'NUMERIC',
             ],
         ];
     }
 
-    // Категория
+    /* -------------------------
+     * Категория
+     * ------------------------- */
     if (!empty($_POST['current_cat_id'])) {
         $tax_query[] = [
             'taxonomy' => 'product_cat',
-            'field' => 'term_id',
-            'terms' => intval($_POST['current_cat_id']),
+            'field'    => 'term_id',
+            'terms'    => intval($_POST['current_cat_id']),
         ];
     }
 
-    if ($tax_query) $args['tax_query'] = $tax_query;
-    if (count($meta_query) > 1) $args['meta_query'] = $meta_query;
-
-    $products = wc_get_products($args);
+    /* -------------------------
+     * WP_Query (ВМЕСТО wc_get_products)
+     * ------------------------- */
+    $query = new WP_Query([
+        'post_type'      => 'product',
+        'posts_per_page' => -1,
+        'tax_query'      => $tax_query ?: [],
+        'meta_query'     => count($meta_query) > 1 ? $meta_query : [],
+    ]);
 
     ob_start();
 
-    if ($products) {
-        $query = new WP_Query([
-            'post_type' => 'product',
-            'post__in' => wp_list_pluck($products, 'id'),
-            'orderby' => 'post__in',
-        ]);
-
-        if ($query->have_posts()) {
-            while ($query->have_posts()) {
-                $query->the_post();
-                wc_get_template_part('content', 'product');
-            }
-        } else {
-            echo '<p class="no-products">Товары не найдены</p>';
+    if ($query->have_posts()) {
+        while ($query->have_posts()) {
+            $query->the_post();
+            wc_get_template_part('content', 'product');
         }
-
-        wp_reset_postdata();
     } else {
         echo '<p class="no-products">Товары не найдены</p>';
     }
 
-    wp_send_json_success(['html' => ob_get_clean()]);
+    wp_reset_postdata();
+
+    wp_send_json_success([
+        'html' => ob_get_clean()
+    ]);
 }
+
 add_action('wp_ajax_cwc_filter_products', 'cwc_filter_products_callback');
 add_action('wp_ajax_nopriv_cwc_filter_products', 'cwc_filter_products_callback');

@@ -1990,6 +1990,7 @@ div.page-title {
 .post-thumb {
   height: 230px;
   width: 100%;
+  aspect-ratio: 1/1;
 }
 
 .post-thumb>a {
@@ -6168,31 +6169,7 @@ Start Single Product Banner
   color: var(--theme-color-accent);
 }
 
-/*===============================
-Start Sidebar Area Wrapper
-================================*/
-.single-sidebar-wrap {
-  margin-bottom: 58px;
-}
 
-@media only screen and (max-width: 767.98px),
-only screen and (min-width: 768px) and (max-width: 991.98px) {
-  .single-sidebar-wrap {
-    margin-bottom: 38px;
-  }
-}
-
-.single-sidebar-wrap:last-child {
-  margin-bottom: 0;
-}
-
-.single-sidebar-wrap .sidebar-title {
-  font-weight: 600;
-  font-size: 1.8rem;
-  line-height: 1;
-  margin-top: 5px;
-  margin-bottom: 25px;
-}
 
 .sidebar-list {
   line-height: 1;
@@ -7374,6 +7351,8 @@ Start Shop Page Wrapper
   }
 }
 
+
+
 .product-config-area .product-config-left .product-show-quantity li {
   margin-right: 15px;
 }
@@ -7521,6 +7500,17 @@ Start Shop Page Wrapper
   .product-filter-item-wrapper .single-filter-item-wrap:nth-child(1n + 2) {
     margin-top: 40px;
   }
+
+  .product-config-area {
+    display: flex;
+    flex-direction: row-reverse;
+  }
+}
+
+@media (max-width: 576px) {
+  .product-config-area .product-config-left.d-sm-flex {
+    display: none;
+  }
 }
 
 .product-filter-item-wrapper .single-filter-item-wrap .filter-item-title {
@@ -7542,6 +7532,10 @@ Start Shop Page Wrapper
   color: #8d8d8d;
   font-size: 1.4rem;
   line-height: 1;
+}
+
+.product-filter-sort {
+  position: relative;
 }
 
 .filter-item-list li a:hover,
@@ -10056,35 +10050,7 @@ Start Start 404 Error Page Wrapper
     display: block;
   }
 
-  .sidebar-area-wrapper._filters {
-    margin-bottom: 0;
-    padding: 0;
-    background: #f5f5f5;
 
-    overflow: hidden;
-
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-10px);
-
-    transition:
-      max-height 0.4s ease,
-      opacity 0.3s ease,
-      transform 0.3s ease;
-
-    pointer-events: none;
-  }
-
-  .sidebar-area-wrapper._filters.show {
-    margin-bottom: 20px;
-    padding: 20px;
-    max-height: 1000px;
-    /* достаточно большое значение */
-    opacity: 1;
-    transform: translateY(0);
-
-    pointer-events: auto;
-  }
 
 }
 
@@ -10173,7 +10139,11 @@ Start Start 404 Error Page Wrapper
 
   .single-template-products-wrapper .single-product {
     width: calc(100% / 2 - 10px);
+  }
 
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
 
 }
@@ -10440,6 +10410,11 @@ Start Start 404 Error Page Wrapper
 
   .section-contacts__inner__left h2 {
     text-align: center;
+  }
+
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
   }
 }
 

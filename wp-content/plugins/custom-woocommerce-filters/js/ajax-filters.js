@@ -28,24 +28,36 @@
             }
         });
 
+        // /* -------------------
+        //  * Цена (ТОЛЬКО если сужена)
+        //  * ------------------- */
+        // var minPriceInput = $(wrapper).find('#min_price');
+        // var maxPriceInput = $(wrapper).find('#max_price');
+        // var priceSlider = $(wrapper).find('#price-slider');
+
+        // if (priceSlider.length) {
+        //     var priceMinDef = parseInt(priceSlider.data('min'), 10);
+        //     var priceMaxDef = parseInt(priceSlider.data('max'), 10);
+
+        //     var priceMin = parseInt(minPriceInput.val(), 10);
+        //     var priceMax = parseInt(maxPriceInput.val(), 10);
+
+        //     if (priceMin > priceMinDef || priceMax < priceMaxDef) {
+        //         filters.min_price = priceMin;
+        //         filters.max_price = priceMax;
+        //     }
+        // }
+
         /* -------------------
-         * Цена (ТОЛЬКО если сужена)
-         * ------------------- */
+ * Цена (всегда отправляем)
+ * ------------------- */
         var minPriceInput = $(wrapper).find('#min_price');
         var maxPriceInput = $(wrapper).find('#max_price');
         var priceSlider = $(wrapper).find('#price-slider');
 
         if (priceSlider.length) {
-            var priceMinDef = parseInt(priceSlider.data('min'), 10);
-            var priceMaxDef = parseInt(priceSlider.data('max'), 10);
-
-            var priceMin = parseInt(minPriceInput.val(), 10);
-            var priceMax = parseInt(maxPriceInput.val(), 10);
-
-            if (priceMin > priceMinDef || priceMax < priceMaxDef) {
-                filters.min_price = priceMin;
-                filters.max_price = priceMax;
-            }
+            filters.min_price = parseInt(minPriceInput.val(), 10);
+            filters.max_price = parseInt(maxPriceInput.val(), 10);
         }
 
         /* -------------------
@@ -88,6 +100,8 @@
         if (currentCat) {
             filters.current_cat_id = currentCat;
         }
+
+        console.log('FILTERS →', filters);
 
         /* -------------------
          * AJAX
@@ -252,9 +266,10 @@
         });
     }
 
-    $(window).on('load', function () {
+    $(function () {
         cwcIsInit = false;
         initShowMoreFilters(document);
     });
 
 })(jQuery);
+

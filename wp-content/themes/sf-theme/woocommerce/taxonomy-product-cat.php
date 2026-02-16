@@ -57,7 +57,7 @@ get_header(); ?>
 							<span>Фильтр</span>
 						</button>
 
-						<div class="product-config-right d-flex align-items-center mt-sm-14">
+						<div class="product-config-right d-flex align-items-center">
 							<!-- <ul class="product-view-mode">
 								<li data-viewmode="grid-view" class="active"><i class="fa fa-th"></i></li>
 								<li data-viewmode="list-view"><i class="fa fa-list"></i></li>

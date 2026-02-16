@@ -1,4 +1,5 @@
 .sidebar-area-wrapper {
+    position: relative;
     margin-bottom: 20px;
     padding: 20px;
     background: #f5f5f5;
@@ -210,4 +211,146 @@
 
 .sidebar-area-wrapper .single-sidebar-wrap:first-child {
     margin-bottom: 20px;
+}
+
+.close-filters {
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    padding: 3px;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    display: none;
+}
+
+.close-filters svg path {
+    transition: all .5s linear;
+}
+
+.close-filters:hover svg path {
+    fill: #8b4512;
+}
+
+.close-filters svg {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.filters-heading {
+    font-size: 24px;
+    margin-bottom: 30px;
+    display: none;
+}
+
+/*===============================
+Start Sidebar Area Wrapper
+================================*/
+.single-sidebar-wrap {
+    margin-bottom: 58px;
+}
+
+@media only screen and (max-width: 767.98px),
+only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .single-sidebar-wrap {
+        margin-bottom: 38px;
+    }
+}
+
+.single-sidebar-wrap:last-child {
+    margin-bottom: 0;
+}
+
+.single-sidebar-wrap .sidebar-title {
+    font-weight: 600;
+    font-size: 1.8rem;
+    line-height: 1;
+    margin-top: 5px;
+    margin-bottom: 25px;
+}
+
+@media (max-width: 992px) {
+
+    .sidebar-area-wrapper._filters {
+        margin-bottom: 0;
+        padding: 0;
+        background: #f5f5f5;
+        overflow: hidden;
+        overflow-y: scroll;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+
+        transition:
+            max-height 0.4s ease,
+            opacity 0.3s ease,
+            transform 0.3s ease;
+
+        pointer-events: none;
+    }
+
+    .sidebar-area-wrapper._filters.show {
+        margin-bottom: 20px;
+        max-height: 1000px;
+        /* достаточно большое значение */
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: auto;
+    }
+
+    .filters-heading {
+        display: block;
+        margin-top: 20px;
+        margin-left: 20px;
+    }
+
+    .close-filters {
+        display: block;
+    }
+
+    .single-sidebar-wrap {
+        margin-bottom: 58px;
+        padding: 0 20px;
+    }
+
+    .cwc-filter-actions {
+        padding: 0 20px;
+        display: flex;
+        gap: 20px;
+        justify-content: space-between;
+    }
+
+    .single-sidebar-wrap {
+        margin-bottom: 30px;
+    }
+
+
+
+
+}
+
+@media (max-width: 576px) {
+    .sidebar-area-wrapper._filters {
+        margin-bottom: 0;
+        padding: 0;
+        background: #f5f5f5;
+        overflow: hidden;
+        overflow-y: scroll;
+        max-height: 0;
+        opacity: 0;
+        transform: translateY(-10px);
+        transition: max-height 0.4s ease, opacity 0.3s ease, transform 0.3s ease;
+        pointer-events: none;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+    }
+
+    .sidebar-area-wrapper._filters.show {
+        margin-bottom: 20px;
+        max-height: 100%;
+    }
 }
