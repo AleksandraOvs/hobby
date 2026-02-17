@@ -25,6 +25,7 @@
                 'taxonomy'   => 'product_cat',
                 'hide_empty' => false,
                 'parent'     => $parent_id,
+                'exclude'    => [15], // ID категории misc
             ]);
 
 
