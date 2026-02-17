@@ -35,9 +35,10 @@ $has_gallery = count($image_ids) > 1;
 <!-- Breadcrumbs -->
 <div class="page-header-wrapper">
     <div class="container">
-        <?php //woocommerce_breadcrumb(); 
+        <?php woocommerce_breadcrumb();
         ?>
-        <?php site_breadcrumbs(); ?>
+        <?php //site_breadcrumbs(); 
+        ?>
     </div>
 </div>
 
