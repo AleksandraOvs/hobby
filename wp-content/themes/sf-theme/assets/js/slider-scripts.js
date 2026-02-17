@@ -70,16 +70,16 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   });
 
-  new Swiper('.work-modal-swiper', {
-    loop: true,
-    slidesPerView: 1,
-    slideToClickedSlide: true,
-    grabCursor: true,
-    pagination: {
-      el: '.work-modal-pagination',
-      clickable: true,
-    },
+  // new Swiper('.work-modal-swiper', {
+  //   loop: true,
+  //   slidesPerView: 1,
+  //   slideToClickedSlide: true,
+  //   grabCursor: true,
+  //   pagination: {
+  //     el: '.work-modal-pagination',
+  //     clickable: true,
+  //   },
 
-  });
+  // });
 
 });
