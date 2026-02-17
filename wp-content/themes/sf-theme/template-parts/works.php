@@ -93,7 +93,7 @@
     document.addEventListener('DOMContentLoaded', function() {
         Fancybox.bind("[data-fancybox]", {
             on: {
-                done: (fancybox, slide) => {
+                reveal: (fancybox, slide) => {
                     const modal = slide.$content;
                     const swiperEl = modal.querySelector('.work-modal-swiper');
 
@@ -101,8 +101,9 @@
                         new Swiper(swiperEl, {
                             loop: true,
                             slidesPerView: 1,
-                            grabcursor: true,
                             spaceBetween: 16,
+                            touchStartPreventDefault: false,
+                            simulateTouch: true,
                             navigation: {
                                 nextEl: modal.querySelector('.work-modal-next'),
                                 prevEl: modal.querySelector('.work-modal-prev'),
