@@ -30,7 +30,7 @@ define('DB_USER', 'u3296388_default');
 define('DB_PASSWORD', 'X8ama5HCRM92vmaW');
 
 /** Database hostname */
-define('DB_HOST', 'localhost');
+//define('DB_HOST', 'localhost');
 
 //define('DB_NAME', 'sf_db');
 
