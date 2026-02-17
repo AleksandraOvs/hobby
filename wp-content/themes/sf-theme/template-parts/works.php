@@ -99,7 +99,7 @@
 
                     if (swiperEl && !swiperEl.swiper) {
                         new Swiper(swiperEl, {
-                            loop: true,
+                            //loop: true,
                             slidesPerView: 1,
                             spaceBetween: 16,
                             touchStartPreventDefault: false,
