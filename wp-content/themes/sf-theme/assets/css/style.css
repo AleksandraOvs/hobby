@@ -2309,6 +2309,11 @@ div.page-title {
   right: 0;
 }
 
+.work-modal-next.swiper-button-disabled,
+.work-modal-prev.swiper-button-disabled {
+  display: none;
+}
+
 .swiper.work-modal-swiper .work-modal-prev svg,
 .swiper.work-modal-swiper .work-modal-next svg {
   width: 40px;
