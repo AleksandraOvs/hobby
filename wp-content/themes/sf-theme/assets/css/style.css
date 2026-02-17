@@ -9538,6 +9538,13 @@ Start Coming Soon Page Wrapper
   padding: 7px 15px;
   border-radius: 3px;
   display: none;
+  align-items: center;
+  gap: 7px;
+}
+
+.toggle-filter span {
+  color: var(--theme-color-primary);
+  line-height: 1;
 }
 
 @media only screen and (min-width: 768px) and (max-width: 991.98px) {
@@ -10076,7 +10083,7 @@ Start Start 404 Error Page Wrapper
   }
 
   .toggle-filter {
-    display: block;
+    display: flex;
   }
 
 
