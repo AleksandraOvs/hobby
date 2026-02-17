@@ -24,10 +24,7 @@ function ajax_product_search()
 
     // правильная ссылка на страницу поиска товаров
     $search_url = add_query_arg(
-        [
-            's' => $search_term,
-            'post_type' => 'product'
-        ],
+        ['s' => $search_term],
         home_url('/')
     );
 
