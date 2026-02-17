@@ -41,7 +41,7 @@ define('DB_HOST', 'localhost');
 //define('DB_PASSWORD', '');
 
 /** Database hostname */
-//define('DB_HOST', 'MySQL-8.0');
+define('DB_HOST', 'MySQL-8.0');
 
 
 /** Database charset to use in creating database tables. */

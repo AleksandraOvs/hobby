@@ -1,0 +1,56 @@
+.wp-block-search__inside-wrapper {
+    position: relative;
+}
+
+.results {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #fff;
+    z-index: 999;
+    display: none;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+}
+
+.search-results-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-item a {
+    display: flex;
+    gap: 10px;
+    padding: 10px;
+    align-items: center;
+    font-size: 14px;
+}
+
+.search-item a:hover {
+    background: #f5f5f5;
+}
+
+.search-item a span.price span {
+    color: var(--theme-color-primary);
+    font-size: 14px;
+}
+
+.search-item a img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.search-results-list li:not(:last-child) {
+    border-bottom: 1px dotted var(--theme-color-primary);
+}
+
+.search-item__main {
+    width: calc(100% - 80px);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    justify-content: space-between;
+}
