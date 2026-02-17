@@ -101,6 +101,7 @@
                         new Swiper(swiperEl, {
                             loop: true,
                             slidesPerView: 1,
+                            grabcursor: true,
                             spaceBetween: 16,
                             navigation: {
                                 nextEl: modal.querySelector('.work-modal-next'),
