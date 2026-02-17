@@ -102,8 +102,8 @@
                             //loop: true,
                             slidesPerView: 1,
                             spaceBetween: 16,
-                            touchStartPreventDefault: false,
-                            //simulateTouch: true,
+                            //touchStartPreventDefault: false,
+                            simulateTouch: true,
                             watchOverflow: true,
                             navigation: {
                                 nextEl: modal.querySelector('.work-modal-next'),
