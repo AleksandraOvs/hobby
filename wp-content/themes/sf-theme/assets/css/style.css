@@ -2309,8 +2309,8 @@ div.page-title {
   right: 0;
 }
 
-.work-modal-next.swiper-button-disabled,
-.work-modal-prev.swiper-button-disabled {
+.swiper.work-modal-swiper .work-modal-next.swiper-button-disabled,
+.swiper.work-modal-swiper .work-modal-prev.swiper-button-disabled {
   display: none;
 }
 
