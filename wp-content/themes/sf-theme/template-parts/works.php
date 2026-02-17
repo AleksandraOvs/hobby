@@ -113,6 +113,10 @@
                                 clickable: true,
                             }
                         });
+
+                        setTimeout(() => {
+                            swiperEl.swiper.update();
+                        }, 50);
                     }
                 }
             }
