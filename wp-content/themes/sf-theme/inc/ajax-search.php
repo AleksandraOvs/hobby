@@ -15,6 +15,7 @@ function ajax_product_search()
         'post_type'      => 'product',
         'posts_per_page' => 5,
         's'              => $search_term,
+        'public'        => true
     ];
 
     $query = new WP_Query($args);
