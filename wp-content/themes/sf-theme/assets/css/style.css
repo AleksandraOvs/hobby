@@ -7209,6 +7209,11 @@ section.page {
   padding-right: 15px;
 }
 
+.archive-page .page .page-content .container {
+  padding-left: 0;
+  padding-right: 0;
+}
+
 /*=============================
 Start Blog Page Wrapper
 ===============================*/
