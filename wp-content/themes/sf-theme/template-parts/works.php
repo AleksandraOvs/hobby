@@ -104,6 +104,7 @@
                             spaceBetween: 16,
                             touchStartPreventDefault: false,
                             simulateTouch: true,
+                            watchOverflow: true,
                             navigation: {
                                 nextEl: modal.querySelector('.work-modal-next'),
                                 prevEl: modal.querySelector('.work-modal-prev'),
