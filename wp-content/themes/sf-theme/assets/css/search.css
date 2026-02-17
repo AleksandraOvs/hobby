@@ -54,3 +54,37 @@
     gap: 20px;
     justify-content: space-between;
 }
+
+.results-footer {
+    background: #ededed;
+    padding: 10px;
+    border-top: 1px solid #c5c5c5;
+    display: flex;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.results-footer .results-all {
+    font-size: 14px;
+    color: var(--theme-color-accent);
+    text-decoration: underline;
+    transition: all .5s linear;
+}
+
+.results-footer .results-all:hover {
+    color: #000;
+}
+
+.results-count {
+    font-size: 14px;
+    color: #000;
+    font-weight: 500;
+}
+
+span.close {
+    width: 30px;
+    height: 30px;
+    background-image: url(../../images/icon/cancel.svg);
+    background-size: contain;
+    background-position: center;
+}

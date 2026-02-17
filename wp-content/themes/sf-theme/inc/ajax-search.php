@@ -5,17 +5,31 @@ add_action('wp_ajax_nopriv_ajax_product_search', 'ajax_product_search');
 function ajax_product_search()
 {
 
-    $search = sanitize_text_field($_POST['term']);
+    $search_term = sanitize_text_field($_POST['term']);
 
-    if (empty($search)) {
+    if (empty($search_term)) {
         wp_die();
     }
 
     $args = [
         'post_type'      => 'product',
         'posts_per_page' => 5,
-        's'              => $search,
+        's'              => $search_term,
     ];
+
+    $query = new WP_Query($args);
+
+    $total = (int) $query->found_posts;
+
+    // правильная ссылка на страницу поиска товаров
+    $search_url = add_query_arg(
+        [
+            's' => $search_term,
+            'post_type' => 'product'
+        ],
+        home_url('/')
+    );
+
 
     $query = new WP_Query($args);
 
@@ -39,7 +53,7 @@ function ajax_product_search()
 
 
 
-<?php
+        <?php
 
             // echo '<li class="search-item">';
             // echo '<a href="' . get_permalink() . '">';
@@ -50,6 +64,16 @@ function ajax_product_search()
             // echo '</li>';
         }
         echo '</ul>';
+        ?>
+        <div class="results-footer">
+            <div class="results-count">
+                Найдено: <?php echo $total; ?>
+            </div>
+            <a class="results-all" href="<?php echo $search_url; ?>">
+                Показать все результаты
+            </a>
+        </div>
+<?php
     } else {
         echo '<div class="no-results">Ничего не найдено</div>';
     }
