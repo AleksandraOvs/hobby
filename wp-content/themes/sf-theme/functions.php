@@ -15,6 +15,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_style('fonts', get_stylesheet_directory_uri() . '/assets/css/fonts.css', array(), time());
 	wp_enqueue_style('main', get_stylesheet_directory_uri() . '/assets/css/style.css', array(), time());
 	wp_enqueue_style('single-product-style', get_stylesheet_directory_uri() . '/assets/css/single-product.css', array(), time());
+	wp_enqueue_style('searh-style', get_stylesheet_directory_uri() . '/assets/css/search.css', array(), time());
 	wp_enqueue_style('cart-style', get_stylesheet_directory_uri() . '/assets/css/cart.css', array(), time());
 	if (is_page('my-account')) {
 		wp_enqueue_style('my-account-style', get_stylesheet_directory_uri() . '/assets/css/account.css', array(), time());
@@ -75,6 +76,19 @@ add_action('wp_enqueue_scripts', function () {
 		'themeAjax',
 		['url' => admin_url('admin-ajax.php')]
 	);
+
+	/*поиск по сайту */
+	wp_enqueue_script(
+		'ajax-search',
+		get_stylesheet_directory_uri() . '/assets/js/ajax-search.js',
+		['jquery'],
+		'1.0',
+		true
+	);
+
+	wp_localize_script('ajax-search', 'ajax_search_params', [
+		'ajax_url' => admin_url('admin-ajax.php'),
+	]);
 });
 
 /**
@@ -443,6 +457,7 @@ require get_template_directory() . '/inc/breadcrumbs.php';
 require get_template_directory() . '/inc/woo-functions.php';
 require get_template_directory() . '/wishlist/wl.php';
 require get_template_directory() . '/my-account/ma-functions.php';
+require get_template_directory() . '/inc/ajax-search.php';
 
 
 function theme_posts_pagination_with_load_more($query = null)
@@ -620,3 +635,20 @@ add_action('acf/input/admin_enqueue_scripts', function () {
 		true
 	);
 });
+
+add_filter('render_block', function ($block_content, $block) {
+
+	if ($block['blockName'] === 'core/search') {
+
+		$insert = '<span class="close" style="display:none;"></span>
+                   <div class="results"></div>';
+
+		$block_content = str_replace(
+			'</div></form>',
+			$insert . '</div></form>',
+			$block_content
+		);
+	}
+
+	return $block_content;
+}, 10, 2);
