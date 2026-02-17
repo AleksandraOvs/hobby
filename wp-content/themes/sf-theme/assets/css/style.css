@@ -7537,7 +7537,7 @@ Start Shop Page Wrapper
 }
 
 @media (max-width: 576px) {
-  .product-config-area .product-config-left.d-sm-flex {
+  .product-config-area .product-config-left {
     display: none;
   }
 }
