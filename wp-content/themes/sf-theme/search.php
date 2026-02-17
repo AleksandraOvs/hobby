@@ -33,7 +33,8 @@ get_header(); ?>
 
         <div class="woo-page__content">
 
-            <?php get_sidebar('shop') ?>
+            <?php //get_sidebar('shop') 
+            ?>
             <!-- Start Shop Page Product Area -->
             <div class="product-area">
                 <?php if (woocommerce_product_loop()) { ?>
