@@ -10548,6 +10548,10 @@ Start Start 404 Error Page Wrapper
   aspect-ratio: 1/1;
 }
 
+.wp-block-list li {
+  list-style: ;
+}
+
 .error-page__content {
   display: flex;
   align-items: center;
