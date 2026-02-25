@@ -1962,6 +1962,11 @@ div.page-title {
   width: calc(100% / 3 - 40px);
 }
 
+.about-items .about-item img {
+  width: 57px;
+  height: 57px;
+}
+
 .about-item__text {
   font-size: 16px;
   font-weight: 600;
