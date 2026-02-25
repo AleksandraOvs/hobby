@@ -7233,6 +7233,11 @@ section.page {
   padding-right: 15px;
 }
 
+.page-content._wishlist .container {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
 /*=============================
 Start Blog Page Wrapper
 ===============================*/
