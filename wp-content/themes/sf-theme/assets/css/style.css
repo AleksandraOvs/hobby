@@ -10574,9 +10574,10 @@ Start Start 404 Error Page Wrapper
   width: 2px;
   height: 100%;
   display: block;
+  position: absolute;
   top: 0;
   left: 0;
-  background: var(--theme-color-light);
+  background: var(--theme-color-primary);
 }
 
 .error-page__content {

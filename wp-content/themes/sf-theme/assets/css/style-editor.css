@@ -125,10 +125,11 @@ body.block-editor-page,
     content: '';
     width: 2px;
     height: 100%;
+    position: absolute;
     display: block;
     top: 0;
     left: 0;
-    background: var(--theme-color-light);
+    background: var(--theme-color-primary);
 }
 
 /* ==========================================================================
