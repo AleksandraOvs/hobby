@@ -10641,6 +10641,17 @@ Start Start 404 Error Page Wrapper
   margin-top: 65px;
 }
 
+#popup-map {
+  position: relative;
+  padding: 0;
+  width: 80%;
+}
+
+#popup-map .popup-map__inner iframe {
+  width: 100%;
+}
+
+
 .wpcf7-form h3 {
   font-size: 36px;
   font-weight: 400;
