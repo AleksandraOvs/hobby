@@ -2412,10 +2412,12 @@ div.page-title {
 }
 
 .section-contacts__inner__left .contact-email,
-.section-contacts__inner__left .contact-schedule {
+.section-contacts__inner__left .contact-schedule,
+.section-contacts__inner__left .contact-phone {
   display: flex;
   gap: 10px;
 }
+
 
 .contact-address .contacts-address__inner {
   width: calc(100% - 30px);
