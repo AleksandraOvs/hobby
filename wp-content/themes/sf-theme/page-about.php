@@ -47,6 +47,8 @@ get_header() ?>
                 </ul>
             </nav>
 
+            <h1><?php the_title() ?></h1>
+
             <?php $show_toc = get_post_meta(get_the_ID(), '_show_page_toc', true); ?>
             <?php if ($show_toc): ?>
                 <div class="hrefs-block">
