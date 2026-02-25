@@ -2407,6 +2407,10 @@ div.page-title {
   /* transform: translateY(5px); */
 }
 
+.section-contacts__inner__left p {
+  margin: 0;
+}
+
 .section-contacts__inner__left .contact-email,
 .section-contacts__inner__left .contact-schedule {
   display: flex;
@@ -10451,6 +10455,11 @@ Start Start 404 Error Page Wrapper
   .product-categories #catalog-navigation {
     display: none;
   }
+
+  .section-contacts__inner__left a {
+    font-weight: 600;
+  }
+
 
 }
 
