@@ -140,6 +140,26 @@
                 <?php endif; ?>
 
                 <?php
+                $phone = get_field('contact_phone', 'option');
+                if ($phone): ?>
+                    <div class="contact-phone">
+                        <?php if (!empty($phone['phone_icon'])): ?>
+                            <img src="<?php echo esc_url($phone['phone_icon']); ?>" alt="">
+                        <?php endif; ?>
+
+                        <?php if (!empty($phone['phone_link']['url'])): ?>
+                            <span>Тел.:</span>
+                            <a href="<?php echo esc_url($phone['phone_link']['url']); ?>"
+                                <?php if (!empty($phone['phone_link']['target'])) echo 'target="' . esc_attr($phone['phone_link']['target']) . '"'; ?>>
+                                <?php echo esc_html($phone['phone_text']); ?>
+                            </a>
+                        <?php else: ?>
+                            <?php echo esc_html($phone['phone_text']); ?>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+
+                <?php
                 $schedule = get_field('schedule', 'option');
                 if ($schedule): ?>
                     <div class="contact-schedule">
