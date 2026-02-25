@@ -10645,10 +10645,12 @@ Start Start 404 Error Page Wrapper
   position: relative;
   padding: 0;
   width: 80%;
+  height: 70vh;
 }
 
 #popup-map .popup-map__inner iframe {
   width: 100%;
+  height: 100%;
 }
 
 
