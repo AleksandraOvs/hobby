@@ -6480,6 +6480,7 @@ Start Footer Section
 .links-sidebar p {
   margin: 0;
   margin-bottom: 5px;
+  line-height: 120%;
 }
 
 .footer-col .contacts-messengers {
