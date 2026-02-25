@@ -167,6 +167,31 @@ if (current_user_can('administrator')) {
         //console.log('🟢 Диагностика scrollTop активирована. Обнови корзину или элемент, чтобы отследить скрипт.');
     })();
 </script>
+
+<script src="https://unpkg.com/imask"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        function initPhoneMask() {
+            const inputs = document.querySelectorAll('.js-phone-mask');
+
+            inputs.forEach(function(input) {
+                if (!input.classList.contains('masked')) {
+                    IMask(input, {
+                        mask: '+{7}(000)000-00-00'
+                    });
+                    input.classList.add('masked');
+                }
+            });
+        }
+
+        initPhoneMask();
+
+        document.addEventListener('wpcf7mailsent', initPhoneMask);
+        document.addEventListener('wpcf7invalid', initPhoneMask);
+
+    });
+</script>
 </body>
 
 </html>
