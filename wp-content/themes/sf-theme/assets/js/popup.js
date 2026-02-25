@@ -1,13 +1,17 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    const buttons = document.querySelectorAll('a[href="#main-form"]');
+    // === Список popup-якорей для Fancybox ===
+    const fancyboxTargets = ['#main-form', '#popup-map'];
 
-    buttons.forEach(function (button) {
-        button.setAttribute('data-fancybox', '');
-        button.setAttribute('data-type', 'inline');
+    fancyboxTargets.forEach(function (target) {
+        const buttons = document.querySelectorAll(`a[href="${target}"]`);
+        buttons.forEach(function (button) {
+            button.setAttribute('data-fancybox', '');
+            button.setAttribute('data-type', 'inline');
+        });
     });
 
-    // === Fancybox (v4) + href="#main-form" ===
+    // === Fancybox (v4) ===
     if (typeof Fancybox !== "undefined") {
         Fancybox.bind("[data-fancybox]", { autoFocus: true });
     }
@@ -17,17 +21,17 @@ document.addEventListener("DOMContentLoaded", function () {
             const targetSelector = link.getAttribute("href");
             if (!targetSelector || targetSelector.length <= 1) return;
 
-            // Если это форма для Fancybox
-            if (targetSelector === "#main-form") {
+            // Если это popup для Fancybox
+            if (fancyboxTargets.includes(targetSelector)) {
                 e.preventDefault();
                 const target = document.querySelector(targetSelector);
                 if (target) {
                     Fancybox.show([{ src: target, type: "inline" }]);
                 }
-                return; // не запускать плавный скролл
+                return;
             }
 
-            // Для остальных якорей — плавный скролл
+            // Остальные якоря — плавный скролл
             e.preventDefault();
             smoothScrollToElement(targetSelector, 800);
         });
