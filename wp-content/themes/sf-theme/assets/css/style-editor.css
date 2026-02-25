@@ -111,7 +111,24 @@ body.block-editor-page,
     color: currentColor;
     margin-bottom: 1.75em;
     padding: 30px;
+}
 
+.block-editor-block-list__layout .block-editor-block-list__block .wp-block-pullquote.has-text-align-left {
+    padding: 20px;
+    padding-left: 20px;
+    border: none;
+    padding-left: 40px;
+    position: relative;
+}
+
+.block-editor-block-list__layout .block-editor-block-list__block .wp-block-pullquote.has-text-align-left:before {
+    content: '';
+    width: 2px;
+    height: 100%;
+    display: block;
+    top: 0;
+    left: 0;
+    background: var(--theme-color-light);
 }
 
 /* ==========================================================================
