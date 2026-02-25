@@ -10597,6 +10597,9 @@ Start Start 404 Error Page Wrapper
   gap: 10px;
   font-size: 14px;
   line-height: 1.4;
+  max-width: 80%;
+  justify-content: center;
+  margin: 0 auto;
 }
 
 .wpcf7-form-control.wpcf7-acceptance>span label input {
