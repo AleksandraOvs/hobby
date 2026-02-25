@@ -10044,6 +10044,11 @@ Start Start 404 Error Page Wrapper
     top: calc(50% - 4px);
     transition: all .5s linear;
   }
+
+  .main-hero__inner__content .container {
+    max-width: 90%;
+  }
+
 }
 
 @media (max-width: 992px) {
