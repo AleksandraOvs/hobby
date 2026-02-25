@@ -88,3 +88,14 @@ span.close {
     background-size: contain;
     background-position: center;
 }
+
+@media (max-width: 576px) {
+    .results {
+        position: relative;
+    }
+
+    .wp-block-search__inside-wrapper {
+        flex-direction: column;
+    }
+
+}
