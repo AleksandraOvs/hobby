@@ -30,6 +30,7 @@ add_action('wp_enqueue_scripts', function () {
 	wp_enqueue_script('add_ui_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/ui.js', array(), time(), true);
 	wp_enqueue_script('add_product_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/product.js', array(), time(), true);
 	wp_enqueue_script('popup_scripts', get_stylesheet_directory_uri() . '/assets/js/popup.js', array(), time(), true);
+	//wp_enqueue_script('imask', 'https://unpkg.com/imask', array(), time(), true);
 	//wp_enqueue_script('add_cart_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/cart.js', array(), time(), true);
 
 	wp_enqueue_script(
@@ -147,6 +148,7 @@ register_nav_menus(
 		'cat_menu' => 'Каталог',
 		'page_cat_menu' => 'Меню для страница Catalog',
 		'mob_menu' => 'Мобильное меню',
+		'about_menu' => 'Меню О компании',
 		'foot_3' => 'Футер 3: Товары',
 	)
 );
