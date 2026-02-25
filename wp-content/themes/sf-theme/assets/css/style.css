@@ -10553,8 +10553,8 @@ Start Start 404 Error Page Wrapper
 }
 
 .wp-block-pullquote {
-  border-bottom: 4px solid var(--theme-color-accent);
-  border-top: 4px solid var(--theme-color-accent);
+  border-bottom: 2px solid var(--theme-color-accent);
+  border-top: 2px solid var(--theme-color-accent);
   color: currentColor;
   margin-bottom: 1.75em;
   background: var(--theme-color-light);
