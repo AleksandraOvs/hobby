@@ -6444,6 +6444,11 @@ Start Footer Section
   font-weight: 600;
 }
 
+.footer-sidebar-wrap .menu li:not(:last-child) {
+  margin-bottom: 7px;
+  line-height: 120%;
+}
+
 .footer-sidebar-wrap .menu li:first-child a {
   color: #b6713d;
   font-weight: 600;
