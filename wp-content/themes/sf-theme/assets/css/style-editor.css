@@ -113,7 +113,7 @@ body.block-editor-page,
     padding: 30px;
 }
 
-.block-editor-block-list__layout .block-editor-block-list__block .wp-block-pullquote.has-text-align-left {
+.wp-block.has-text-align-left.wp-block-pullquote {
     padding: 20px;
     padding-left: 20px;
     border: none;
@@ -121,7 +121,7 @@ body.block-editor-page,
     position: relative;
 }
 
-.block-editor-block-list__layout .block-editor-block-list__block .wp-block-pullquote.has-text-align-left:before {
+.wp-block.has-text-align-left.wp-block-pullquote:before {
     content: '';
     width: 2px;
     height: 100%;
