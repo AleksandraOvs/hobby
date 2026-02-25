@@ -10653,6 +10653,10 @@ Start Start 404 Error Page Wrapper
   height: 100%;
 }
 
+.popup-map__inner {
+  height: 100%;
+  width: 100%;
+}
 
 .wpcf7-form h3 {
   font-size: 36px;
