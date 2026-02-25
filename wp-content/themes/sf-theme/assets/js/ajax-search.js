@@ -4,7 +4,7 @@ jQuery(function ($) {
 
     const input = $('.wp-block-search__input');
     const results = $('.results');
-    const closeBtn = $('.close');
+    //const closeBtn = $('.close');
 
     input.on('keyup', function () {
 
@@ -14,7 +14,7 @@ jQuery(function ($) {
 
         if (term.length < 2) {
             results.hide().html('');
-            closeBtn.hide();
+            //closeBtn.hide();
             return;
         }
 
@@ -29,7 +29,7 @@ jQuery(function ($) {
                 },
                 success: function (response) {
                     results.html(response).show();
-                    closeBtn.show();
+                    //closeBtn.show();
                 }
             });
 
@@ -37,10 +37,10 @@ jQuery(function ($) {
 
     });
 
-    closeBtn.on('click', function () {
-        input.val('');
-        results.hide().html('');
-        $(this).hide();
-    });
+    // closeBtn.on('click', function () {
+    //     input.val('');
+    //     results.hide().html('');
+    //     $(this).hide();
+    // });
 
 });
