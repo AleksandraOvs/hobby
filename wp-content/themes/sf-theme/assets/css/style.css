@@ -2385,6 +2385,9 @@ div.page-title {
   margin-bottom: 10px;
 }
 
+.section-contacts__inner__left>div {
+  align-items: center;
+}
 
 .section-contacts__inner__left .contact-address img {
   width: 16px;
@@ -2393,6 +2396,7 @@ div.page-title {
 
 .section-contacts__inner__left a {
   color: var(--theme-color-primary);
+  font-weight: 400;
 }
 
 .section-contacts__inner__left img {
@@ -2400,7 +2404,7 @@ div.page-title {
   height: 16px;
   object-fit: contain;
   object-position: center;
-  transform: translateY(5px);
+  /* transform: translateY(5px); */
 }
 
 .section-contacts__inner__left .contact-email,
