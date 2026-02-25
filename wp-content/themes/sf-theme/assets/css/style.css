@@ -1965,6 +1965,8 @@ div.page-title {
 .about-items .about-item img {
   width: 57px;
   height: 57px;
+  object-fit: contain;
+  object-position: center;
 }
 
 .about-item__text {
