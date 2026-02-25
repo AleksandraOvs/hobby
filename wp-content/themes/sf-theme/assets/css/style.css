@@ -10552,6 +10552,16 @@ Start Start 404 Error Page Wrapper
   list-style: disc;
 }
 
+.wp-block-pullquote {
+  border-bottom: 4px solid;
+  border-top: 4px solid;
+  color: currentColor;
+  margin-bottom: 1.75em;
+  border: none;
+  padding: 30px;
+
+}
+
 .error-page__content {
   display: flex;
   align-items: center;
