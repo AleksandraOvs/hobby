@@ -10606,7 +10606,7 @@ Start Start 404 Error Page Wrapper
 
 .wpcf7 .wpcf7-submit:disabled:hover {
   opacity: 0.65;
-  background: var(--theme-color-primary);
+  background: var(--theme-color-accent);
   color: #fff;
 }
 
