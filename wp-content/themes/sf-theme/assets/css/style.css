@@ -10751,5 +10751,10 @@ Start Start 404 Error Page Wrapper
     width: 100%;
   }
 
+  #popup-map {
+    width: 90%;
+    height: 90vh;
+  }
+
 
 }
