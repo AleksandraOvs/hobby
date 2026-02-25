@@ -10558,6 +10558,73 @@ Start Start 404 Error Page Wrapper
   margin-top: 65px;
 }
 
+.wpcf7-form h3 {
+  font-size: 36px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.wpcf7-form>span {
+  width: 100%;
+  display: block;
+}
+
+.wpcf7-form>span input,
+.wpcf7-form>span textarea {
+  border: 1px solid #898989;
+  border-radius: 3px;
+  width: 100%;
+  padding: 5px 10px;
+}
+
+#main-form {
+  position: relative;
+}
+
+.wpcf7-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.wpcf7-form-control.wpcf7-acceptance>span {
+  margin: 0;
+}
+
+.wpcf7-form-control.wpcf7-acceptance>span label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.wpcf7-form-control.wpcf7-acceptance>span label input {
+  width: max-content;
+  transform: translateY(5px);
+}
+
+.wpcf7 .wpcf7-submit:disabled:hover {
+  opacity: 0.65;
+  background: var(--theme-color-primary);
+  color: #fff;
+}
+
+
+#main-form button.carousel__button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: var(--theme-color-primary);
+  box-shadow: none !important;
+}
+
+.wpcf7-form-control.wpcf7-submit {
+  background: var(--theme-color-accent);
+  width: 300px;
+  margin: 0 auto;
+}
+
 @media (max-width: 480px) {
   .error-page__content .error {
     height: 105px;
@@ -10570,6 +10637,15 @@ Start Start 404 Error Page Wrapper
 
   .page-content.--error-page-content {
     padding-top: 30px;
+  }
+
+  .wpcf7-form h3 {
+    font-size: 24px;
+  }
+
+  .wpcf7-form-control.wpcf7-submit {
+    background: var(--theme-color-accent);
+    width: 100%;
   }
 
 

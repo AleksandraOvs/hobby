@@ -107,13 +107,23 @@ if (current_user_can('administrator')) {
 ?>
 <?php wp_footer() ?>
 
+<div id="main-form" style="display:none;">
+    <?php
+    $form = get_field('contact_form', 'option');
+
+    if ($form) {
+        echo do_shortcode('[contact-form-7 id="' . $form->ID . '"]');
+    }
+    ?>
+</div>
+
 <div class="arrow-up">
     <svg width="20" height="12" viewBox="0 0 20 12" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M2.5836 11.4345C2.01856 12.0351 1.07065 12.0634 0.470085 11.4988C-0.130859 10.9341 -0.159204 9.98583 0.405457 9.38526L8.83418 0.469731C9.39884 -0.130835 10.3471 -0.15918 10.9477 0.405482C13.819 3.27679 16.6381 6.42098 19.4407 9.38526C20.0053 9.98583 19.977 10.9341 19.3764 11.4988C18.7755 12.0634 17.8276 12.0351 17.2629 11.4345L9.92306 3.67099L2.5836 11.4345Z" fill="white" />
     </svg>
 
 </div>
-</div>
+
 
 <script>
     (function() {
@@ -154,7 +164,7 @@ if (current_user_can('administrator')) {
             });
         }
 
-        console.log('🟢 Диагностика scrollTop активирована. Обнови корзину или элемент, чтобы отследить скрипт.');
+        //console.log('🟢 Диагностика scrollTop активирована. Обнови корзину или элемент, чтобы отследить скрипт.');
     })();
 </script>
 </body>

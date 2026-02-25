@@ -29,6 +29,7 @@ add_action('wp_enqueue_scripts', function () {
 	//wp_enqueue_script('add_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts.js', array(), time(), true);
 	wp_enqueue_script('add_ui_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/ui.js', array(), time(), true);
 	wp_enqueue_script('add_product_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/product.js', array(), time(), true);
+	wp_enqueue_script('popup_scripts', get_stylesheet_directory_uri() . '/assets/js/popup.js', array(), time(), true);
 	//wp_enqueue_script('add_cart_scripts', get_stylesheet_directory_uri() . '/assets/js/add-scripts/cart.js', array(), time(), true);
 
 	wp_enqueue_script(
@@ -652,3 +653,6 @@ add_filter('render_block', function ($block_content, $block) {
 
 	return $block_content;
 }, 10, 2);
+
+// Contact Form 7 remove auto added p tags
+add_filter('wpcf7_autop_or_not', '__return_false');
