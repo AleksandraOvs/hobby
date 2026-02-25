@@ -105,6 +105,15 @@ body.block-editor-page,
     font-weight: 600;
 }
 
+.wp-block-pullquote {
+    border-bottom: 4px solid var(--theme-color-accent);
+    border-top: 4px solid var(--theme-color-accent);
+    color: currentColor;
+    margin-bottom: 1.75em;
+    padding: 30px;
+
+}
+
 /* ==========================================================================
    ЛИСТЫ
    ========================================================================== */
