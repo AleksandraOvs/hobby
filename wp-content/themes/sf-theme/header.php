@@ -20,12 +20,12 @@
     <link rel="profile" href="https://gmpg.org/xfn/11">
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/favi.ico">
-    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/favicon_16x16.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/favicon_32x32.png">
+    <link rel="icon" type="image/x-icon" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicons/favicon.ico">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicons/favicon_16x16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicons/favicon_32x32.png">
 
     <!-- Apple -->
-    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/images/favicons/apple-touch-icon.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="<?php echo get_stylesheet_directory_uri() ?>/assets/img/favicons/apple-touch-icon.png">
 
     <?php wp_head(); ?>
     <script>
