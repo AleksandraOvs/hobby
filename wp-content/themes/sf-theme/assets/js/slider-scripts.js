@@ -78,6 +78,10 @@ document.addEventListener('DOMContentLoaded', function () {
       clickable: true,
     },
 
+    navigation: {
+      nextEl: '.work-modal-next',
+      prevEl: '.work-modal-prev',
+    }
   });
 
 });
