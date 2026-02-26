@@ -22,11 +22,14 @@ do_action('woocommerce_before_mini_cart'); ?>
 					<li class="woocommerce-mini-cart-item">
 
 						<figure class="product-thumb">
-							<?php if (! empty($product_permalink)) : ?>
+							<?php if (! empty($thumbnail)) { ?>
 								<a href="<?php echo esc_url($product_permalink); ?>"><?php echo $thumbnail; ?></a>
-							<?php else : ?>
-								<?php echo $thumbnail; ?>
-							<?php endif; ?>
+							<?php } else {
+							?>
+								<a href="<?php echo esc_url($product_permalink); ?>"><?php echo get_stylesheet_directory_uri() . '/assets/img/svg/placeholder.svg' ?></a>
+							<?php
+							} ?>
+
 
 							<?php
 							// Кнопка удаления товара
