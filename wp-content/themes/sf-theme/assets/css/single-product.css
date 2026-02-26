@@ -427,6 +427,13 @@
     padding-bottom: 80px;
 }
 
+.single-product__related .products-on-column .single-product figure a.d-block img {
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    aspect-ratio: 1/1;
+}
+
 /*характеристики товара*/
 
 .single-product-details .product-specs__row {
