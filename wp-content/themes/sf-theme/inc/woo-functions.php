@@ -394,6 +394,29 @@ add_action('woocommerce_admin_order_data_after_shipping_address', function ($ord
 add_action('woocommerce_after_shipping_rate', 'custom_pickup_extra_fields', 20, 2);
 
 /* */
+add_action('woocommerce_email_after_order_table', function ($order, $sent_to_admin, $plain_text, $email) {
+
+    if (!$sent_to_admin) {
+        return;
+    }
+
+    $method  = $order->get_meta('custom_delivery_method');
+    $country = $order->get_meta('pickup_country');
+    $address = $order->get_meta('pickup_address');
+
+    if ($method) {
+        echo '<h3>Способ получения</h3>';
+        echo '<p><strong>Метод:</strong> ' . esc_html($method) . '</p>';
+
+        if ($country) {
+            echo '<p><strong>Страна:</strong> ' . esc_html($country) . '</p>';
+        }
+
+        if ($address) {
+            echo '<p><strong>Адрес:</strong> ' . esc_html($address) . '</p>';
+        }
+    }
+}, 20, 4);
 
 /* ---------- Checkout fields (единый блок) ---------- */
 add_filter('woocommerce_checkout_fields', function ($fields) {
