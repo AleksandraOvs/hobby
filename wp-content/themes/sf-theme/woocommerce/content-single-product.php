@@ -11,6 +11,7 @@ if (post_password_required()) {
 }
 
 $product_image_id   = $product->get_image_id();
+$placeholder_url = get_stylesheet_directory_uri() . '/assets/img/svg/placeholder.svg';
 $product_gallery_ids = (array) $product->get_gallery_image_ids();
 
 /**
@@ -82,7 +83,13 @@ $has_gallery = count($image_ids) > 1;
                     <div class="swiper product-thumb-carousel">
                         <div class="swiper-wrapper">
                             <figure class="swiper-slide product-thumb-item">
-                                <?php echo wp_get_attachment_image($product_image_id, 'full'); ?>
+                                <?php
+                                if ($product_image_id) {
+                                    echo wp_get_attachment_image($product_image_id);
+                                } else {
+                                    echo '<img src="' . esc_url($placeholder_url) . '" alt="Placeholder">';
+                                }
+                                ?>
                             </figure>
                             <?php if ($product_gallery_ids) : ?>
                                 <?php foreach ($product_gallery_ids as $product_gallery_id) : ?>
