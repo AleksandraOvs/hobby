@@ -2357,6 +2357,10 @@ div.page-title {
   gap: 40px;
 }
 
+.section-contacts__inner__left .contact-address img {
+  transform: translateY(5px);
+}
+
 .contacts-map {
   height: 345px;
 }
