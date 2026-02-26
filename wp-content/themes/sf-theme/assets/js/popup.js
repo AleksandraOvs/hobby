@@ -36,4 +36,26 @@ document.addEventListener("DOMContentLoaded", function () {
             smoothScrollToElement(targetSelector, 800);
         });
     });
+
+    // Событие CF7 после успешной отправки
+    document.addEventListener('wpcf7mailsent', function (event) {
+
+        // Найдём форму внутри блока #main-form
+        var mainForm = document.querySelector('#main-form');
+
+        // Проверим, что форма именно внутри этого блока
+        if (mainForm && mainForm.contains(event.target)) {
+
+            // Скрываем саму форму
+            event.target.style.display = 'none';
+
+            // Добавляем сообщение об успешной отправке
+            var successMessage = document.createElement('div');
+            successMessage.className = 'main-form-success';
+            successMessage.innerHTML = '<h3>Спасибо, форма отправлена.</h3> <p>Мы свяжемся с вами в ближайшее время.</p>';
+
+            mainForm.appendChild(successMessage);
+        }
+
+    }, false);
 });
