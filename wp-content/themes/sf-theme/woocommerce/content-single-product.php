@@ -192,60 +192,84 @@ $has_gallery = count($image_ids) > 1;
             <!-- ================= Описание + характеристики ================= -->
             <div class="single-product__info">
 
+                <?php
+                $description = $product->get_description();
+                ?>
+
                 <div class="info-description">
-                    <h2>Описание</h2>
-                    <?php if (wc_product_sku_enabled() && ($product->get_sku() || $product->is_type('variable'))) : ?>
-                        <span class="sku"><?php esc_html_e('SKU:', 'woocommerce'); ?> <span><?php echo ($sku = $product->get_sku()) ? $sku : esc_html__('N/A', 'woocommerce'); ?></span></span>
+
+                    <?php if (!empty($description)) : ?>
+                        <h2>Описание</h2>
+
+                        <?php if (wc_product_sku_enabled() && ($product->get_sku() || $product->is_type('variable'))) : ?>
+                            <span class="sku">
+                                <?php esc_html_e('SKU:', 'woocommerce'); ?>
+                                <span>
+                                    <?php echo ($sku = $product->get_sku()) ? $sku : esc_html__('N/A', 'woocommerce'); ?>
+                                </span>
+                            </span>
+                        <?php endif; ?>
+
+                        <?php echo wpautop($description); ?>
                     <?php endif; ?>
-                    <?php echo wpautop($product->get_description()); ?>
 
                     <div class="single-product__delivery">
                         <h2>Доставка</h2>
                     </div>
+
                 </div>
 
-                <div class="info-attributes">
-                    <h2>Характеристики</h2>
-                    <?php sf_product_attributes(); ?>
-                </div>
+                <?php
+
+                ob_start();
+                sf_product_attributes();
+                $attributes_html = ob_get_clean();
+
+                if (!empty(trim($attributes_html))) :
+                ?>
+                    <div class="info-attributes">
+                        <h2>Характеристики</h2>
+                        <?php echo $attributes_html; ?>
+                    </div>
+                <?php endif; ?>
 
             </div>
 
             <!-- ================= Related products ================= -->
-            <div class="single-product__related">
-                <div class="relative-products__head">
-                    <h2>С этим товаром также покупают</h2>
-                    <a href="<?php echo esc_url(site_url('/related-products/?product_id=' . $product->get_id())); ?>">
-                        <span>Смотреть еще</span>
-                        <svg width="48" height="9" viewBox="0 0 48 9" fill="none" xmlns="http://www.w3.org/2000/svg">
-                            <path d="M0 3.21917H44.9276L43.2673 1.5456C42.9158 1.1941 42.9158 0.616966 43.2673 0.26547C43.6192 -0.086404 44.1891 -0.0894275 44.5406 0.262069L47.7426 3.46182C48.0877 3.81104 48.0843 4.38024 47.7369 4.72682L44.5406 7.92317C44.191 8.27316 43.6173 8.27316 43.2673 7.92317C42.9158 7.57167 42.9158 7.01571 43.2673 6.66421L44.9276 5.01898H0V3.21917Z" fill="#8B4512" />
-                        </svg>
-                    </a>
-                </div>
+            <?php
+            $upsell_ids = $product->get_upsell_ids();
+            if (! empty($upsell_ids)) {
+                $products_ids = $upsell_ids;
+                $loop_name    = 'upsells';
+            } else {
+                $products_ids = wc_get_related_products($product->get_id(), 4);
+                $loop_name    = 'related';
+            }
 
-                <?php
-                $upsell_ids = $product->get_upsell_ids();
-                if (! empty($upsell_ids)) {
-                    $products_ids = $upsell_ids;
-                    $loop_name    = 'upsells';
-                } else {
-                    $products_ids = wc_get_related_products($product->get_id(), 4);
-                    $loop_name    = 'related';
-                }
+            // Проверяем, есть ли товары
+            if (! empty($products_ids)) : ?>
+                <div class="single-product__related">
+                    <div class="relative-products__head">
+                        <h2>С этим товаром также покупают</h2>
+                        <a href="<?php echo esc_url(site_url('/related-products/?product_id=' . $product->get_id())); ?>">
+                            <span>Смотреть еще</span>
+                            <svg width="48" height="9" viewBox="0 0 48 9" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M0 3.21917H44.9276L43.2673 1.5456C42.9158 1.1941 42.9158 0.616966 43.2673 0.26547C43.6192 -0.086404 44.1891 -0.0894275 44.5406 0.262069L47.7426 3.46182C48.0877 3.81104 48.0843 4.38024 47.7369 4.72682L44.5406 7.92317C44.191 8.27316 43.6173 8.27316 43.2673 7.92317C42.9158 7.57167 42.9158 7.01571 43.2673 6.66421L44.9276 5.01898H0V3.21917Z" fill="#8B4512" />
+                            </svg>
+                        </a>
+                    </div>
 
-                if (! empty($products_ids)) :
+                    <?php
                     wc_set_loop_prop('name', $loop_name);
                     wc_set_loop_prop('columns', 4);
-                ?>
+                    ?>
 
                     <div class="products-on-column">
-                        <?php foreach ($products_ids as $product_id) : ?>
-                            <?php
+                        <?php foreach ($products_ids as $product_id) :
                             $post_object = get_post($product_id);
                             setup_postdata($GLOBALS['post'] = $post_object);
                             wc_get_template_part('content', 'product');
-                            ?>
-                        <?php endforeach; ?>
+                        endforeach; ?>
                     </div>
 
                     <div class="relative-products__head visible-on-mobile">
@@ -257,12 +281,9 @@ $has_gallery = count($image_ids) > 1;
                         </a>
                     </div>
 
-                <?php
-                    wp_reset_postdata();
-                endif;
-                ?>
-
-            </div>
+                    <?php wp_reset_postdata(); ?>
+                </div>
+            <?php endif; ?>
 
         </div>
     </div>
