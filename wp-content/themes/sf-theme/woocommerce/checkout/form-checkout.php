@@ -59,16 +59,17 @@ if (! defined('ABSPATH')) {
 
 								<div class="checkout-section__content">
 
-									<div class="custom-delivery-options">
+									<?php
+									$selected = $_POST['custom_delivery_method'] ?? '';
+									?>
 
-										<?php
-										$selected = $_POST['custom_delivery_method'] ?? '';
-										?>
+									<div class="custom-delivery-options">
 
 										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
-													<input type="checkbox" name="custom_delivery_method"
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Самовывоз"
 														<?php checked($selected, 'Самовывоз'); ?>>
 													<span class="delivery-option__title">Самовывоз</span>
@@ -79,12 +80,25 @@ if (! defined('ABSPATH')) {
 											</label>
 										</div>
 
-										<?php do_action('woocommerce_checkout_shipping'); ?>
+										<div class="pickup-fields">
+											<div class="form-row">
+												<label>Страна</label>
+												<select name="pickup_country">
+													<option value="">Россия</option>
+												</select>
+											</div>
+
+											<div class="form-row">
+												<label>Адрес</label>
+												<input type="text" name="pickup_address" placeholder="Введите адрес">
+											</div>
+										</div>
 
 										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
-													<input type="checkbox" name="custom_delivery_method"
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Доставка курьером"
 														<?php checked($selected, 'Доставка курьером'); ?>>
 													<span class="delivery-option__title">Доставка курьером</span>
@@ -98,7 +112,8 @@ if (! defined('ABSPATH')) {
 										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
-													<input type="checkbox" name="custom_delivery_method"
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Транспортная компания"
 														<?php checked($selected, 'Транспортная компания'); ?>>
 													<span class="delivery-option__title">Транспортная компания</span>
@@ -112,7 +127,8 @@ if (! defined('ABSPATH')) {
 										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
-													<input type="checkbox" name="custom_delivery_method"
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Почта России"
 														<?php checked($selected, 'Почта России'); ?>>
 													<span class="delivery-option__title">Почта России</span>
@@ -126,13 +142,14 @@ if (! defined('ABSPATH')) {
 										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
-													<input type="checkbox" name="custom_delivery_method"
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Наиболее выгодный вариант"
 														<?php checked($selected, 'Наиболее выгодный вариант'); ?>>
 													<span class="delivery-option__title">Наиболее выгодный вариант</span>
 												</span>
 												<span class="delivery-option__desc">
-													Оставьте заявку — менеджер подберет лучший способ
+													Менеджер подберет лучший способ
 												</span>
 											</label>
 										</div>

@@ -892,10 +892,18 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     width: calc(100% - 30px);
 }
 
-.shipping_address .woocommerce-shipping-fields__field-wrapper {
+.pickup-fields {
     display: flex;
     width: 100%;
     gap: 10px;
+}
+
+.pickup-fields>div:first-child {
+    width: 40%;
+}
+
+.pickup-fields>div:nth-child(2) {
+    width: calc(60% - 10px);
 }
 
 .woocommerce-shipping-fields__field-wrapper .form-row {
@@ -928,12 +936,72 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
 }
 
 .delivery-option {
+    position: relative;
     margin-bottom: 10px;
     padding: 15px 10px;
     font-size: 14px;
     border: 1px solid #898989;
     border-radius: 3px;
 }
+
+.delivery-option__left>input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/*redio = checkbox*/
+/* Прячем стандартный radio */
+.delivery-option__left input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Делаем label контейнером для позиционирования */
+.delivery-option__left {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    cursor: pointer;
+}
+
+/* Рисуем квадрат */
+.delivery-option__left input[type="radio"]+.delivery-option__title::before {
+    content: "";
+    width: 18px;
+    height: 18px;
+    border: 1px solid #898989;
+    border-radius: 4px;
+    /* квадрат */
+    display: inline-block;
+    margin-right: 10px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    transition: all 0.2s ease;
+}
+
+/* Когда выбрано — закрашиваем */
+.delivery-option__left input[type="radio"]:checked+.delivery-option__title::before {
+    background-color: var(--theme-color-accent);
+    border-color: var(--theme-color-accent);
+}
+
+/* Галочка */
+.delivery-option__left input[type="radio"]:checked+.delivery-option__title::after {
+    content: "✓";
+    position: absolute;
+    left: 4px;
+    top: 1px;
+    font-size: 14px;
+    color: #fff;
+    font-weight: bold;
+}
+
+/**/
 
 .woocommerce form .form-row {
     padding: 0;
@@ -944,8 +1012,22 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     margin-top: 30px;
 }
 
-.nice-select.country_to_state.country_select {
+.pickup-fields .form-row .nice-select {
     background: var(--theme-color-light);
+    padding: 15px 10px;
+    border: 1px solid #898989;
+    border-radius: 3px;
+}
+
+.pickup-fields .form-row input {
+    padding: 13.5px 10px;
+    font-size: 14px;
+    border: 1px solid #898989;
+    border-radius: 3px;
+}
+
+.custom-delivery-options .pickup-fields .form-row {
+    margin-bottom: 10px;
 }
 
 .delivery-option .delivery-option__inner {
