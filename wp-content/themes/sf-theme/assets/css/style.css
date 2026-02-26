@@ -10658,9 +10658,14 @@ Start Start 404 Error Page Wrapper
   width: 100%;
 }
 
-.wpcf7-form h3 {
+.wpcf7-form h3,
+.main-form-success h3 {
   font-size: 36px;
   font-weight: 400;
+  text-align: center;
+}
+
+.main-form-success p {
   text-align: center;
 }
 
@@ -10679,6 +10684,8 @@ Start Start 404 Error Page Wrapper
 
 #main-form {
   position: relative;
+  width: 85%;
+  height: max-content;
 }
 
 .wpcf7-form {
