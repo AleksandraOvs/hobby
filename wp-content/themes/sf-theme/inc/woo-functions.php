@@ -298,17 +298,22 @@ add_filter('woocommerce_add_to_cart_fragments', function ($fragments) {
 });
 
 /* ---------- Checkout fields (единый блок) ---------- */
+/* ---------- Checkout fields (единый блок) ---------- */
 add_filter('woocommerce_checkout_fields', function ($fields) {
 
-    // Убираем стандартные
+    // Убираем стандартные поля, которые не нужны
     unset(
         $fields['billing']['billing_first_name'],
         $fields['billing']['billing_last_name'],
         $fields['billing']['billing_address_1'],
-        $fields['billing']['billing_address_2']
+        $fields['billing']['billing_address_2'],
+        $fields['billing']['billing_city'],
+        $fields['billing']['billing_state'],
+        $fields['billing']['billing_postcode'],
+        $fields['billing']['billing_country']
     );
 
-    // ФИО
+    // Добавляем свои кастомные поля
     $fields['billing']['billing_full_name'] = [
         'type'        => 'text',
         'required'    => true,
@@ -317,34 +322,68 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         'placeholder' => 'Ф.И.О *',
     ];
 
-    // Телефон
     $fields['billing']['billing_phone']['priority']    = 20;
     $fields['billing']['billing_phone']['placeholder'] = '+7 (___) ___-__-__';
 
-    // Email
     $fields['billing']['billing_email']['priority']    = 30;
     $fields['billing']['billing_email']['placeholder'] = 'E-mail *';
 
-    // Адрес
-    $fields['billing']['billing_full_address'] = [
+    // $fields['billing']['billing_full_address'] = [
+    //     'type'        => 'text',
+    //     'required'    => false,
+    //     'priority'    => 60,
+    //     'class'       => ['form-row-wide'],
+    //     'placeholder' => 'Адрес доставки',
+    // ];
+
+    return $fields;
+});
+
+add_filter('woocommerce_checkout_fields', function ($fields) {
+
+    // Удаляем лишние shipping-поля
+    unset(
+        $fields['shipping']['shipping_first_name'],
+        $fields['shipping']['shipping_last_name'],
+        $fields['shipping']['shipping_company'],
+        // $fields['shipping']['shipping_address_1'],
+        // $fields['shipping']['shipping_address_2'],
+        $fields['shipping']['shipping_city'],
+        $fields['shipping']['shipping_state'],
+        $fields['shipping']['shipping_postcode']
+    );
+
+    // Страна
+    $fields['shipping']['shipping_country']['required'] = false;
+    $fields['shipping']['shipping_country']['priority'] = 10;
+    $fields['shipping']['shipping_country']['label'] = '';
+    $fields['shipping']['shipping_country']['placeholder'] = 'Страна';
+    $fields['shipping']['shipping_country']['label_class'] = ['screen-reader-text'];
+
+    // Единое поле адреса
+    $fields['shipping']['shipping_full_address'] = [
         'type'        => 'text',
-        'required'    => false,
-        'priority'    => 60,
+        'required'    => true,
+        'priority'    => 20,
         'class'       => ['form-row-wide'],
+        'label'       => '',
         'placeholder' => 'Адрес доставки',
+        'label_class' => ['screen-reader-text'],
     ];
 
     return $fields;
 });
 
-// add_action('woocommerce_before_checkout_billing_form', function () {
-//     echo '<div class="checkout-block-title">Покупатель</div>';
-// });
+add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
 
-// add_action('woocommerce_before_checkout_shipping_form', function () {
-//     echo '<div class="checkout-block-title">Способ получения</div>';
-// });
+    if (!empty($errors->errors)) {
 
+        echo '<pre style="background:#111;color:#0f0;padding:15px;">';
+        echo "DEBUG CHECKOUT ERRORS:\n\n";
+        print_r($errors->errors);
+        echo '</pre>';
+    }
+}, 9999, 2);
 
 /* ---------- Split name on order ---------- */
 add_action('woocommerce_checkout_create_order', function ($order, $data) {
@@ -357,6 +396,10 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
 
     $order->set_billing_first_name($first);
     $order->set_billing_last_name($last);
+
+    if (!empty($data['shipping_full_address'])) {
+        $order->set_shipping_address_1($data['shipping_full_address']);
+    }
 }, 10, 2);
 
 
@@ -409,8 +452,38 @@ add_action('wp', function () {
     );
 });
 
+add_filter('woocommerce_checkout_fields', 'custom_disable_billing_address_for_pickup');
+
+function custom_disable_billing_address_for_pickup($fields)
+{
+
+    // Проверяем выбранный способ доставки
+    $chosen_methods = WC()->session->get('chosen_shipping_methods');
+
+    if (!empty($chosen_methods) && in_array('local_pickup', $chosen_methods)) {
+
+        $address_fields = [
+            'billing_country',
+            'billing_state',
+            'billing_city',
+            'billing_postcode',
+            'billing_address_1',
+            'billing_address_2'
+        ];
+
+        foreach ($address_fields as $field) {
+            if (isset($fields['billing'][$field])) {
+                $fields['billing'][$field]['required'] = false;
+                $fields['billing'][$field]['class'][] = 'billing-hidden-for-pickup';
+            }
+        }
+    }
+
+    return $fields;
+}
+
 // Полностью убираем блок "Доставка по другому адресу"
-add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
+//add_filter('woocommerce_cart_needs_shipping_address', '__return_false');
 
 add_filter('woocommerce_privacy_policy_checkbox_default_checked', '__return_false');
 
@@ -450,3 +523,62 @@ add_action('wp_footer', function () {
     </style>
 <?php
 });
+
+/*сохранение выбранных кастомных способов доставки в заказ*/
+
+add_action('woocommerce_checkout_process', function () {
+    if (empty($_POST['custom_delivery_method'])) {
+        wc_add_notice('Пожалуйста, выберите способ получения.', 'error');
+    }
+});
+
+add_action('woocommerce_checkout_create_order', function ($order) {
+    if (!empty($_POST['custom_delivery_method'])) {
+        $order->update_meta_data(
+            'Способ получения',
+            sanitize_text_field($_POST['custom_delivery_method'])
+        );
+    }
+});
+
+add_action('woocommerce_admin_order_data_after_shipping_address', function ($order) {
+    $value = $order->get_meta('Способ получения');
+    if ($value) {
+        echo '<p><strong>Способ получения:</strong> ' . esc_html($value) . '</p>';
+    }
+});
+
+add_action('woocommerce_after_shipping_rate', 'custom_pickup_extra_fields', 20, 2);
+
+function custom_pickup_extra_fields($method, $index)
+{
+
+    if ($method->method_id !== 'local_pickup') {
+        return;
+    }
+
+    $countries_obj = WC()->countries;
+    $allowed_countries = $countries_obj->get_allowed_countries();
+?>
+
+    <div class="pickup-extra-fields" style="margin-top:15px; display:flex; flex-direction:column; gap:10px;">
+
+        <select name="pickup_country" id="pickup_country">
+            <option value="">Выберите страну</option>
+            <?php foreach ($allowed_countries as $code => $name) : ?>
+                <option value="<?php echo esc_attr($code); ?>">
+                    <?php echo esc_html($name); ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+
+        <input
+            type="text"
+            name="pickup_address"
+            id="pickup_address"
+            placeholder="Адрес доставки" />
+
+    </div>
+
+<?php
+}
