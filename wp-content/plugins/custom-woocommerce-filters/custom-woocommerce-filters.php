@@ -148,47 +148,58 @@ function cwc_render_attribute_filter($taxonomy, $title, $current_cat_id = 0)
 
     list($store_min, $store_max) = cwc_get_store_price_range();
 
+    // Отфильтруем термы, у которых нет товаров
+    $filtered_terms = [];
+    foreach ($terms as $term) {
+        $args = [
+            'status' => 'publish',
+            'limit'  => -1,
+            'tax_query' => [
+                [
+                    'taxonomy' => $taxonomy,
+                    'field'    => 'slug',
+                    'terms'    => $term->slug,
+                ],
+            ],
+            'meta_query' => [
+                [
+                    'key'     => '_price',
+                    'value'   => [$store_min, $store_max],
+                    'compare' => 'BETWEEN',
+                    'type'    => 'NUMERIC',
+                ]
+            ]
+        ];
+
+        if ($current_cat_id) {
+            $args['tax_query'][] = [
+                'taxonomy' => 'product_cat',
+                'field'    => 'term_id',
+                'terms'    => $current_cat_id,
+            ];
+        }
+
+        $count = count(wc_get_products($args));
+
+        if ($count > 0) {
+            $term->count = $count; // добавим количество для вывода
+            $filtered_terms[] = $term;
+        }
+    }
+
+    if (!$filtered_terms) return ''; // нет товаров — не выводим блок
+
     ob_start(); ?>
     <div class="single-sidebar-wrap">
         <h4 class="sidebar-title"><?php echo esc_html(cwc_clean_title($title)); ?></h4>
         <div class="sidebar-body">
             <ul class="sidebar-list" data-taxonomy="<?php echo esc_attr($taxonomy); ?>">
-                <?php foreach ($terms as $term):
-
-                    $args = [
-                        'status' => 'publish',
-                        'limit'  => -1,
-                        'tax_query' => [
-                            [
-                                'taxonomy' => $taxonomy,
-                                'field'    => 'slug',
-                                'terms'    => $term->slug,
-                            ],
-                        ],
-                        'meta_query' => [
-                            [
-                                'key'     => '_price',
-                                'value'   => [$store_min, $store_max],
-                                'compare' => 'BETWEEN',
-                                'type'    => 'NUMERIC',
-                            ]
-                        ]
-                    ];
-
-                    if ($current_cat_id) {
-                        $args['tax_query'][] = [
-                            'taxonomy' => 'product_cat',
-                            'field'    => 'term_id',
-                            'terms'    => $current_cat_id,
-                        ];
-                    }
-
-                    $count = count(wc_get_products($args));
-                ?>
+                <?php foreach ($filtered_terms as $term): ?>
                     <li>
                         <a href="#" class="filter-item" data-slug="<?php echo esc_attr($term->slug); ?>">
                             <span class="filter-checkbox"></span>
-                            <?php echo esc_html($term->name); ?> (<?php echo $count; ?>)
+                            <?php echo esc_html($term->name); ?> <?php //echo $term->count; 
+                                                                    ?>
                         </a>
                     </li>
                 <?php endforeach; ?>
