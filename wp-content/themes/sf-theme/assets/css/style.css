@@ -10514,6 +10514,9 @@ Start Start 404 Error Page Wrapper
     display: grid;
     grid-template-columns: repeat(1, 1fr);
   }
+
+
+
 }
 
 @media (max-width: 375px) {
@@ -10634,6 +10637,30 @@ Start Start 404 Error Page Wrapper
   flex-wrap: nowrap;
   gap: 0;
   height: max-content;
+}
+
+.swiper.categories-swiper .swiper-button-prev,
+.swiper.categories-swiper .swiper-button-next {
+  top: 45%;
+}
+
+.swiper.categories-swiper .swiper-pagination {
+  position: relative;
+  margin-top: 30px;
+}
+
+.swiper.categories-swiper .swiper-pagination span.swiper-pagination-bullet {
+  background: var(--theme-color-accent);
+  opacity: .5;
+}
+
+.swiper.categories-swiper .swiper-pagination span.swiper-pagination-bullet-active {
+  opacity: 1;
+}
+
+.swiper.categories-swiper .swiper-button-next::after,
+.swiper.categories-swiper .swiper-button-prev::after {
+  color: var(--theme-color-accent);
 }
 
 .page-content.--error-page-content h2 {
@@ -10761,6 +10788,21 @@ Start Start 404 Error Page Wrapper
   #popup-map {
     width: 90%;
     height: 90vh;
+  }
+
+  .container .swiper.categories-swiper .swiper-button-next::after,
+  .container .swiper.categories-swiper .swiper-button-prev::after {
+    font-size: 30px;
+
+  }
+
+  .container .swiper.categories-swiper .swiper-button-next,
+  .container .swiper.categories-swiper .swiper-button-prev {
+    top: 35%;
+  }
+
+  .swiper.categories-swiper .swiper-pagination {
+    margin-top: 10px;
   }
 
 
