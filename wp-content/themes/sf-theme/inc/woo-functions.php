@@ -542,3 +542,22 @@ add_action('woocommerce_review_order_after_shipping', function () {
         }
     }
 });
+
+add_action('woocommerce_checkout_create_order', function ($order, $data) {
+
+    if (!empty($_POST['pickup_address'])) {
+
+        $address = sanitize_text_field($_POST['pickup_address']);
+
+        // Записываем в стандартные поля доставки
+        $order->set_shipping_address_1($address);
+
+        // Можно дополнительно очистить остальные поля доставки,
+        // если они не используются
+        $order->set_shipping_address_2('');
+        $order->set_shipping_city('');
+        $order->set_shipping_state('');
+        $order->set_shipping_postcode('');
+        $order->set_shipping_country('');
+    }
+}, 20, 2);
