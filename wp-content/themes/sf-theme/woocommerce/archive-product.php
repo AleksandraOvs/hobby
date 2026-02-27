@@ -51,10 +51,14 @@ get_header(); ?>
 				?>
 
 				<?php
+				$misc = get_term_by('slug', 'misc', 'product_cat'); // получаем категорию misc
+				$exclude = $misc ? [$misc->term_id] : []; // формируем массив для exclude
+
 				$terms = get_terms([
 					'taxonomy'   => 'product_cat',
 					'hide_empty' => false,
 					'parent'     => 0,
+					'exclude'    => $exclude, // исключаем misc
 				]);
 
 				if (empty($terms) || is_wp_error($terms)) {

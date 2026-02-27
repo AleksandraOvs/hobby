@@ -4812,6 +4812,7 @@ del .woocommerce-Price-amount.amount bdi {
   display: grid;
   grid-template-columns: calc(30% - 40px) 70%;
   gap: 20px;
+  align-items: flex-start;
 }
 
 /* .page-pagination-wrapper {
