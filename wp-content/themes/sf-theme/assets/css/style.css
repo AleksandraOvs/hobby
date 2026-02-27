@@ -10494,6 +10494,10 @@ Start Start 404 Error Page Wrapper
     font-weight: 600;
   }
 
+  .subcategory-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
 
 }
 
