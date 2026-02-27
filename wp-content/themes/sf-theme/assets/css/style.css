@@ -1838,7 +1838,7 @@ div.page-title {
 }
 
 #catalog-navigation ul.menu li:not(:last-child) {
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 #catalog-navigation ul li a {
@@ -1847,6 +1847,7 @@ div.page-title {
   align-items: center;
   color: #313131;
   font-size: 14px;
+  line-height: 1.2;
 }
 
 #catalog-navigation ul li a img {
