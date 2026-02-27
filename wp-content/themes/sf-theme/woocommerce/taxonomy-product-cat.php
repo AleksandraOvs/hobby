@@ -58,22 +58,42 @@ get_header(); ?>
 						</button>
 
 						<div class="product-config-right d-flex align-items-center">
-							<!-- <ul class="product-view-mode">
-								<li data-viewmode="grid-view" class="active"><i class="fa fa-th"></i></li>
-								<li data-viewmode="list-view"><i class="fa fa-list"></i></li>
-							</ul> -->
-							<ul class="product-filter-sort">
-								<li class="dropdown-show sort-by">
-									<button class="arrow-toggle">Сортировать по</button>
-									<ul class="dropdown-nav">
-										<li><a href="?orderby=date" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>Сначала новые</a></li>
-										<li><a href="?orderby=popularity" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По популярности</a></li>
-										<li><a href="?orderby=rating" <?php if (isset($_GET['orderby']) && 'rating' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По среднему рейтингу</a></li>
-										<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
-										<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
-									</ul>
-								</li>
-							</ul>
+							<div class="product-filter-sort d-flex align-items-center">
+
+								<div class="sort-by-head">
+									Сортировать по:
+								</div>
+								<!-- Сортировка по цене -->
+								<div class="sort-by-price me-3">
+									<select onchange="location = this.value;">
+										<option value="">Цене</option>
+										<option value="?orderby=price" <?php selected(isset($_GET['orderby']) && $_GET['orderby'] == 'price'); ?>>По возрастанию</option>
+										<option value="?orderby=price-desc" <?php selected(isset($_GET['orderby']) && $_GET['orderby'] == 'price-desc'); ?>>По убыванию</option>
+									</select>
+								</div>
+
+								<!-- Сортировка по размеру (pa_razmer) -->
+								<div class="sort-by-razmer">
+									<?php
+									$terms = get_terms([
+										'taxonomy' => 'pa_razmer',
+										'hide_empty' => true,
+									]);
+
+									if (!empty($terms) && !is_wp_error($terms)) : ?>
+										<select onchange="location = this.value;">
+											<option value="">Выберите размер</option>
+											<?php foreach ($terms as $term) : ?>
+												<option value="<?php echo esc_url(add_query_arg('pa_razmer', $term->slug)); ?>"
+													<?php selected(isset($_GET['pa_razmer']) && $_GET['pa_razmer'] == $term->slug); ?>>
+													<?php echo esc_html($term->name); ?>
+												</option>
+											<?php endforeach; ?>
+										</select>
+									<?php endif; ?>
+								</div>
+
+							</div>
 						</div>
 						<div class="product-config-left d-sm-flex">
 							<?php woocommerce_result_count() ?>
