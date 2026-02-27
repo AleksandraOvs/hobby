@@ -1837,11 +1837,16 @@ div.page-title {
   background: var(--theme-color-light);
 }
 
+#catalog-navigation ul.menu li:not(:last-child) {
+  margin-bottom: 5px;
+}
+
 #catalog-navigation ul li a {
   display: flex;
   gap: 10px;
   align-items: center;
   color: #313131;
+  font-size: 14px;
 }
 
 #catalog-navigation ul li a img {
