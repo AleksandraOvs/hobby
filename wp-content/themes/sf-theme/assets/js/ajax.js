@@ -77,12 +77,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPagination.innerHTML = newPagination.innerHTML;
                 }
 
+                btn.classList.remove('is-loading');
                 btn.disabled = false;
-                btn.textContent = 'Показать ещё';
 
-                // если дальше страниц нет — убираем кнопку
-                if (!document.querySelector('.page-numbers .next')) {
-                    console.log('bolshe net');
+                // 👉 проверяем наличие next В НОВОМ ДОКУМЕНТЕ
+                const hasNext = doc.querySelector('.page-numbers .next');
+                console.log(hasNext);
+
+                if (!hasNext) {
                     btn.classList.add('d-none');
                 }
             });
