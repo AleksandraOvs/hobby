@@ -56,8 +56,32 @@ $format = isset($format) ? $format : '';
 			<div class="product-area">
 				<?php if (woocommerce_product_loop()) { ?>
 					<?php woocommerce_output_all_notices() ?>
+					<div class="page-pagination-wrapper">
+						<?php if ($total > 1) : ?>
+							<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
+								<?php
+								echo paginate_links(
+									apply_filters(
+										'woocommerce_pagination_args',
+										array(
+											'base'      => $base,
+											'format'    => $format,
+											'add_args'  => false,
+											'current'   => max(1, $current),
+											'total'     => $total,
+											'prev_text' => '<span class="arrow-prev"></span>',
+											'next_text' => '<span class="arrow-next"></span>',
+											'type'      => 'list',
+											'end_size'  => 3,
+											'mid_size'  => 3,
+										)
+									)
+								);
+								?>
+							</nav>
+						<?php endif; ?>
+					</div>
 					<!-- Start Product Config Area -->
-
 					<div class="product-config-area d-md-flex justify-content-between align-items-center">
 						<button class="toggle-filter">
 							<svg width="18" height="11" viewBox="0 0 18 11" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -159,8 +183,6 @@ $format = isset($format) ? $format : '';
 
 				<!-- End Product Wrapper -->
 
-
-
 				<div class="page-pagination-wrapper">
 					<?php if ($total > 1) : ?>
 						<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
@@ -185,8 +207,6 @@ $format = isset($format) ? $format : '';
 							?>
 						</nav>
 					<?php endif; ?>
-
-
 				</div>
 				<!-- Page Pagination End  -->
 			</div>
