@@ -82,6 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // если дальше страниц нет — убираем кнопку
                 if (!document.querySelector('.page-numbers .next')) {
+                    console.log('bolshe net');
                     btn.classList.add('d-none');
                 }
             });
