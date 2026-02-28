@@ -82,7 +82,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // если дальше страниц нет — убираем кнопку
                 if (!document.querySelector('.page-numbers .next')) {
-                    btn.remove();
+                    btn.classList.add('d-none');
                 }
             });
     });
