@@ -1757,6 +1757,10 @@ div.page-title {
   /* justify-content: space-between; */
 }
 
+#categories-list {
+  padding-bottom: 40px;
+}
+
 #categories-list .categories-list__item:not(:last-child) {
   margin-bottom: 50px;
 }
@@ -5363,6 +5367,32 @@ Start Spacial Offers Product Area
   -ms-transform: translate(0, -50%);
   transform: translate(0, -50%);
   z-index: 3;
+}
+
+.nice-select .list {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 0 1px rgba(68, 68, 68, .11);
+  box-sizing: border-box;
+  margin-top: 4px;
+  opacity: 0;
+  overflow: hidden;
+  padding: 0;
+  pointer-events: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  -webkit-transform-origin: 50% 0;
+  -ms-transform-origin: 50% 0;
+  transform-origin: 50% 0;
+  -webkit-transform: scale(.75) translateY(-21px);
+  -ms-transform: scale(.75) translateY(-21px);
+  transform: scale(.75) translateY(-21px);
+  -webkit-transition: all .2s cubic-bezier(.5, 0, 0, 1.25), opacity .15s ease-out;
+  transition: all .2s cubic-bezier(.5, 0, 0, 1.25), opacity .15s ease-out;
+  z-index: 9;
+  display: flex;
+  flex-direction: column;
 }
 
 @media only screen and (max-width: 767.98px),
