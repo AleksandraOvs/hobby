@@ -47,11 +47,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!btn || !box) return;
 
-    // 👉 если при загрузке страницы уже нет следующей страницы — скрываем кнопку
-    if (!document.querySelector('.page-numbers .next')) {
-        btn.remove();
-    }
-
     btn.addEventListener('click', () => {
         const nextLink = document.querySelector('.page-numbers .next');
 
@@ -60,8 +55,10 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        // btn.disabled = true;
+        // btn.textContent = 'Загружаем…';
+
         btn.classList.add('is-loading');
-        btn.disabled = true;
 
         fetch(nextLink.href)
             .then(res => res.text())
@@ -70,13 +67,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // новые товары
                 const newProducts = doc.querySelectorAll('.products-wrapper > *');
-
-                // 👉 если сервер ничего не вернул — кнопка больше не нужна
-                if (!newProducts.length) {
-                    btn.remove();
-                    return;
-                }
-
                 newProducts.forEach(el => box.appendChild(el));
 
                 // обновляем пагинацию
@@ -87,21 +77,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPagination.innerHTML = newPagination.innerHTML;
                 }
 
-                btn.classList.remove('is-loading');
                 btn.disabled = false;
                 btn.textContent = 'Показать ещё';
 
-                // 👉 если дальше страниц нет — убираем кнопку
+                // если дальше страниц нет — убираем кнопку
                 if (!document.querySelector('.page-numbers .next')) {
                     btn.remove();
                 }
-            })
-            .catch(() => {
-                btn.classList.remove('is-loading');
-                btn.disabled = false;
             });
     });
-
 });
 //---------------------подгрузка постов------------------------------//
 
