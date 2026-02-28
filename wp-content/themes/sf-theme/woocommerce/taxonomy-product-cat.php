@@ -20,8 +20,20 @@ if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
+
 //wc_get_template( 'archive-product.php' );
 get_header(); ?>
+
+<?php
+$total = isset($total) ? $total : wc_get_loop_prop('total_pages');
+$current = isset($current) ? $current : wc_get_loop_prop('current_page');
+$base = isset($base) ? $base : esc_url_raw(str_replace(999999999, '%#%', remove_query_arg('add-to-cart', get_pagenum_link(999999999, false))));
+$format = isset($format) ? $format : '';
+
+// if ($total <= 1) {
+// 	return;
+// }
+?>
 
 <div class="page-header-wrapper">
 	<div class="container">
@@ -150,17 +162,6 @@ get_header(); ?>
 
 
 				<div class="page-pagination-wrapper">
-
-					<?php
-					$total = isset($total) ? $total : wc_get_loop_prop('total_pages');
-					$current = isset($current) ? $current : wc_get_loop_prop('current_page');
-					$base = isset($base) ? $base : esc_url_raw(str_replace(999999999, '%#%', remove_query_arg('add-to-cart', get_pagenum_link(999999999, false))));
-					$format = isset($format) ? $format : '';
-
-					// if ($total <= 1) {
-					// 	return;
-					// }
-					?>
 					<?php if ($total > 1) : ?>
 						<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
 							<?php
