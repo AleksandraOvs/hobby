@@ -101,56 +101,58 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.disabled = false;
             });
     });
-    //---------------------подгрузка постов------------------------------//
 
-    document.addEventListener('DOMContentLoaded', () => {
+});
+//---------------------подгрузка постов------------------------------//
 
-        const grid = document.querySelector('.posts-grid');
-        const btn = document.getElementById('load-more-posts');
+document.addEventListener('DOMContentLoaded', () => {
 
-        if (!btn || !grid || !window.themeAjax) return;
+    const grid = document.querySelector('.posts-grid');
+    const btn = document.getElementById('load-more-posts');
 
-        // ✅ Переносим переменную currentPage в область, доступную обработчику клика
-        let currentPage = parseInt(btn.dataset.page, 10) || 1;
-        const maxPage = parseInt(btn.dataset.max, 10) || 1;
+    if (!btn || !grid || !window.themeAjax) return;
 
-        btn.addEventListener('click', function () { // используем function() вместо стрелочной функции
-            if (currentPage >= maxPage) {
-                btn.remove();
-                return;
-            }
+    // ✅ Переносим переменную currentPage в область, доступную обработчику клика
+    let currentPage = parseInt(btn.dataset.page, 10) || 1;
+    const maxPage = parseInt(btn.dataset.max, 10) || 1;
 
-            btn.classList.add('is-loading');
+    btn.addEventListener('click', function () { // используем function() вместо стрелочной функции
+        if (currentPage >= maxPage) {
+            btn.remove();
+            return;
+        }
 
-            const formData = new FormData();
-            formData.append('action', 'load_more_posts');
-            formData.append('page', currentPage);
+        btn.classList.add('is-loading');
 
-            fetch(window.themeAjax.url, {
-                method: 'POST',
-                body: formData
+        const formData = new FormData();
+        formData.append('action', 'load_more_posts');
+        formData.append('page', currentPage);
+
+        fetch(window.themeAjax.url, {
+            method: 'POST',
+            body: formData
+        })
+            .then(res => res.text())
+            .then(html => {
+
+                if (!html.trim()) {
+                    btn.remove();
+                    return;
+                }
+
+                grid.insertAdjacentHTML('beforeend', html);
+
+                currentPage++; // ✅ теперь currentPage точно доступен
+                btn.dataset.page = currentPage;
+
+                if (currentPage >= maxPage) {
+                    btn.remove();
+                }
             })
-                .then(res => res.text())
-                .then(html => {
-
-                    if (!html.trim()) {
-                        btn.remove();
-                        return;
-                    }
-
-                    grid.insertAdjacentHTML('beforeend', html);
-
-                    currentPage++; // ✅ теперь currentPage точно доступен
-                    btn.dataset.page = currentPage;
-
-                    if (currentPage >= maxPage) {
-                        btn.remove();
-                    }
-                })
-                .finally(() => {
-                    btn.classList.remove('is-loading');
-                });
-        });
-
+            .finally(() => {
+                btn.classList.remove('is-loading');
+            });
     });
+
+});
 
