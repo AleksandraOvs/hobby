@@ -47,6 +47,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!btn || !box) return;
 
+    // 👉 если при загрузке страницы уже нет следующей страницы — скрываем кнопку
+    if (!document.querySelector('.page-numbers .next')) {
+        btn.remove();
+    }
+
     btn.addEventListener('click', () => {
         const nextLink = document.querySelector('.page-numbers .next');
 
@@ -55,10 +60,8 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        // btn.disabled = true;
-        // btn.textContent = 'Загружаем…';
-
         btn.classList.add('is-loading');
+        btn.disabled = true;
 
         fetch(nextLink.href)
             .then(res => res.text())
@@ -67,6 +70,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
                 // новые товары
                 const newProducts = doc.querySelectorAll('.products-wrapper > *');
+
+                // 👉 если сервер ничего не вернул — кнопка больше не нужна
+                if (!newProducts.length) {
+                    btn.remove();
+                    return;
+                }
+
                 newProducts.forEach(el => box.appendChild(el));
 
                 // обновляем пагинацию
@@ -77,66 +87,70 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPagination.innerHTML = newPagination.innerHTML;
                 }
 
+                btn.classList.remove('is-loading');
                 btn.disabled = false;
                 btn.textContent = 'Показать ещё';
 
-                // если дальше страниц нет — убираем кнопку
+                // 👉 если дальше страниц нет — убираем кнопку
                 if (!document.querySelector('.page-numbers .next')) {
                     btn.remove();
                 }
-            });
-    });
-});
-//---------------------подгрузка постов------------------------------//
-
-document.addEventListener('DOMContentLoaded', () => {
-
-    const grid = document.querySelector('.posts-grid');
-    const btn = document.getElementById('load-more-posts');
-
-    if (!btn || !grid || !window.themeAjax) return;
-
-    // ✅ Переносим переменную currentPage в область, доступную обработчику клика
-    let currentPage = parseInt(btn.dataset.page, 10) || 1;
-    const maxPage = parseInt(btn.dataset.max, 10) || 1;
-
-    btn.addEventListener('click', function () { // используем function() вместо стрелочной функции
-        if (currentPage >= maxPage) {
-            btn.remove();
-            return;
-        }
-
-        btn.classList.add('is-loading');
-
-        const formData = new FormData();
-        formData.append('action', 'load_more_posts');
-        formData.append('page', currentPage);
-
-        fetch(window.themeAjax.url, {
-            method: 'POST',
-            body: formData
-        })
-            .then(res => res.text())
-            .then(html => {
-
-                if (!html.trim()) {
-                    btn.remove();
-                    return;
-                }
-
-                grid.insertAdjacentHTML('beforeend', html);
-
-                currentPage++; // ✅ теперь currentPage точно доступен
-                btn.dataset.page = currentPage;
-
-                if (currentPage >= maxPage) {
-                    btn.remove();
-                }
             })
-            .finally(() => {
+            .catch(() => {
                 btn.classList.remove('is-loading');
+                btn.disabled = false;
             });
     });
+    //---------------------подгрузка постов------------------------------//
 
-});
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const grid = document.querySelector('.posts-grid');
+        const btn = document.getElementById('load-more-posts');
+
+        if (!btn || !grid || !window.themeAjax) return;
+
+        // ✅ Переносим переменную currentPage в область, доступную обработчику клика
+        let currentPage = parseInt(btn.dataset.page, 10) || 1;
+        const maxPage = parseInt(btn.dataset.max, 10) || 1;
+
+        btn.addEventListener('click', function () { // используем function() вместо стрелочной функции
+            if (currentPage >= maxPage) {
+                btn.remove();
+                return;
+            }
+
+            btn.classList.add('is-loading');
+
+            const formData = new FormData();
+            formData.append('action', 'load_more_posts');
+            formData.append('page', currentPage);
+
+            fetch(window.themeAjax.url, {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.text())
+                .then(html => {
+
+                    if (!html.trim()) {
+                        btn.remove();
+                        return;
+                    }
+
+                    grid.insertAdjacentHTML('beforeend', html);
+
+                    currentPage++; // ✅ теперь currentPage точно доступен
+                    btn.dataset.page = currentPage;
+
+                    if (currentPage >= maxPage) {
+                        btn.remove();
+                    }
+                })
+                .finally(() => {
+                    btn.classList.remove('is-loading');
+                });
+        });
+
+    });
 
