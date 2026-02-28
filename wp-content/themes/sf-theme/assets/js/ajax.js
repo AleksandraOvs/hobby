@@ -77,8 +77,8 @@ document.addEventListener('DOMContentLoaded', () => {
                     currentPagination.innerHTML = newPagination.innerHTML;
                 }
 
-                //btn.disabled = false;
-                // btn.textContent = 'Показать ещё';
+                btn.disabled = false;
+                btn.textContent = 'Показать ещё';
 
                 // если дальше страниц нет — убираем кнопку
                 if (!document.querySelector('.page-numbers .next')) {
