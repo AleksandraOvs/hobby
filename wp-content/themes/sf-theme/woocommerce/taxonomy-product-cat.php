@@ -64,13 +64,29 @@ get_header(); ?>
 									Сортировать по:
 								</div>
 								<!-- Сортировка по цене -->
-								<div class="sort-by-price me-3">
-									<select onchange="location = this.value;">
-										<option value="">Цене</option>
-										<option value="?orderby=price" <?php selected(isset($_GET['orderby']) && $_GET['orderby'] == 'price'); ?>>По возрастанию</option>
-										<option value="?orderby=price-desc" <?php selected(isset($_GET['orderby']) && $_GET['orderby'] == 'price-desc'); ?>>По убыванию</option>
-									</select>
-								</div>
+								<ul class="product-filter-sort">
+									<li class="dropdown-show sort-by">
+										<button class="arrow-toggle">Цене</button>
+										<ul class="dropdown-nav">
+											<li><a href="?orderby=date" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>Сначала новые</a></li>
+											<li><a href="?orderby=popularity" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По популярности</a></li>
+											<li><a href="?orderby=rating" <?php if (isset($_GET['orderby']) && 'rating' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По среднему рейтингу</a></li>
+											<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
+											<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
+										</ul>
+									</li>
+
+									<li class="dropdown-show sort-by">
+										<button class="arrow-toggle">Размеру</button>
+										<ul class="dropdown-nav">
+											<li><a href="?orderby=date" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>Сначала новые</a></li>
+											<li><a href="?orderby=popularity" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По популярности</a></li>
+											<li><a href="?orderby=rating" <?php if (isset($_GET['orderby']) && 'rating' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По среднему рейтингу</a></li>
+											<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
+											<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
+										</ul>
+									</li>
+								</ul>
 
 								<!-- Сортировка по размеру (pa_razmer) -->
 								<div class="sort-by-razmer">
@@ -131,25 +147,7 @@ get_header(); ?>
 
 				<!-- End Product Wrapper -->
 
-				<!-- Page Pagination Start  -->
-				<?php if (wc_get_loop_prop('total_pages') > 1) : ?>
-					<div class="load-more-wrapper">
-						<button id="load-more-btn" class="btn">
-							<span class="btn-content">
-								<svg width="14" height="23" viewBox="0 0 14 23" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path fill-rule="evenodd" clip-rule="evenodd" d="M11.1652 14.4953C11.5893 14.0474 12.2979 14.0277 12.7458 14.4518C13.1937 14.8755 13.2129 15.5841 12.7893 16.032L7.36374 21.7746C6.93968 22.224 6.22837 22.2467 5.77898 21.8226C3.94705 19.9907 2.09584 17.9237 0.305852 16.032C-0.118211 15.5841 -0.0989344 14.8755 0.34894 14.4518C0.796814 14.0277 1.50547 14.0474 1.92954 14.4953L6.54736 19.3739L11.1652 14.4953Z" fill="#674126" />
-									<path d="M5.5095 1.11458C5.51101 0.49738 6.01558 -0.00150789 6.63278 3.95061e-06C7.24998 0.00151579 7.7485 0.50645 7.74736 1.12327L7.66648 21.0108C7.66497 21.628 7.16002 22.1269 6.54283 22.1254C5.92563 22.1238 5.42711 21.6189 5.42862 21.0017L5.5095 1.11458Z" fill="#674126" />
-								</svg>
-								Показать ещё
-							</span>
-							<span class="btn-loader" aria-hidden="true">
-								<span></span>
-								<span></span>
-								<span></span>
-							</span>
-						</button>
-					</div>
-				<?php endif; ?>
+
 
 				<div class="page-pagination-wrapper">
 
