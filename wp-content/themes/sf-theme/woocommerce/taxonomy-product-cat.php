@@ -56,7 +56,7 @@ $format = isset($format) ? $format : '';
 			<div class="product-area">
 				<?php if (woocommerce_product_loop()) { ?>
 					<?php woocommerce_output_all_notices() ?>
-					<div class="page-pagination-wrapper" style="padding-top: 0; margin-bottom: 30px;">
+					<div class="page-pagination-wrapper" style="padding-top: 0; padding-bottom: 30px;">
 						<?php if ($total > 1) : ?>
 							<nav class="page-pagination" aria-label="<?php esc_attr_e('Product Pagination', 'woocommerce'); ?>">
 								<?php
