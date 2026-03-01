@@ -22,6 +22,7 @@ function get_category_breadcrumbs($category)
 }
 
 // Основная функция хлебных крошек
+// Основная функция хлебных крошек
 function site_breadcrumbs()
 {
     echo '<ul class="breadcrumbs__list">';
@@ -81,10 +82,27 @@ function site_breadcrumbs()
             }
         }
 
+        // WooCommerce: категории товаров
+        if ($post_type === 'product') {
+            $terms = get_the_terms(get_the_ID(), 'product_cat');
+            if ($terms && !is_wp_error($terms)) {
+                $term = $terms[0]; // Берём первую категорию (можно заменить на primary, если есть)
+                $ancestors = get_ancestors($term->term_id, 'product_cat');
+                if ($ancestors) {
+                    $ancestors = array_reverse($ancestors);
+                    foreach ($ancestors as $ancestor_id) {
+                        $ancestor = get_term($ancestor_id, 'product_cat');
+                        echo '<a href="' . get_term_link($ancestor) . '">' . esc_html($ancestor->name) . '</a>' . $separator;
+                    }
+                }
+                echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>' . $separator;
+            }
+        }
+
         // Кастомные таксономии
         $taxonomies = get_object_taxonomies($post_type);
         foreach ($taxonomies as $taxonomy) {
-            if ($taxonomy === 'category' || $taxonomy === 'post_tag') continue;
+            if ($taxonomy === 'category' || $taxonomy === 'post_tag' || $taxonomy === 'product_cat') continue;
             $terms = get_the_terms(get_the_ID(), $taxonomy);
             if (!empty($terms) && !is_wp_error($terms)) {
                 $first_term = $terms[0];
@@ -93,6 +111,19 @@ function site_breadcrumbs()
         }
 
         the_title();
+    } elseif (is_product_category()) {
+        $term = get_queried_object();
+        if ($term) {
+            $ancestors = get_ancestors($term->term_id, 'product_cat');
+            if ($ancestors) {
+                $ancestors = array_reverse($ancestors);
+                foreach ($ancestors as $ancestor_id) {
+                    $ancestor = get_term($ancestor_id, 'product_cat');
+                    echo '<a href="' . get_term_link($ancestor) . '">' . esc_html($ancestor->name) . '</a>' . $separator;
+                }
+            }
+            echo '<span>' . esc_html($term->name) . '</span>';
+        }
     } elseif (is_category() || is_tax()) {
         $term = get_queried_object();
         if ($term) {
