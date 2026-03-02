@@ -10374,6 +10374,7 @@ Start Start 404 Error Page Wrapper
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    row-gap: 0;
     column-gap: 10px;
   }
 
