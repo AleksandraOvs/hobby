@@ -10368,6 +10368,15 @@ Start Start 404 Error Page Wrapper
     margin-left: 15px;
   }
 
+  .breadcrumbs__list,
+  .woocommerce-breadcrumb {
+    justify-content: flex-start;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    column-gap: 10px;
+  }
+
   .product-categories .product-category {
     width: calc(100% / 2 - 40px);
   }
