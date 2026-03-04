@@ -2160,6 +2160,7 @@ div.page-title {
   margin: 30px auto;
   display: block;
   max-width: 280px;
+  margin: 30px auto 0;
 }
 
 .works-list {
