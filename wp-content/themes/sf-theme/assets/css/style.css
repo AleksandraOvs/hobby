@@ -2361,6 +2361,10 @@ div.page-title {
 
 /*SECTION-CONTACTS*/
 
+.page-content .container .section-contacts__inner {
+  margin-top: 80px;
+}
+
 .section-contacts__inner {
   display: grid;
   grid-template-columns: 40% 60%;
