@@ -7664,6 +7664,7 @@ Start Shop Page Wrapper
 
 .product-filter-sort {
   position: relative;
+  gap: 7px;
 }
 
 .filter-item-list li a:hover,
