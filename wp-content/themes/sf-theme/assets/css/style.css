@@ -1694,7 +1694,7 @@ ul.dropdown-menu {
   display: flex;
   flex-direction: column;
   gap: 80px;
-  max-width: 60%;
+  max-width: 80%;
 }
 
 .btn.hero-btn {
