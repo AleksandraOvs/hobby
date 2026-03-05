@@ -59,7 +59,7 @@ get_header(); ?>
 										<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
 									</ul>
 								</li>
-							</ul>
+							</ul> 
 						</div>
 						<div class="product-config-left d-sm-flex">
 							<?php woocommerce_result_count() ?>
