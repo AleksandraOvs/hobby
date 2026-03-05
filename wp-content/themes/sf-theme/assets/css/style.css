@@ -10773,6 +10773,7 @@ Start Start 404 Error Page Wrapper
   position: relative;
   width: 85%;
   height: max-content;
+  max-width: 450px;
 }
 
 .wpcf7-form {
