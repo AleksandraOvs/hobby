@@ -135,9 +135,10 @@ if (current_user_can('administrator')) {
     $form = get_field('contact_form_preorder', 'option');
 
     if ($form) {
-        echo do_shortcode('[contact-form-7 id="' . $form->ID . '"]');
+        echo do_shortcode('[contact-form-7 id="' . $form->ID . '" product_id="' . get_the_ID() . '"]');
     }
     ?>
+
 </div>
 
 <div class="arrow-up">
