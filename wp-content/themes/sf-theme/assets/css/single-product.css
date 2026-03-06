@@ -607,6 +607,18 @@
         justify-content: center;
     }
 
+    .stock-status.--preorder {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        gap: 5px;
+    }
+
+    .stock-status.--preorder p {
+        max-width: 320px;
+    }
+
     /* .price-total::before {
         content: '';
     } */
