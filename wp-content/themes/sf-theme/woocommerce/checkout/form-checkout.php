@@ -146,7 +146,7 @@ if (! defined('ABSPATH')) {
 														name="custom_delivery_method"
 														value="Наиболее выгодный вариант"
 														<?php checked($selected, 'Наиболее выгодный вариант'); ?>>
-													<span class="delivery-option__title">Наиболее выгодный вариант</span>
+													<span class="delivery-option__title">Подберем для Вас наиболее выгодный вариант</span>
 												</span>
 												<span class="delivery-option__desc">
 													Менеджер подберет лучший способ
