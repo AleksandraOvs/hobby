@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     // === Список popup-якорей для Fancybox ===
-    const fancyboxTargets = ['#main-form', '#popup-map'];
+    const fancyboxTargets = ['#main-form', '#popup-map', '#popup-preorder'];
 
     fancyboxTargets.forEach(function (target) {
         const buttons = document.querySelectorAll(`a[href="${target}"]`);

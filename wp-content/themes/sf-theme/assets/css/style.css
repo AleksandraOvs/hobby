@@ -7530,7 +7530,7 @@ Start Shop Page Wrapper
 }
 
 .product-config-area .product-config-right ul.product-filter-sort li {
-  margin-left: 15px;
+  margin-left: 7px;
 }
 
 .product-config-area .product-config-right ul.product-filter-sort li:first-child {
@@ -10771,7 +10771,8 @@ Start Start 404 Error Page Wrapper
   padding: 5px 10px;
 }
 
-#main-form {
+#main-form,
+#popup-preorder {
   position: relative;
   width: 90%;
   height: max-content;

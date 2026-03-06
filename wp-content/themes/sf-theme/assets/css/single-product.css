@@ -531,6 +531,44 @@
     stroke: var(--theme-color-accent);
 }
 
+.pre-order-btn {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+}
+
+.pre-order-btn span {
+    color: var(--theme-color-primary);
+}
+
+
+.pre-order-btn svg {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    object-position: center;
+}
+
+.stock-status.--preorder {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 20px;
+}
+
+.stock-status.--preorder p {
+    font-size: 12px;
+    color: #898989;
+    margin-bottom: 0;
+    line-height: 120%;
+    font-style: italic;
+}
+
+.pre-order-btn:hover span {
+    color: var(--theme-color-accent);
+}
+
 @media (max-width: 991px) {
     .single-product__related .products {
         grid-template-columns: repeat(2, 1fr);
@@ -564,7 +602,8 @@
         justify-content: center;
     }
 
-    .stock-status {
+    .stock-status,
+    .pre-order-btn {
         justify-content: center;
     }
 
