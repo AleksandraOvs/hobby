@@ -146,6 +146,18 @@ $has_gallery = count($image_ids) > 1;
                                 для оформления предзаказа, заполните форму и&nbsp;мы&nbsp;свяжемся с&nbsp;вами в&nbsp;ближайшее время
                             </p>
 
+                            <?php
+                            // $product_name = $product->get_name();
+
+                            // echo do_shortcode('[contact-form-7 id="05f21b0" title="Форма предзаказа" product="' . esc_attr($product_name) . '"]');
+                            ?>
+
+                            <?php
+                            echo do_shortcode(
+                                '[contact-form-7 id="05f21b0" title="Форма предзаказа" product_name="' . get_the_title() . '"]'
+                            );
+                            ?>
+
 
                         </div>
 
