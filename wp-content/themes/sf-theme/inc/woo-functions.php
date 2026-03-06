@@ -561,13 +561,3 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
         $order->set_shipping_country('');
     }
 }, 20, 2);
-
-add_shortcode('get_post_title', function () {
-    global $post;
-    return $post ? get_the_title($post->ID) : '';
-});
-
-add_shortcode('get_post_url', function () {
-    global $post;
-    return $post ? get_permalink($post->ID) : '';
-});
