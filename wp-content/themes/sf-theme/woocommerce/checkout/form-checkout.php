@@ -57,6 +57,55 @@ if (! defined('ABSPATH')) {
 									<p>Расчет стоимости доставки производится менеджером после подтверждения заказа</p>
 								</div> -->
 
+								<?php
+								// echo '<pre>';
+								// print_r(WC()->shipping()->get_packages());
+								// echo '</pre>';
+								?>
+								<?php
+
+								$packages = WC()->cart->get_shipping_packages();
+
+								foreach ($packages as $package_index => $package) {
+
+									$rates = WC()->shipping()->calculate_shipping_for_package($package);
+
+									if (!empty($rates['rates'])) {
+
+										foreach ($rates['rates'] as $rate_id => $rate) {
+
+											$label = $rate->get_label();
+											$cost  = wc_price($rate->get_cost());
+								?>
+
+											<div class="delivery-option wc-delivery-option">
+												<label class="delivery-option__inner">
+
+													<span class="delivery-option__left">
+														<input type="radio"
+															name="shipping_method[<?php echo $package_index; ?>]"
+															value="<?php echo esc_attr($rate_id); ?>">
+
+														<span class="delivery-option__title">
+															<?php echo esc_html($label); ?>
+														</span>
+													</span>
+
+													<span class="delivery-option__desc">
+														<?php echo $cost; ?>
+													</span>
+
+												</label>
+											</div>
+
+								<?php
+										}
+									}
+								}
+								?>
+
+
+
 								<div class="checkout-section__content">
 
 									<?php
@@ -82,10 +131,13 @@ if (! defined('ABSPATH')) {
 
 										<div class="pickup-fields">
 											<div class="form-row">
-												<label>Страна</label>
-												<select name="pickup_country">
-													<option value="">Россия</option>
-												</select>
+												<?php
+												woocommerce_form_field(
+													'billing_country',
+													$checkout->get_checkout_fields()['billing']['billing_country'],
+													$checkout->get_value('billing_country')
+												);
+												?>
 											</div>
 
 											<div class="form-row">
@@ -184,3 +236,15 @@ if (! defined('ABSPATH')) {
 		<?php do_action('woocommerce_after_checkout_form', $checkout); ?>
 	</div>
 </div>
+
+<script>
+	jQuery(function($) {
+
+		$('body').on('change', '.shipping_method', function() {
+
+			$('body').trigger('update_checkout');
+
+		});
+
+	});
+</script>

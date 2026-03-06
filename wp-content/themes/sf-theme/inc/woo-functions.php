@@ -429,7 +429,7 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
         $fields['billing']['billing_city'],
         $fields['billing']['billing_state'],
         $fields['billing']['billing_postcode'],
-        $fields['billing']['billing_country']
+        // $fields['billing']['billing_country']
     );
 
     // кастомное поле ФИО
