@@ -1030,6 +1030,10 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     margin-bottom: 10px;
 }
 
+.custom-delivery-options .pickup-fields .form-row p {
+    margin: 0;
+}
+
 .delivery-option .delivery-option__inner {
     display: flex;
     justify-content: space-between;
