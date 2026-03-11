@@ -49,9 +49,14 @@ if (! defined('ABSPATH')) {
 								</div>
 							</div>
 
+							<!-- Кастомные варианты доставки (работают, если ни одного метода доставки не добавлено и расчет доставки выключен)-->
 							<!-- Способ получения -->
 							<div class="checkout-section">
 								<div class="checkout-section__title">Способ получения</div>
+
+								<!-- <div class="delivery-desc">
+									<p>Расчет стоимости доставки производится менеджером после подтверждения заказа</p>
+								</div> -->
 								<div class="checkout-section__content">
 
 									<?php
@@ -92,23 +97,22 @@ if (! defined('ABSPATH')) {
 											</div>
 										</div>
 
-										<!-- <div class="delivery-option">
+										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
 													<input type="radio"
 														name="custom_delivery_method"
 														value="Доставка курьером"
-														<?php //checked($selected, 'Доставка курьером'); 
-														?>>
+														<?php checked($selected, 'Доставка курьером'); ?>>
 													<span class="delivery-option__title">Доставка курьером</span>
 												</span>
 												<span class="delivery-option__desc">
 													Завтра, от 500 руб.
 												</span>
 											</label>
-										</div> -->
+										</div>
 
-										<!-- <div class="delivery-option">
+										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
 													<input type="radio"
@@ -122,44 +126,40 @@ if (! defined('ABSPATH')) {
 													От 2 дней
 												</span>
 											</label>
-										</div> -->
+										</div>
 
-										<!-- <div class="delivery-option">
+										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
 													<input type="radio"
 														name="custom_delivery_method"
 														value="Почта России"
-														<?php //checked($selected, 'Почта России'); 
-														?>>
+														<?php checked($selected, 'Почта России'); ?>>
 													<span class="delivery-option__title">Почта России</span>
 												</span>
 												<span class="delivery-option__desc">
 													От 6 дней
 												</span>
 											</label>
-										</div> -->
+										</div>
 
-										<!-- <div class="delivery-option">
+										<div class="delivery-option">
 											<label class="delivery-option__inner">
 												<span class="delivery-option__left">
 													<input type="radio"
 														name="custom_delivery_method"
 														value="Наиболее выгодный вариант"
-														<?php //checked($selected, 'Наиболее выгодный вариант'); 
-														?>>
+														<?php checked($selected, 'Наиболее выгодный вариант'); ?>>
 													<span class="delivery-option__title">Наиболее выгодный вариант</span>
 												</span>
 												<span class="delivery-option__desc">
 													Подберем для Вас наиболее выгодный вариант
 												</span>
 											</label>
-										</div> -->
+										</div>
 
 									</div>
 								</div>
-
-
 								<?php
 								// echo '<pre>';
 								// print_r(WC()->shipping()->get_packages());
@@ -200,32 +200,28 @@ if (! defined('ABSPATH')) {
 
 												</label>
 											</div>
-
 								<?php
 										}
 									}
 								}
 								?>
-
 							</div>
-
 						</div>
+
+						<?php do_action('sf_checkout_products_block'); ?>
+
+					<?php endif; ?>
+
 					</div>
 
-					<?php do_action('sf_checkout_products_block'); ?>
+					<!-- Checkout Page Order Details -->
+					<div class="order-details-area-wrap ">
+						<h2>Ваш заказ</h2>
 
-				<?php endif; ?>
-
-			</div>
-
-			<!-- Checkout Page Order Details -->
-			<div class="order-details-area-wrap ">
-				<h2>Ваш заказ</h2>
-
-				<div id="order_review" class="woocommerce-checkout-review-order order-details-table table-responsive">
-					<?php do_action('woocommerce_checkout_order_review'); ?>
-				</div>
-			</div>
+						<div id="order_review" class="woocommerce-checkout-review-order order-details-table table-responsive">
+							<?php do_action('woocommerce_checkout_order_review'); ?>
+						</div>
+					</div>
 		</form>
 
 

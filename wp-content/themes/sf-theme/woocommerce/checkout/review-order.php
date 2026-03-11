@@ -22,7 +22,9 @@ defined('ABSPATH') || exit;
 
 	<div class="review-order__row">
 		<div class="review-order__col">Товаров на:</div>
-		<div class="review-order__col"><?php wc_cart_totals_order_total_html(); ?></div>
+		<div class="review-order__col">
+			<?php echo wc_price(WC()->cart->get_cart_contents_total()); ?>
+		</div>
 	</div>
 
 	<div class="review-order__row">
@@ -61,6 +63,21 @@ defined('ABSPATH') || exit;
 	<div class="review-order__row">
 		<div class="review-order__col">Позиций:</div>
 		<div class="review-order__col"><?php echo count(WC()->cart->get_cart()) ?></div>
+	</div>
+
+	<!-- <div class="review-order__row">
+		<div class="review-order__col">Доставка:</div>
+		<div class="review-order__col">
+			<?php //wc_cart_totals_shipping_html(); 
+			?>
+		</div>
+	</div> -->
+
+	<div class="review-order__row order-total">
+		<div class="review-order__col">К оплате:</div>
+		<div class="review-order__col">
+			<?php wc_cart_totals_order_total_html(); ?>
+		</div>
 	</div>
 
 	<?php if (WC()->cart->needs_shipping() && WC()->cart->show_shipping()) : ?>

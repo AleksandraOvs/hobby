@@ -285,7 +285,9 @@ defined('ABSPATH') || exit;
 
 							<li class="cart-totals__info__item order-total">
 								<span>Итого:</span>
-								<p data-title="<?php esc_attr_e('Total', 'woocommerce'); ?>"><?php wc_cart_totals_order_total_html(); ?></p>
+								<p data-title="<?php esc_attr_e('Total', 'woocommerce'); ?>">
+									<?php echo wc_price(WC()->cart->get_cart_contents_total()); ?>
+								</p>
 							</li>
 
 					</div>
@@ -308,7 +310,8 @@ defined('ABSPATH') || exit;
 		</form>
 	</div>
 
-	<?php woocommerce_cart_totals(); ?>
+	<?php woocommerce_cart_totals();
+	?>
 
 </div>
 

@@ -369,29 +369,51 @@ add_action('wp_footer', function () {
 
 /*сохранение выбранных кастомных способов доставки в заказ*/
 
-add_action('woocommerce_checkout_process', function () {
-    if (empty($_POST['custom_delivery_method'])) {
-        wc_add_notice('Пожалуйста, выберите способ получения.', 'error');
-    }
-});
+// add_action('woocommerce_checkout_process', function () {
+//     if (empty($_POST['custom_delivery_method'])) {
+//         wc_add_notice('Пожалуйста, выберите способ получения.', 'error');
+//     }
+// });
 
-add_action('woocommerce_checkout_create_order', function ($order) {
-    if (!empty($_POST['custom_delivery_method'])) {
-        $order->update_meta_data(
-            'Способ получения',
-            sanitize_text_field($_POST['custom_delivery_method'])
-        );
-    }
-});
+// add_action('woocommerce_checkout_create_order', function ($order) {
+//     if (!empty($_POST['custom_delivery_method'])) {
+//         $order->update_meta_data(
+//             'Способ получения',
+//             sanitize_text_field($_POST['custom_delivery_method'])
+//         );
+//     }
+// });
 
-add_action('woocommerce_admin_order_data_after_shipping_address', function ($order) {
-    $value = $order->get_meta('Способ получения');
-    if ($value) {
-        echo '<p><strong>Способ получения:</strong> ' . esc_html($value) . '</p>';
-    }
-});
+// add_action('woocommerce_admin_order_data_after_shipping_address', function ($order) {
+//     $value = $order->get_meta('Способ получения');
+//     if ($value) {
+//         echo '<p><strong>Способ получения:</strong> ' . esc_html($value) . '</p>';
+//     }
+// });
 
-add_action('woocommerce_after_shipping_rate', 'custom_pickup_extra_fields', 20, 2);
+// function custom_pickup_extra_fields($method, $index)
+// {
+
+//     if ($method->method_id !== 'local_pickup') {
+//         return;
+//     }
+
+//     echo '<div class="pickup-extra-fields" style="margin-top:10px;">';
+
+//     echo '<label>
+//             <input type="radio" name="pickup_method" value="Самовывоз" checked>
+//             Самовывоз
+//           </label><br>';
+
+//     echo '<label>
+//             <input type="radio" name="pickup_method" value="Доставка курьером">
+//             Доставка курьером
+//           </label>';
+
+//     echo '</div>';
+// }
+
+// add_action('woocommerce_after_shipping_rate', 'custom_pickup_extra_fields', 20, 2);
 
 /* */
 add_action('woocommerce_email_after_order_table', function ($order, $sent_to_admin, $plain_text, $email) {
@@ -490,14 +512,14 @@ add_filter('woocommerce_checkout_fields', function ($fields) {
 });
 
 // Выводит ошибки чекаута для отладки
-add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
-    if (!empty($errors->errors)) {
-        echo '<pre style="background:#111;color:#0f0;padding:15px;">';
-        echo "DEBUG CHECKOUT ERRORS:\n\n";
-        print_r($errors->errors);
-        echo '</pre>';
-    }
-}, 9999, 2);
+// add_action('woocommerce_after_checkout_validation', function ($data, $errors) {
+//     if (!empty($errors->errors)) {
+//         echo '<pre style="background:#111;color:#0f0;padding:15px;">';
+//         echo "DEBUG CHECKOUT ERRORS:\n\n";
+//         print_r($errors->errors);
+//         echo '</pre>';
+//     }
+// }, 9999, 2);
 
 /* ---------- Split name on order ---------- */
 // Разделяет ФИО на имя и фамилию при создании заказа
@@ -516,16 +538,26 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
     }
 }, 10, 2);
 
-// Убираем стандартный блок доставки в checkout
-add_action('init', function () {
-    remove_action(
-        'woocommerce_checkout_order_review',
-        'woocommerce_checkout_shipping',
-        10
-    );
+add_action('woocommerce_checkout_create_order', function ($order) {
+
+    if (isset($_POST['pickup_address'])) {
+        $order->update_meta_data(
+            'pickup_address',
+            sanitize_text_field($_POST['pickup_address'])
+        );
+    }
 });
 
-// Показываем выбранный способ доставки после блока заказа
+// Убираем стандартный блок доставки в checkout
+// add_action('init', function () {
+//     remove_action(
+//         'woocommerce_checkout_order_review',
+//         'woocommerce_checkout_shipping',
+//         10
+//     );
+// });
+
+// // Показываем выбранный способ доставки после блока заказа
 add_action('woocommerce_review_order_after_shipping', function () {
     $packages = WC()->shipping()->get_packages();
     $chosen   = WC()->session->get('chosen_shipping_methods');
@@ -561,3 +593,68 @@ add_action('woocommerce_checkout_create_order', function ($order, $data) {
         $order->set_shipping_country('');
     }
 }, 20, 2);
+
+//временная отладка
+// add_action('woocommerce_checkout_process', function () {
+//     error_log('POST data: ' . print_r($_POST, true));
+// });
+
+// add_action('woocommerce_checkout_process', function () {
+//     // Проверка выбранных методов
+//     $chosen = WC()->session->get('chosen_shipping_methods');
+//     error_log('Chosen shipping methods at checkout: ' . print_r($chosen, true));
+
+//     // Проверка поля pickup_address
+//     $pickup = $_POST['pickup_address'] ?? '';
+//     error_log('Pickup address: ' . $pickup);
+
+//     if (in_array('free_shipping:8', $chosen) && empty($pickup)) {
+//         wc_add_notice('Для самовывоза необходимо указать адрес', 'error');
+//     }
+// });
+
+// 1. Сохраняем выбранный кастомный способ доставки при оформлении заказа
+add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
+    if (!empty($_POST['custom_delivery_method'])) {
+        update_post_meta($order_id, '_custom_delivery_method', sanitize_text_field($_POST['custom_delivery_method']));
+    }
+
+    if (!empty($_POST['pickup_address'])) {
+        update_post_meta($order_id, '_pickup_address', sanitize_text_field($_POST['pickup_address']));
+    }
+});
+
+// 2. Отображаем выбранный способ доставки на странице заказа (в админке)
+add_action('woocommerce_admin_order_data_after_shipping_address', function ($order) {
+    $method = get_post_meta($order->get_id(), '_custom_delivery_method', true);
+    $address = get_post_meta($order->get_id(), '_pickup_address', true);
+
+    if ($method) {
+        echo '<p><strong>Способ получения:</strong> ' . esc_html($method) . '</p>';
+    }
+    if ($address) {
+        echo '<p><strong>Адрес для самовывоза:</strong> ' . esc_html($address) . '</p>';
+    }
+});
+
+// 3. Добавляем в письмо о заказе
+add_filter('woocommerce_email_order_meta_fields', function ($fields, $sent_to_admin, $order) {
+    $method = get_post_meta($order->get_id(), '_custom_delivery_method', true);
+    $address = get_post_meta($order->get_id(), '_pickup_address', true);
+
+    if ($method) {
+        $fields['custom_delivery_method'] = array(
+            'label' => 'Способ получения',
+            'value' => $method,
+        );
+    }
+
+    if ($address) {
+        $fields['pickup_address'] = array(
+            'label' => 'Адрес',
+            'value' => $address,
+        );
+    }
+
+    return $fields;
+}, 10, 3);
