@@ -8807,6 +8807,16 @@ Start Checkout Page Wrapper
   margin-top: 30px;
 }
 
+.checkout.woocommerce-checkout .checkout-order-fields {
+  width: 100%;
+  display: flex;
+  gap: 40px;
+}
+
+.checkout-billing-details-wrap {
+  width: calc(66% - 40px);
+}
+
 @media only screen and (max-width: 767.98px) {
   .checkout-billing-details-wrap {
     margin-top: 30px;
