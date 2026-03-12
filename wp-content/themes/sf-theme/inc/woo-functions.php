@@ -658,3 +658,6 @@ add_filter('woocommerce_email_order_meta_fields', function ($fields, $sent_to_ad
 
     return $fields;
 }, 10, 3);
+
+//html для поля "Описание"
+remove_filter('pre_term_description', 'wp_filter_kses');
