@@ -7455,6 +7455,10 @@ Start Shop Page Wrapper
   padding-bottom: 40px;
 }
 
+.category-description h2 {
+  margin: 0;
+}
+
 .product-config-area ul li {
   color: #8d8d8d;
 }
