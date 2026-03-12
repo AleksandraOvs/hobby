@@ -832,6 +832,14 @@ button.woocommerce-button.button.woocommerce-form-register__submit {
     .my-order__summary-item._discount span .woocommerce-Price-amount.amount {
         font-size: 16px;
     }
+
+    #customer_login {
+        width: 100%;
+    }
+
+    .auth-tabs__title {
+        font-size: 18px;
+    }
 }
 
 .woocommerce form.checkout_coupon {
