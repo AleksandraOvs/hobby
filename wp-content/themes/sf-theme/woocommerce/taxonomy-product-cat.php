@@ -209,10 +209,21 @@ $format = isset($format) ? $format : '';
 					<?php endif; ?>
 				</div>
 				<!-- Page Pagination End  -->
+
+				<?php
+				$term = get_queried_object();
+
+				if (! empty($term->description)) {
+					echo '<div class="category-description">';
+					echo wpautop($term->description);
+					echo '</div>';
+				}
+				?>
 			</div>
 			<!-- End Shop Page Product Area -->
 
 		</div>
+
 	</div>
 </div>
 <!--== End Shop Page Wrapper ==-->
