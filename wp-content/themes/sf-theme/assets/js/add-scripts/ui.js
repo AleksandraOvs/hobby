@@ -199,4 +199,28 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    //форма входа/регистрации
+
+    const tabs = document.querySelectorAll('.auth-tabs__title');
+    const panels = document.querySelectorAll('.auth-tabs__panel');
+
+    tabs.forEach(tab => {
+
+        tab.addEventListener('click', function () {
+
+            const target = this.dataset.tab;
+
+            tabs.forEach(t => t.classList.remove('is-active'));
+            panels.forEach(p => p.classList.remove('is-active'));
+
+            this.classList.add('is-active');
+
+            document
+                .querySelector('[data-panel="' + target + '"]')
+                .classList.add('is-active');
+
+        });
+
+    });
+
 })
