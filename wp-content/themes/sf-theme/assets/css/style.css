@@ -7468,7 +7468,7 @@ Start Shop Page Wrapper
   color: #8d8d8d;
 }
 
-.product-config-area>ul li button {
+.product-filter-sort>ul li {
   color: #8d8d8d;
   border: 1px solid #8d8d8d;
   padding: 2px 5px;
