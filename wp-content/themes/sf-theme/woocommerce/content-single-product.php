@@ -256,12 +256,140 @@ $has_gallery = count($image_ids) > 1;
 
                     <div class="single-product__delivery">
                         <h2>Доставка</h2>
+
+                        <ul class="single-product__delivery__list">
+
+                            <li class="single-product__delivery__list__item">
+                                <?php
+                                $var1 = get_field('delivery_var1', 'option');
+                                if ($var1) :
+
+                                    $link = $var1['delivery_var1_link'] ?? '';
+                                    $img  = $var1['delivery_var1_img'] ?? '';
+
+                                    if ($img || $link) :
+                                ?>
+                                        <div class="delivery-variant">
+
+                                            <?php if ($img && $link) : ?>
+                                                <a class="delivery-variant__img-link" href="<?php echo esc_url($link); ?>">
+                                                    <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+                                                </a>
+
+                                            <?php elseif ($img) : ?>
+                                                <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+
+                                            <?php elseif ($link) : ?>
+                                                <a class="delivery-variant__link" href="<?php echo esc_url($link); ?>">
+                                                    Подробнее
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+                                <?php endif;
+                                endif; ?>
+                            </li>
+
+
+                            <li class="single-product__delivery__list__item">
+                                <?php
+                                $var2 = get_field('delivery_var2', 'option');
+                                if ($var2) :
+
+                                    $link = $var2['delivery_var2_link'] ?? '';
+                                    $img  = $var2['delivery_var2_img'] ?? '';
+
+                                    if ($img || $link) :
+                                ?>
+                                        <div class="delivery-variant">
+
+                                            <?php if ($img && $link) : ?>
+                                                <a class="delivery-variant__img-link" href="<?php echo esc_url($link); ?>">
+                                                    <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+                                                </a>
+
+                                            <?php elseif ($img) : ?>
+                                                <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+
+                                            <?php elseif ($link) : ?>
+                                                <a class="delivery-variant__link" href="<?php echo esc_url($link); ?>">
+                                                    Подробнее
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+                                <?php endif;
+                                endif; ?>
+                            </li>
+
+
+                            <li class="single-product__delivery__list__item">
+                                <?php
+                                $var3 = get_field('delivery_var3', 'option');
+                                if ($var3) :
+
+                                    $link = $var3['delivery_var3_link'] ?? '';
+                                    $img  = $var3['delivery_var3_img'] ?? '';
+
+                                    if ($img || $link) :
+                                ?>
+                                        <div class="delivery-variant">
+
+                                            <?php if ($img && $link) : ?>
+                                                <a class="delivery-variant__img-link" href="<?php echo esc_url($link); ?>">
+                                                    <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+                                                </a>
+
+                                            <?php elseif ($img) : ?>
+                                                <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+
+                                            <?php elseif ($link) : ?>
+                                                <a class="delivery-variant__link" href="<?php echo esc_url($link); ?>">
+                                                    Подробнее
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+                                <?php endif;
+                                endif; ?>
+                            </li>
+
+
+                            <li class="single-product__delivery__list__item">
+                                <?php
+                                $var4 = get_field('delivery_var4', 'option');
+                                if ($var4) :
+
+                                    $link = $var4['delivery_var4_link'] ?? '';
+                                    $img  = $var4['delivery_var4_img'] ?? '';
+
+                                    if ($img || $link) :
+                                ?>
+                                        <div class="delivery-variant">
+
+                                            <?php if ($img && $link) : ?>
+                                                <a class="delivery-variant__img-link" href="<?php echo esc_url($link); ?>">
+                                                    <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+                                                </a>
+
+                                            <?php elseif ($img) : ?>
+                                                <img src="<?php echo esc_url($img['url']); ?>" alt="<?php echo esc_attr($img['alt']); ?>">
+
+                                            <?php elseif ($link) : ?>
+                                                <a class="delivery-variant__link" href="<?php echo esc_url($link); ?>">
+                                                    Подробнее
+                                                </a>
+                                            <?php endif; ?>
+
+                                        </div>
+                                <?php endif;
+                                endif; ?>
+                            </li>
+
+                        </ul>
                     </div>
-
                 </div>
-
                 <?php
-
                 ob_start();
                 sf_product_attributes();
                 $attributes_html = ob_get_clean();
