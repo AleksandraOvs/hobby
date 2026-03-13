@@ -7468,6 +7468,13 @@ Start Shop Page Wrapper
   color: #8d8d8d;
 }
 
+.product-config-area>ul li button {
+  color: #8d8d8d;
+  border: 1px solid #8d8d8d;
+  padding: 2px 5px;
+  border-radius: 3px;
+}
+
 .product-config-area .product-config-left p {
   margin-bottom: 0;
   color: #262626;
