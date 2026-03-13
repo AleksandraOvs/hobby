@@ -661,3 +661,18 @@ add_filter('woocommerce_email_order_meta_fields', function ($fields, $sent_to_ad
 
 //html для поля "Описание"
 remove_filter('pre_term_description', 'wp_filter_kses');
+
+//сортировка/фильтр товаров по размеру фильтр на запрос WooCommerce:
+add_action('pre_get_posts', function ($query) {
+    if (!is_admin() && $query->is_main_query() && is_shop()) {
+        if (isset($_GET['size']) && $_GET['size'] != '') {
+            $tax_query = $query->get('tax_query') ?: [];
+            $tax_query[] = [
+                'taxonomy' => 'pa_razmer',
+                'field' => 'slug',
+                'terms' => sanitize_text_field($_GET['size']),
+            ];
+            $query->set('tax_query', $tax_query);
+        }
+    }
+});

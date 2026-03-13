@@ -115,11 +115,26 @@ $format = isset($format) ? $format : '';
 									<li class="dropdown-show sort-by">
 										<button class="arrow-toggle">Размеру</button>
 										<ul class="dropdown-nav">
-											<li><a href="?orderby=date" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>Сначала новые</a></li>
-											<li><a href="?orderby=popularity" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По популярности</a></li>
-											<li><a href="?orderby=rating" <?php if (isset($_GET['orderby']) && 'rating' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По среднему рейтингу</a></li>
-											<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
-											<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
+											<?php
+											// Определяем текущий параметр сортировки из URL
+											$current_order = isset($_GET['size_order']) ? sanitize_text_field($_GET['size_order']) : '';
+
+											// Пункты сортировки
+											$orders = [
+												'asc'  => 'По возрастанию',
+												'desc' => 'По убыванию',
+											];
+
+											foreach ($orders as $key => $label) :
+												$active_class = ($current_order === $key) ? 'class="active"' : '';
+												$link = add_query_arg('size_order', $key);
+											?>
+												<li>
+													<a href="<?php echo esc_url($link); ?>" <?php echo $active_class; ?>>
+														<?php echo esc_html($label); ?>
+													</a>
+												</li>
+											<?php endforeach; ?>
 										</ul>
 									</li>
 								</ul>
