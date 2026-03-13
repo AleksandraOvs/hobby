@@ -7635,14 +7635,20 @@ Start Shop Page Wrapper
 
   .product-config-area {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 10px;
+  }
+
+  .product-config-right {
+    order: 2;
   }
 }
 
 @media (max-width: 576px) {
-  .product-config-area .product-config-left {
+  /* .product-config-area .product-config-left {
     display: none;
-  }
+  } */
 }
 
 .product-filter-item-wrapper .single-filter-item-wrap .filter-item-title {
