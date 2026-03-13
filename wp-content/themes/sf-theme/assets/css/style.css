@@ -7578,11 +7578,12 @@ Start Shop Page Wrapper
   padding: 8px;
 }
 
+/* 
 .product-config-area .product-config-right ul.product-filter-sort li.sort-by .dropdown-nav li a.active,
 .product-config-area .product-config-right ul.product-filter-sort li.sort-by .dropdown-nav li a:hover {
   background-color: var(--theme-color-beige);
   color: var(--theme-color-primary);
-}
+} */
 
 .product-config-area .product-config-right ul.product-filter-sort li .arrow-toggle.arrow-rotate:after {
   -webkit-transform: rotate(180deg);
