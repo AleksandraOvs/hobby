@@ -153,7 +153,9 @@ $has_gallery = count($image_ids) > 1;
                         <div class="stock-status">
                             <span>Нет в наличии</span>
                         </div>
-                        <?php do_action('stockalert_subscribe_form'); ?>
+                        <?php echo do_shortcode(' [xoo_wl_form]'); ?>
+
+
 
                     <?php endif; ?>
 
