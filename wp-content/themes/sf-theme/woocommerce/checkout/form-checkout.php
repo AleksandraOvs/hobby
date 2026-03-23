@@ -123,7 +123,7 @@ if (! defined('ABSPATH')) {
 													<span class="delivery-option__title">СДЭК</span>
 												</span>
 												<span class="delivery-option__desc">
-													0 рублей
+													Доставка до пункта отправки - 0 рублей
 												</span>
 											</label>
 										</div>
