@@ -10,7 +10,7 @@ function uld_get_user_total_spent($user_id)
 
     $orders = wc_get_orders([
         'customer_id' => $user_id,
-        'status'      => ['completed', 'processing'],
+        'status'      => ['completed'],
         'limit'       => -1,
         'return'      => 'ids',
     ]);
