@@ -50,12 +50,12 @@
     padding: 20px;
     margin: 0;
     text-align: left;
-    border-radius: 5px;
+    border-radius: 0 0 5px 5px;
 }
 
 .auth-tabs__content {
     position: relative;
-    background: var(--theme-color-beige);
+    background: #fff;
 }
 
 /* вкладки */
@@ -766,10 +766,9 @@ button.woocommerce-button.button.woocommerce-form-register__submit {
 
     .woocommerce-MyAccount-navigation ul {
         display: flex;
-        flex-direction: row;
         flex-wrap: wrap;
         justify-content: center;
-        row-gap: 20px;
+        row-gap: 5px;
     }
 
     /* .woocommerce-MyAccount-navigation ul li {
