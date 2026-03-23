@@ -120,10 +120,10 @@ if (! defined('ABSPATH')) {
 														value="Транспортная компания"
 														<?php //checked($selected, 'Транспортная компания'); 
 														?>>
-													<span class="delivery-option__title">Транспортная компания</span>
+													<span class="delivery-option__title">СДЭК</span>
 												</span>
 												<span class="delivery-option__desc">
-													От 2 дней
+													0 рублей
 												</span>
 											</label>
 										</div>
