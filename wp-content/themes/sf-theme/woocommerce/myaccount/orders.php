@@ -120,14 +120,21 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 						$product_img  = $product->get_image('thumbnail');
 						$quantity     = $item->get_quantity();
 						$weight       = $product->get_weight() ? wc_format_weight($product->get_weight() * $quantity) : '';
+						$product_link = get_permalink($product->get_id());
 					?>
 						<div class="my-order__item">
 
-							<div class="my-order__item-img"><?php echo $product_img; ?></div>
+							<div class="my-order__item-img">
+								<a href="<?php echo esc_url($product_link); ?>">
+									<?php echo $product_img; ?>
+								</a>
+							</div>
 
 							<div class="my-order__item-right">
 								<div class="my-order__item-info">
-									<div class="my-order__item-name"><?php echo esc_html($product_name); ?></div>
+									<div class="my-order__item-name"><a href="<?php echo esc_url($product_link); ?>">
+											<?php echo esc_html($product_name); ?>
+										</a></div>
 									<?php if ($product_sku) : ?>
 										<div class="my-order__item-sku"><?php echo esc_html('SKU: ' . $product_sku); ?></div>
 									<?php endif; ?>
@@ -151,7 +158,7 @@ do_action('woocommerce_before_account_orders', $has_orders); ?>
 								<!-- <div class="my-order__item-right__item _item-view">
 									<a href="<?php //echo esc_url($order->get_view_order_url()); 
 												?>"><?php //esc_html_e('View', 'woocommerce'); 
-																										?></a>
+													?></a>
 								</div> -->
 							</div>
 
