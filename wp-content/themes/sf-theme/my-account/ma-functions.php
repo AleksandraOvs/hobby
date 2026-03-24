@@ -77,12 +77,12 @@ add_action('woocommerce_save_account_details', function ($user_id) {
 });
 
 //Вывод ФИО на странице «Анкета» (просмотр)
-$user_id   = get_current_user_id();
-$full_name = get_user_meta($user_id, 'account_full_name', true);
+// $user_id   = get_current_user_id();
+// $full_name = get_user_meta($user_id, 'account_full_name', true);
 
-if ($full_name) {
-    echo '<p><strong>Имя и фамилия:</strong> ' . esc_html($full_name) . '</p>';
-}
+// if ($full_name) {
+//     echo '<p><strong>Имя и фамилия:</strong> ' . esc_html($full_name) . '</p>';
+// }
 
 // Подставляем ФИО из аккаунта в оформление заказа
 add_filter('woocommerce_checkout_get_value', function ($value, $input) {
