@@ -211,3 +211,32 @@ document.addEventListener('DOMContentLoaded', function () {
 
     updateCount();
 });
+
+//отмечать подпункты сдэк только если отмечен основой пункт СДЭК
+
+document.addEventListener('DOMContentLoaded', function () {
+    const deliveryRadios = document.querySelectorAll('input[name="custom_delivery_method"]');
+    const sdekSuboptions = document.querySelector('.sdek-suboptions');
+
+    if (!sdekSuboptions) return;
+
+    // Функция для показа/скрытия СДЭК-подвариантов
+    function toggleSdekOptions() {
+        const selected = document.querySelector('input[name="custom_delivery_method"]:checked');
+        if (selected && selected.value === 'Транспортная компания') {
+            sdekSuboptions.style.display = 'flex';
+        } else {
+            // Скрываем и снимаем все галочки
+            sdekSuboptions.style.display = 'none';
+            sdekSuboptions.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+        }
+    }
+
+    // Запуск при загрузке страницы
+    toggleSdekOptions();
+
+    // Запуск при каждом изменении выбора доставки
+    deliveryRadios.forEach(radio => {
+        radio.addEventListener('change', toggleSdekOptions);
+    });
+});

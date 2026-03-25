@@ -126,6 +126,19 @@ if (! defined('ABSPATH')) {
 													Доставка до пункта отправки - 0 рублей
 												</span>
 											</label>
+
+											<!-- Дополнительные варианты СДЭК -->
+											<div class="sdek-suboptions">
+												<label>
+													<input type="checkbox" name="sdek_options[]" value="СДЭК - курьер">
+													СДЭК - курьер
+												</label>
+												<br>
+												<label>
+													<input type="checkbox" name="sdek_options[]" value="СДЭК - ПВЗ">
+													СДЭК - ПВЗ
+												</label>
+											</div>
 										</div>
 
 										<div class="delivery-option">
