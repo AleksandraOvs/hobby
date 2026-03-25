@@ -117,7 +117,7 @@ if (! defined('ABSPATH')) {
 												<span class="delivery-option__left">
 													<input type="radio"
 														name="custom_delivery_method"
-														value="Транспортная компания"
+														value="СДЭК"
 														<?php //checked($selected, 'Транспортная компания'); 
 														?>>
 													<span class="delivery-option__title">СДЭК</span>
@@ -131,12 +131,13 @@ if (! defined('ABSPATH')) {
 											<div class="sdek-suboptions">
 												<label>
 													<input type="checkbox" name="sdek_options[]" value="СДЭК - курьер">
-													СДЭК - курьер
+													Доставка курьером до двери
 												</label>
 												<br>
 												<label>
 													<input type="checkbox" name="sdek_options[]" value="СДЭК - ПВЗ">
-													СДЭК - ПВЗ
+													Доставка до ПВЗ
+
 												</label>
 											</div>
 										</div>

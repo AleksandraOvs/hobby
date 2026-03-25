@@ -223,7 +223,7 @@ document.addEventListener('DOMContentLoaded', function () {
     // Функция для показа/скрытия СДЭК-подвариантов
     function toggleSdekOptions() {
         const selected = document.querySelector('input[name="custom_delivery_method"]:checked');
-        if (selected && selected.value === 'Транспортная компания') {
+        if (selected && selected.value === 'СДЭК') {
             sdekSuboptions.style.display = 'flex';
         } else {
             // Скрываем и снимаем все галочки
