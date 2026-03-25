@@ -10,47 +10,10 @@ get_header() ?>
         <div class="container">
             <div class="page-title">О компании</div>
 
-            <?php
-            // Получаем текущую страницу
-            $current_id = get_the_ID();
-
-            // Определяем родительскую страницу раздела
-            $parent_id = wp_get_post_parent_id($current_id);
-            $root_id = $parent_id ? $parent_id : $current_id;
-
-            // Получаем все дочерние страницы родителя
-            $children = get_pages([
-                'child_of'    => $root_id,
-                'sort_column' => 'menu_order',
-                'post_status' => 'publish'
-            ]);
-            ?>
-
-            <nav class="docs-nav">
-                <ul>
-
-                    <!-- Ссылка на родительскую страницу -->
-                    <li class="<?php echo ($current_id == $root_id) ? 'active' : ''; ?>">
-                        <a href="<?php echo get_permalink($root_id); ?>">
-                            <?php echo get_the_title($root_id); ?>
-                        </a>
-                    </li>
-
-                    <!-- Ссылки на дочерние страницы -->
-                    <?php foreach ($children as $page): ?>
-                        <li class="<?php echo ($current_id == $page->ID) ? 'active' : ''; ?>">
-                            <a href="<?php echo get_permalink($page->ID); ?>">
-                                <?php echo esc_html($page->post_title); ?>
-                            </a>
-                        </li>
-                    <?php endforeach; ?>
-
-                </ul>
-            </nav>
 
             <h1><?php the_title() ?></h1>
 
-            <?php $show_toc = get_post_meta(get_the_ID(), '_show_page_toc', true); ?>
+
             <?php if ($show_toc): ?>
                 <div class="hrefs-block">
                     <ul id="toc">
