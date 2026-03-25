@@ -23,14 +23,21 @@ function ajax_product_search()
     $total = (int) $query->found_posts;
 
     // правильная ссылка на страницу поиска товаров
+    // $search_url = add_query_arg(
+    //     [
+    //         's' => $search_term,
+    //         'post_type' => 'product'
+    //     ],
+    //     home_url('/')
+    // );
+
     $search_url = add_query_arg(
         [
-            's' => $search_term,
+            's' => sanitize_text_field($search_term),
             'post_type' => 'product'
         ],
         home_url('/')
     );
-
 
     $query = new WP_Query($args);
 

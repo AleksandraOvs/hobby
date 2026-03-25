@@ -56,11 +56,12 @@ get_header(); ?>
 								<li class="dropdown-show sort-by">
 									<button class="arrow-toggle">Сортировать по</button>
 									<ul class="dropdown-nav">
+										<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
+										<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
 										<li><a href="?orderby=date" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>Сначала новые</a></li>
 										<li><a href="?orderby=popularity" <?php if (isset($_GET['orderby']) && 'date' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По популярности</a></li>
 										<li><a href="?orderby=rating" <?php if (isset($_GET['orderby']) && 'rating' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По среднему рейтингу</a></li>
-										<li><a href="?orderby=price" <?php if (isset($_GET['orderby']) && 'price' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &uarr;</a></li>
-										<li><a href="?orderby=price-desc" <?php if (isset($_GET['orderby']) && 'price-desc' == $_GET['orderby']) : ?> class="active" <?php endif; ?>>По цене &darr;</a></li>
+
 									</ul>
 								</li>
 							</ul>
