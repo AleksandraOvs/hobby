@@ -4,7 +4,7 @@
  */
 get_header() ?>
 <section class="page">
-    <?php //get_template_part('template-parts/elements/page-header'); 
+    <?php get_template_part('template-parts/elements/page-header');
     ?>
     <div class="page-content">
         <div class="container">
@@ -60,6 +60,7 @@ get_header() ?>
             <?php endif; ?>
 
             <?php the_content(); ?>
+            <?php wp_reset_postdata(); ?>
 
         </div>
     </div>
