@@ -36,10 +36,10 @@ get_header() ?>
                     </li>
 
                     <!-- Ссылки на дочерние страницы -->
-                    <?php foreach ($children as $page): ?>
-                        <li class="<?php echo ($current_id == $page->ID) ? 'active' : ''; ?>">
-                            <a href="<?php echo get_permalink($page->ID); ?>">
-                                <?php echo esc_html($page->post_title); ?>
+                    <?php foreach ($children as $child_page): ?>
+                        <li class="<?php echo ($current_id == $child_page->ID) ? 'active' : ''; ?>">
+                            <a href="<?php echo get_permalink($child_page->ID); ?>">
+                                <?php echo esc_html($child_page->post_title); ?>
                             </a>
                         </li>
                     <?php endforeach; ?>
