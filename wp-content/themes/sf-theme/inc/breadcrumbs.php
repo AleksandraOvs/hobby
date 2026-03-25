@@ -1,53 +1,43 @@
 <?php
-
-// Функция для вывода цепочки категорий с родителями
-function get_category_breadcrumbs($category)
-{
-    echo '<ul class="breadcrumbs__list cat">';
-    $separator = ' <svg width="4" height="8" viewBox="0 0 4 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.66823 4.06847L-2.62371e-07 1.40024L0.665885 0.73436L4 4.06847L0.665885 7.40259L-2.91067e-08 6.7367L2.66823 4.06847Z" fill="#fff"/>
-    </svg> ';
-
-    $parents = get_ancestors($category->term_id, 'category'); // массив ID родителей
-    $parents = array_reverse($parents); // сверху вниз
-
-    foreach ($parents as $parent_id) {
-        $parent = get_category($parent_id);
-        echo '<a href="' . get_category_link($parent->term_id) . '">' . esc_html($parent->name) . '</a>' . $separator;
-    }
-
-    // текущая категория
-    echo '<a href="' . get_category_link($category->term_id) . '">' . esc_html($category->name) . '</a>' . $separator;
-    echo '</ul>';
-}
-
-// Основная функция хлебных крошек
-// Основная функция хлебных крошек
 function site_breadcrumbs()
 {
-    echo '<ul class="breadcrumbs__list">';
-    $page_num = (get_query_var('paged')) ? get_query_var('paged') : 1;
-    $separator = ' <svg width="4" height="8" viewBox="0 0 4 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M2.66823 4.06847L-2.62371e-07 1.40024L0.665885 0.73436L4 4.06847L0.665885 7.40259L-2.91067e-08 6.7367L2.66823 4.06847Z" fill="#fff"/>
-    </svg> ';
+    global $post;
 
-    if (is_front_page()) {
-        if ($page_num > 1) {
-            echo '<a class="home-link" href="' . site_url() . '">Главная </a>' . $separator . $page_num . '-page';
-        } else {
-            echo 'Вы находитесь на главной странице';
-        }
+    if (!$post || !($post instanceof WP_Post)) {
         return;
     }
 
-    // Начало хлебных крошек: ссылка на главную
+    echo '<ul class="breadcrumbs__list">';
+
+    $page_num = get_query_var('paged') ? get_query_var('paged') : 1;
+
+    $separator = ' <svg width="4" height="8" viewBox="0 0 4 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2.66823 4.06847L-2.62371e-07 1.40024L0.665885 0.73436L4 4.06847L0.665885 7.40259L-2.91067e-08 6.7367L2.66823 4.06847Z" fill="#fff"/>
+    </svg> ';
+
+    // Главная
+    if (is_front_page()) {
+        if ($page_num > 1) {
+            echo '<a class="home-link" href="' . site_url() . '">Главная</a>' . $separator . $page_num . '-page';
+        } else {
+            echo 'Вы находитесь на главной странице';
+        }
+        echo '</ul>';
+        return;
+    }
+
     echo '<a class="home-link" href="' . site_url() . '">Главная</a>' . $separator;
 
+    // ======================
+    // SINGULAR (пост / страница / товар)
+    // ======================
     if (is_singular()) {
-        $post_type = get_post_type();
+
+        $post_id = $post->ID;
+        $post_type = get_post_type($post_id);
         $post_type_obj = get_post_type_object($post_type);
 
-        // CPT с архивом
+        // CPT архив
         if (
             $post_type !== 'post'
             && $post_type_obj instanceof WP_Post_Type
@@ -58,12 +48,13 @@ function site_breadcrumbs()
                 . '</a>' . $separator;
         }
 
-        // Для обычных постов: Primary Category + иерархия
+        // ===== POSTS =====
         if ($post_type === 'post') {
+
             $primary_cat = null;
 
             if (class_exists('WPSEO_Primary_Term')) {
-                $wpseo_primary_term = new WPSEO_Primary_Term('category', get_the_ID());
+                $wpseo_primary_term = new WPSEO_Primary_Term('category', $post_id);
                 $primary_cat_id = $wpseo_primary_term->get_primary_term();
                 if ($primary_cat_id) {
                     $primary_cat = get_category($primary_cat_id);
@@ -71,63 +62,76 @@ function site_breadcrumbs()
             }
 
             if (!$primary_cat) {
-                $categories = get_the_category();
+                $categories = get_the_category($post_id);
                 if (!empty($categories)) {
                     $primary_cat = $categories[0];
                 }
             }
 
             if ($primary_cat) {
-                get_category_breadcrumbs($primary_cat);
-            }
-        }
+                $parents = get_ancestors($primary_cat->term_id, 'category');
+                $parents = array_reverse($parents);
 
-        // WooCommerce: категории товаров
-        if ($post_type === 'product') {
-            $terms = get_the_terms(get_the_ID(), 'product_cat');
-            if ($terms && !is_wp_error($terms)) {
-                $term = $terms[0]; // Берём первую категорию (можно заменить на primary, если есть)
-                $ancestors = get_ancestors($term->term_id, 'product_cat');
-                if ($ancestors) {
-                    $ancestors = array_reverse($ancestors);
-                    foreach ($ancestors as $ancestor_id) {
-                        $ancestor = get_term($ancestor_id, 'product_cat');
-                        echo '<a href="' . get_term_link($ancestor) . '">' . esc_html($ancestor->name) . '</a>' . $separator;
-                    }
+                foreach ($parents as $parent_id) {
+                    $parent = get_category($parent_id);
+                    echo '<a href="' . get_category_link($parent->term_id) . '">'
+                        . esc_html($parent->name) . '</a>' . $separator;
                 }
-                echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>' . $separator;
+
+                echo '<a href="' . get_category_link($primary_cat->term_id) . '">'
+                    . esc_html($primary_cat->name) . '</a>' . $separator;
             }
         }
 
-        // Кастомные таксономии
-        $taxonomies = get_object_taxonomies($post_type);
-        foreach ($taxonomies as $taxonomy) {
-            if ($taxonomy === 'category' || $taxonomy === 'post_tag' || $taxonomy === 'product_cat') continue;
-            $terms = get_the_terms(get_the_ID(), $taxonomy);
-            if (!empty($terms) && !is_wp_error($terms)) {
-                $first_term = $terms[0];
-                echo '<a href="' . get_term_link($first_term) . '">' . esc_html($first_term->name) . '</a>' . $separator;
-            }
-        }
+        // ===== PRODUCT =====
+        if ($post_type === 'product') {
+            $terms = get_the_terms($post_id, 'product_cat');
 
-        the_title();
-    } elseif (is_product_category()) {
-        $term = get_queried_object();
-        if ($term) {
-            $ancestors = get_ancestors($term->term_id, 'product_cat');
-            if ($ancestors) {
+            if ($terms && !is_wp_error($terms)) {
+                $term = $terms[0];
+                $ancestors = get_ancestors($term->term_id, 'product_cat');
                 $ancestors = array_reverse($ancestors);
+
                 foreach ($ancestors as $ancestor_id) {
                     $ancestor = get_term($ancestor_id, 'product_cat');
-                    echo '<a href="' . get_term_link($ancestor) . '">' . esc_html($ancestor->name) . '</a>' . $separator;
+                    echo '<a href="' . get_term_link($ancestor) . '">'
+                        . esc_html($ancestor->name) . '</a>' . $separator;
                 }
+
+                echo '<a href="' . get_term_link($term) . '">'
+                    . esc_html($term->name) . '</a>' . $separator;
             }
-            echo '<span>' . esc_html($term->name) . '</span>';
         }
-    } elseif (is_category() || is_tax()) {
+
+        // ===== CUSTOM TAX =====
+        $taxonomies = get_object_taxonomies($post_type);
+
+        foreach ($taxonomies as $taxonomy) {
+            if (in_array($taxonomy, ['category', 'post_tag', 'product_cat'])) continue;
+
+            $terms = get_the_terms($post_id, $taxonomy);
+
+            if (!empty($terms) && !is_wp_error($terms)) {
+                $term = $terms[0];
+
+                echo '<a href="' . get_term_link($term) . '">'
+                    . esc_html($term->name) . '</a>' . $separator;
+            }
+        }
+
+        // ТЕКУЩИЙ ЗАГОЛОВОК (БЕЗ the_title!)
+        echo '<span>' . esc_html(get_the_title($post_id)) . '</span>';
+    }
+
+    // ======================
+    // TAXONOMY
+    // ======================
+    elseif (is_category() || is_tax() || is_product_category()) {
+
         $term = get_queried_object();
-        if ($term) {
-            // Для таксономий с CPT выводим архив
+
+        if ($term && !is_wp_error($term)) {
+
             $taxonomy = get_taxonomy($term->taxonomy);
 
             if ($taxonomy && !empty($taxonomy->object_type)) {
@@ -145,32 +149,30 @@ function site_breadcrumbs()
                 }
             }
 
-            if ($term->taxonomy === 'category') {
-                get_category_breadcrumbs($term);
-            } else {
-                echo '<a href="' . get_term_link($term) . '">' . esc_html($term->name) . '</a>' . $separator;
+            $ancestors = get_ancestors($term->term_id, $term->taxonomy);
+            $ancestors = array_reverse($ancestors);
+
+            foreach ($ancestors as $ancestor_id) {
+                $ancestor = get_term($ancestor_id, $term->taxonomy);
+                echo '<a href="' . get_term_link($ancestor) . '">'
+                    . esc_html($ancestor->name) . '</a>' . $separator;
             }
+
+            echo '<span>' . esc_html($term->name) . '</span>';
         }
-    } elseif (is_post_type_archive()) {
+    }
+
+    // ======================
+    // ARCHIVES
+    // ======================
+    elseif (is_post_type_archive()) {
         $post_type = get_post_type();
-        $post_type_obj = get_post_type_object($post_type);
-        echo esc_html($post_type_obj->labels->name);
+        $obj = get_post_type_object($post_type);
+        echo esc_html($obj->labels->name);
     } elseif (is_page()) {
-        the_title();
+        echo '<span>' . esc_html(get_the_title($post->ID)) . '</span>';
     } elseif (is_tag()) {
-        single_tag_title();
-    } elseif (is_day()) {
-        echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a>' . $separator;
-        echo '<a href="' . get_month_link(get_the_time('Y'), get_the_time('m')) . '">' . get_the_time('F') . '</a>' . $separator;
-        echo get_the_time('d');
-    } elseif (is_month()) {
-        echo '<a href="' . get_year_link(get_the_time('Y')) . '">' . get_the_time('Y') . '</a>' . $separator;
-        echo get_the_time('F');
-    } elseif (is_year()) {
-        echo get_the_time('Y');
-    } elseif (is_author()) {
-        $userdata = get_userdata(get_query_var('author'));
-        echo 'Опубликовал(а) ' . esc_html($userdata->display_name);
+        echo '<span>' . single_tag_title('', false) . '</span>';
     } elseif (is_404()) {
         echo 'Ошибка 404';
     }
@@ -178,5 +180,6 @@ function site_breadcrumbs()
     if ($page_num > 1) {
         echo ' (' . $page_num . '-page)';
     }
+
     echo '</ul>';
 }
