@@ -622,12 +622,20 @@ add_action('woocommerce_checkout_update_order_meta', function ($order_id) {
     if (!empty($_POST['pickup_address'])) {
         update_post_meta($order_id, '_pickup_address', sanitize_text_field($_POST['pickup_address']));
     }
+
+    // Сохраняем выбранные подварианты СДЭК
+    if (!empty($_POST['sdek_options']) && is_array($_POST['sdek_options'])) {
+        // Превращаем массив в строку через запятую
+        $sdek_selected = array_map('sanitize_text_field', $_POST['sdek_options']);
+        update_post_meta($order_id, '_sdek_options', implode(', ', $sdek_selected));
+    }
 });
 
 // 2. Отображаем выбранный способ доставки на странице заказа (в админке)
 add_action('woocommerce_admin_order_data_after_shipping_address', function ($order) {
     $method = get_post_meta($order->get_id(), '_custom_delivery_method', true);
     $address = get_post_meta($order->get_id(), '_pickup_address', true);
+    $sdek_options = get_post_meta($order->get_id(), '_sdek_options', true);
 
     if ($method) {
         echo '<p><strong>Способ получения:</strong> ' . esc_html($method) . '</p>';
@@ -635,12 +643,16 @@ add_action('woocommerce_admin_order_data_after_shipping_address', function ($ord
     if ($address) {
         echo '<p><strong>Адрес для самовывоза:</strong> ' . esc_html($address) . '</p>';
     }
+    if ($sdek_options) {
+        echo '<p><strong>Варианты СДЭК:</strong> ' . esc_html($sdek_options) . '</p>';
+    }
 });
 
 // 3. Добавляем в письмо о заказе
 add_filter('woocommerce_email_order_meta_fields', function ($fields, $sent_to_admin, $order) {
     $method = get_post_meta($order->get_id(), '_custom_delivery_method', true);
     $address = get_post_meta($order->get_id(), '_pickup_address', true);
+    $sdek_options = get_post_meta($order->get_id(), '_sdek_options', true);
 
     if ($method) {
         $fields['custom_delivery_method'] = array(
@@ -656,9 +668,15 @@ add_filter('woocommerce_email_order_meta_fields', function ($fields, $sent_to_ad
         );
     }
 
+    if ($sdek_options) {
+        $fields['sdek_options'] = array(
+            'label' => 'Варианты СДЭК',
+            'value' => $sdek_options,
+        );
+    }
+
     return $fields;
 }, 10, 3);
-
 //html для поля "Описание"
 remove_filter('pre_term_description', 'wp_filter_kses');
 
