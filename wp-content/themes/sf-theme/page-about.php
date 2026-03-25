@@ -4,7 +4,8 @@
  */
 get_header() ?>
 <section class="page">
-    <?php get_template_part('template-parts/elements/page-header'); ?>
+    <?php //get_template_part('template-parts/elements/page-header'); 
+    ?>
     <div class="page-content">
         <div class="container">
             <div class="page-title">О компании</div>
