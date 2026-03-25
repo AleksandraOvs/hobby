@@ -60,7 +60,6 @@ get_header() ?>
             <?php endif; ?>
 
             <?php the_content(); ?>
-            <?php wp_reset_postdata(); ?>
 
         </div>
     </div>
