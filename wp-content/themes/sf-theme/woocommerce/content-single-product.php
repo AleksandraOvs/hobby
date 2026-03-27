@@ -68,7 +68,7 @@ $has_gallery = count($image_ids) > 1;
                         <div class="swiper product-thumbnail-nav">
                             <div class="swiper-wrapper">
                                 <figure class="swiper-slide product-thumb-item">
-                                    <?php echo wp_get_attachment_image($product_image_id); ?>
+                                    <?php echo wp_get_attachment_image($product_image_id, 'full'); ?>
                                 </figure>
                                 <?php foreach ($product_gallery_ids as $product_gallery_id) : ?>
                                     <figure class="swiper-slide product-thumb-item">
@@ -85,7 +85,7 @@ $has_gallery = count($image_ids) > 1;
                             <figure class="swiper-slide product-thumb-item">
                                 <?php
                                 if ($product_image_id) {
-                                    echo wp_get_attachment_image($product_image_id);
+                                    echo wp_get_attachment_image($product_image_id, 'full');
                                 } else {
                                     echo '<img src="' . esc_url($placeholder_url) . '" alt="Placeholder">';
                                 }
