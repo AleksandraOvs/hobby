@@ -4275,7 +4275,7 @@ Start Slider Categories Area / index5.html
 
 .single-product .product-details .product-prices {
   display: flex;
-  flex-direction: row-reverse;
+  flex-direction: row;
   justify-content: center;
   gap: 10px;
 }
