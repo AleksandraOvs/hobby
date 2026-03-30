@@ -164,7 +164,7 @@ if (! defined('ABSPATH')) {
 														name="custom_delivery_method"
 														value="Дпд"
 														<?php checked($selected, 'ДПД'); ?>>
-													<span class="delivery-option__title">ДПД</span>
+													<span class="delivery-option__title">ДПД (термодоставка)</span>
 												</span>
 												<span class="delivery-option__desc">
 													Стоимость доставки рассчитывается индивидуально в&nbsp;зависимости от&nbsp;расстояния и&nbsp;веса
@@ -182,7 +182,7 @@ if (! defined('ABSPATH')) {
 													<span class="delivery-option__title">Почта России</span>
 												</span>
 												<span class="delivery-option__desc">
-													От 6 дней
+													Доставка в отделение
 												</span>
 											</label>
 										</div>
