@@ -1056,7 +1056,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
 }
 
 .delivery-option__desc {
-    text-align: left;
+    text-align: right;
     color: #898989;
     width: calc(60% - 10px);
 }
