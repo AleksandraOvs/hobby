@@ -152,7 +152,7 @@ if (! defined('ABSPATH')) {
 													<span class="delivery-option__title">Озон</span>
 												</span>
 												<span class="delivery-option__desc">
-
+													Стоимость доставки рассчитывается индивидуально в&nbsp;зависимости от&nbsp;расстояния и&nbsp;веса
 												</span>
 											</label>
 										</div>
@@ -167,7 +167,7 @@ if (! defined('ABSPATH')) {
 													<span class="delivery-option__title">ДПД</span>
 												</span>
 												<span class="delivery-option__desc">
-
+													Стоимость доставки рассчитывается индивидуально в&nbsp;зависимости от&nbsp;расстояния и&nbsp;веса
 												</span>
 											</label>
 										</div>
