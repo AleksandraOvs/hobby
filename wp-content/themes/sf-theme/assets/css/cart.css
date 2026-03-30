@@ -974,6 +974,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     align-items: center;
     gap: 12px;
     cursor: pointer;
+    width: calc(40% - 10px);
 }
 
 /* Рисуем квадрат */
@@ -1045,6 +1046,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     display: flex;
     justify-content: space-between;
     margin: 0;
+
 }
 
 .delivery-option__left>span {
@@ -1446,7 +1448,11 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     }
 
     .delivery-option__desc {
-        max-width: 100%;
+        width: 100%;
+    }
+
+    .delivery-option__left {
+        width: 100%;
     }
 }
 
