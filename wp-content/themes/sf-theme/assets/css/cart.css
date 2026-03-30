@@ -1003,7 +1003,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     content: "✓";
     position: absolute;
     left: 4px;
-    top: 1px;
+    bottom: 9px;
     font-size: 14px;
     color: #fff;
     font-weight: bold;
