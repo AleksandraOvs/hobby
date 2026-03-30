@@ -1447,7 +1447,7 @@ li.cart-totals__info__item p span bdi .woocommerce-Price-currencySymbol {
     }
 
     .delivery-option__desc {
-        width: 100%;
+        max-width: 100%;
     }
 }
 
