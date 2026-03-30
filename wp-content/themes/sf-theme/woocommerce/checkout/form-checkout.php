@@ -147,6 +147,36 @@ if (! defined('ABSPATH')) {
 												<span class="delivery-option__left">
 													<input type="radio"
 														name="custom_delivery_method"
+														value="Озон"
+														<?php checked($selected, 'Озон'); ?>>
+													<span class="delivery-option__title">Озон</span>
+												</span>
+												<span class="delivery-option__desc">
+
+												</span>
+											</label>
+										</div>
+
+										<div class="delivery-option">
+											<label class="delivery-option__inner">
+												<span class="delivery-option__left">
+													<input type="radio"
+														name="custom_delivery_method"
+														value="Дпд"
+														<?php checked($selected, 'ДПД'); ?>>
+													<span class="delivery-option__title">ДПД</span>
+												</span>
+												<span class="delivery-option__desc">
+
+												</span>
+											</label>
+										</div>
+
+										<div class="delivery-option">
+											<label class="delivery-option__inner">
+												<span class="delivery-option__left">
+													<input type="radio"
+														name="custom_delivery_method"
 														value="Почта России"
 														<?php checked($selected, 'Почта России'); ?>>
 													<span class="delivery-option__title">Почта России</span>
