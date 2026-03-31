@@ -1,71 +1,3 @@
-// document.addEventListener('click', function (e) {
-//     const btn = e.target.closest('.qty-btn');
-//     if (!btn) return;
-
-//     e.preventDefault();
-
-//     const container = btn.closest('.pro-qty');
-//     if (!container) return;
-
-//     const input = container.querySelector('input[name*="[qty]"]');
-//     if (!input) return;
-
-//     let value = parseFloat(input.value);
-//     if (isNaN(value)) value = parseFloat(input.min) || 1;
-
-//     const step = parseFloat(input.step) || 1;
-//     const min = parseFloat(input.min) || 1;
-//     const max = input.max ? parseFloat(input.max) : Infinity;
-
-//     if (btn.classList.contains('inc')) value += step;
-//     if (btn.classList.contains('dec')) value -= step;
-
-//     value = Math.max(min, value);
-//     value = Math.min(max, value);
-
-//     input.value = value;
-
-//     input.dispatchEvent(new Event('input', { bubbles: true }));
-//     input.dispatchEvent(new Event('change', { bubbles: true }));
-// });
-
-// document.addEventListener('click', function (e) {
-//     console.log('Клик вообще есть:', e.target);
-
-//     const btn = e.target.closest('.qty-btn');
-//     if (!btn) return;
-
-//     console.log('Клик по кнопке qty-btn:', btn);
-
-//     const container = btn.closest('.pro-qty');
-//     console.log('Найден контейнер .pro-qty:', container);
-
-//     if (!container) return;
-
-//     const input = container.querySelector('input');
-//     console.log('Найден input:', input);
-
-//     if (!input) return;
-
-//     console.log('Текущее значение input.value:', input.value);
-//     console.log('type:', input.type, 'min:', input.min, 'max:', input.max, 'step:', input.step);
-
-//     let value = parseFloat(input.value);
-//     if (isNaN(value)) value = parseFloat(input.min) || 1;
-
-//     if (btn.classList.contains('inc')) value += 1;
-//     if (btn.classList.contains('dec')) value -= 1;
-
-//     console.log('Новое значение, которое пытаемся установить:', value);
-
-//     input.value = value;
-
-//     input.dispatchEvent(new Event('input', { bubbles: true }));
-//     input.dispatchEvent(new Event('change', { bubbles: true }));
-
-//     console.log('Значение после установки:', input.value);
-// });
-
 document.addEventListener('DOMContentLoaded', () => {
     // Таймер для обновления корзины на странице cart
     let cartUpdateTimer = null;
@@ -122,31 +54,49 @@ document.addEventListener('change', e => {
     const cb = e.target.closest('.cart-item-checkbox');
     if (!cb) return;
 
-    const formData = new FormData();
-    formData.append('action', 'toggle_cart_item');
-    formData.append('cart_item_key', cb.name.match(/\[(.*?)\]/)[1]);
-    formData.append('selected', cb.checked ? '1' : '0');
+    // получаем ключ cart item
+    const key = cb.dataset.key || (cb.name?.match(/\[(.*?)\]/)?.[1]);
+    if (!key) return; // безопасно выходим, если нет ключа
 
-    fetch(cart_ajax.ajax_url, {
+    const selected = cb.checked;
+
+    // AJAX запрос на сервер
+    fetch('/wp-admin/admin-ajax.php', {
         method: 'POST',
-        credentials: 'same-origin',
-        body: formData
-    }).then(() => {
-        // пересчёт итогов
-        fetch(cart_ajax.ajax_url, {
-            method: 'POST',
-            credentials: 'same-origin',
-            body: formData
-        }).then(() => {
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams({
+            action: 'toggle_cart_item',
+            cart_item_key: key,
+            selected: selected ? 1 : 0
+        })
+    }).then(res => res.json())
+        .then(res => {
+            if (res.success) {
+                const totalEl = document.querySelector('.order-total p');
+                if (totalEl) totalEl.innerHTML = res.data.total;
 
-            // пересчёт корзины
-            jQuery(document.body).trigger('wc_update_cart');
-            jQuery(document.body).trigger('wc_fragment_refresh');
+                const subtotalEl = document.querySelector('.cart-subtotal p');
+                if (subtotalEl) subtotalEl.innerHTML = res.data.subtotal;
 
-            // если ты на checkout
-            jQuery(document.body).trigger('update_checkout');
+                const countEl = document.querySelector('.cart-items-count-value');
+                if (countEl) countEl.textContent = res.data.items_count;
+
+                const weightEl = document.querySelector('.cart-weight-value');
+                if (weightEl) weightEl.textContent = res.data.weight;
+
+                if (res.data.mini_cart) {
+                    document.querySelector('.widget_shopping_cart_content').innerHTML = res.data.mini_cart;
+                    // const miniCart = document.querySelector('.widget_shopping_cart_content');
+                    // if (miniCart) miniCart.innerHTML = res.data.mini_cart;
+                }
+
+
+                // ✅ отдельные триггеры для каждого события
+                jQuery(document.body).trigger('wc_update_cart');
+                //jQuery(document.body).trigger('wc_fragment_refresh');
+                jQuery(document.body).trigger('update_checkout');
+            }
         });
-    });
 });
 
 document.addEventListener('DOMContentLoaded', function () {

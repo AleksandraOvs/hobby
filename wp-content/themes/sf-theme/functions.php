@@ -458,6 +458,7 @@ require get_template_directory() . '/inc/load-works.php';
 require get_template_directory() . '/inc/load-cats.php';
 require get_template_directory() . '/inc/breadcrumbs.php';
 require get_template_directory() . '/inc/woo-functions.php';
+require get_template_directory() . '/inc/cart-selects.php';
 require get_template_directory() . '/wishlist/wl.php';
 require get_template_directory() . '/my-account/ma-functions.php';
 require get_template_directory() . '/inc/ajax-search.php';

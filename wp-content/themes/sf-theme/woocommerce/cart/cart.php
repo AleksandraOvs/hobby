@@ -243,14 +243,6 @@ defined('ABSPATH') || exit;
 								</p>
 							</li>
 
-							<!-- <tr class="cart-sub-total cart-subtotal">
-				<th><?php //esc_html_e('Subtotal', 'woocommerce'); 
-					?></th>
-				<td data-title="<?php //esc_attr_e('Subtotal', 'woocommerce'); 
-								?>"><?php //wc_cart_totals_subtotal_html(); 
-									?></td>
-			</tr> -->
-
 							<li class="cart-totals__info__item">
 								<span>Скидка:</span>
 								<?php
