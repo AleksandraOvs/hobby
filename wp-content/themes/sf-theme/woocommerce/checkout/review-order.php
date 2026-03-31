@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
 <div class="review-order woocommerce-checkout-review-order-table">
 
 	<div class="review-order__row">
-		<div class="review-order__col">Товаров на:</div>
+		<div class="review-order__col">Товаров в корзине на:</div>
 		<div class="review-order__col">
 			<?php echo wc_price(WC()->cart->get_cart_contents_total()); ?>
 		</div>
