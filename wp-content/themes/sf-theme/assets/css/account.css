@@ -22,7 +22,10 @@
 }
 
 .auth-tabs__title.is-active {
-    background: var(--theme-color-beige);
+    background: #fff;
+    border-right: 2px solid var(--theme-color-beige);
+    border-left: 2px solid var(--theme-color-beige);
+    border-bottom: 2px solid transparent;
 }
 
 .auth-tabs__panel {
@@ -86,12 +89,16 @@
 .auth-tabs__nav {
     display: flex;
     gap: 0;
+    transform: translateY(2px);
+    z-index: 5;
+    position: relative;
 }
 
 .auth-tabs__nav>div {
     flex-grow: 1;
     width: 50%;
     text-align: center;
+    border-bottom: 2px solid var(--theme-color-beige);
 }
 
 .woocommerce .woocommerce-form-login .woocommerce-form-login__rememberme {
