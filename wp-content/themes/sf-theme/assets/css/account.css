@@ -104,6 +104,7 @@
 .woocommerce .woocommerce-form-login .woocommerce-form-login__rememberme {
     display: flex;
     gap: 5px;
+    align-items: center;
 }
 
 button.woocommerce-button.button.woocommerce-form-login__submit {
