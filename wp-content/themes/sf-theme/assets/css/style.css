@@ -10407,7 +10407,7 @@ Start Start 404 Error Page Wrapper
   .breadcrumbs__list,
   .woocommerce-breadcrumb {
     justify-content: flex-start;
-    display: flex;
+    display: inline;
     flex-wrap: wrap;
     align-items: center;
     row-gap: 0;
