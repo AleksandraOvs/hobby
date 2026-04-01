@@ -10119,6 +10119,7 @@ Start Start 404 Error Page Wrapper
     padding-left: 15px;
     border-bottom: none;
     color: var(--theme-color-primary);
+    font-size: 14px;
     position: relative;
   }
 
