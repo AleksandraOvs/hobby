@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
        SIMPLE PRODUCT
     =============================== */
 
-    const simpleForm = document.querySelector('.single-product-add-to-cart form.cart');
+    const simpleForm = document.querySelector('.quantity.pro-qty');
 
     if (simpleForm) {
         const qty = simpleForm.querySelector('input.qty');

@@ -224,3 +224,37 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
 })
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    const mobileMenu = document.querySelector('.mobile-menu__inner');
+    if (!mobileMenu) return;
+
+    mobileMenu.addEventListener('click', function (e) {
+
+        const link = e.target.closest('.menu-item-has-children > a');
+        if (!link) return;
+
+        const parent = link.parentElement;
+        const dropdown = parent.querySelector(':scope > .dropdown-menu');
+
+        if (!dropdown) return;
+
+        // если уже открыто → разрешаем переход
+        if (dropdown.classList.contains('show')) {
+            return;
+        }
+
+        // первый клик → открываем
+        e.preventDefault();
+
+        // 🔹 закрываем только соседние уровни (важно для вложенности)
+        const siblings = parent.parentElement.querySelectorAll(':scope > .menu-item > .dropdown-menu.show');
+        siblings.forEach(el => {
+            if (el !== dropdown) el.classList.remove('is-open');
+        });
+
+        dropdown.classList.add('is-open');
+    });
+
+});
