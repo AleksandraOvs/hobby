@@ -629,9 +629,9 @@ button.woocommerce-button.button.woocommerce-form-register__submit {
         order: 3;
     }
 
-    .woocommerce-MyAccount-navigation ul li {
+    /* .woocommerce-MyAccount-navigation ul li {
         display: none;
-    }
+    } */
 
 
     .woocommerce-MyAccount-navigation ul li.is-active {
